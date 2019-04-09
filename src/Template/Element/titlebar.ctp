@@ -5,10 +5,9 @@
 ?>
 
 <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between" style="background-color:#659F31">
-    <div class="col-2">
         <a class="navbar-brand">
 	
-            <?= $this->Html->image('logo.png', ['style' => ''])?>
+            <?= $this->Html->image('logo.png', ['style' => 'scale:100%'])?>
         </a>
-    </div>
+
 </nav>
