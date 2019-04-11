@@ -7,7 +7,7 @@
 <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between" style="background-color:#659F31">
         <a class="navbar-brand">
 	
-            <?= $this->Html->image('logo.png', ['style' => 'scale:100%'])?>
+            <?= $this->Html->image('logo.png', ['style' => 'scale:50%'])?>
         </a>
 
 </nav>

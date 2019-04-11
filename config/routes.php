@@ -22,6 +22,26 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
+
+/*Evita que los nombres exactos de las tablas aparezcan en la URL
+ El primer router connect se encarga de reemplazar el nombre exacto de la tabla por un nombre normal para cada CRUD
+ El segundo router connect se encarga de reemplazar el nombore exacto de la tabla por un nombre normal en los indexs
+Agregado por Esteban*/
+
+Router::connect('curso/:action', array('controller' => 'ProCurso'));
+Router::connect('curso', array('controller' => 'ProCurso'));
+
+Router::connect('usuario/:action', array('controller' => 'SegUsuario'));
+Router::connect('usuario', array('controller' => 'SegUsuario'));
+
+Router::connect('programa/:action', array('controller' => 'ProPrograma'));
+Router::connect('programa', array('controller' => 'ProPrograma'));
+
+Router::connect('pregunta/:action', array('controller' => 'SolPregunta'));
+Router::connect('pregunta', array('controller' => 'SolPregunta'));
+
+//Termina Esteban
+
 /**
  * The default class to use for all routes
  *
