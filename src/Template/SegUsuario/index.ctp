@@ -31,7 +31,9 @@
                 <th scope="col"><?= $this->Paginator->sort('Nacionalidad') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Activo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Estudiante') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col" class="actions"><?= __('') ?></th>
+                <th scope="col" class="actions"><?= __('') ?></th>
+                <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -48,10 +50,14 @@
                 <td><?= h($segUsuario->ACTIVO) ?></td>
                 <td><?= h($segUsuario->ESTUDIANTE) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $segUsuario->SEG_USUARIO]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $segUsuario->SEG_USUARIO]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $segUsuario->SEG_USUARIO], ['confirm' => __('Are you sure you want to delete # {0}?', $segUsuario->SEG_USUARIO)]) ?>
+                <a href="view"> <button type="button" class="botonAccion btn btn-xs">Consultar</button> </a>
                 </td>
+                <td class="actions">
+                <a href="edit"> <button type="button" class="botonAccion btn btn-xs">Editar</button> </a>
+                </td>
+                <td>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $segUsuario->SEG_USUARIO, 'class' => 'botonAccion btn'], ['confirm' => __('Are you sure you want to delete # {0}?', $segUsuario->SEG_USUARIO)]) ?>
+                    </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
