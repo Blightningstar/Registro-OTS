@@ -35,9 +35,7 @@ header .header-title {
     padding-left:80px
 }
 
-legend {
-    color:#15848F;
-}
+
 
 .row {
     max-width: 80rem;
@@ -390,11 +388,7 @@ fieldset {
     margin: 1.125rem 0;
 }
 
-fieldset legend {
-    border-bottom: 2px solid #1798A5;
-    width: 100%;
-    line-height: 2rem;
-}
+
 
 .form button[type="submit"] {
     float: right;
@@ -403,13 +397,10 @@ fieldset legend {
 }
 
 .form button:hover, .form button:focus {
-    background: #BE840B;
     box-shadow: none;
 }
 
-button {
-    background: #966600;
-}
+
 
 div.message {
     text-align: center;

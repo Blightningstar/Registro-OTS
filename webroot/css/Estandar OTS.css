@@ -1,0 +1,70 @@
+/* Esta hoja de estilos contiene todas las clases relacionadas con el estandar de la OET */
+
+/*Empieza Esteban*/
+
+/* Estandariza todos los items de la barra de navegación y barra de título*/
+.menuItem
+{
+    color: white;
+    margin-left:30px;
+    margin-right:30px;
+}
+
+.botonAceptar
+{
+    
+    background-color:#7BC143;
+    text-align:center;
+    border-radius: 17px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    float: right;
+    margin-right: 2%;
+}
+
+.botonAceptar:hover {
+    background-color: #4CAF50 !important; 
+ 
+}
+
+.botonCancelar
+{
+    background-color:#F26631;
+    text-align:center;
+    border-radius: 17px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    float: right;
+    margin-right: 10px;
+}
+
+.botonCancelar:hover {
+    background-color: rgb(230, 92, 42) !important; 
+ 
+}
+
+
+fieldset legend {
+    border-bottom: 1px solid #B4B4B4;
+    width: 100%;
+    line-height: 2rem;
+}
+
+.titulo
+{
+    color:#7BC143;
+}
+
+.subtitulo
+{
+    color:#b4b4b4;
+}
+
+input[type=text]
+{
+    background: #EBFFCA;
+    border-radius: 13px;
+}
+
+
+/*Termina Esteban*/
