@@ -4,7 +4,7 @@
 a.disabled {
     pointer-events: none;
 }
-
+/*
 a:hover {
     color: #15848F;
 }
@@ -20,7 +20,7 @@ a {
 .side-nav li a:not(.button):hover {
     color: #15848F;
 }
-
+*/
 header {
     background-color: #D33C44;
     color: #ffffff;
@@ -409,8 +409,8 @@ div.message {
     font-weight: normal;
     padding: 0 1.5rem 0 1.5rem;
     transition: height 300ms ease-out 0s;
-    background-color: #a0d3e8;
-    color: #626262;
+    background-color: green;
+    color: white;
     top: 15px;
     right: 15px;
     z-index: 999;
@@ -433,7 +433,7 @@ div.message:before {
     background-color: #FFF;
     padding: 12px 14px 12px 10px;
     content: "i";
-    color: #a0d3e8;
+    color: #fd7e14;
 }
 
 div.message.error {
@@ -505,7 +505,7 @@ div.message.hidden {
 }
 
 .content .related h4 {
-    color: #4d8f97;
+    /*color: #4d8f97;*/
     padding-bottom: 0.5rem;
     margin-top: 20px;
     margin-bottom: 10px;

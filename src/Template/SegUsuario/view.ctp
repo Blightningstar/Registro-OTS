@@ -7,52 +7,26 @@
 
 
 
-<div class="segUsuario view large-9 medium-8 columns content">
-    <h3><?= h($segUsuario->SEG_USUARIO) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('SEG USUARIO') ?></th>
-            <td><?= h($segUsuario->SEG_USUARIO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Nombre') ?></th>
-            <td><?= h($segUsuario->NOMBRE) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('APELLIDO 1') ?></th>
-            <td><?= h($segUsuario->APELLIDO_1) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('APELLIDO 2') ?></th>
-            <td><?= h($segUsuario->APELLIDO_2) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('NOMBRE USUARIO') ?></th>
-            <td><?= h($segUsuario->NOMBRE_USUARIO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('CONTRASEÑA') ?></th>
-            <td><?= h($segUsuario->CONTRASEÑA) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('CORREO') ?></th>
-            <td><?= h($segUsuario->CORREO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('NUMERO TELEFONO') ?></th>
-            <td><?= h($segUsuario->NUMERO_TELEFONO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('NACIONALIDAD') ?></th>
-            <td><?= h($segUsuario->NACIONALIDAD) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('ACTIVO') ?></th>
-            <td><?= h($segUsuario->ACTIVO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('ESTUDIANTE') ?></th>
-            <td><?= h($segUsuario->ESTUDIANTE) ?></td>
-        </tr>
-    </table>
+<div class="segUsuario form large-9 medium-8 columns content">
+    <?= $this->Form->create($segUsuario) ?>
+    <fieldset>
+        <legend class = "titulo"><?= __('Consultar Usuario') ?>
+        <br></br>
+        <p class = "subtitulo">Muestra la información de un usuario.</p>
+    </legend>
+        <?php
+            echo $this->Form->control('NOMBRE', ['label' => 'Nombre']);
+            echo $this->Form->control('APELLIDO_1', ['label' => 'Apellido 1']); 
+            echo $this->Form->control('APELLIDO_2', ['label' => 'Apellido 2'] );
+            echo $this->Form->control('NOMBRE_USUARIO' ,  ['label' => 'Nombre de Usuario']);
+            echo $this->Form->control('CONTRASEÑA' , ['label' => 'Contraseña']);
+            echo $this->Form->control('CORREO', ['label' => 'E-mail']);
+            echo $this->Form->control('NUMERO_TELEFONO', ['label' => 'Teléfono']);
+            echo $this->Form->control('NACIONALIDAD',  ['label' => 'Nacionalidad']);
+            echo $this->Form->control('ACTIVO', ['label' => 'Activo']);
+            echo $this->Form->control('ESTUDIANTE' , ['label' => 'Estudiante']);
+        ?>
+    </fieldset>
+    <a href=".."> <button type="button" class="botonCancelar">Cancelar</button> </a>
+    <?= $this->Form->end() ?>
 </div>

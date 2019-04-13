@@ -73,7 +73,10 @@
 
     float: right;
     margin-bottom: 30px;
+    color:white !important;
 }
+
+
 
 .botonCancelar:hover {
     background-color: rgb(230, 92, 42) !important; 

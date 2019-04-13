@@ -10,8 +10,9 @@
         <li><?= $this->Html->link(__('New Pro Curso'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="proCurso index large-9 medium-8 columns content">
+<div class="proCurso index large-9 medium-8 columns content-fluid">
     <h3><?= __('Pro Curso') ?></h3>
+    <div class="container-fluid table-responsive">
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -54,6 +55,7 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
