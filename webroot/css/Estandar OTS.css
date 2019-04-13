@@ -10,6 +10,7 @@
     margin-right:30px;
 }
 
+/*Formatea los botones*/
 .botonAceptar
 {
     
@@ -38,11 +39,30 @@
     margin-right: 10px;
 }
 
+.botonAgregar:hover {
+    background-color: rgb(230, 92, 42) !important; 
+ 
+}
+
+.botonAgregar
+{
+    background-color:#F26631;
+    text-align:center;
+    border-radius: 17px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    float: right;
+    margin-bottom: 30px;
+}
+
 .botonCancelar:hover {
     background-color: rgb(230, 92, 42) !important; 
  
 }
 
+
+
+/*Formatea los titulos de cada vista*/
 
 fieldset legend {
     border-bottom: 1px solid #B4B4B4;
@@ -60,10 +80,43 @@ fieldset legend {
     color:#b4b4b4;
 }
 
+/*Formatea los campos de texto*/
 input[type=text]
 {
     background: #EBFFCA;
     border-radius: 13px;
+}
+
+/*Formatea las tablas de los grids de los index*/
+
+.gridIndex
+{
+    color:red !important;
+    border-style: solid;
+    border-color: #CCCCCC;
+    white-space: nowrap;
+}
+
+.gridIndex a
+{
+    color:black !important;
+    
+}
+
+.gridIndex th
+{
+    background-color:#EBFFCA;
+    
+}
+
+.gridIndex tr:nth-child(even)
+{
+    background-color:#EBFFCA;
+}
+
+.gridIndex tr:nth-child(odd)
+{
+    background-color:white;
 }
 
 

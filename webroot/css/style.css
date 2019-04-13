@@ -41,7 +41,7 @@ header .header-title {
     max-width: 80rem;
 }
 
-.actions.columns {
+/*.actions.columns {
     margin-top:1rem;
     border-left: 5px solid #15848F;
     padding-left: 15px;
@@ -342,7 +342,7 @@ pre {
 #actions-sidebar {
     background: #fafafa;
 }
-
+/*
 .index table {
     margin-top: 0rem;
     border: 0;
@@ -381,7 +381,7 @@ table tr th {
 table tr:nth-of-type(even) {
     background: none;
 }
-
+*/
 fieldset {
     border: none;
     padding: 1.25rem;
@@ -451,7 +451,7 @@ div.message.hidden {
 }
 
 
-.vertical-table th {
+/*.vertical-table th {
     padding: 0.5625rem 0.625rem;
     font-size: 0.875rem;
     color: #1798A5;
@@ -466,6 +466,7 @@ div.message.hidden {
 .vertical-table td {
     text-align: right;
 }
+*/
 
 .content {
     padding: 2rem;

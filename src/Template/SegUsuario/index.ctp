@@ -4,28 +4,33 @@
  * @var \App\Model\Entity\SegUsuario[]|\Cake\Collection\CollectionInterface $segUsuario
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Seg Usuario'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="segUsuario index large-9 medium-8 columns content">
-    <h3><?= __('Seg Usuario') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+
+
+
+
+
+<div class="segUsuario index large-9 medium-8 columns content container-fluid">
+<fieldset>
+        <legend class = "titulo"><?= __('Administración de usuarios') ?>
+        <br></br>
+        <p class = "subtitulo">Administra los usuarios del sistema </p>
+    </legend>
+    <br>
+    <a href="add"> <button type="button" class="botonAgregar">Agregar Usuario</button> </a>
+    <div class="container-fluid table-responsive">
+    <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
         <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('SEG_USUARIO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('NOMBRE') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('APELLIDO_1') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('APELLIDO_2') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('NOMBRE_USUARIO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('CONTRASEÑA') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('CORREO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('NUMERO_TELEFONO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('NACIONALIDAD') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ACTIVO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ESTUDIANTE') ?></th>
+            <tr >
+                <th scope="col"><?= $this->Paginator->sort('ID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Nombre') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Apellido 1') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Apellido 2') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Nombre Usuario') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('E-mail') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Teléfono') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Nacionalidad') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Activo') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Estudiante') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -37,7 +42,6 @@
                 <td><?= h($segUsuario->APELLIDO_1) ?></td>
                 <td><?= h($segUsuario->APELLIDO_2) ?></td>
                 <td><?= h($segUsuario->NOMBRE_USUARIO) ?></td>
-                <td><?= h($segUsuario->CONTRASEÑA) ?></td>
                 <td><?= h($segUsuario->CORREO) ?></td>
                 <td><?= h($segUsuario->NUMERO_TELEFONO) ?></td>
                 <td><?= h($segUsuario->NACIONALIDAD) ?></td>
@@ -52,14 +56,19 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
+    </fieldset>
+    <br>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('primero')) ?>
+            <?= $this->Paginator->prev('< ' . __('anterior')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('siguiente') . ' >') ?>
+            <?= $this->Paginator->last(__('último') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('Página {{page}} de{{pages}}, mostrando {{current}} registro(s) de {{count}}')]) ?></p>
     </div>
 </div>
+
+
