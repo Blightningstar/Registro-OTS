@@ -50,12 +50,17 @@ class SegUsuarioController extends AppController
         $segUsuario = $this->SegUsuario->newEntity();
         if ($this->request->is('post')) {
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
+
+            
+        
+            $segUsuario["SEG_ROL"] += 1;
+
             if ($this->SegUsuario->save($segUsuario)) {
-                $this->Flash->success(__('The seg usuario has been saved.'));
+                $this->Flash->success(__('El usuario ha sido agregado correctamente.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The seg usuario could not be saved. Please, try again.'));
+            $this->Flash->error(__('Error: No se puedo agregar al usuario'));
         }
         $this->set(compact('segUsuario'));
     }
@@ -74,14 +79,26 @@ class SegUsuarioController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
+            $segUsuario["SEG_ROL"] += 1;
             if ($this->SegUsuario->save($segUsuario)) {
-                $this->Flash->success(__('The seg usuario has been saved.'));
+                $this->Flash->success(__('El usuario ha sido modificado correctamente.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The seg usuario could not be saved. Please, try again.'));
+            $this->Flash->error(__('Error: No se puedo agregar al usuario'));
         }
         $this->set(compact('segUsuario'));
+    }
+
+    /**
+     * Realiza un borrado lógico de un usuario según su id
+     * 
+     * @author Esteban Rojas
+     * @return resultado indicando si el borrado fue exitoso o no.
+     */
+    public function deleteUser($id)
+    {
+        return $this->SegUsuario->deleteUser($id);
     }
 
     /**
@@ -95,10 +112,10 @@ class SegUsuarioController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $segUsuario = $this->SegUsuario->get($id);
-        if ($this->SegUsuario->delete($segUsuario)) {
-            $this->Flash->success(__('The seg usuario has been deleted.'));
+        if ($this->deleteUser($id)) {
+            $this->Flash->success(__('El usuario ha sido eliminado.'));
         } else {
-            $this->Flash->error(__('The seg usuario could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Error: el usuario no ha sido eliminado.'));
         }
 
         return $this->redirect(['action' => 'index']);

@@ -30,16 +30,16 @@
         <thead>
             <tr >
                 <!-- Coloca cada campo de la tabla en el grid -->
-                <th scope="col"><?= $this->Paginator->sort('ID') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Nombre') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Apellido 1') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Apellido 2') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Nombre Usuario') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('E-mail') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Teléfono') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Nacionalidad') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Activo') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Estudiante') ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('ID')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Nombre')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Apellido 1')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Apellido 2')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Nombre Usuario')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('E-mail')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Teléfono'))?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Nacionalidad')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Activo')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Rol')) ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
@@ -58,7 +58,17 @@
                 <td><?= h($segUsuario->NUMERO_TELEFONO) ?></td>
                 <td><?= h($segUsuario->NACIONALIDAD) ?></td>
                 <td><?= h($segUsuario->ACTIVO) ?></td>
-                <td><?= h($segUsuario->ESTUDIANTE) ?></td>
+
+                <?php   if($segUsuario->SEG_ROL == 1): ?>
+                        <td><?= __('Estudiante') ?></td>
+                    <?php else: if($segUsuario->SEG_ROL == 2): ?>
+                        <td><?= __('Administrador') ?></td>
+                        <?php else: if($segUsuario->SEG_ROL == 3): ?>
+                            <td><?= __('Superusuario') ?></td>
+                        <?php endif ?>
+                <?php endif ?>
+                <?php endif ?>
+
                 <td class="actions">
                 <!-- Linkea el boton consultar con el consultar usuario -->
                 <button type="button" class="botonAccion btn btn-xs"> 
@@ -76,7 +86,7 @@
                 <!-- Linkea el boton eliminar-->
                 <td>
                    <button type="button" class="botonAccion btn btn-xs"> 
-                       <?= $this->Form->postLink(__('Eliminar'), ['controller' => 'usuario', 'action' => 'delete', $segUsuario->SEG_USUARIO], ['confirm' => __('Are you sure you want to delete # {0}?', $segUsuario->SEG_USUARIO)]) ?>
+                       <?= $this->Form->postLink(__('Eliminar'), ['controller' => 'usuario', 'action' => 'delete', $segUsuario->SEG_USUARIO], ['confirm' => __('¿Desea eliminar el usuario con identificación: # {0}?', $segUsuario->SEG_USUARIO)]) ?>
                     </button>
                 </td>
             </tr>

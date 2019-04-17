@@ -5,6 +5,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
+
 
 /**
  * SegUsuario Model
@@ -101,10 +103,25 @@ class SegUsuarioTable extends Table
             ->allowEmptyString('ACTIVO');
 
         $validator
-            ->scalar('ESTUDIANTE')
-            ->maxLength('ESTUDIANTE', 1)
-            ->allowEmptyString('ESTUDIANTE');
+            ->integer('SEG_ROL')
+            ->requirePresence('SEG_ROL', 'create')
+            ->allowEmptyString('SEG_ROL', false);
 
         return $validator;
     }
+
+
+   /**
+     * Realiza un borrado lógico de un usuario según su id
+     * 
+     * @author Esteban Rojas
+     * @return resultado indicando si el borrado fue exitoso o no.
+     */
+    public function deleteUser($id)
+	{
+		$connet = ConnectionManager::get('default');
+        $result = $connet->execute("update seg_usuario set activo = 'N' where seg_usuario = $id");
+        //$result = $result->fetchAll('assoc');
+        return $result;
+	}
 }

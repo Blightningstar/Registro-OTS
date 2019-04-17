@@ -15,16 +15,14 @@
         <p class = "subtitulo">Muestra la información de un usuario.</p>
     </legend>
         <?php
-            echo $this->Form->control('NOMBRE', ['label' => 'Nombre']);
-            echo $this->Form->control('APELLIDO_1', ['label' => 'Apellido 1']); 
-            echo $this->Form->control('APELLIDO_2', ['label' => 'Apellido 2'] );
-            echo $this->Form->control('NOMBRE_USUARIO' ,  ['label' => 'Nombre de Usuario']);
-            echo $this->Form->control('CONTRASEÑA' , ['label' => 'Contraseña']);
-            echo $this->Form->control('CORREO', ['label' => 'E-mail']);
-            echo $this->Form->control('NUMERO_TELEFONO', ['label' => 'Teléfono']);
-            echo $this->Form->control('NACIONALIDAD',  ['label' => 'Nacionalidad']);
-            echo $this->Form->control('ACTIVO', ['label' => 'Activo']);
-            echo $this->Form->control('ESTUDIANTE' , ['label' => 'Estudiante']);
+             echo $this->Form->control('NOMBRE', ['label' => __('Nombre'), 'readonly']);
+             echo $this->Form->control('APELLIDO_1', ['label' => __('Apellido 1'), 'disabled']); 
+             echo $this->Form->control('APELLIDO_2', ['label' => __('Apellido 2'), 'disabled'] );
+             echo $this->Form->control('NOMBRE_USUARIO' ,  ['label' => __('Nombre de Usuario'), 'disabled']);
+             echo $this->Form->control('CORREO', ['label' => __('E-mail'), 'disabled']);
+             echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Teléfono'), 'disabled']);
+             echo $this->Form->control('NACIONALIDAD',  ['label' => __('Nacionalidad'), 'disabled']);
+             
         ?>
     </fieldset>
     <a href=".."> <button type="button" class="botonCancelar">Cancelar</button> </a>

@@ -108,6 +108,14 @@ input[type=text]
 {
     background: #EBFFCA;
     border-radius: 13px;
+    float: left; 
+}
+
+input[type=text]:disabled
+{
+    background: #EBFFCA;
+    border-radius: 13px;
+    float: left; 
 }
 
 /*Formatea las tablas de los grids de los index*/
