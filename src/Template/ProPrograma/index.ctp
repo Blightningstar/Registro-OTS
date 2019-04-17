@@ -4,15 +4,6 @@
  * @var \App\Model\Entity\ProPrograma[]|\Cake\Collection\CollectionInterface $proPrograma
  */
 ?>
-<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Pro Programa'), ['action' => 'add']) ?></li>
-    </ul>
-</nav> -->
-<div class="proPrograma index large-9 medium-8 columns content">
-    <!-- </head><h3><?= __('Pro Programa') ?></h3> -->
-
     <fieldset>
         <legend class = "titulo">Administración de Programas<br></br>
     </legend>
