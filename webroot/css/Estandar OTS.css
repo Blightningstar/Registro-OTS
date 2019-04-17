@@ -83,6 +83,18 @@
  
 }
 
+.botonIMEC:hover {
+    background-color: rgb(230, 92, 42) !important; 
+}
+.botonIMEC  {
+    background-color:#F26631;
+    text-align:center;
+    border-radius: 17px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    float: right;
+    margin-right: 10px;
+}
 
 
 /*Formatea los titulos de cada vista*/
