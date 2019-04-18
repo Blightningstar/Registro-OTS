@@ -40,6 +40,9 @@ Router::connect('programa', array('controller' => 'ProPrograma'));
 Router::connect('pregunta/:action', array('controller' => 'SolPregunta'));
 Router::connect('pregunta', array('controller' => 'SolPregunta'));
 
+Router::connect('permiso/:action', array('controller' => 'SegPermiso'));
+Router::connect('permiso', array('controller' => 'SegPermiso'));
+
 //Termina Esteban
 
 /**
@@ -83,6 +86,8 @@ Router::scope('/', function (RouteBuilder $routes) {
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+
+    $routes->connect('/SegPermiso', ['controller' => 'SegPermiso', 'action' => 'MatrizPermisos']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
