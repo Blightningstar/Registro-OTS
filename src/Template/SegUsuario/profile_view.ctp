@@ -10,10 +10,11 @@
 <div class="segUsuario form large-9 medium-8 columns content">
     <?= $this->Form->create($segUsuario) ?>
     <fieldset>
-        <legend class = "titulo"><?= __('Consultar Usuario') ?>
+        <legend class = "titulo"><?= __('Consultar perfil') ?>
         <br></br>
-        <p class = "subtitulo">Muestra la información de un usuario.</p>
+        <p class = "subtitulo"> <?= __('Muestra su información personal.') ?> </p>
     </legend>
+    <br>
         <?php
              echo $this->Form->control('NOMBRE', ['label' => __('Nombre'), 'readonly']);
              echo $this->Form->control('APELLIDO_1', ['label' => __('Apellido 1'), 'disabled']); 
@@ -22,10 +23,11 @@
              echo $this->Form->control('CORREO', ['label' => __('E-mail'), 'disabled']);
              echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Teléfono'), 'disabled']);
              echo $this->Form->control('NACIONALIDAD',  ['label' => __('Nacionalidad'), 'disabled']);
-             echo $this->Form->control('SEG_ROL',  ['label' => __('Rol'), 'disabled']);
+             
              
         ?>
     </fieldset>
+    <a href="./profile-edit"> <button type="button" class="botonAceptar">Editar</button> </a>
     <a href=".."> <button type="button" class="botonCancelar">Cancelar</button> </a>
     <?= $this->Form->end() ?>
 </div>

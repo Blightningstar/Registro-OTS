@@ -90,6 +90,60 @@ class SegUsuarioController extends AppController
         $this->set(compact('segUsuario'));
     }
 
+    public function obtenerUsuarioActual()
+    {
+        return "1";
+    }
+
+        /**
+     * Edit method
+     *
+     * @param string|null $id Seg Usuario id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function profileEdit($id = null)
+    {
+        //Se asegura de que el usuario solo pueda modificar su propio perfil
+        $id = $this->obtenerUsuarioActual();
+        $segUsuario = $this->SegUsuario->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
+            $segUsuario["SEG_ROL"] += 1;
+            if ($this->SegUsuario->save($segUsuario)) {
+                $this->Flash->success(__('Su información personal ha sido modificada correctamente.'));
+
+                return $this->redirect(['action' => 'profile-view']);
+            }
+            $this->Flash->error(__('Error: No se pudo modificar su información personal'));
+        }
+
+        
+
+        $this->set(compact('segUsuario'));
+    }
+
+     /**
+     * View method
+     *
+     * @param string|null $id Seg Usuario id.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function profileView($id = null)
+    {
+        //Se asegura de que el usuario solo pueda modificar su propio perfil
+        $id = $this->obtenerUsuarioActual();
+
+        $segUsuario = $this->SegUsuario->get($id, [
+            'contain' => []
+        ]);
+
+        $this->set('segUsuario', $segUsuario);
+    }
+
     /**
      * Realiza un borrado lógico de un usuario según su id
      * 

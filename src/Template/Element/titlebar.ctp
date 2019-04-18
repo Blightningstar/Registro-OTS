@@ -11,7 +11,7 @@
         </a>
 
         <div class="navbar-bar">
-            <?php echo $this->Html->link( "NombreUsuario",   array('controller' => 'usuario', 'action' => 'edit'), [ 'class' => 'menuItem'] ); ?>
+            <?php echo $this->Html->link( __("NombreUsuario"),   array('controller' => 'usuario', 'action' => 'profileView'), [ 'class' => 'menuItem'] ); ?>
 
             <?php echo $this->Html->link( "Cerrar sesión",   array('controller' => 'security', 'action' => 'logout'), [ 'class' => 'menuItem'] ); ?>
 
