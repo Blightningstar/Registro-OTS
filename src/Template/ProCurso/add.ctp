@@ -16,8 +16,8 @@
         <legend><?= __('Add Pro Curso') ?></legend>
         <?php
             echo $this->Form->control('NOMBRE');
-            echo $this->Form->control('FECHA_INICIO');
-            echo $this->Form->control('FECHA_FINALIZACION');
+            echo $this->Form->control('FECHA_INICIO', ['empty' => true]);
+            echo $this->Form->control('FECHA_FINALIZACION', ['empty' => true]);
             echo $this->Form->control('FECHA_LIMITE');
             echo $this->Form->control('CREDITOS');
             echo $this->Form->control('IDIOMA');

@@ -33,7 +33,6 @@ class ProCursoTable extends Table
         $this->setTable('pro_curso');
         $this->setDisplayField('PRO_CURSO');
         $this->setPrimaryKey('PRO_CURSO');
-
     }
 
     /**

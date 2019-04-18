@@ -8,8 +8,8 @@ use Cake\ORM\Entity;
  *
  * @property string $PRO_CURSO
  * @property string $NOMBRE
- * @property \Cake\I18n\FrozenDate $FECHA_INICIO
- * @property \Cake\I18n\FrozenDate $FECHA_FINALIZACION
+ * @property \Cake\I18n\FrozenDate|null $FECHA_INICIO
+ * @property \Cake\I18n\FrozenDate|null $FECHA_FINALIZACION
  * @property \Cake\I18n\FrozenDate $FECHA_LIMITE
  * @property int $CREDITOS
  * @property string $IDIOMA
