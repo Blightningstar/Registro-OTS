@@ -19,7 +19,7 @@
             echo $this->Form->control('APELLIDO_1', ['label' => __('Apellido 1')]);
             echo $this->Form->control('APELLIDO_2', ['label' => __('Apellido 2')]);
             echo $this->Form->control('NOMBRE_USUARIO', ['label' => __('Nombre de usuario')]);
-            echo $this->Form->control('CONTRASEÑA', ['label' => __('Contraseña')]);
+            //echo $this->Form->control('CONTRASEÑA', ['label' => __('Contraseña')]);
             echo $this->Form->control('CORREO', ['label' => __('E-mail')]);
             echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Teléfono')]);
             echo $this->Form->control('NACIONALIDAD', ['label' => __('Nacionalidad')]);

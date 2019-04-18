@@ -16,7 +16,7 @@
     </legend>
     <br>
         <?php
-             echo $this->Form->control('NOMBRE', ['label' => __('Nombre'), 'readonly']);
+             echo $this->Form->control('NOMBRE', ['label' => __('Nombre'), 'disabled']);
              echo $this->Form->control('APELLIDO_1', ['label' => __('Apellido 1'), 'disabled']); 
              echo $this->Form->control('APELLIDO_2', ['label' => __('Apellido 2'), 'disabled'] );
              echo $this->Form->control('NOMBRE_USUARIO' ,  ['label' => __('Nombre de Usuario'), 'disabled']);

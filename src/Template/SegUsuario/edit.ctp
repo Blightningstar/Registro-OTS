@@ -21,11 +21,16 @@
             echo $this->Form->control('CORREO', ['label' => __('E-mail')]);
             echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Teléfono')]);
             echo $this->Form->control('NACIONALIDAD',  ['label' => __('Nacionalidad')]);
+
+
+            $segUsuario["SEG_ROL"] -= 1;
+
             echo $this->Form->control('SEG_ROL', ['label' => __('Rol'), 'type' => 'select', 'options' => array(__('Estudiante'),__('Administrador'),__('Superusuario'))]);
+
         ?>
     </fieldset>
     <br><br>
-    <a href="."> <button type="button" class="botonCancelar"> <?= __('Cancelar') ?> </button> </a>
+    <a href=".."> <button type="button" class="botonCancelar"> <?= __('Cancelar') ?> </button> </a>
     <?= $this->Form->button(__('Aceptar'), ['class' => 'botonAceptar'], ['label' => 'Aceptar']) ?>
     <?= $this->Form->end() ?>
 </div>

@@ -123,5 +123,17 @@ class SegUsuarioTable extends Table
         $result = $connet->execute("update seg_usuario set activo = 'N' where seg_usuario = $id");
         //$result = $result->fetchAll('assoc');
         return $result;
-	}
+    }
+    
+    /**
+     * 
+     * @author Esteban Rojas
+     * 
+     * 
+     */
+    public function modificarContraseña($id,$contraseña)
+    {
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("update seg_usuario set CONTRASEÑA = '$contraseña' where seg_usuario = $id");
+    }
 }

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Mailer\Email;
 
 /**
  * SegUsuario Controller
@@ -12,6 +13,93 @@ use App\Controller\AppController;
  */
 class SegUsuarioController extends AppController
 {
+
+
+    /**
+     * Función encargada de llamar al modelo de usuario e invocar a la función encargada de cambiar contraseña
+     * @author Esteban Rojas
+     */
+    public function modificarContraseña($id,$contraseña)
+    {
+        $this->SegUsuario->modificarContraseña($id,$contraseña);
+    }
+
+
+    /**
+     * Función encargada de manejar los datos entre la controladora y la vista para el cambio de contraseña
+     *  @author Esteban Rojas
+     */
+
+    public function PasswordChange($id = null)
+    {
+        //Se asegura de que el usuario solo pueda modificar su propio perfil
+        $id = $this->obtenerUsuarioActual();
+        $segUsuario = $this->SegUsuario->get($id, [
+            'contain' => []
+        ]);
+
+
+        //Ejecuta el codigo solo si el usuario presiona aceptar
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            
+            $data = $this->request->getData(); //Captura los datos del formulario
+
+            $contraseñaAnterior = $segUsuario["CONTRASEÑA"];
+
+
+
+            if(hash('sha256',$data["anterior"]) != strtolower($contraseñaAnterior))
+            {
+                $this->Flash->error(__('Error: La contraseña ingresada no coincide con su contraseña actual.'));
+            }
+            else
+            {
+                if($data["nueva"] != $data["confirmacion"])
+                {
+                    $this->Flash->error(__('Error: La nueva contraseña y la contraseña de confirmación son diferentes'));
+                }
+                else
+                {
+                    $this->modificarContraseña($id,hash('sha256',$data["nueva"]));
+
+                    $this->Flash->success(__('Su contraseña ha sido modificada correctamente.'));
+
+                    return $this->redirect(['action' => 'profile-view']);
+                }
+
+            }
+            
+        }
+
+        
+
+        $this->set(compact('segUsuario'));
+    }
+
+
+    /**
+     * Esta función se encarga de generar una contraseña aleatoria de 20 caracteres, con mayusculas y minusculas
+     * @author Esteban Rojas 
+     * 
+     */
+    function generarContraseña()
+    {
+        $nuevaContraseña = "";
+
+        for($i = 0; $i < 20; $i = $i + 1)
+        {
+            $numero = rand(65,90);
+            
+            if(rand(0,1) == 0)
+                $numero = $numero + 32; //Lo hace mayuscula el 50% de las veces
+
+            $caracter = chr($numero);
+            $nuevaContraseña = $nuevaContraseña . $caracter;
+        }
+        return $nuevaContraseña;
+    }
+
+
     /**
      * Index method
      *
@@ -52,11 +140,17 @@ class SegUsuarioController extends AppController
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
 
             
-        
+       
             $segUsuario["SEG_ROL"] += 1;
+            $contraseña = $this->generarContraseña();
+            $segUsuario["CONTRASEÑA"] = hash('sha256',$contraseña);
+
+ 
 
             if ($this->SegUsuario->save($segUsuario)) {
-                $this->Flash->success(__('El usuario ha sido agregado correctamente.'));
+                $this->Flash->success(__('El usuario ha sido agregado correctamente, con la contraseña ' . $contraseña));
+
+                //Manda el correo al usuario con la contraseña
 
                 return $this->redirect(['action' => 'index']);
             }

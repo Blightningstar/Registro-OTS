@@ -111,6 +111,13 @@ input[type=text]
     float: left; 
 }
 
+input[type=password]
+{
+    background: #EBFFCA;
+    border-radius: 13px;
+    float: left; 
+}
+
 input[type=text]:disabled
 {
     background: #EBFFCA;
