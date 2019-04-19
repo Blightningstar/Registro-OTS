@@ -16,93 +16,44 @@ class SegUsuarioController extends AppController
 
 
     /**
-     * Función encargada de llamar al modelo de usuario e invocar a la función encargada de cambiar contraseña
+     * Calls the model to changePasword
      * @author Esteban Rojas
      */
-    public function modificarContraseña($id,$contraseña)
+    public function userPasswordChange($id,$password)
     {
-        $this->SegUsuario->modificarContraseña($id,$contraseña);
+        $this->SegUsuario->userPasswordChange($id,$password);
     }
 
 
-    /**
-     * Función encargada de manejar los datos entre la controladora y la vista para el cambio de contraseña
-     *  @author Esteban Rojas
-     */
 
-    public function PasswordChange($id = null)
-    {
-        //Se asegura de que el usuario solo pueda modificar su propio perfil
-        $id = $this->obtenerUsuarioActual();
-        $segUsuario = $this->SegUsuario->get($id, [
-            'contain' => []
-        ]);
-
-
-        //Ejecuta el codigo solo si el usuario presiona aceptar
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            
-            $data = $this->request->getData(); //Captura los datos del formulario
-
-            $contraseñaAnterior = $segUsuario["CONTRASEÑA"];
-
-
-
-            if(hash('sha256',$data["anterior"]) != strtolower($contraseñaAnterior))
-            {
-                $this->Flash->error(__('Error: La contraseña ingresada no coincide con su contraseña actual.'));
-            }
-            else
-            {
-                if($data["nueva"] != $data["confirmacion"])
-                {
-                    $this->Flash->error(__('Error: La nueva contraseña y la contraseña de confirmación son diferentes'));
-                }
-                else
-                {
-                    $this->modificarContraseña($id,hash('sha256',$data["nueva"]));
-
-                    $this->Flash->success(__('Su contraseña ha sido modificada correctamente.'));
-
-                    return $this->redirect(['action' => 'profile-view']);
-                }
-
-            }
-            
-        }
-
-        
-
-        $this->set(compact('segUsuario'));
-    }
 
 
     /**
-     * Esta función se encarga de generar una contraseña aleatoria de 20 caracteres, con mayusculas y minusculas
+     * Generates a 20 length random passwoed
      * @author Esteban Rojas 
-     * 
+     * @return new password.
      */
-    function generarContraseña()
+    function generatePassword()
     {
-        $nuevaContraseña = "";
+        $lc_newPassword= "";
 
-        for($i = 0; $i < 20; $i = $i + 1)
+        for($lc_iteration = 0; $lc_iteration < 20; $lc_iteration = $lc_iteration + 1)
         {
-            $numero = rand(65,90);
+            $ln_random = rand(65,90);
             
             if(rand(0,1) == 0)
-                $numero = $numero + 32; //Lo hace mayuscula el 50% de las veces
+                $ln_random = $ln_random + 32; // Sometimes set upper character
 
-            $caracter = chr($numero);
-            $nuevaContraseña = $nuevaContraseña . $caracter;
+            $lc_character = chr($ln_random);
+            $lc_newPassword = $lc_newPassword . $lc_character;
         }
-        return $nuevaContraseña;
+        return $lc_newPassword;
     }
 
 
     /**
      * Index method
-     *
+     * @author Esteban Rojas
      * @return \Cake\Http\Response|void
      */
     public function index()
@@ -114,7 +65,7 @@ class SegUsuarioController extends AppController
 
     /**
      * View method
-     *
+     * @author Esteban Rojas
      * @param string|null $id Seg Usuario id.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -130,7 +81,7 @@ class SegUsuarioController extends AppController
 
     /**
      * Add method
-     *
+     * @author Esteban Rojas
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
@@ -142,26 +93,25 @@ class SegUsuarioController extends AppController
             
        
             $segUsuario["SEG_ROL"] += 1;
-            $contraseña = $this->generarContraseña();
-            $segUsuario["CONTRASEÑA"] = hash('sha256',$contraseña);
+            $lc_password = $this-> generatePassword();
+            $segUsuario["CONTRASEÑA"] = hash('sha256',$lc_password);
 
  
 
             if ($this->SegUsuario->save($segUsuario)) {
-                $this->Flash->success(__('El usuario ha sido agregado correctamente, con la contraseña ' . $contraseña));
+                $this->Flash->success(__('User was added correctly. Password: ' . $lc_password));
 
-                //Manda el correo al usuario con la contraseña
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('Error: No se puedo agregar al usuario'));
+            $this->Flash->error(__("Error: User can't be added"));
         }
         $this->set(compact('segUsuario'));
     }
 
     /**
      * Edit method
-     *
+     * @author Esteban Rojas
      * @param string|null $id Seg Usuario id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -175,23 +125,24 @@ class SegUsuarioController extends AppController
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
             $segUsuario["SEG_ROL"] += 1;
             if ($this->SegUsuario->save($segUsuario)) {
-                $this->Flash->success(__('El usuario ha sido modificado correctamente.'));
+                $this->Flash->success(__('The user information was modified correctly.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('Error: No se puedo agregar al usuario'));
+            $this->Flash->error(__("Error: the user information can't be modified"));
         }
         $this->set(compact('segUsuario'));
     }
 
+
     public function obtenerUsuarioActual()
     {
-        return "1";
+        return "US-2060";
     }
 
         /**
      * Edit method
-     *
+     * @author Esteban Rojas
      * @param string|null $id Seg Usuario id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -207,11 +158,11 @@ class SegUsuarioController extends AppController
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
             $segUsuario["SEG_ROL"] += 1;
             if ($this->SegUsuario->save($segUsuario)) {
-                $this->Flash->success(__('Su información personal ha sido modificada correctamente.'));
+                $this->Flash->success(__('Your personal data was modified correctly'));
 
                 return $this->redirect(['action' => 'profile-view']);
             }
-            $this->Flash->error(__('Error: No se pudo modificar su información personal'));
+            $this->Flash->error(__('Error: Your personal data '));
         }
 
         
@@ -220,15 +171,15 @@ class SegUsuarioController extends AppController
     }
 
      /**
-     * View method
-     *
+     * In this view the user can only view his information
+     * @author Esteban Rojas
      * @param string|null $id Seg Usuario id.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function profileView($id = null)
     {
-        //Se asegura de que el usuario solo pueda modificar su propio perfil
+        //Obtain logged user id
         $id = $this->obtenerUsuarioActual();
 
         $segUsuario = $this->SegUsuario->get($id, [
@@ -239,7 +190,7 @@ class SegUsuarioController extends AppController
     }
 
     /**
-     * Realiza un borrado lógico de un usuario según su id
+     * Remove logically a user by his id.
      * 
      * @author Esteban Rojas
      * @return resultado indicando si el borrado fue exitoso o no.
@@ -251,7 +202,7 @@ class SegUsuarioController extends AppController
 
     /**
      * Delete method
-     *
+     * @author Esteban Rojas
      * @param string|null $id Seg Usuario id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -261,9 +212,9 @@ class SegUsuarioController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $segUsuario = $this->SegUsuario->get($id);
         if ($this->deleteUser($id)) {
-            $this->Flash->success(__('El usuario ha sido eliminado.'));
+            $this->Flash->success(__('The user was erased correctly'));
         } else {
-            $this->Flash->error(__('Error: el usuario no ha sido eliminado.'));
+            $this->Flash->error(__("Error: the user can't be removed."));
         }
 
         return $this->redirect(['action' => 'index']);

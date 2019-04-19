@@ -112,28 +112,16 @@ class SegUsuarioTable extends Table
 
 
    /**
-     * Realiza un borrado lógico de un usuario según su id
+     * Removes logically a user by his id
      * 
      * @author Esteban Rojas
-     * @return resultado indicando si el borrado fue exitoso o no.
      */
     public function deleteUser($id)
 	{
+        $code = 1;
 		$connet = ConnectionManager::get('default');
-        $result = $connet->execute("update seg_usuario set activo = 'N' where seg_usuario = $id");
-        //$result = $result->fetchAll('assoc');
-        return $result;
+        $result = $connet->execute("update seg_usuario set activo = 'N' where seg_usuario = '$id'");
+        return $code;
     }
-    
-    /**
-     * 
-     * @author Esteban Rojas
-     * 
-     * 
-     */
-    public function modificarContraseña($id,$contraseña)
-    {
-        $connet = ConnectionManager::get('default');
-        $result = $connet->execute("update seg_usuario set CONTRASEÑA = '$contraseña' where seg_usuario = $id");
-    }
+
 }
