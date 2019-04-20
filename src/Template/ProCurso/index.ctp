@@ -78,7 +78,7 @@
                 <!-- Links the delete button to the course-->
                 <td>
                    <button type="button" class="botonAccion btn btn-xs"> 
-                       <?= $this->Form->postLink(__('Delete'), ['controller' => 'curso', 'action' => 'delete', $proCurso->PRO_CURSO], ['confirm' => __('Do you want to delete the course with ID: # {0}?', $proCurso->PRO_CURSO)]) ?>
+                       <?= $this->Form->postLink(__('Delete'), ['controller' => 'curso', 'action' => 'delete', $proCurso->PRO_CURSO], ['confirm' => __('Do you want to delete the course {0}?', $proCurso->PRO_CURSO)]) ?>
                     </button>
                 </td>
             </tr>

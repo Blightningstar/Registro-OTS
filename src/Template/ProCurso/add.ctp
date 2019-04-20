@@ -25,7 +25,7 @@
             echo $this->Form->control('CREDITOS', ['label' => _('Academic charge'),'type' => 'number','value' => 0 ,'min'=> 0, 'max'=> 20]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language')]);
             echo $this->Form->control('LOCACION', ['label' => _('Location')]);
-            echo $this->Form->control('ACTIVO', ['label' => _('Active'), 'type' => 'select', 'options' => array(__('Y'), __('N'))]);
+            echo $this->Form->control('ACTIVO', ['label' => _(' Active'), 'type' => 'checkbox']);
             /*echo $this->Form->input('PRO_PROGRAMA', ['label' => _('Program'), 'type' => 'select', 'options' => array($vlc_DsPrograma)]);
             echo $this->Form->control('SEG_USUARIO', ['label' => _('Username')]);
             echo $this->Form->control('SOL_FORMULARIO', ['label' => _('Form')]);*/
