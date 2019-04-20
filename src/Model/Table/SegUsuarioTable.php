@@ -197,4 +197,26 @@ class SegUsuarioTable extends Table
             return $result;
         }
     }
+
+    /**
+     * getUser
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * TODO: Search more secure method (inyection)
+     * 
+     * Verifies the existence of the user and returns its data.
+     * @param string $userdata, it's the user email or username.
+     * @return string the user email.
+     */
+    public function getUser($userdata,$hash){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT * FROM SEG_USUARIO
+             WHERE CONTRASEÑA = '$hash' AND (NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata')"
+        )->fetchAll('assoc');
+        if($result){
+            return $result[0];
+        }else{
+            return $result;
+        }
+    }
 }

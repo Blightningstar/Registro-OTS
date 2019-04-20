@@ -160,7 +160,7 @@ class SegUsuarioController extends AppController
      * getEmailByUserData
      * @author Daniel Marín <110100010111h@gmail.com>
      *      
-     * Calls its model function to get all the email of the user known by $userdata.
+     * Calls its model function to get the email of the user known by $userdata.
      * @param string $userdata, it's the user email or username.
      * @return string the user email.
      */
@@ -169,5 +169,16 @@ class SegUsuarioController extends AppController
         return $userTable->getEmailByUserData($userdata);
     }
 
-
+    /**
+     * getUser
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to get all the user data.
+     * @param string $userdata, it's the user email or username.
+     * @return string all the user data.
+     */
+    public function getUser($userdata, $hash){
+        $userTable=$this->loadmodel('SegUsuario');
+        return $userTable->getUser($userdata, $hash);
+    }
 }
