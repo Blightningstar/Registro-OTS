@@ -133,9 +133,12 @@ class SegUsuarioTable extends Table
     public function checkUniqueData($lc_username, $lc_email)
     {
         $lc_code = "1";
+        $lc_username = strtolower($lc_username);
+        $lc_email = strtolower($lc_email);
+
 
         $connet = ConnectionManager::get('default');
-        $result = $connet->execute("SELECT CORREO, NOMBRE_USUARIO FROM SEG_USUARIO WHERE(CORREO = '$lc_email' or 
+        $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO, LOWER(NOMBRE_USUARIO) AS NOMBRE_USUARIO FROM SEG_USUARIO WHERE(CORREO = '$lc_email' or 
         NOMBRE_USUARIO = '$lc_username')");
 
 
@@ -166,9 +169,11 @@ class SegUsuarioTable extends Table
     public function checkEditUniqueData($lc_username, $lc_email, $lc_us)
     {
         $lc_code = "1";
+        $lc_username = strtolower($lc_username);
+        $lc_email = strtolower($lc_email);
 
         $connet = ConnectionManager::get('default');
-        $result = $connet->execute("SELECT CORREO, NOMBRE_USUARIO FROM SEG_USUARIO WHERE((CORREO = '$lc_email' or 
+        $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO, LOWER(NOMBRE_USUARIO) AS NOMBRE_USUARIO FROM SEG_USUARIO WHERE((CORREO = '$lc_email' or 
         NOMBRE_USUARIO = '$lc_username') AND SEG_USUARIO != '$lc_us')");
 
 
@@ -200,9 +205,9 @@ class SegUsuarioTable extends Table
     public function checkUniqueEmail($lc_username, $lc_email)
     {
         $lc_code = "1";
-
+        $lc_email = strtolower($lc_email);
         $connet = ConnectionManager::get('default');
-        $result = $connet->execute("SELECT CORREO FROM SEG_USUARIO WHERE(CORREO = '$lc_email')");
+        $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO FROM SEG_USUARIO WHERE(CORREO = '$lc_email')");
 
 
         $result = $result->fetchAll('assoc');
