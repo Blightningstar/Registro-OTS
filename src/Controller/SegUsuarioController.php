@@ -103,4 +103,71 @@ class SegUsuarioController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * getHash
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Calls its model function to get the hashed password from the user known by $username.
+     * @param string $username, it's the user identificator.
+     * @return string the hashed password of the user.
+     */
+    public function getHash($username) {
+        $userTable=$this->loadmodel('SegUsuario');
+        return $userTable->getHash($username);
+    }
+
+    /**
+     * setHash
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to set the hashed password $hash to the user known by $userdata.
+     * @param string $userdata, it's the user identificator.
+     * @param string $hash, it's the new hashed password of the user.
+     */
+    public function setHash($userdata,$hash) {
+        $userTable=$this->loadmodel('SegUsuario');
+        $userTable->setHash($userdata,$hash);
+    }
+
+    /**
+     * getCode
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to get the restauration code from the user known by his $email.
+     * @param string $email, it's the user identificator.
+     * @return string the restauration code of the user.
+     */
+    public function getCode($email) {
+        $userTable=$this->loadmodel('SegUsuario');
+        return $userTable->getCode($email);
+    }
+
+    /**
+     * setCode
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to set the restauration code to the user known by his $email.
+     * @param string $email, it's the user identificator.
+     * @param string $code, it's the new restauration code of the user.
+     */
+    public function setCode($email,$code) {
+        $userTable=$this->loadmodel('SegUsuario');
+        $userTable->setCode($email,$code);
+    }
+
+    /**
+     * getEmailByUserData
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to get all the email of the user known by $userdata.
+     * @param string $userdata, it's the user email or username.
+     * @return string the user email.
+     */
+    public function getEmailByUserData($userdata){
+        $userTable=$this->loadmodel('SegUsuario');
+        return $userTable->getEmailByUserData($userdata);
+    }
+
+
 }
