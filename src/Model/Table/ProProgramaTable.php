@@ -9,6 +9,7 @@ use Cake\Validation\Validator;
 /**
  * ProPrograma Model
  *
+ * @author Anyelo Mijael Lobo Cheloukhin
  * @method \App\Model\Entity\ProPrograma get($primaryKey, $options = [])
  * @method \App\Model\Entity\ProPrograma newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\ProPrograma[] newEntities(array $data, array $options = [])
@@ -53,23 +54,6 @@ class ProProgramaTable extends Table
             ->maxLength('NOMBRE', 256)
             ->requirePresence('NOMBRE', 'create')
             ->allowEmptyString('NOMBRE', false);
-
-        $validator
-            ->scalar('IDIOMA')
-            ->maxLength('IDIOMA', 256)
-            ->requirePresence('IDIOMA', 'create')
-            ->allowEmptyString('IDIOMA', false);
-
-        $validator
-            ->integer('CREDITAJE')
-            ->requirePresence('CREDITAJE', 'create')
-            ->allowEmptyString('CREDITAJE', false);
-
-        $validator
-            ->scalar('PAIS')
-            ->maxLength('PAIS', 256)
-            ->requirePresence('PAIS', 'create')
-            ->allowEmptyString('PAIS', false);
 
         $validator
             ->scalar('ACTIVO')

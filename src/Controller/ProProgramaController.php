@@ -6,6 +6,7 @@ use App\Controller\AppController;
 /**
  * ProPrograma Controller
  *
+ * @author Anyelo Mijael Lobo Cheloukhin
  * @property \App\Model\Table\ProProgramaTable $ProPrograma
  *
  * @method \App\Model\Entity\ProPrograma[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
