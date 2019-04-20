@@ -6,9 +6,9 @@
 ?>
     <fieldset>
         <legend class = "titulo">Administración de Programas<br></br>
+        <legend class = "subtitulo">Lista de Programas<br></br></legend>
     </legend>
     <br>
-    <h2>Programas</h2>
     <!--Linkea el boton a para que redireccione al agregar usuario -->
     <button type="button" class="botonAgregar">
         <!-- Se especifica que el controlador sea usuario para evitar que el nombre de la tabla aparezca en la url-->
