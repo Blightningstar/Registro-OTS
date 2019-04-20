@@ -1,4 +1,4 @@
-/* Esta hoja de estilos contiene todas las clases relacionadas con el estandar de la OET */
+ Esta hoja de estilos contiene todas las clases relacionadas con el estandar de la OET */
 
 /*Empieza Esteban*/
 
@@ -83,6 +83,8 @@
  
 }
 
+
+/*Para los botones de las grillas CRUD*/
 .botonIMEC:hover {
     background-color: rgb(230, 92, 42) !important; 
 }
@@ -161,4 +163,4 @@ input[type=text]
 }
 
 
-/*Termina Esteban*/
+/*Termina Esteban
