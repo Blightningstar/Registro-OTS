@@ -31,6 +31,7 @@ class ProCurso extends Entity
      * @var array
      */
     protected $_accessible = [
+        'PRO_CURSO' => true,
         'NOMBRE' => true,
         'FECHA_INICIO' => true,
         'FECHA_FINALIZACION' => true,
