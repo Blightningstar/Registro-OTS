@@ -27,7 +27,7 @@
              
         ?>
     </fieldset>
-    <a href="./profile-edit"> <button type="button" class="botonAceptar"> Edit</button> </a>
     <a href=".."> <button type="button" class="botonCancelar">Cancel</button> </a>
+    <a href="./profile-edit"> <button type="button" class="botonAceptar"> Edit</button> </a>
     <?= $this->Form->end() ?>
 </div>

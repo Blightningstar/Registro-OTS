@@ -48,13 +48,22 @@ class SegUsuarioController extends AppController
     }
 
     /**
+     * @author EstebanRojas
+     * @return Username of authenticated user
+     */
+    function getActualUsername()
+    {
+        return "EstebanRojasNuevo";
+    }
+
+    /**
      * To know Authenticated user's role
      * @author Esteban Rojas
      * @return "1" => student, "2" => "Administrator", "3" => "Superuser"
      */
     function actualRole()
     {
-        return "3";
+        return $this->SegUsuario->getUserRoleByUsername($this->getActualUsername());
     }
 
 
@@ -66,6 +75,7 @@ class SegUsuarioController extends AppController
     public function index()
     {
         $lc_role = $this->actualRole();
+ 
         //Redirect students 
         if($lc_role == "1")
         {

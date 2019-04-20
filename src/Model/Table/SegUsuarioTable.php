@@ -128,7 +128,7 @@ class SegUsuarioTable extends Table
     /**
      *  Checks if the username or email is already on database
      *  @author Esteban Rojas
-     *  @return 1 if emai and username don't exist, 2 if user is already on database 3 same, but email
+     *  @return 1 if email and username don't exist, 2 if user is already on database 3 same, but email
      */
     public function checkUniqueData($lc_username, $lc_email)
     {
@@ -219,8 +219,23 @@ class SegUsuarioTable extends Table
                 $lc_code = "2";
             
         }
- 
+
         return $lc_code;
+    }
+
+    /**
+     * Obtains the user role
+     * @author Esteban Rojas
+     * @return "1" = Student, "2" = Administrator, "3" = "Superuser"
+     */
+    public function getUserRoleByUsername($username)
+    {
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT SEG_ROL FROM seg_usuario where NOMBRE_USUARIO = '$username'");
+        $result = $result->fetchAll('assoc');
+
+        return $result[0]["SEG_ROL"];
     }
 
 }
