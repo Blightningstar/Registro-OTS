@@ -19,14 +19,18 @@
             echo $this->Form->control('APELLIDO_2', ['label' => __('Lastname 2')] );
             echo $this->Form->control('NOMBRE_USUARIO' ,  ['label' => __('Username')]);
             echo $this->Form->control('CORREO', ['label' => __('E-mail')]);
-            echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone')]);
+            echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone'), 'pattern' => "[/+]?[0-9\-\s]+", 'title' => 'Error: Put a valid number. You can use + - or spaces']);
             echo $this->Form->control('NACIONALIDAD',  ['label' => __('Country')]);
 
 
             $segUsuario["SEG_ROL"] -= 1;
-
-            echo $this->Form->control('SEG_ROL', ['label' => __('Rol'), 'type' => 'select', 'options' => array(__('Student'),__('Administrator'),__('Superuser'))]);
-
+            
+            //Administrator can't create superusers
+            if($lc_role == "3")
+                echo $this->Form->control('SEG_ROL', ['label' => __('Role'), 'type' => 'select', 'options' => array(__('Student'),__('Administrator'),__('Superuser'))]);
+            else
+            echo $this->Form->control('SEG_ROL', ['label' => __('Role'), 'type' => 'select', 'options' => array(__('Student'),__('Administrator'))]);
+           
         ?>
     </fieldset>
     <br><br>

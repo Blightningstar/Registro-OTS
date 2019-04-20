@@ -36,6 +36,7 @@ Router::connect('curso', array('controller' => 'ProCurso'));
 
 
 Router::connect('usuario/add', array('controller' => 'SegUsuario', 'action' => 'add' ));
+Router::connect('usuario/register', array('controller' => 'SegUsuario', 'action' => 'register' ));
 Router::connect('usuario/view/*', array('controller' => 'SegUsuario', 'action' => 'view'));
 Router::connect('usuario/edit/*', array('controller' => 'SegUsuario', 'action' => 'edit'));
 Router::connect('usuario/password-change', array('controller' => 'SegUsuario', 'action' => 'PasswordChange'));

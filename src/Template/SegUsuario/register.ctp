@@ -8,9 +8,9 @@
 <div class="segUsuario form large-9 medium-8 columns content">
     <?= $this->Form->create($segUsuario) ?>
     <fieldset>
-        <legend class = "titulo"><?= __('Add User') ?>
+        <legend class = "titulo"><?= __('Register') ?>
         <br></br>
-        <p class = "subtitulo"> <?= __('Create a new user.') ?> </p>
+        <p class = "subtitulo"> <?= __('Create a new student account.') ?> </p>
     </legend>
         
         <br>
@@ -23,12 +23,7 @@
             echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone'), 'pattern' => "[/+]?[0-9\-\s]+", 'title' => 'Error: Put a valid number. You can use + - or spaces']);
             echo $this->Form->control('NACIONALIDAD', ['label' => __('Country')]);
 
-            //Administrator can't create superusers
-            if($lc_role == "3")
-                echo $this->Form->control('SEG_ROL', ['label' => __('Role'), 'type' => 'select', 'options' => array(__('Student'),__('Administrator'),__('Superuser'))]);
-            else
-            echo $this->Form->control('SEG_ROL', ['label' => __('Role'), 'type' => 'select', 'options' => array(__('Student'),__('Administrator'))]);
-           
+
         ?>
     </fieldset>
     <br>

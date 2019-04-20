@@ -124,4 +124,98 @@ class SegUsuarioTable extends Table
         return $code;
     }
 
+
+    /**
+     *  Checks if the username or email is already on database
+     *  @author Esteban Rojas
+     *  @return 1 if emai and username don't exist, 2 if user is already on database 3 same, but email
+     */
+    public function checkUniqueData($lc_username, $lc_email)
+    {
+        $lc_code = "1";
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT CORREO, NOMBRE_USUARIO FROM SEG_USUARIO WHERE(CORREO = '$lc_email' or 
+        NOMBRE_USUARIO = '$lc_username')");
+
+
+        $result = $result->fetchAll('assoc');
+
+        if(empty($result) == 0)
+        {
+  
+            if($result[0]["NOMBRE_USUARIO"] == $lc_username)
+            {
+                $lc_code = "2";
+            }
+            else
+            {
+                if($result[0]["CORREO"] == $lc_email)
+                    $lc_code = "3";
+            }
+        }
+ 
+        return $lc_code;
+    }
+
+     /**
+     *  Checks if the username or email is already on database. Version for edit user
+     *  @author Esteban Rojas
+     *  @return 1 if emai and username don't exist, 2 if user is already on database 3 same, but email
+     */
+    public function checkEditUniqueData($lc_username, $lc_email, $lc_us)
+    {
+        $lc_code = "1";
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT CORREO, NOMBRE_USUARIO FROM SEG_USUARIO WHERE((CORREO = '$lc_email' or 
+        NOMBRE_USUARIO = '$lc_username') AND SEG_USUARIO != '$lc_us')");
+
+
+        $result = $result->fetchAll('assoc');
+
+        if(empty($result) == 0)
+        {
+  
+            if($result[0]["NOMBRE_USUARIO"] == $lc_username)
+            {
+                $lc_code = "2";
+            }
+            else
+            {
+                if($result[0]["CORREO"] == $lc_email)
+                    $lc_code = "3";
+            }
+        }
+ 
+        return $lc_code;
+    }
+
+
+     /**
+     *  Checks if  email is already on database
+     *  @author Esteban Rojas
+     *  @return 1 if email doesn't exist. Otherwise, return 2
+     */
+    public function checkUniqueEmail($lc_username, $lc_email)
+    {
+        $lc_code = "1";
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT CORREO FROM SEG_USUARIO WHERE(CORREO = '$lc_email')");
+
+
+        $result = $result->fetchAll('assoc');
+
+        if(empty($result) == 0)
+        {
+   
+            if($result[0]["CORREO"] == $lc_email)
+                $lc_code = "2";
+            
+        }
+ 
+        return $lc_code;
+    }
+
 }

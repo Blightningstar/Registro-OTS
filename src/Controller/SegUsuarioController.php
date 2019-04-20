@@ -14,19 +14,16 @@ use Cake\Mailer\Email;
 class SegUsuarioController extends AppController
 {
 
-
     /**
-     * Calls the model to changePasword
-     * @author Esteban Rojas
+     *  Checks if the username or email is already on database
+     *  @author Esteban Rojas
+     *  @return 1 si no hay nada repetido, 2 si el usuario esta repetido 3 si el correo esta repetido.
+     *  Si el usuario y correo estan repetidos, solo indica que el usuario esta repetido
      */
-    public function userPasswordChange($id,$password)
+    function checkUniqueData($lc_username, $lc_email)
     {
-        $this->SegUsuario->userPasswordChange($id,$password);
+        return $this->SegUsuario->checkUniqueData($lc_username, $lc_email);
     }
-
-
-
-
 
     /**
      * Generates a 20 length random passwoed
@@ -50,6 +47,16 @@ class SegUsuarioController extends AppController
         return $lc_newPassword;
     }
 
+    /**
+     * To know Authenticated user's role
+     * @author Esteban Rojas
+     * @return "1" => student, "2" => "Administrator", "3" => "Superuser"
+     */
+    function actualRole()
+    {
+        return "3";
+    }
+
 
     /**
      * Index method
@@ -58,9 +65,16 @@ class SegUsuarioController extends AppController
      */
     public function index()
     {
+        $lc_role = $this->actualRole();
+        //Redirect students 
+        if($lc_role == "1")
+        {
+            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
+        }
+
         $segUsuario = $this->paginate($this->SegUsuario);
 
-        $this->set(compact('segUsuario'));
+        $this->set(compact('segUsuario','lc_role'));
     }
 
     /**
@@ -72,9 +86,19 @@ class SegUsuarioController extends AppController
      */
     public function view($id = null)
     {
+
+        //Redirect students 
+        $lc_role = $this->actualRole();
+        if( $lc_role == "1")
+            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
+
         $segUsuario = $this->SegUsuario->get($id, [
             'contain' => []
         ]);
+
+        //Administrator can't view superuser information
+        if($lc_role == "2" && $segUsuario["ROL"] =="3")
+            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
 
         $this->set('segUsuario', $segUsuario);
     }
@@ -86,6 +110,13 @@ class SegUsuarioController extends AppController
      */
     public function add()
     {
+        $lc_role = $this->actualRole();
+        //Redirect students 
+        if( $lc_role == "1")
+        {
+            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
+        }
+
         $segUsuario = $this->SegUsuario->newEntity();
         if ($this->request->is('post')) {
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
@@ -96,17 +127,84 @@ class SegUsuarioController extends AppController
             $lc_password = $this-> generatePassword();
             $segUsuario["CONTRASEÑA"] = hash('sha256',$lc_password);
 
- 
-
-            if ($this->SegUsuario->save($segUsuario)) {
-                $this->Flash->success(__('User was added correctly. Password: ' . $lc_password));
+            $lc_code = $this->checkUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"]);
 
 
-                return $this->redirect(['action' => 'index']);
+            if ($lc_code == "1")
+            {
+                if ($this->SegUsuario->save($segUsuario)) {
+                    $this->Flash->success(__('User was added correctly. Password: ' . $lc_password));
+
+
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__("Error: User can't be added"));
             }
-            $this->Flash->error(__("Error: User can't be added"));
+            else 
+            {
+                if($lc_code == "2")
+                {
+                    $this->Flash->error(__("Error: The username is already in the system."));
+                }
+                else
+                {
+                    $this->Flash->error(__("Error: The email is already in the system."));
+                }
+            }
         }
-        $this->set(compact('segUsuario'));
+        $this->set(compact('segUsuario','lc_role'));
+    }
+
+    /**
+     * Register method
+     * @author Esteban Rojas
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function register()
+    {
+        $lc_role = $this->actualRole();
+        //Redirect students 
+        if( $lc_role == "1")
+        {
+            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
+        }
+
+        $segUsuario = $this->SegUsuario->newEntity();
+        if ($this->request->is('post')) {
+            $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
+
+            
+       
+            $segUsuario["SEG_ROL"] = 1;
+            $lc_password = $this-> generatePassword();
+            $segUsuario["CONTRASEÑA"] = hash('sha256',$lc_password);
+
+            $lc_code = $this->checkUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"]);
+
+
+            if ($lc_code == "1")
+            {
+                if ($this->SegUsuario->save($segUsuario)) {
+                    $this->Flash->success(__('User was added correctly. Password: ' . $lc_password));
+
+
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__("Error: User can't be added"));
+            }
+            else 
+            {
+                if($lc_code == "2")
+                {
+                    $this->Flash->error(__("Error: The username is already in the system."));
+                }
+                else
+                {
+                    $this->Flash->error(__("Error: The email is already in the system."));
+                }
+            }
+        }
+        $this->set(compact('segUsuario','lc_role'));
     }
 
     /**
@@ -118,20 +216,52 @@ class SegUsuarioController extends AppController
      */
     public function edit($id = null)
     {
+        $lc_role = $this->actualRole();
+        //Redirect students 
+        if($lc_role == "1")
+        {
+            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
+        }
+
         $segUsuario = $this->SegUsuario->get($id, [
             'contain' => []
         ]);
+
+        //Administrator can't edit superuser information
+        if(($lc_role == "2" && $segUsuario["ROL"] == "3") || $segUsuario["ACTIVO"] == "N")
+            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
             $segUsuario["SEG_ROL"] += 1;
-            if ($this->SegUsuario->save($segUsuario)) {
-                $this->Flash->success(__('The user information was modified correctly.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
+            $lc_code = $this->SegUsuario->checkEditUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"],$id);
+
+
+            if($lc_code == "1") 
+            {
+                if ($this->SegUsuario->save($segUsuario)) {
+                    $this->Flash->success(__('The user information was modified correctly.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+            
+            
             $this->Flash->error(__("Error: the user information can't be modified"));
+            }
+            else
+            {
+                if($lc_code == "2")
+                {
+                    $this->Flash->error(__("Error: The username is already in the system."));
+                }
+                else
+                {
+                    $this->Flash->error(__("Error: The email is already in the system."));
+                }
+            }
         }
-        $this->set(compact('segUsuario'));
+        $this->set(compact('segUsuario','lc_role'));
     }
 
 
@@ -149,21 +279,41 @@ class SegUsuarioController extends AppController
      */
     public function profileEdit($id = null)
     {
-        //Se asegura de que el usuario solo pueda modificar su propio perfil
+        //user can only edit his own information
         $id = $this->obtenerUsuarioActual();
         $segUsuario = $this->SegUsuario->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
-            $segUsuario["SEG_ROL"] += 1;
-            if ($this->SegUsuario->save($segUsuario)) {
-                $this->Flash->success(__('Your personal data was modified correctly'));
 
-                return $this->redirect(['action' => 'profile-view']);
+
+            $lc_code = $this->SegUsuario->checkEditUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"],$id);
+
+            if($lc_code == "1") 
+            {
+                if ($this->SegUsuario->save($segUsuario)) {
+                    $this->Flash->success(__('Your information was edited correctly.'));
+
+                    return $this->redirect(['action' => 'ProfileView']);
+                }
+            
+            
+                $this->Flash->error(__("Error: Your information can't be edited"));
             }
-            $this->Flash->error(__('Error: Your personal data '));
+            else
+            {
+                if($lc_code == "2")
+                {
+                    $this->Flash->error(__("Error: The username is already in the system."));
+                }
+                else
+                {
+                    $this->Flash->error(__("Error: The email is already in the system."));
+                }
+            }
         }
+    
 
         
 

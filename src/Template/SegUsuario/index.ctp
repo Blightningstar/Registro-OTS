@@ -51,6 +51,7 @@
         <tbody>
             <!-- Itera tupla por tupla y coloca los datos en cada columna -->
             <?php foreach ($segUsuario as $segUsuario): ?>
+            <?php if(($segUsuario["ACTIVO"] != "N") && ($segUsuario->SEG_ROL != "3" || $lc_role != "2")):?>
             <tr>
                 <td><?= h($segUsuario->SEG_USUARIO) ?></td>
                 <td><?= h($segUsuario->NOMBRE) ?></td>
@@ -93,6 +94,7 @@
                     </button>
                 </td>
             </tr>
+            <?php endif;?>
             <?php endforeach; ?>
         </tbody>
     </table>
