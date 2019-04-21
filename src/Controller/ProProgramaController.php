@@ -92,23 +92,16 @@ class ProProgramaController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proPrograma = $this->ProPrograma->patchEntity($proPrograma, $this->request->getData());
+            if ($this->ProPrograma->save($proPrograma)) {
+                $this->Flash->success(__('The pro programa has been saved.'));
 
-            $lc_code = $this->checkUniqueData($proPrograma["NOMBRE"] );
-            if($lc_code == "1"){
-                 $this->Flash->error(__("Error: This program is already in the system."));
+                return $this->redirect(['action' => 'index']);
             }
-            else{
-                $proPrograma["PRO_PROGRAMA"] = $_REQUEST['NOMBRE'];
-                if ($this->ProPrograma->save($proPrograma)) {
-                    $this->Flash->success(__('The pro programa has been saved.'));
-
-                    return $this->redirect(['action' => 'index']);
-                }
-            }
-            $this->Flash->error(__('The program could not be saved. Please, try again.'));
+            $this->Flash->error(__('The pro programa could not be saved. Please, try again.'));
         }
         $this->set(compact('proPrograma'));
     }
+
 
     /**
      * Delete method

@@ -51,7 +51,7 @@
 
                 <td class="actions">
                 <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('Edit'), ['controller' => 'programa', 'action' => 'edit', $proPrograma->PRO_PROGRAMA]) ?>    
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $proPrograma->PRO_PROGRAMA]) ?>   
                     </button>
                 </td>
 
