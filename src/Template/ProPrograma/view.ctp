@@ -8,7 +8,7 @@
 
 <fieldset>
     <legend class = "titulo">Program Administration<br></br>
-    <p class = "subtitulo">Showing program: <?= h($proPrograma->PRO_PROGRAMA) ?></p>
+    <p class = "subtitulo">Showing program: <?= h($proPrograma->NOMBRE) ?></p>
     </legend>
 </fieldset>
 
