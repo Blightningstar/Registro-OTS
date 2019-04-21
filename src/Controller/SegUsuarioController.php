@@ -67,7 +67,9 @@ class SegUsuarioController extends AppController
      */
     function actualRole()
     {
-        
+        $actualUser = $this->viewVars['actualUser'];
+        if(($actualUser["NOMBRE_USUARIO"]) == null)
+            return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
         return $this->SegUsuario->getUserRoleByUsername($this->getActualUsername());
     }
 
