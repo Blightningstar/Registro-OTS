@@ -15,7 +15,7 @@
    </legend>
    <br>
         <?php
-            echo $this->Form->control('pro_curso', ['label' => _('Course ID')]);
+            echo $this->Form->control('pro_curso', ['label' => _('Course ID'),'readonly']);
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name')]);
             echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'class'=>'datepicker']);
             echo $this->Form->control('FECHA_FINALIZACION', ['label' => _('Final date'), 'class'=>'datepicker']);
@@ -31,7 +31,7 @@
     </fieldset>
     <br>
     <a href="."> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
-    <?= $this->Form->button(__('Accept'), ['class' => 'botonAceptar'], ['label' => 'Accept']) ?>
+    <?= $this->Form->button(__('Submit'), ['class' => 'botonAceptar'], ['label' => __('Submit')]) ?>
     <?= $this->Form->end() ?>
 </div>
 
