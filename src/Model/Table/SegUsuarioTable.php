@@ -238,4 +238,115 @@ class SegUsuarioTable extends Table
         return $result[0]["SEG_ROL"];
     }
 
+
+    /**
+     * getHash
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Gets the hashed password from the user known by $username.
+     * @param string $username, it's the user identificator.
+     * @return string the hashed password of the user.
+     */
+    public function getHash($username){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT CONTRASEÑA FROM SEG_USUARIO 
+             WHERE NOMBRE_USUARIO = '$username'"
+        )->fetchAll('assoc');
+        return $result[0]['CONTRASEÑA'];
+    }
+
+    /**
+     * setHash
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Set the hashed password $hash to the user known by $userdata.
+     * @param string $userdata, it's the user identificator.
+     * @param string $hash, it's the new hashed password of the user.
+     */
+    public function setHash($userdata,$hash){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "UPDATE SEG_USUARIO SET CONTRASEÑA = '$hash'
+             WHERE NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata'"
+        );
+    }
+
+    /**
+     * getCode
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Get the restauration code from the user known by his $email.
+     * @param string $email, it's the user identificator.
+     * @return string the restauration code of the user.
+     */
+    public function getCode($email){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT CÓDIGO_RESTAURACIÓN FROM SEG_USUARIO
+             WHERE CORREO = '$email'"
+        )->fetchAll('assoc');
+        return $result[0]['CÓDIGO_RESTAURACIÓN'];
+    }
+
+
+    /**
+     * setCode
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Set the restauration code to the user known by his $email.
+     * @param string $email, it's the user identificator.
+     * @param string $code, it's the new restauration code of the user.
+     */
+    public function setCode($email,$code){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "UPDATE SEG_USUARIO SET CÓDIGO_RESTAURACIÓN = '$code'
+             WHERE CORREO = '$email'"
+        );
+    }
+
+
+    /**
+     * getEmailByUserData
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Verifies the existence of the user and returns its email.
+     * @param string $userdata, it's the user email or username.
+     * @return string the user email.
+     */
+    public function getEmailByUserData($userdata){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT CORREO FROM SEG_USUARIO
+             WHERE NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata'"
+        )->fetchAll('assoc');
+        if($result){
+            return $result[0]['CORREO'];
+        }else{
+            return $result;
+        }
+    }
+
+    /**
+     * getUser
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * TODO: Search more secure method (inyection)
+     * 
+     * Verifies the existence of the user and returns its data.
+     * @param string $userdata, it's the user email or username.
+     * @return string the user email.
+     */
+    public function getUser($userdata,$hash){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT * FROM SEG_USUARIO
+             WHERE CONTRASEÑA = '$hash' AND (NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata')"
+        )->fetchAll('assoc');
+        if($result){
+            return $result[0];
+        }else{
+            return $result;
+        }
+    }
 }

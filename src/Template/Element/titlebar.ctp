@@ -12,36 +12,24 @@
         </div>
 
   
+        <div class="navbar-bar">
+            <?php echo $this->Html->link( $actualUser['NOMBRE_USUARIO'],   array('controller' => 'usuario', 'action' => 'profileView'), [ 'class' => 'menuItem'] ); ?>
 
+            
+            <?php 
+                if($actualUser){
+                    echo $this->Html->link( "Cerrar sesión",   array('controller' => 'seguridad', 'action' => 'logout'), [ 'class' => 'menuItem'] );
+                }else{
+                    echo $this->Html->link( "Iniciar sesión",   array('controller' => 'seguridad', 'action' => 'login'), [ 'class' => 'menuItem'] ); 
+                }
+            ?>
+            <?php echo $this->Html->link( "Cambiar a inglés",   array('controller' => 'idioma'), [ 'class' => 'menuItem'] ); ?>
 
-        <div class="nav-item dropdown">
-                <a class="menuItem dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                NombreUsuario 
-                </a>
-                <div class="dropdown-menu" style="background-color:#659F31 " aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">
-                    <?php echo $this->Html->link( __("Consultar perfil"),   array('controller' => 'usuario', 'action' => 'profileView'), [ 'class' => 'menuItem'] ); ?>
-                    </a>
-                    <a class="dropdown-item" href="#">
-                    <?php echo $this->Html->link( __("Editar perfil"),   array('controller' => 'usuario', 'action' => 'profileEdit'), [ 'class' => 'menuItem'] ); ?>
-                    </a>
-                    <a class="dropdown-item" href="#">
-                    <?php echo $this->Html->link( __("Cambiar Contraseña"),   array('controller' => 'usuario', 'action' => 'passwordChange'), [ 'class' => 'menuItem'] ); ?>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"> 
-                            <?php echo $this->Html->link( "Cerrar sesión",   array('controller' => 'security', 'action' => 'logout'), [ 'class' => 'menuItem'] ); ?>
-                        </a>
-                </div>
-                <?php echo $this->Html->link( __("Cambiar a inglés"),   array('controller' => 'idioma'), [ 'class' => 'menuItem'] ); ?>
-            </div>
 
 
 
     
             
         </div>
-
-
 
 </nav>
