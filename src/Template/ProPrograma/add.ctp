@@ -15,8 +15,6 @@
 <div class="proPrograma form large-9 medium-8 columns content">
     <?= $this->Form->create($proPrograma) ?>
         <?php
-            // echo $this->Form->control('PRO_PROGRAMA', array('type' => 'text'));
-            echo $this->Form->control('PRO_PROGRAMA', ['label' => 'Nombre']);
             echo $this->Form->control('NOMBRE',  ['label' => 'Nombre']);
             echo $this->Form->control('ACTIVO',  ['label' => 'Activo']);
         ?>
