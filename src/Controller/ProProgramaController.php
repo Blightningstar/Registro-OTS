@@ -117,19 +117,6 @@ class ProProgramaController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    // public function delete($id = null)
-    // {
-    //     $this->request->allowMethod(['post', 'delete']);
-    //     $proPrograma = $this->ProPrograma->get($id);
-    //     if ($this->ProPrograma->delete($proPrograma)) {
-    //         $this->Flash->success(__('The pro programa has been deleted.'));
-    //     } else {
-    //         $this->Flash->error(__('The program could not be deleted. Please, try again.'));
-    //     }
-
-    //     return $this->redirect(['action' => 'index']);
-    // }
-
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
