@@ -57,7 +57,7 @@
 
                 <td class="actions">
                 <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $proPrograma->PRO_PROGRAMA], ['confirm' => __('Are you sure you want to delete # {0}?', $proPrograma->PRO_PROGRAMA)]) ?>   
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $proPrograma->PRO_PROGRAMA], ['confirm' => __('Are you sure you want to delete # {0}?', $proPrograma->NOMBRE)]) ?>   
                 </button>
                 </td>
 
