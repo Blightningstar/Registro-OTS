@@ -53,7 +53,7 @@ class SegUsuarioController extends AppController
      */
     function getActualUsername()
     {
-        return "EstebanRojasNuevo";
+        return "Superusuario";
     }
 
     /**
