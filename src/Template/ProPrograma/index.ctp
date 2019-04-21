@@ -7,15 +7,15 @@
 ?>
     <fieldset>
 
-    <legend class = "titulo">Administración de Programas<br></br>
-        <p class = "subtitulo"> Lista de Programas Actuales</p>
+    <legend class = "titulo">Program Administration<br></br>
+        <p class = "subtitulo">Program List</p>
     </legend>
 
     <br>
     <!--Linkea el boton a para que redireccione al agregar usuario -->
     <button type="button" class="botonAgregar">
         <!-- Se especifica que el controlador sea usuario para evitar que el nombre de la tabla aparezca en la url-->
-        <a href="/Registro-OTS/programa/add" style="color:white;">Añadir Programa</a>   
+        <a href="/Registro-OTS/programa/add" style="color:white;">Add Program</a>   
     </button>
 
     <!-- Permite que aparezca la barra horizontal en caso de que no todos los campos de la tabla puedan verse a la vez -->
@@ -26,11 +26,12 @@
                 <!-- Coloca cada campo de la tabla en el grid -->
 
 
-                <th scope="col"><?= $this->Paginator->sort('NOMBRE', ['label' => __('Nombre')]) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('NOMBRE', ['label' => __('Program Name')]) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('ACTIVO', ['label' => __('Active / Inactive')]) ?></th>
 
-                <th scope="col" class="actions">Ver</th>
-                <th scope="col" class="actions">Modificar</th>
-                <th scope="col" class="actions">Borrar</th>
+                <th scope="col" class="actions">View</th>
+                <th scope="col" class="actions">Edit</th>
+                <th scope="col" class="actions">Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -39,23 +40,24 @@
             <tr>
 
                 <td><?= h($proPrograma->NOMBRE) ?></td>
+                <td><?= h($proPrograma->ACTIVO) ?></td>
 
                 <!-- Botones Consultar, Modificar y Borrar de la grilla de Programas -->
                 <td class="actions">
                 <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('Ver'), ['controller' => 'programa', 'action' => 'view', $proPrograma->PRO_PROGRAMA]) ?>    
+                        <?= $this->Html->link(__('View'), ['controller' => 'programa', 'action' => 'view', $proPrograma->PRO_PROGRAMA]) ?>    
                     </button>
                 </td>
 
                 <td class="actions">
                 <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('Modificar'), ['controller' => 'programa', 'action' => 'edit', $proPrograma->PRO_PROGRAMA]) ?>    
+                        <?= $this->Html->link(__('Edit'), ['controller' => 'programa', 'action' => 'edit', $proPrograma->PRO_PROGRAMA]) ?>    
                     </button>
                 </td>
 
                 <td class="actions">
                 <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('Borrar'), ['controller' => 'programa', 'action' => 'delete', $proPrograma->PRO_PROGRAMA], ['confirm' => __('Are you sure you want to delete # {0}?', $proPrograma->PRO_PROGRAMA)]) ?>    
+                        <?= $this->Html->link(__('Delete'), ['controller' => 'programa', 'action' => 'delete', $proPrograma->PRO_PROGRAMA], ['confirm' => __('Are you sure you want to delete program # {0}?', $proPrograma->PRO_PROGRAMA)]) ?>    
                     </button>
                 </td>
 
@@ -75,6 +77,6 @@
             <?= $this->Paginator->next(__('next') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} program(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
