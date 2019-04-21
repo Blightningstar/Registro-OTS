@@ -31,9 +31,13 @@ class SegUsuarioFixture extends TestFixture
         'NUMERO_TELEFONO' => ['type' => 'string', 'length' => 256, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'NACIONALIDAD' => ['type' => 'string', 'length' => 256, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'ACTIVO' => ['type' => 'string', 'fixed' => true, 'length' => 1, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null],
-        'ESTUDIANTE' => ['type' => 'string', 'fixed' => true, 'length' => 1, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null],
+        'SEG_ROL' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        '_indexes' => [
+            'SEG_ROL' => ['type' => 'index', 'columns' => ['SEG_ROL'], 'length' => []],
+        ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['SEG_USUARIO'], 'length' => []],
+            'seg_usuario_ibfk_1' => ['type' => 'foreign', 'columns' => ['SEG_ROL'], 'references' => ['seg_rol', 'SEG_ROL'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -50,7 +54,7 @@ class SegUsuarioFixture extends TestFixture
     {
         $this->records = [
             [
-                'SEG_USUARIO' => 'b9c7c5aa-6f1a-4b22-bd40-9ad62996f4eb',
+                'SEG_USUARIO' => '7ca39442-b1fa-4a8a-ba0c-299b94e20567',
                 'NOMBRE' => 'Lorem ipsum dolor sit amet',
                 'APELLIDO_1' => 'Lorem ipsum dolor sit amet',
                 'APELLIDO_2' => 'Lorem ipsum dolor sit amet',
@@ -60,7 +64,7 @@ class SegUsuarioFixture extends TestFixture
                 'NUMERO_TELEFONO' => 'Lorem ipsum dolor sit amet',
                 'NACIONALIDAD' => 'Lorem ipsum dolor sit amet',
                 'ACTIVO' => 'L',
-                'ESTUDIANTE' => 'L'
+                'SEG_ROL' => 1
             ],
         ];
         parent::init();
