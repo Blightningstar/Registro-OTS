@@ -57,7 +57,7 @@
                 <td><?= $this->Number->format($proCurso->CREDITOS) ?></td>
                 <td><?= h($proCurso->IDIOMA) ?></td>
                 <td><?= h($proCurso->LOCACION) ?></td>
-                <td><?= h($proCurso->ACTIVO) ?></td>
+                <!--<td><?= h($proCurso->ACTIVO) ?></td>
                  <!--<td><?= h($proCurso->PRO_PROGRAMA) ?></td>
                 <td><?= h($proCurso->SEG_USUARIO) ?></td>
                 <td><?= h($proCurso->SOL_FORMULARIO) ?></td>-->

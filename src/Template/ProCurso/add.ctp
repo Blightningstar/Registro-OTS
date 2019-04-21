@@ -17,7 +17,7 @@
     
         <br>
         <?php
-            echo $this->Form->control('pro_curso', ['label' => _('Course ID')]);
+            echo $this->Form->control('PRO_CURSO', ['label' => _('Course ID')]);
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name')]);
             echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'class'=>'datepicker']);
             echo $this->Form->control('FECHA_FINALIZACION', ['label' => _('Final date'), 'class'=>'datepicker']);
@@ -25,8 +25,8 @@
             echo $this->Form->control('CREDITOS', ['label' => _('Academic charge'),'type' => 'number','value' => 0 ,'min'=> 0, 'max'=> 20]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language')]);
             echo $this->Form->control('LOCACION', ['label' => _('Location')]);
-            echo $this->Form->control('ACTIVO', ['label' => _(' Active'), 'type' => 'checkbox']);
-            /*echo $this->Form->input('PRO_PROGRAMA', ['label' => _('Program'), 'type' => 'select', 'options' => array($vlc_DsPrograma)]);
+            /*echo $this->Form->control('ACTIVO', ['label' => _(' Active'), 'type' => 'checkbox']);*/
+            /*echo $this->Form->input('PRO_PROGRAMA', ['label' => _('Program'), 'type' => 'select', 'options' => $vlc_DsPrograma]);
             echo $this->Form->control('SEG_USUARIO', ['label' => _('Username')]);
             echo $this->Form->control('SOL_FORMULARIO', ['label' => _('Form')]);*/
         ?>

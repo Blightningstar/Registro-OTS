@@ -5,10 +5,12 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * ProCurso Model
  *
+ * @author Jason Zamora Trejos
  * @method \App\Model\Entity\ProCurso get($primaryKey, $options = [])
  * @method \App\Model\Entity\ProCurso newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\ProCurso[] newEntities(array $data, array $options = [])
@@ -50,7 +52,8 @@ class ProCursoTable extends Table
         $validator
             ->scalar('PRO_CURSO')
             ->maxLength('PRO_CURSO', 256)
-            ->allowEmptyString('PRO_CURSO', 'create');
+            ->requirePresence('PRO_CURSO', 'create')
+            ->allowEmptyString('PRO_CURSO', false);
 
         $validator
             ->scalar('NOMBRE')

@@ -13,7 +13,7 @@
         <p class = "subtitulo"><?=__('View the information of a course')?></p>
     </legend>
     <?php
-            echo $this->Form->control('pro_curso', ['label' => _('Course ID'), 'readonly']);
+            echo $this->Form->control('PRO_CURSO', ['label' => _('Course ID'), 'readonly']);
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name'), 'readonly']);
             echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'disabled']);
             echo $this->Form->control('FECHA_FINALIZACION', ['label' => _('Final date'), 'disabled']);
