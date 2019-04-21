@@ -34,7 +34,7 @@ class SegUsuarioController extends AppController
     {
         $lc_newPassword= "";
 
-        for($lc_iteration = 0; $lc_iteration < 20; $lc_iteration = $lc_iteration + 1)
+        for($lc_iteration = 0; $lc_iteration < 18; $lc_iteration = $lc_iteration + 1)
         {
             $ln_random = rand(65,90);
             
@@ -44,6 +44,9 @@ class SegUsuarioController extends AppController
             $lc_character = chr($ln_random);
             $lc_newPassword = $lc_newPassword . $lc_character;
         }
+        $lc_newPassword = $lc_newPassword . chr(rand(50,56));
+
+ 
         return $lc_newPassword;
     }
 
@@ -53,7 +56,8 @@ class SegUsuarioController extends AppController
      */
     function getActualUsername()
     {
-        return "Superusuario";
+        $actualUser = $this->viewVars['actualUser'];
+        return $actualUser["NOMBRE_USUARIO"];
     }
 
     /**
@@ -63,6 +67,7 @@ class SegUsuarioController extends AppController
      */
     function actualRole()
     {
+        
         return $this->SegUsuario->getUserRoleByUsername($this->getActualUsername());
     }
 
@@ -74,6 +79,7 @@ class SegUsuarioController extends AppController
      */
     public function index()
     {
+        $actualUser = $this->viewVars['actualUser'];
         $lc_role = $this->actualRole();
  
         //Redirect students 
@@ -96,7 +102,7 @@ class SegUsuarioController extends AppController
      */
     public function view($id = null)
     {
-
+   
         //Redirect students 
         $lc_role = $this->actualRole();
         if( $lc_role == "1")
@@ -172,12 +178,7 @@ class SegUsuarioController extends AppController
      */
     public function register()
     {
-        $lc_role = $this->actualRole();
-        //Redirect students 
-        if( $lc_role == "1")
-        {
-            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
-        }
+
 
         $segUsuario = $this->SegUsuario->newEntity();
         if ($this->request->is('post')) {
@@ -198,7 +199,7 @@ class SegUsuarioController extends AppController
                     $this->Flash->success(__('User was added correctly. Password: ' . $lc_password));
 
 
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
                 }
                 $this->Flash->error(__("Error: User can't be added"));
             }
@@ -275,9 +276,14 @@ class SegUsuarioController extends AppController
     }
 
 
+    /** Obtains authenticated user id
+     * @author Esteban Rojas.
+     * @return String username.
+     */
     public function obtenerUsuarioActual()
     {
-        return "US-2060";
+        $actualUser = $this->viewVars['actualUser'];
+        return $actualUser['SEG_USUARIO'];
     }
 
         /**

@@ -17,6 +17,7 @@
 
             
             <?php 
+  
                 if($actualUser){
                     echo $this->Html->link( "Cerrar sesión",   array('controller' => 'seguridad', 'action' => 'logout'), [ 'class' => 'menuItem'] );
                 }else{
