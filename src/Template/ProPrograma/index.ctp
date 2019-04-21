@@ -6,9 +6,11 @@
  */
 ?>
     <fieldset>
-        <legend class = "titulo">Administración de Programas<br></br>
-        <legend class = "subtitulo">Lista de Programas<br></br></legend>
+
+    <legend class = "titulo">Administración de Programas<br></br>
+        <p class = "subtitulo"> Lista de Programas Actuales</p>
     </legend>
+
     <br>
     <!--Linkea el boton a para que redireccione al agregar usuario -->
     <button type="button" class="botonAgregar">
@@ -38,16 +40,26 @@
 
                 <td><?= h($proPrograma->NOMBRE) ?></td>
 
-                <td  class="actions">
-                    <?= $this->Html->link(__('Ver'), ['action' => 'view', $proPrograma->PRO_PROGRAMA]) ?>
+                <!-- Botones Consultar, Modificar y Borrar de la grilla de Programas -->
+                <td class="actions">
+                <button type="button" class="botonAccion btn btn-xs"> 
+                        <?= $this->Html->link(__('Ver'), ['controller' => 'programa', 'action' => 'view', $proPrograma->PRO_PROGRAMA]) ?>    
+                    </button>
                 </td>
 
-                <td  class="actions">
-                    <?= $this->Html->link(__('Modificar'), ['action' => 'edit', $proPrograma->PRO_PROGRAMA]) ?>
-                </td> 
-                <td  class="actions">
-                    <?= $this->Form->postLink(__('Borrar'), ['action' => 'delete', $proPrograma->PRO_PROGRAMA], ['confirm' => __('Are you sure you want to delete # {0}?', $proPrograma->PRO_PROGRAMA)]) ?>
-                </td> 
+                <td class="actions">
+                <button type="button" class="botonAccion btn btn-xs"> 
+                        <?= $this->Html->link(__('Modificar'), ['controller' => 'programa', 'action' => 'edit', $proPrograma->PRO_PROGRAMA]) ?>    
+                    </button>
+                </td>
+
+                <td class="actions">
+                <button type="button" class="botonAccion btn btn-xs"> 
+                        <?= $this->Html->link(__('Borrar'), ['controller' => 'programa', 'action' => 'delete', $proPrograma->PRO_PROGRAMA], ['confirm' => __('Are you sure you want to delete # {0}?', $proPrograma->PRO_PROGRAMA)]) ?>    
+                    </button>
+                </td>
+
+
             </tr>
             <?php endforeach; ?>
         </tbody>
