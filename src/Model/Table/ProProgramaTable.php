@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * ProPrograma Model
@@ -61,5 +62,28 @@ class ProProgramaTable extends Table
             ->allowEmptyString('ACTIVO');
 
         return $validator;
+    }
+
+    /**
+     *  Checks if there is already a program with that name
+     *  @author Anyelo Lobo
+     *  @return 0 if program don't exist, 1 if exist
+     */
+    public function checkUniqueData($lc_name)
+    {
+        $lc_code = "0";
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT NOMBRE FROM PRO_PROGRAMA WHERE NOMBRE = '$lc_name'");
+
+        $result = $result->fetchAll('assoc');
+        if(empty($result) == 0)
+        {
+   
+            if($result[0]["NOMBRE"] == $lc_name)
+                $lc_code = "1";
+            
+        }
+
+        return $lc_code;
     }
 }
