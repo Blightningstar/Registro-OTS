@@ -4,17 +4,21 @@
  * @var \App\Model\Entity\SolPreguntum $solPreguntum
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-         <li><?= $this->Html->link(__('Edit this question'), ['action' => 'edit', $solPreguntum->SOL_PREGUNTA]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete this question'), ['action' => 'delete', $solPreguntum->SOL_PREGUNTA], ['confirm' => __('Are you sure you want to delete # {0}?', $solPreguntum->SOL_PREGUNTA)]) ?> </li>
-        <li><?= $this->Html->link(__('Question bank'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('Add a new question'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
+
 <div class="solPregunta view large-9 medium-8 columns content">
-    <h3><?= h($solPreguntum->SOL_PREGUNTA) ?></h3>
+   
+
+
+<fieldset>
+        <legend class = "titulo"><?= __(h($solPreguntum->SOL_PREGUNTA)) ?>
+        <br></br>
+        <p class = "subtitulo"> <?= __('Info about this question') ?></p>
+    </legend>
+    <br>
+
+
+
+
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Description in spanish') ?></th>
@@ -72,11 +76,11 @@
 
             <?php endif ?>
 
-
-
-
-
-
         </tr>
     </table>
+<a href=".."> <button type="button" class="botonCancelar"><?= __('Go back') ?></button> </a>
 </div>
+
+
+
+
