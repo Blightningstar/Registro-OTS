@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Controller\ProProgramaController;
+use Cake\Event\Event;
 use Cake\Validation\Validator;
 use Cake\Datasource\ConnectionManager;
 
@@ -16,7 +17,11 @@ use Cake\Datasource\ConnectionManager;
 class ProCursoController extends AppController
 {
 
-    //public $programa = array('ProCurso', 'ProPrograma');
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarCourses');
+    }
     
     /**
      * Index method
