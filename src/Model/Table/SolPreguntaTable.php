@@ -1,6 +1,6 @@
 <?php
 namespace App\Model\Table;
-
+ use Cake\Datasource\ConnectionManager;   
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -76,4 +76,70 @@ class SolPreguntaTable extends Table
 
         return $validator;
     }
+
+
+     /**
+     *  Iser
+     *  @author Joel Chaves
+     *  @param string $dEsp, it's the question's description in spanish
+     *  @param string $dIng, it's the question's description in english
+     *  @param string $tipo, it's the question's type
+     *  @param string $req, it's the question's type required atributte
+     *  @param string $act, it's the question's type active attribute, its state
+     *  @return 1 when succeded
+     */
+    public function insertarPregunta($dEsp, $dIng, $tipo, $req, $act)
+    {
+        $temp=$this->returnMaxSolPregunta ();
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("INSERT INTO sol_pregunta VALUES ($temp, '$dEsp', '$dIng', $tipo, $req, $act)");
+        return 1;
+    }
+
+
+     /**
+     *  Return the max integer value from SOL_PREGUNTA 
+     *  @author Joel Chaves
+     *  @return the max integer value from the column sol_pregunta from SOL_PREGUNTA table, null if there's nothing in the table
+     */
+    public function returnMaxSolPregunta ()
+    {
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT MAX(SOL_PREGUNTA) FROM sol_pregunta");
+        $result = $result->fetchAll('assoc');
+
+        $maximo=$result[0]['MAX(SOL_PREGUNTA)'];
+       
+        if ($maximo==null)
+        {
+
+            $result=0;
+        }else
+        {
+            $result=$maximo+1;
+        }
+        debug($maximo);
+       debug($result);
+        return $result;
+    }
+
+
+
+     /**
+     *  Logically deletes a question from the datebase, it changes the value ACTIVO from 0 to 1 
+     *  @author Joel Chaves
+     *  @param int $id, it's the question identifier
+     *  @return 1 when succeded
+     */
+     public function desactivarPregunta ($id)
+    {
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("UPDATE sol_pregunta SET ACTIVO=1 WHERE SOL_PREGUNTA= $id");
+       return 1;
+    }
+   
+
+  
 }

@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Mailer\Email;
+use Cake\Event\Event;
 
 /**
  * SegUsuario Controller
@@ -14,6 +15,12 @@ use Cake\Mailer\Email;
 class SegUsuarioController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarUsers');
+    }
+    
     /**
      *  Checks if the username or email is already on database
      *  @author Esteban Rojas
@@ -34,7 +41,7 @@ class SegUsuarioController extends AppController
     {
         $lc_newPassword= "";
 
-        for($lc_iteration = 0; $lc_iteration < 20; $lc_iteration = $lc_iteration + 1)
+        for($lc_iteration = 0; $lc_iteration < 18; $lc_iteration = $lc_iteration + 1)
         {
             $ln_random = rand(65,90);
             
@@ -44,6 +51,9 @@ class SegUsuarioController extends AppController
             $lc_character = chr($ln_random);
             $lc_newPassword = $lc_newPassword . $lc_character;
         }
+        $lc_newPassword = $lc_newPassword . chr(rand(50,56));
+
+ 
         return $lc_newPassword;
     }
 
@@ -53,7 +63,8 @@ class SegUsuarioController extends AppController
      */
     function getActualUsername()
     {
-        return "EstebanRojasNuevo";
+        $actualUser = $this->viewVars['actualUser'];
+        return $actualUser["NOMBRE_USUARIO"];
     }
 
     /**
@@ -63,6 +74,9 @@ class SegUsuarioController extends AppController
      */
     function actualRole()
     {
+        $actualUser = $this->viewVars['actualUser'];
+        if(($actualUser["NOMBRE_USUARIO"]) == null)
+            return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
         return $this->SegUsuario->getUserRoleByUsername($this->getActualUsername());
     }
 
@@ -74,6 +88,7 @@ class SegUsuarioController extends AppController
      */
     public function index()
     {
+        $actualUser = $this->viewVars['actualUser'];
         $lc_role = $this->actualRole();
  
         //Redirect students 
@@ -96,7 +111,7 @@ class SegUsuarioController extends AppController
      */
     public function view($id = null)
     {
-
+   
         //Redirect students 
         $lc_role = $this->actualRole();
         if( $lc_role == "1")
@@ -172,12 +187,7 @@ class SegUsuarioController extends AppController
      */
     public function register()
     {
-        $lc_role = $this->actualRole();
-        //Redirect students 
-        if( $lc_role == "1")
-        {
-            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
-        }
+
 
         $segUsuario = $this->SegUsuario->newEntity();
         if ($this->request->is('post')) {
@@ -198,7 +208,7 @@ class SegUsuarioController extends AppController
                     $this->Flash->success(__('User was added correctly. Password: ' . $lc_password));
 
 
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
                 }
                 $this->Flash->error(__("Error: User can't be added"));
             }
@@ -275,9 +285,14 @@ class SegUsuarioController extends AppController
     }
 
 
+    /** Obtains authenticated user id
+     * @author Esteban Rojas.
+     * @return String username.
+     */
     public function obtenerUsuarioActual()
     {
-        return "US-2060";
+        $actualUser = $this->viewVars['actualUser'];
+        return $actualUser['SEG_USUARIO'];
     }
 
         /**
@@ -339,6 +354,7 @@ class SegUsuarioController extends AppController
      */
     public function profileView($id = null)
     {
+        $this->set('active_title', 'User');
         //Obtain logged user id
         $id = $this->obtenerUsuarioActual();
 
@@ -378,5 +394,83 @@ class SegUsuarioController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * getHash
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Calls its model function to get the hashed password from the user known by $username.
+     * @param string $username, it's the user identificator.
+     * @return string the hashed password of the user.
+     */
+    public function getHash($username) {
+        $userTable=$this->loadmodel('SegUsuario');
+        return $userTable->getHash($username);
+    }
+
+    /**
+     * setHash
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to set the hashed password $hash to the user known by $userdata.
+     * @param string $userdata, it's the user identificator.
+     * @param string $hash, it's the new hashed password of the user.
+     */
+    public function setHash($userdata,$hash) {
+        $userTable=$this->loadmodel('SegUsuario');
+        $userTable->setHash($userdata,$hash);
+    }
+
+    /**
+     * getCode
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to get the restauration code from the user known by his $email.
+     * @param string $email, it's the user identificator.
+     * @return string the restauration code of the user.
+     */
+    public function getCode($email) {
+        $userTable=$this->loadmodel('SegUsuario');
+        return $userTable->getCode($email);
+    }
+
+    /**
+     * setCode
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to set the restauration code to the user known by his $email.
+     * @param string $email, it's the user identificator.
+     * @param string $code, it's the new restauration code of the user.
+     */
+    public function setCode($email,$code) {
+        $userTable=$this->loadmodel('SegUsuario');
+        $userTable->setCode($email,$code);
+    }
+
+    /**
+     * getEmailByUserData
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to get the email of the user known by $userdata.
+     * @param string $userdata, it's the user email or username.
+     * @return string the user email.
+     */
+    public function getEmailByUserData($userdata){
+        $userTable=$this->loadmodel('SegUsuario');
+        return $userTable->getEmailByUserData($userdata);
+    }
+
+    /**
+     * getUser
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to get all the user data.
+     * @param string $userdata, it's the user email or username.
+     * @return string all the user data.
+     */
+    public function getUser($userdata, $hash){
+        $userTable=$this->loadmodel('SegUsuario');
+        return $userTable->getUser($userdata, $hash);
     }
 }

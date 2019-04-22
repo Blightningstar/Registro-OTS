@@ -145,14 +145,14 @@ class RequestsController extends AppController
      * tiene el mismo formato que la boleta de asistencia
      * que se debe presentar en secretaría.
      */
-    function print($id = null) {
+   /* function print($id = null) {
         
         $this->viewBuilder()->setLayout('request');
 
         $request = $this->Requests->getAllRequestInfo($id);
 
         $this->set('request', $request);
-    }
+    }*/
 
     public function get_round_start_date()
     {
