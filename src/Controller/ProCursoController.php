@@ -26,7 +26,6 @@ class ProCursoController extends AppController
     public function index()
     {
         $proCurso = $this->paginate($this->ProCurso);
-//        $proPrograma = $this->loadModel('pro_programa');
         $this->loadModel('ProPrograma');
         $this->ProPrograma->find('all');
         $this->set(compact('proCurso'));
@@ -57,9 +56,6 @@ class ProCursoController extends AppController
     public function add()
     {
         $programaTable = $this->loadModel('pro_programa');
-        //debug($programaTable);
-        /*// Converting the query to a key-value array will also execute it.
-        $vlc_DsPrograma = toArray();*/
         $proCurso = $this->ProCurso->newEntity();
         if ($this->request->is('post')) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
@@ -67,8 +63,6 @@ class ProCursoController extends AppController
             $limit = $form_data['FECHA_LIMITE'];
             $end = $form_data['FECHA_FINALIZACION'];
             $start = $form_data['FECHA_INICIO'];
-//            $vlc_DsPrograma = $this->patchEntity($programaTable, $this->request->getData());
-//            debug($vlc_DsPrograma);
             $lc_code = $this->checkUniqueData($proCurso["PRO_CURSO"]);
             if($lc_code == "1")
             {
@@ -98,11 +92,9 @@ class ProCursoController extends AppController
     public function edit($id = null)
     {
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
-        debug($proCurso);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
-            debug($form_data);
             $limit = $form_data['FECHA_LIMITE'];
             $end = $form_data['FECHA_FINALIZACION'];
             $start = $form_data['FECHA_INICIO'];
@@ -115,9 +107,7 @@ class ProCursoController extends AppController
             {
                $lo_connet = ConnectionManager::get('default');
                $lc_SiglaCurso = $proCurso["PRO_CURSO"];
-               debug( $lc_SiglaCurso);
                $lc_SiglaForm = $form_data["PRO_CURSO"];
-               debug( $lc_SiglaForm);
                $lc_result = $lo_connet->execute("
                update pro_curso 
                set PRO_CURSO = '$lc_SiglaForm' 
