@@ -37,9 +37,8 @@
                 <th scope="col"><?= $this->Paginator->sort('Language') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Location') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
-               <!-- <th scope="col"><?= $this->Paginator->sort('PRO_PROGRAMA') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('SEG_USUARIO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('SOL_FORMULARIO') ?></th>-->
+                <!--<th scope="col"><?= $this->Paginator->sort('PRO_PROGRAMA') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('SEG_USUARIO') ?></th>-->
                 <th scope="col" class="actions"><?= __('') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
@@ -51,6 +50,11 @@
             <tr>
                 <td><?= h($proCurso->PRO_CURSO) ?></td>
                 <td><?= h($proCurso->NOMBRE) ?></td>
+                <?php   //Converts the format of the dates in one that the database can save it.
+                     $proCurso->FECHA_INICIO = date("Y-m-d", strtotime($proCurso->FECHA_INICIO)); 
+                     $proCurso->FECHA_FINALIZACION = date("Y-m-d", strtotime($proCurso->FECHA_FINALIZACION));
+                     $proCurso->FECHA_LIMITE = date("Y-m-d", strtotime($proCurso->FECHA_LIMITE));          
+                ?>
                 <td><?= h($proCurso->FECHA_INICIO) ?></td>
                 <td><?= h($proCurso->FECHA_FINALIZACION) ?></td>
                 <td><?= h($proCurso->FECHA_LIMITE) ?></td>
@@ -59,8 +63,7 @@
                 <td><?= h($proCurso->LOCACION) ?></td>
                 <td><?= h($proCurso->ACTIVO) ?></td>
                  <!--<td><?= h($proCurso->PRO_PROGRAMA) ?></td>
-                <td><?= h($proCurso->SEG_USUARIO) ?></td>
-                <td><?= h($proCurso->SOL_FORMULARIO) ?></td>-->
+                <td><?= h($proCurso->SEG_USUARIO) ?></td>-->
                 <td class="actions">
                 <!-- Links the view button to the course-->
                 <button type="button" class="botonAccion btn btn-xs"> 
