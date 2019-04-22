@@ -5,24 +5,32 @@
 ?>
 
 <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between" style="background-color:#659F31">
-        <a class="navbar-nav">
+        <div class="navbar-nav">
 	
-            <?= $this->Html->image('logo.png', ['style' => 'height:50px'])?>
-        </a>
+            <?= $this->Html->image('Logos/eng/s/3.png', ['style' => 'height:50px'])?>
+        
+        </div>
 
+  
         <div class="navbar-bar">
-            <?php echo $this->Html->link( $actualUser['NOMBRE_USUARIO'],   array('controller' => 'usuario', 'action' => 'edit', $actualUser['SEG_USUARIO']), [ 'class' => 'menuItem'] ); ?>
+            <?php echo $this->Html->link( $actualUser['NOMBRE_USUARIO'],   array('controller' => 'usuario', 'action' => 'profileView'), [ 'class' => 'menuItem'] ); ?>
 
             
             <?php 
+  
                 if($actualUser){
-                    echo $this->Html->link( "Cerrar sesión",   array('controller' => 'seguridad', 'action' => 'logout'), [ 'class' => 'menuItem'] );
+                    echo $this->Html->link( "Log Out",   array('controller' => 'seguridad', 'action' => 'logout'), ['class' => 'menuItem'] );
                 }else{
-                    echo $this->Html->link( "Iniciar sesión",   array('controller' => 'seguridad', 'action' => 'login'), [ 'class' => 'menuItem'] ); 
+                    echo $this->Html->link( "Log In",   array('controller' => 'seguridad', 'action' => 'login'), [ 'id'=>'LogIn','class' => 'menuItem'] ); 
                 }
             ?>
-            <?php echo $this->Html->link( "Cambiar a inglés",   array('controller' => 'idioma'), [ 'class' => 'menuItem'] ); ?>
+            <?php //echo $this->Html->link( "Cambiar a inglés",   array('controller' => 'idioma'), [ 'class' => 'menuItem'] ); ?>
 
+
+
+
+    
+            
         </div>
 
 </nav>
