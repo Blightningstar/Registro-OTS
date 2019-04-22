@@ -41,8 +41,6 @@
             ]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'value' => $proCurso ['IDIOMA'], 'placeholder'=> 'Language of the course']);
             echo $this->Form->control('LOCACION', ['label' => _('Location'), 'value' => $proCurso ['LOCACION'], 'placeholder'=> 'Location of the course']);
-            /*echo $this->Form->input('PRO_PROGRAMA', ['label' => _('Program'), 'type' => 'select', 'options' => array($vlc_DsPrograma)]);
-            echo $this->Form->control('SEG_USUARIO', ['label' => _('Username')]);*/
         ?>
     </fieldset>
     <br>
