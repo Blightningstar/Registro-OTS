@@ -42,7 +42,7 @@ class SolPreguntaController extends AppController
 
     /**
      * Add method
-     *
+     * @author Joel Chaves
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
@@ -50,19 +50,31 @@ class SolPreguntaController extends AppController
         $solPreguntum = $this->SolPregunta->newEntity();
         if ($this->request->is('post')) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
-            if ($this->SolPregunta->save($solPreguntum)) {
-                $this->Flash->success(__('The sol preguntum has been saved.'));
+            $temp = $this->request->getData();
+            
+
+            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ESP'],$temp['DESCRIPCION_ING'],$temp['TIPO'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
+                $this->Flash->success(__('The question has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The sol preguntum could not be saved. Please, try again.'));
+            $this->Flash->error(__('The question could not be saved. Please, try again.'));
         }
         $this->set(compact('solPreguntum'));
+
+        $ACTIVO = array('Active','Inactive');
+         $this->set('ACTIVO',$ACTIVO);
+
+         $REQUERIDO = array('Required','Not requered');
+         $this->set('REQUERIDO',$REQUERIDO);
+
+         $TIPO = array('Text','Number','Date', 'Select');
+         $this->set('TIPO',$TIPO);
     }
 
     /**
      * Edit method
-     *
+     * @author Joel Chaves 
      * @param string|null $id Sol Preguntum id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -75,13 +87,22 @@ class SolPreguntaController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
             if ($this->SolPregunta->save($solPreguntum)) {
-                $this->Flash->success(__('The sol preguntum has been saved.'));
+                $this->Flash->success(__('The question has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The sol preguntum could not be saved. Please, try again.'));
+            $this->Flash->error(__('The question could not be saved. Please, try again.'));
         }
         $this->set(compact('solPreguntum'));
+
+        $ACTIVO = array('Active','Inactive');
+         $this->set('ACTIVO',$ACTIVO);
+
+         $REQUERIDO = array('Required','Not requered');
+         $this->set('REQUERIDO',$REQUERIDO);
+
+         $TIPO = array('Text','Number','Date', 'Select');
+         $this->set('TIPO',$TIPO);
     }
 
     /**
@@ -91,16 +112,28 @@ class SolPreguntaController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($id )
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $solPreguntum = $this->SolPregunta->get($id);
-        if ($this->SolPregunta->delete($solPreguntum)) {
-            $this->Flash->success(__('The sol preguntum has been deleted.'));
-        } else {
-            $this->Flash->error(__('The sol preguntum could not be deleted. Please, try again.'));
-        }
+         if ($this->desactivarPregunta($id)) {
+             $this->Flash->success(__('The question has been deleted.'));
+         } else {
+             $this->Flash->error(__('The question could not be deleted. Please, try again.'));
+         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     *  Invokes desactivarPregunta() from the Table
+     *  @author Joel Chaves
+     *  @param int $id, it's the question identifier
+     *  @return 1 when succeded
+     */
+
+    public function desactivarPregunta ($id)
+    {
+        $solPreguntaTable = $this->loadmodel('SolPregunta');
+        $solPreguntaTable->desactivarPregunta($id);
+        return 1;
     }
 }

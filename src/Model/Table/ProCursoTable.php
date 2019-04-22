@@ -33,7 +33,10 @@ class ProCursoTable extends Table
         $this->setTable('pro_curso');
         $this->setDisplayField('PRO_CURSO');
         $this->setPrimaryKey('PRO_CURSO');
-
+        $this->belongsTo('pro_programa',[
+             'foreignKey' => ['pro_curso_ibfk_2'],
+             'bindingKey' => ['PRO_PROGRAMA'],
+             'joinType' => 'INNER']);
     }
 
     /**
