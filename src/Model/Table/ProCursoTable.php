@@ -115,4 +115,18 @@ class ProCursoTable extends Table
 
         return $validator;
     }
+    
+     /**
+     *  @author Jason Zamora Trejos
+     *  Checks the course Active state to show it or not
+     * 
+     *  @return 0 if program don't exist, 1 if exist
+     */
+    public function nonLogicalDelete()
+    {
+        $con = ConnectionManager::get('default');
+        $result = $con->execute("SELECT NOMBRE FROM PRO_CURSO WHERE ACTIVO = '1'");
+        $result = $result->fetchAll('assoc');
+        return $result;
+    }
 }

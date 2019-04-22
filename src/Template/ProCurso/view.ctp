@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Jason Zamora Trejos
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProCurso $proCurso
  */
@@ -14,7 +15,11 @@
         <p class = "subtitulo"><?=__('View the information of a course')?></p>
     </legend>
     <?php
-    
+            //Converts the format of the dates in one that the database can save it.
+            $proCurso->FECHA_INICIO = date("Y-m-d", strtotime($proCurso->FECHA_INICIO)); 
+            $proCurso->FECHA_FINALIZACION = date("Y-m-d", strtotime($proCurso->FECHA_FINALIZACION));
+            $proCurso->FECHA_LIMITE = date("Y-m-d", strtotime($proCurso->FECHA_LIMITE));          
+            //Displays the data of a course.
             echo $this->Form->control('PRO_CURSO', ['label' => _('Course ID'), 'disabled', 'value' => $proCurso['PRO_CURSO']]);
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name'), 'disabled','value' => $proCurso['NOMBRE']]);
             echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'disabled','value' => $proCurso['FECHA_INICIO']]);
@@ -23,10 +28,8 @@
             echo $this->Form->control('CREDITOS', ['label' => _('Academic charge'),'type' => 'number', 'disabled','value' => $proCurso['CREDITOS']]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'disabled','value' => $proCurso['IDIOMA']]);
             echo $this->Form->control('LOCACION', ['label' => _('Location'), 'disabled','value' => $proCurso['LOCACION']]);
-            //echo $this->Form->control('ACTIVO', ['label' => _(' Active'), 'type' => 'checkbox']);
             /*echo $this->Form->input('PRO_PROGRAMA', ['label' => _('Program'), 'type' => 'select', 'options' => array($vlc_DsPrograma)]);
-            echo $this->Form->control('SEG_USUARIO', ['label' => _('Username')]);
-            echo $this->Form->control('SOL_FORMULARIO', ['label' => _('Form')]);*/
+            echo $this->Form->control('SEG_USUARIO', ['label' => _('Username')]);*/
     ?>
  </fieldset>
     <a href=".."> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a>

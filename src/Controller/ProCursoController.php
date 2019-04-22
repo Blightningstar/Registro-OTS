@@ -3,6 +3,9 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Controller\ProProgramaController;
+use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
+
 /**
  * ProCurso Controller
  * @author Jason Zamora Trejos
@@ -13,6 +16,8 @@ use App\Controller\ProProgramaController;
 class ProCursoController extends AppController
 {
 
+    //public $programa = array('ProCurso', 'ProPrograma');
+    
     /**
      * Index method
      *
@@ -21,8 +26,11 @@ class ProCursoController extends AppController
     public function index()
     {
         $proCurso = $this->paginate($this->ProCurso);
-        $this->loadModel('pro_programa');
+//        $proPrograma = $this->loadModel('pro_programa');
+        $this->loadModel('ProPrograma');
+        $this->ProPrograma->find('all');
         $this->set(compact('proCurso'));
+        $this->set(compact('proPrograma'));
     }
 
     /**
@@ -48,32 +56,36 @@ class ProCursoController extends AppController
      */
     public function add()
     {
-        //$programaTable = $this->loadModel('pro_programa');
-        
-        //$limit = $this->mirrorDate($proCurso['FECHA_LIMITE']);
+        $programaTable = $this->loadModel('pro_programa');
+        //debug($programaTable);
         /*// Converting the query to a key-value array will also execute it.
         $vlc_DsPrograma = toArray();*/
         $proCurso = $this->ProCurso->newEntity();
         if ($this->request->is('post')) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
-//            debug($form_data);
-//            die();
- //           $limit = $this->mirrorDate($proCurso['FECHA_LIMITE']);
             $limit = $form_data['FECHA_LIMITE'];
-           // debug($limit);
-            //die();
             $end = $form_data['FECHA_FINALIZACION'];
             $start = $form_data['FECHA_INICIO'];
-            //$vlc_DsPrograma = $this->ProPrograma->patchEntity($proPrograma, $this->request->getData());
-            if ($this->ProCurso->save($proCurso, $start, $end, $limit)) {
-                $this->Flash->success(__('The curso has been saved.'));
+//            $vlc_DsPrograma = $this->patchEntity($programaTable, $this->request->getData());
+//            debug($vlc_DsPrograma);
+            $lc_code = $this->checkUniqueData($proCurso["PRO_CURSO"]);
+            if($lc_code == "1")
+            {
+               $this->Flash->error(__('The course alredy exits in the system.'));
+            }
+            else
+            {
+               if ($this->ProCurso->save($proCurso, $start, $end, $limit)) {
+                $this->Flash->success(__('The course has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The curso could not be saved. Please, try again.'));
+            }
+            $this->Flash->error(__('The course could not be saved. Please, try again.'));
         }
         $this->set(compact('proCurso'));
+        $this->set(compact('proPrograma'));
     }
 
     /**
@@ -85,21 +97,38 @@ class ProCursoController extends AppController
      */
     public function edit($id = null)
     {
-        $proCurso = $this->ProCurso->get($id, [
-            'contain' => []
-        ]);
+        $proCurso = $this->ProCurso->get($id, ['contain' => []]);
+        debug($proCurso);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
-            //debug($form_data);
-            //debug($proCurso);
-            //die();
-            // TODO: verificar que la llave colocada en form_data("pro_curso") está disponible
-            // TODO: alterar la llave de $proCurso("PRO_CURSO") = form_data("pro_curso")
-            if ($this->ProCurso->save($proCurso)) {
-                $this->Flash->success(__('The course has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            debug($form_data);
+            $limit = $form_data['FECHA_LIMITE'];
+            $end = $form_data['FECHA_FINALIZACION'];
+            $start = $form_data['FECHA_INICIO'];
+            $lc_code = $this->checkUniqueData($proCurso["PRO_CURSO"]);
+            if($lc_code == "1" && $proCurso["NOMBRE"] != $form_data["NOMBRE"])
+            {
+               $this->Flash->error(__('The course alredy exits in the system.'));
+            }
+            else 
+            {
+               $lo_connet = ConnectionManager::get('default');
+               $lc_SiglaCurso = $proCurso["PRO_CURSO"];
+               debug( $lc_SiglaCurso);
+               $lc_SiglaForm = $form_data["PRO_CURSO"];
+               debug( $lc_SiglaForm);
+               $lc_result = $lo_connet->execute("
+               update pro_curso 
+               set PRO_CURSO = '$lc_SiglaForm' 
+               where PRO_CURSO = '$lc_SiglaCurso'
+               ");
+               if ($this->ProCurso->save($proCurso, $start, $end, $limit)) 
+               {
+                  $this->Flash->success(__('The course has been saved.'));
+   
+                  return $this->redirect(['action' => 'index']);
+               }
             }
             $this->Flash->error(__('The course could not be saved. Please, try again.'));
         }
@@ -117,7 +146,7 @@ class ProCursoController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $proCurso = $this->ProCurso->get($id);
-        if ($this->ProCurso->delete($proCurso)) {
+        if ($this->logicalDelete($id)) {
             $this->Flash->success(__('The course has been deleted.'));
         } else {
             $this->Flash->error(__('The course could not be deleted. Please, try again.'));
@@ -125,4 +154,39 @@ class ProCursoController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+     /**
+     * @author Jason Zamora Trejos
+     * Logically delete a course
+     * 
+     */
+    public function logicalDelete($id)
+    {
+        $con = ConnectionManager::get('default');
+        $result = $con->execute("update pro_curso set activo = '0' where PRO_CURSO = '$id'");
+        return 1;
+    }
+    
+    
+    
+    /**
+     * @author Jason Zamora Trejos
+     * If the course exists shows it.
+     * 
+     */
+     public function checkUniqueData($lc_Id)
+    {
+        $lc_code = "0";
+        $lo_connet = ConnectionManager::get('default');
+        $lc_result = $lo_connet->execute("SELECT PRO_CURSO FROM pro_curso WHERE PRO_CURSO = '$lc_Id'");
+        $lc_result = $lc_result->fetchAll('assoc');
+        if(empty($lc_result) == 0)
+        {
+   
+            if($lc_result[0]["PRO_CURSO"] == $lc_Id)
+                $lc_code = "1";
+            
+        }
+        return $lc_code;
+    }
+
 }

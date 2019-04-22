@@ -16,25 +16,33 @@
    </legend>
    <br>
         <?php
-            
-           /* echo $this->Form->control('pro_curso', [
+           //Converts the format of the dates in one that the database can save it.
+           $proCurso->FECHA_INICIO = date("Y-m-d", strtotime($proCurso->FECHA_INICIO)); 
+           $proCurso->FECHA_FINALIZACION = date("Y-m-d", strtotime($proCurso->FECHA_FINALIZACION));
+           $proCurso->FECHA_LIMITE = date("Y-m-d", strtotime($proCurso->FECHA_LIMITE));
+                 
+           //Displays the data of a course.    
+           echo $this->Form->control('PRO_CURSO', [
                'label' => _('Course ID'),
                'value' => $proCurso ['PRO_CURSO'],
-               'pattern' => 'hola', 
-               'placeholder' => 'hint'
-            ]);*/
-            echo $this->Form->control('pro_curso', ['label' => _('Course ID'),'value' => $proCurso ['PRO_CURSO']);
+               'pattern' => '[a-zA-Z]{2}\-[0-9]{4}', 
+               'placeholder' => 'e.g. "CI-2020"'
+            ]);
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name'),'value' => $proCurso ['NOMBRE']]);
             echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'class'=>'datepicker','value' => $proCurso ['FECHA_INICIO']]);
             echo $this->Form->control('FECHA_FINALIZACION', ['label' => _('Final date'), 'class'=>'datepicker', 'value' => $proCurso ['FECHA_FINALIZACION']]);
             echo $this->Form->control('FECHA_LIMITE', ['label' => _('Last enrollment date'), 'class'=>'datepicker','value' => $proCurso ['FECHA_LIMITE']]);
-            echo $this->Form->control('CREDITOS', ['label' => _('Academic charge'),'type' => 'number','min'=> 0, 'max'=> 20,'value' => $proCurso ['CREDITOS']]);
-            echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'value' => $proCurso ['IDIOMA']]);
-            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'value' => $proCurso ['LOCACION']]);
-            /*echo $this->Form->control('ACTIVO', ['label' => _(' Active'), 'type' => 'checkbox']);*/
+            echo $this->Form->control('CREDITOS', [
+               'label' => _('Academic charge'),
+               'type' => 'number',
+               'value' => $proCurso ['CREDITOS'] ,
+               'pattern'=> '^(?:[0-9]|0[0-9]|1[0-9]|20)$', 
+               'placeholder'=> 'number from 1 to 20'
+            ]);
+            echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'value' => $proCurso ['IDIOMA'], 'placeholder'=> 'Language of the course']);
+            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'value' => $proCurso ['LOCACION'], 'placeholder'=> 'Location of the course']);
             /*echo $this->Form->input('PRO_PROGRAMA', ['label' => _('Program'), 'type' => 'select', 'options' => array($vlc_DsPrograma)]);
-            echo $this->Form->control('SEG_USUARIO', ['label' => _('Username')]);
-            echo $this->Form->control('SOL_FORMULARIO', ['label' => _('Form')]);*/
+            echo $this->Form->control('SEG_USUARIO', ['label' => _('Username')]);*/
         ?>
     </fieldset>
     <br>
@@ -49,6 +57,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $( function() {
-    $( ".datepicker" ).datepicker({'dateFormat':'dd/mm/yy', changeMonth: true, changeYear: true});
+    $( ".datepicker" ).datepicker({'dateFormat':'yy-mm-dd', changeMonth: true, changeYear: true});
   } );
 </script>
