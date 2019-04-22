@@ -103,9 +103,20 @@ class ProProgramaController extends AppController
     }
 
 
+     /**
+     * Removes logically a program by his id
+     * From S to N
+     *
+     * @return Succesful logical delete or not.
+     */
+    public function deleteProgram($id)
+    {
+        return $this->ProPrograma->deleteProgram($id);
+    }
+
     /**
      * Delete method
-     *
+     * 
      * @param string|null $id Pro Programa id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -114,11 +125,12 @@ class ProProgramaController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $proPrograma = $this->ProPrograma->get($id);
-        if ($this->ProPrograma->delete($proPrograma)) {
-            $this->Flash->success(__('The pro programa has been deleted.'));
+        if ($this->deleteProgram($id)) {
+            $this->Flash->success(__('The program was erased correctly'));
         } else {
-            $this->Flash->error(__('The pro programa could not be deleted. Please, try again.'));
+            $this->Flash->error(__("Error: the program can't be removed."));
         }
+
         return $this->redirect(['action' => 'index']);
     }
 }
