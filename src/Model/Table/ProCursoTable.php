@@ -5,10 +5,12 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * ProCurso Model
  *
+ * @author Jason Zamora Trejos
  * @method \App\Model\Entity\ProCurso get($primaryKey, $options = [])
  * @method \App\Model\Entity\ProCurso newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\ProCurso[] newEntities(array $data, array $options = [])
@@ -50,7 +52,8 @@ class ProCursoTable extends Table
         $validator
             ->scalar('PRO_CURSO')
             ->maxLength('PRO_CURSO', 256)
-            ->allowEmptyString('PRO_CURSO', 'create');
+            ->requirePresence('PRO_CURSO', 'create')
+            ->allowEmptyString('PRO_CURSO', false);
 
         $validator
             ->scalar('NOMBRE')
@@ -111,5 +114,19 @@ class ProCursoTable extends Table
             ->allowEmptyString('SOL_FORMULARIO');
 
         return $validator;
+    }
+    
+     /**
+     *  @author Jason Zamora Trejos
+     *  Checks the course Active state to show it or not
+     * 
+     *  @return 0 if program don't exist, 1 if exist
+     */
+    public function nonLogicalDelete()
+    {
+        $con = ConnectionManager::get('default');
+        $result = $con->execute("SELECT NOMBRE FROM PRO_CURSO WHERE ACTIVO = '1'");
+        $result = $result->fetchAll('assoc');
+        return $result;
     }
 }
