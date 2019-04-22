@@ -43,6 +43,11 @@ Router::connect('pregunta', array('controller' => 'SolPregunta'));
 Router::connect('permiso/:action', array('controller' => 'SegPermiso'));
 Router::connect('permiso', array('controller' => 'SegPermiso'));
 
+Router::connect('/main', ['controller' => 'MainPage', 'action' => 'index']);
+
+//Router::connect('main/:action', array('controller' => 'MainPage'));
+//Router::connect('main', array('controller' => 'MainPage'));
+
 //Termina Esteban
 
 /**
@@ -88,6 +93,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
 
     $routes->connect('/SegPermiso', ['controller' => 'SegPermiso', 'action' => 'MatrizPermisos']);
+    $routes->connect('/MainPage', ['controller' => 'MainPage', 'action' => 'index']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
