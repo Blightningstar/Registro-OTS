@@ -58,7 +58,7 @@ Router::connect('pregunta/edit/*', array('controller' => 'SolPregunta', 'action'
 Router::connect('pregunta/delete/*', array('controller' => 'SolPregunta', 'action' => 'delete'));
 Router::connect('pregunta', array('controller' => 'SolPregunta'));
 
-Router::connect('permiso/:action', array('controller' => 'SegPermiso'));
+Router::connect('permiso/*', array('controller' => 'SegPermiso', 'action' => 'MatrizPermisos'));
 Router::connect('permiso', array('controller' => 'SegPermiso'));
 
 Router::connect('/main', ['controller' => 'MainPage', 'action' => 'index']);

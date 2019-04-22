@@ -18,9 +18,6 @@ class MainPageController extends AppController
      */
     public function index()
     {
-        //$mainPage = $this->paginate($this->MainPage);
-        //echo "PENE";
-        //exit();
-        //$this->set(compact('mainPage'));
+        
     }
 }
