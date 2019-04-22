@@ -18,7 +18,7 @@ class SeguridadController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->set('active_menu', 'LogIn');
+        $this->set('active_title', 'LogIn');
     }
 
     /**
@@ -211,7 +211,7 @@ class SeguridadController extends AppController
                     $user_c->setHash($user['NOMBRE_USUARIO'],$new_pass);
                     $this->Flash->success('Password Changed Correctly.');
                    
-                    return $this->redirect(['controller'=>'SegUsuario','action' => 'view', $user['SEG_USUARIO']]);
+                    return $this->redirect(['controller'=>'SegUsuario','action' => 'profile_view', $user['SEG_USUARIO']]);
 
                 }
             }
