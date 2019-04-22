@@ -24,7 +24,7 @@
              echo $this->Form->control('CORREO', ['label' => __('E-mail'), 'disabled']);
              echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone'), 'disabled']);
              echo $this->Form->control('NACIONALIDAD',  ['label' => __('Country'), 'disabled']);
-             
+             echo $this->Html->link( __('Change Password'),['controller'=>'Seguridad','action'=>'change'])
              
         ?>
     </fieldset>
