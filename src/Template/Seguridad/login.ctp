@@ -36,5 +36,5 @@
     <?= $this->Form->button( __('Log In'), ['type' => 'submit', 'class' => 'botonAceptar']) ?>
     <?= $this->Form->end() ?>
     <?= $this->Html->link( __('Restore Password'),['controller'=>'Seguridad','action'=>'restoreSend']) ?><br>
-    <?= $this->Html->link(__('Create an acount'),['controller'=>'SegUsuario','action'=>'add'])?>
+    <?= $this->Html->link(__('Create an acount'),['controller'=>'SegUsuario','action'=>'register'])?>
 </div>

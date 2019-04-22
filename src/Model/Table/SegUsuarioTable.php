@@ -7,6 +7,7 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Datasource\ConnectionManager;
 
+
 /**
  * SegUsuario Model
  *
@@ -102,12 +103,141 @@ class SegUsuarioTable extends Table
             ->allowEmptyString('ACTIVO');
 
         $validator
-            ->scalar('ESTUDIANTE')
-            ->maxLength('ESTUDIANTE', 1)
-            ->allowEmptyString('ESTUDIANTE');
+            ->integer('SEG_ROL')
+            ->requirePresence('SEG_ROL', 'create')
+            ->allowEmptyString('SEG_ROL', false);
 
         return $validator;
     }
+
+
+   /**
+     * Removes logically a user by his id
+     * 
+     * @author Esteban Rojas
+     */
+    public function deleteUser($id)
+	{
+        $code = 1;
+		$connet = ConnectionManager::get('default');
+        $result = $connet->execute("update seg_usuario set activo = 'N' where seg_usuario = '$id'");
+        return $code;
+    }
+
+
+    /**
+     *  Checks if the username or email is already on database
+     *  @author Esteban Rojas
+     *  @return 1 if email and username don't exist, 2 if user is already on database 3 same, but email
+     */
+    public function checkUniqueData($lc_username, $lc_email)
+    {
+        $lc_code = "1";
+        $lc_username = strtolower($lc_username);
+        $lc_email = strtolower($lc_email);
+
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO, LOWER(NOMBRE_USUARIO) AS NOMBRE_USUARIO FROM SEG_USUARIO WHERE(CORREO = '$lc_email' or 
+        NOMBRE_USUARIO = '$lc_username')");
+
+
+        $result = $result->fetchAll('assoc');
+
+        if(empty($result) == 0)
+        {
+  
+            if($result[0]["NOMBRE_USUARIO"] == $lc_username)
+            {
+                $lc_code = "2";
+            }
+            else
+            {
+                if($result[0]["CORREO"] == $lc_email)
+                    $lc_code = "3";
+            }
+        }
+ 
+        return $lc_code;
+    }
+
+     /**
+     *  Checks if the username or email is already on database. Version for edit user
+     *  @author Esteban Rojas
+     *  @return 1 if emai and username don't exist, 2 if user is already on database 3 same, but email
+     */
+    public function checkEditUniqueData($lc_username, $lc_email, $lc_us)
+    {
+        $lc_code = "1";
+        $lc_username = strtolower($lc_username);
+        $lc_email = strtolower($lc_email);
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO, LOWER(NOMBRE_USUARIO) AS NOMBRE_USUARIO FROM SEG_USUARIO WHERE((CORREO = '$lc_email' or 
+        NOMBRE_USUARIO = '$lc_username') AND SEG_USUARIO != '$lc_us')");
+
+
+        $result = $result->fetchAll('assoc');
+
+        if(empty($result) == 0)
+        {
+  
+            if($result[0]["NOMBRE_USUARIO"] == $lc_username)
+            {
+                $lc_code = "2";
+            }
+            else
+            {
+                if($result[0]["CORREO"] == $lc_email)
+                    $lc_code = "3";
+            }
+        }
+ 
+        return $lc_code;
+    }
+
+
+     /**
+     *  Checks if  email is already on database
+     *  @author Esteban Rojas
+     *  @return 1 if email doesn't exist. Otherwise, return 2
+     */
+    public function checkUniqueEmail($lc_username, $lc_email)
+    {
+        $lc_code = "1";
+        $lc_email = strtolower($lc_email);
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO FROM SEG_USUARIO WHERE(CORREO = '$lc_email')");
+
+
+        $result = $result->fetchAll('assoc');
+
+        if(empty($result) == 0)
+        {
+   
+            if($result[0]["CORREO"] == $lc_email)
+                $lc_code = "2";
+            
+        }
+
+        return $lc_code;
+    }
+
+    /**
+     * Obtains the user role
+     * @author Esteban Rojas
+     * @return "1" = Student, "2" = Administrator, "3" = "Superuser"
+     */
+    public function getUserRoleByUsername($username)
+    {
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT SEG_ROL FROM seg_usuario where NOMBRE_USUARIO = '$username'");
+        $result = $result->fetchAll('assoc');
+
+        return $result[0]["SEG_ROL"];
+    }
+
 
     /**
      * getHash
