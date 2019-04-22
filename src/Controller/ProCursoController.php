@@ -6,7 +6,6 @@ use App\Controller\ProProgramaController;
 use Cake\Event\Event;
 use Cake\Validation\Validator;
 use Cake\Datasource\ConnectionManager;
-
 /**
  * ProCurso Controller
  * @author Jason Zamora Trejos
@@ -22,7 +21,6 @@ class ProCursoController extends AppController
         parent::beforeFilter($event);
         $this->set('active_menu', 'MenubarCourses');
     }
-    
     /**
      * Index method
      *

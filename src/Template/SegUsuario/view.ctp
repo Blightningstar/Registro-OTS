@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Esteban Rojas
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SegUsuario $segUsuario
  */
@@ -10,23 +11,39 @@
 <div class="segUsuario form large-9 medium-8 columns content">
     <?= $this->Form->create($segUsuario) ?>
     <fieldset>
-        <legend class = "titulo"><?= __('Consultar Usuario') ?>
+        <legend class = "titulo"><?= __('View User') ?>
         <br></br>
-        <p class = "subtitulo">Muestra la información de un usuario.</p>
+        <p class = "subtitulo"> <?= __('View the user information') ?></p>
     </legend>
         <?php
-            echo $this->Form->control('NOMBRE', ['label' => 'Nombre']);
-            echo $this->Form->control('APELLIDO_1', ['label' => 'Apellido 1']); 
-            echo $this->Form->control('APELLIDO_2', ['label' => 'Apellido 2'] );
-            echo $this->Form->control('NOMBRE_USUARIO' ,  ['label' => 'Nombre de Usuario']);
-            echo $this->Form->control('CONTRASEÑA' , ['label' => 'Contraseña']);
-            echo $this->Form->control('CORREO', ['label' => 'E-mail']);
-            echo $this->Form->control('NUMERO_TELEFONO', ['label' => 'Teléfono']);
-            echo $this->Form->control('NACIONALIDAD',  ['label' => 'Nacionalidad']);
-            echo $this->Form->control('ACTIVO', ['label' => 'Activo']);
-            echo $this->Form->control('ESTUDIANTE' , ['label' => 'Estudiante']);
+             echo $this->Form->control('NOMBRE', ['label' => __('Name'), 'disabled']);
+             echo $this->Form->control('APELLIDO_1', ['label' => __('Lastname 1'), 'disabled']); 
+             echo $this->Form->control('APELLIDO_2', ['label' => __('Lastname 2'), 'disabled'] );
+             echo $this->Form->control('NOMBRE_USUARIO' ,  ['label' => __('Username'), 'disabled']);
+             echo $this->Form->control('CORREO', ['label' => __('E-mail'), 'disabled']);
+             echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone'), 'disabled']);
+             echo $this->Form->control('NACIONALIDAD',  ['label' => __('Country'), 'disabled']);
+
+
+            $rol = "";
+
+            switch($segUsuario["SEG_ROL"])
+            {
+                case "1":
+                    $rol = __("Student");
+                    break;
+                case "2":
+                    $rol = __("Administrator");
+                    break;
+                case "3":
+                    $rol = __("Superuser");
+                    break;
+            }
+
+             echo $this->Form->label(__("Rol: ") . $rol);
+             
         ?>
     </fieldset>
-    <a href=".."> <button type="button" class="botonCancelar">Cancelar</button> </a>
+    <a href=".."> <button type="button" class="botonCancelar"><?= __('Cancel') ?></button> </a>
     <?= $this->Form->end() ?>
 </div>

@@ -4,21 +4,49 @@
  */
 ?>
 
+<?php 
+/**
+ * La variable $active_title se usa para indicar cuál sección está activo. Los posibles valores son:
+ * - LogIn
+ * - User
+ */
+if(isset($active_title)):?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var obj_id = '#<?php echo $active_title; ?>';
+            var clase = $(obj_id).attr('class');
+            $(obj_id).attr('class', clase + ' active' );
+        });
+    </script>
+<?php endif; ?>
+
 <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between" style="background-color:#659F31">
-        <a class="navbar-nav">
+        <div class="navbar-nav">
 	
-            <?= $this->Html->image('logo.png', ['style' => 'height:50px'])?>
-        </a>
-
-        <div class="navbar-bar">
-            <?php echo $this->Html->link( "NombreUsuario",   array('controller' => 'usuario', 'action' => 'edit'), [ 'class' => 'menuItem'] ); ?>
-
-            <?php echo $this->Html->link( "Cerrar sesión",   array('controller' => 'security', 'action' => 'logout'), [ 'class' => 'menuItem'] ); ?>
-
-    
-            <?php echo $this->Html->link( "Cambiar a inglés",   array('controller' => 'idioma'), [ 'class' => 'menuItem'] ); ?>
+            <?= $this->Html->image('Logos/eng/s/3.png', ['style' => 'height:50px'])?>
+        
         </div>
 
+  
+        <div class="navbar-bar">
+            <?php echo $this->Html->link( $actualUser['NOMBRE_USUARIO'],   array('controller' => 'usuario', 'action' => 'profileView'), [ 'id'=>'User', 'class' => 'menuItem'] ); ?>
 
+            
+            <?php 
+  
+                if($actualUser){
+                    echo $this->Html->link( "Log Out",   array('controller' => 'seguridad', 'action' => 'logout'), ['class' => 'menuItem'] );
+                }else{
+                    echo $this->Html->link( "Log In",   array('controller' => 'seguridad', 'action' => 'login'), [ 'id'=>'LogIn','class' => 'menuItem'] ); 
+                }
+            ?>
+            <?php //echo $this->Html->link( "Cambiar a inglés",   array('controller' => 'idioma'), [ 'class' => 'menuItem'] ); ?>
+
+
+
+
+    
+            
+        </div>
 
 </nav>
