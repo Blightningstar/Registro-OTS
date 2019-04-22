@@ -4,15 +4,28 @@
  * @var \App\Model\Entity\SolPreguntum[]|\Cake\Collection\CollectionInterface $solPregunta
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Add a new question'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="solPregunta index large-9 medium-8 columns content">
-    <h3><?= __('Questions:') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+
+<div class="solPregunta index large-9 medium-8 columns content container-fluid">
+
+
+
+
+    
+    <fieldset>
+        <legend class = "titulo"><?= __('Questions') ?>
+        <br></br>
+        <p class = "subtitulo"> <?= __('Administrate questions') ?></p>
+    </legend>
+    <br>
+
+
+
+    <button type="button" class="botonAgregar">
+        <?= $this->Html->link(__('Add question'), ['controller' => 'pregunta', 'action' => 'add'],['style' => 'color:white;']) ?>   
+</button>
+
+
+    <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('QUESTION ID') ?></th>
@@ -21,7 +34,9 @@
                 <th scope="col"><?= $this->Paginator->sort('TYPE') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('REQUIRED') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('STATE') ?></th>
-                <th scope="col" class="actions"><?= __('ACTIONS') ?></th>
+                <th scope="col" class="actions"><?= __('') ?></th>
+                <th scope="col" class="actions"><?= __('') ?></th>
+                <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -88,15 +103,36 @@
 
                 
                 <td class="actions">
+                	<button type="button" class="botonAccion btn btn-xs"> 
                     <?= $this->Html->link(__('View'), ['action' => 'view', $solPreguntum->SOL_PREGUNTA]) ?>
+                    </button>
+                 </td>
+
+ 
+                <td class="actions">
+                	<button type="button" class="botonAccion btn btn-xs"> 
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $solPreguntum->SOL_PREGUNTA]) ?>
+                     </button>
+                 </td>
+
+
+				<td class="actions">
+                	<button type="button" class="botonAccion btn btn-xs"> 
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $solPreguntum->SOL_PREGUNTA], ['confirm' => __('Are you sure you want to delete # {0}?', $solPreguntum->SOL_PREGUNTA)]) ?>
-                </td>
+                </button>
+                 </td>
+
+
+
+
+
             </tr>
             <?php endif ?>
             <?php endforeach; ?>
         </tbody>
     </table>
+
+
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
