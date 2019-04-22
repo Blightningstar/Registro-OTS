@@ -28,8 +28,6 @@
             echo $this->Form->control('CREDITOS', ['label' => _('Academic charge'),'type' => 'number', 'disabled','value' => $proCurso['CREDITOS']]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'disabled','value' => $proCurso['IDIOMA']]);
             echo $this->Form->control('LOCACION', ['label' => _('Location'), 'disabled','value' => $proCurso['LOCACION']]);
-            /*echo $this->Form->input('PRO_PROGRAMA', ['label' => _('Program'), 'type' => 'select', 'options' => array($vlc_DsPrograma)]);
-            echo $this->Form->control('SEG_USUARIO', ['label' => _('Username')]);*/
     ?>
  </fieldset>
     <a href=".."> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a>
