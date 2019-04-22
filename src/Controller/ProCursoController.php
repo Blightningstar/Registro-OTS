@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Controller\ProProgramaController;
+use Cake\Event\Event;
 /**
  * ProCurso Controller
  * @author Jason Zamora Trejos
@@ -12,6 +13,12 @@ use App\Controller\ProProgramaController;
  */
 class ProCursoController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarCourses');
+    }
 
     /**
      * Index method

@@ -49,6 +49,7 @@ class AppController extends Controller
     
     public function beforeFilter(Event $event)
     {
+        parent::beforeFilter($event);
         /** 
          *  @author Daniel Marín <110100010111h@gmail.com>
          * 
