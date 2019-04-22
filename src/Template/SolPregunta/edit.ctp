@@ -10,11 +10,16 @@
     <fieldset>
         <legend><?= __('Edit Question') ?></legend>
         <?php
-            echo $this->Form->control('DESCRIPCION_ESP', ['label' => 'Description in spanish']);
-            echo $this->Form->control('DESCRIPCION_ING', ['label' => 'Description in english']);
-            //echo $this->Form->control('TIPO');
-            //echo $this->Form->control('REQUERIDO');
-            //echo $this->Form->control('ACTIVO');
+            echo $this->Form->control('DESCRIPCION_ESP', [
+                'label' => 'Description in spanish',
+                'pattern' => '\w+', 
+                'placeholder' => 'Only alphanumeric characters'
+        ]);
+            echo $this->Form->control('DESCRIPCION_ING', [
+                'label' => 'Description in english',
+                'pattern' => '\w+', 
+                'placeholder' => 'Only alphanumeric characters'
+            ]);
             echo '<label for="TIPO">Type</label>';
             echo $this->Form->select('TIPO',$TIPO);
             echo '<label for="ACTIVO">State</label>';
