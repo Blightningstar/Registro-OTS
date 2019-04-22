@@ -23,8 +23,8 @@ class ProCursoFixture extends TestFixture
     public $fields = [
         'PRO_CURSO' => ['type' => 'string', 'length' => 256, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'NOMBRE' => ['type' => 'string', 'length' => 256, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'FECHA_INICIO' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        'FECHA_FINALIZACION' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'FECHA_INICIO' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'FECHA_FINALIZACION' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'FECHA_LIMITE' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'CREDITOS' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'IDIOMA' => ['type' => 'string', 'length' => 256, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
@@ -40,9 +40,9 @@ class ProCursoFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['PRO_CURSO'], 'length' => []],
-            'pro_curso_ibfk_1' => ['type' => 'foreign', 'columns' => ['SOL_FORMULARIO'], 'references' => ['SOL_FORMULARIO', 'SOL_FORMULARIO'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'pro_curso_ibfk_2' => ['type' => 'foreign', 'columns' => ['PRO_PROGRAMA'], 'references' => ['PRO_PROGRAMA', 'PRO_PROGRAMA'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'pro_curso_ibfk_3' => ['type' => 'foreign', 'columns' => ['SEG_USUARIO'], 'references' => ['SEG_USUARIO', 'SEG_USUARIO'], 'update' => 'restrict', 'delete' => 'cascade', 'length' => []],
+            'pro_curso_ibfk_1' => ['type' => 'foreign', 'columns' => ['SOL_FORMULARIO'], 'references' => ['sol_formulario', 'SOL_FORMULARIO'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'pro_curso_ibfk_2' => ['type' => 'foreign', 'columns' => ['PRO_PROGRAMA'], 'references' => ['pro_programa', 'PRO_PROGRAMA'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'pro_curso_ibfk_3' => ['type' => 'foreign', 'columns' => ['SEG_USUARIO'], 'references' => ['seg_usuario', 'SEG_USUARIO'], 'update' => 'restrict', 'delete' => 'cascade', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -59,11 +59,11 @@ class ProCursoFixture extends TestFixture
     {
         $this->records = [
             [
-                'PRO_CURSO' => 'd5a7a145-ca28-4b99-bdcc-c7220ab17fba',
+                'PRO_CURSO' => '917ca931-0da7-48af-bbeb-6da0aa5fae15',
                 'NOMBRE' => 'Lorem ipsum dolor sit amet',
-                'FECHA_INICIO' => '2019-04-11',
-                'FECHA_FINALIZACION' => '2019-04-11',
-                'FECHA_LIMITE' => '2019-04-11',
+                'FECHA_INICIO' => '2019-04-18',
+                'FECHA_FINALIZACION' => '2019-04-18',
+                'FECHA_LIMITE' => '2019-04-18',
                 'CREDITOS' => 1,
                 'IDIOMA' => 'Lorem ipsum dolor sit amet',
                 'LOCACION' => 'Lorem ipsum dolor sit amet',

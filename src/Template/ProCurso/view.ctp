@@ -1,60 +1,35 @@
 <?php
 /**
+ * @author Jason Zamora Trejos
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProCurso $proCurso
  */
 ?>
 
 <div class="proCurso view large-9 medium-8 columns content">
-    <h3><?= h($proCurso->PRO_CURSO) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('PRO CURSO') ?></th>
-            <td><?= h($proCurso->PRO_CURSO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('NOMBRE') ?></th>
-            <td><?= h($proCurso->NOMBRE) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('IDIOMA') ?></th>
-            <td><?= h($proCurso->IDIOMA) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('LOCACION') ?></th>
-            <td><?= h($proCurso->LOCACION) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('ACTIVO') ?></th>
-            <td><?= h($proCurso->ACTIVO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('PRO PROGRAMA') ?></th>
-            <td><?= h($proCurso->PRO_PROGRAMA) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('SEG USUARIO') ?></th>
-            <td><?= h($proCurso->SEG_USUARIO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('SOL FORMULARIO') ?></th>
-            <td><?= h($proCurso->SOL_FORMULARIO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('CREDITOS') ?></th>
-            <td><?= $this->Number->format($proCurso->CREDITOS) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('FECHA INICIO') ?></th>
-            <td><?= h($proCurso->FECHA_INICIO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('FECHA FINALIZACION') ?></th>
-            <td><?= h($proCurso->FECHA_FINALIZACION) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('FECHA LIMITE') ?></th>
-            <td><?= h($proCurso->FECHA_LIMITE) ?></td>
-        </tr>
-    </table>
+    <?= $this->Form->create($proCurso) ?>
+    <?=$this->Form->create('ProCurso',['type' => 'get']);?>
+    <fieldset>
+    <legend class = "titulo"><?= __('View Course') ?>
+        <br></br>
+        <p class = "subtitulo"><?=__('View the information of a course')?></p>
+    </legend>
+    <?php
+            //Converts the format of the dates in one that the database can save it.
+            $proCurso->FECHA_INICIO = date("Y-m-d", strtotime($proCurso->FECHA_INICIO)); 
+            $proCurso->FECHA_FINALIZACION = date("Y-m-d", strtotime($proCurso->FECHA_FINALIZACION));
+            $proCurso->FECHA_LIMITE = date("Y-m-d", strtotime($proCurso->FECHA_LIMITE));          
+            //Displays the data of a course.
+            echo $this->Form->control('PRO_CURSO', ['label' => _('Course ID'), 'disabled', 'value' => $proCurso['PRO_CURSO']]);
+            echo $this->Form->control('NOMBRE', ['label' => _('Course Name'), 'disabled','value' => $proCurso['NOMBRE']]);
+            echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'disabled','value' => $proCurso['FECHA_INICIO']]);
+            echo $this->Form->control('FECHA_FINALIZACION', ['label' => _('Final date'), 'disabled','value' => $proCurso['FECHA_FINALIZACION']]);
+            echo $this->Form->control('FECHA_LIMITE', ['label' => _('Last enrollment date'), 'disabled','value' => $proCurso['FECHA_LIMITE']]);
+            echo $this->Form->control('CREDITOS', ['label' => _('Academic charge'),'type' => 'number', 'disabled','value' => $proCurso['CREDITOS']]);
+            echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'disabled','value' => $proCurso['IDIOMA']]);
+            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'disabled','value' => $proCurso['LOCACION']]);
+    ?>
+ </fieldset>
+    <a href=".."> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a>
+    <?= $this->Form->end() ?>
 </div>

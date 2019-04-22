@@ -1,0 +1,216 @@
+/* Esta hoja de estilos contiene todas las clases relacionadas con el estandar de la OET */
+
+
+
+/* Estandariza todos los items de la barra de navegación y barra de título*/
+
+/* Empieza Daniel */
+.menuItem:hover
+{
+    color: white;
+    margin-left:30px;
+    margin-right:30px;
+    text-decoration: none;
+}
+
+.menuItem:focus{
+    color: white;
+    font-weight: bold;
+    margin-left:30px;
+    margin-right:30px;
+}
+
+.menuItem.active
+{
+    color: white;
+    font-weight: bold;
+    margin-left:30px;
+    margin-right:30px;
+}
+
+.menuItem.active:hover { 
+    color: white;
+    font-weight: bold;
+    margin-left:30px;
+    margin-right:30px;
+    text-decoration: none;
+}
+
+.menuItem.active:focus { 
+    color: white;
+    font-weight: bold;
+    margin-left:30px;
+    margin-right:30px;
+    text-decoration: none;
+}
+/*Termina Daniel*/
+/*Empieza Esteban*/
+
+.menuItem
+{
+    color: white;
+    margin-left:30px;
+    margin-right:30px;
+}
+
+/*Formatea los botones*/
+.botonAceptar
+{
+    
+    background-color:#7BC143;
+    text-align:center;
+    border-radius: 17px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    float: right;
+    margin-right: 2%;
+}
+
+.botonAceptar:hover {
+    background-color: #4CAF50 !important; 
+ 
+}
+
+.botonCancelar
+{
+    background-color:#F26631;
+    text-align:center;
+    border-radius: 17px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    float: right;
+    margin-right: 10px;
+}
+
+.botonAccion
+{
+    background-color:#F26631;
+    text-align:center;
+    border-radius: 17px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    float: right;
+    margin-right: 10px;
+   /* font-size:12px !important;
+    text-align:center !important;
+    height:12px !important;
+    vertical-align: middle !important;*/
+}
+
+.botonAccion:hover {
+    background-color: rgb(230, 92, 42) !important; 
+ 
+}
+
+.botonAgregar:hover {
+    background-color: rgb(230, 92, 42) !important; 
+ 
+}
+
+.botonAgregar
+{
+    background-color:#F26631;
+    text-align:center;
+    border-radius: 17px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    float: right;
+    margin-bottom: 30px;
+    color:white !important;
+}
+
+
+
+.botonCancelar:hover {
+    background-color: rgb(230, 92, 42) !important; 
+ 
+}
+
+
+
+/*Formatea los titulos de cada vista*/
+
+fieldset legend {
+    border-bottom: 1px solid #B4B4B4;
+    width: 100%;
+    line-height: 2rem;
+}
+
+.titulo
+{
+    color:#7BC143;
+}
+
+.subtitulo
+{
+    color:#b4b4b4;
+}
+
+/*Formatea los campos de texto*/
+input[type=text], input[type=number]
+{
+    background: #EBFFCA;
+    border-radius: 13px;
+    float: left; 
+}
+
+
+select option,select, input[type=select] 
+{
+    background-color: #EBFFCA !important;
+}
+
+input[type=password]
+{
+    background: #EBFFCA;
+    border-radius: 13px;
+    float: left; 
+}
+
+input[type=text]:disabled
+{
+    background: #EBFFCA;
+    border-radius: 13px;
+    float: left; 
+}
+
+/*Formatea las tablas de los grids de los index*/
+
+.gridIndex
+{
+    color:red !important;
+    border-style: solid;
+    border-color: #CCCCCC;
+    white-space: nowrap;
+}
+
+.gridIndex a
+{
+    color:black !important;
+    
+}
+
+.gridIndex th
+{
+    background-color:#EBFFCA;
+    text-align:center;
+}
+
+.gridIndex td
+{
+    text-align:center;
+}
+
+
+.gridIndex tr:nth-child(even)
+{
+    background-color:#EBFFCA;
+}
+
+.gridIndex tr:nth-child(odd)
+{
+    background-color:white;
+}
+
+
+/*Termina Esteban*/

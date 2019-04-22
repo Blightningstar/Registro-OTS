@@ -4,7 +4,7 @@
 a.disabled {
     pointer-events: none;
 }
-
+/*
 a:hover {
     color: #15848F;
 }
@@ -20,7 +20,7 @@ a {
 .side-nav li a:not(.button):hover {
     color: #15848F;
 }
-
+*/
 header {
     background-color: #D33C44;
     color: #ffffff;
@@ -35,15 +35,13 @@ header .header-title {
     padding-left:80px
 }
 
-legend {
-    color:#15848F;
-}
+
 
 .row {
     max-width: 80rem;
 }
 
-.actions.columns {
+/*.actions.columns {
     margin-top:1rem;
     border-left: 5px solid #15848F;
     padding-left: 15px;
@@ -344,7 +342,7 @@ pre {
 #actions-sidebar {
     background: #fafafa;
 }
-
+/*
 .index table {
     margin-top: 0rem;
     border: 0;
@@ -383,18 +381,14 @@ table tr th {
 table tr:nth-of-type(even) {
     background: none;
 }
-
+*/
 fieldset {
     border: none;
     padding: 1.25rem;
     margin: 1.125rem 0;
 }
 
-fieldset legend {
-    border-bottom: 2px solid #1798A5;
-    width: 100%;
-    line-height: 2rem;
-}
+
 
 .form button[type="submit"] {
     float: right;
@@ -403,13 +397,10 @@ fieldset legend {
 }
 
 .form button:hover, .form button:focus {
-    background: #BE840B;
     box-shadow: none;
 }
 
-button {
-    background: #966600;
-}
+
 
 div.message {
     text-align: center;
@@ -418,8 +409,8 @@ div.message {
     font-weight: normal;
     padding: 0 1.5rem 0 1.5rem;
     transition: height 300ms ease-out 0s;
-    background-color: #a0d3e8;
-    color: #626262;
+    background-color: green;
+    color: white;
     top: 15px;
     right: 15px;
     z-index: 999;
@@ -442,7 +433,7 @@ div.message:before {
     background-color: #FFF;
     padding: 12px 14px 12px 10px;
     content: "i";
-    color: #a0d3e8;
+    color: #fd7e14;
 }
 
 div.message.error {
@@ -460,7 +451,7 @@ div.message.hidden {
 }
 
 
-.vertical-table th {
+/*.vertical-table th {
     padding: 0.5625rem 0.625rem;
     font-size: 0.875rem;
     color: #1798A5;
@@ -475,6 +466,7 @@ div.message.hidden {
 .vertical-table td {
     text-align: right;
 }
+*/
 
 .content {
     padding: 2rem;
@@ -513,7 +505,7 @@ div.message.hidden {
 }
 
 .content .related h4 {
-    color: #4d8f97;
+    /*color: #4d8f97;*/
     padding-bottom: 0.5rem;
     margin-top: 20px;
     margin-bottom: 10px;

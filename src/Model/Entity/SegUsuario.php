@@ -16,7 +16,7 @@ use Cake\ORM\Entity;
  * @property string $NUMERO_TELEFONO
  * @property string $NACIONALIDAD
  * @property string|null $ACTIVO
- * @property string|null $ESTUDIANTE
+ * @property int $SEG_ROL
  */
 class SegUsuario extends Entity
 {
@@ -39,6 +39,6 @@ class SegUsuario extends Entity
         'NUMERO_TELEFONO' => true,
         'NACIONALIDAD' => true,
         'ACTIVO' => true,
-        'ESTUDIANTE' => true
+        'SEG_ROL' => true
     ];
 }
