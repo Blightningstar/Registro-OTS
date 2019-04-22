@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Esteban Rojas
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SegUsuario $segUsuario
  */
@@ -12,7 +13,7 @@
     <fieldset>
         <legend class = "titulo"><?= __('Profile View') ?>
         <br></br>
-        <p class = "subtitulo"> <?= __('Muestra su información personal.') ?> </p>
+        <p class = "subtitulo"> <?= __('View your personal information.') ?> </p>
     </legend>
     <br>
         <?php
@@ -23,7 +24,7 @@
              echo $this->Form->control('CORREO', ['label' => __('E-mail'), 'disabled']);
              echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone'), 'disabled']);
              echo $this->Form->control('NACIONALIDAD',  ['label' => __('Country'), 'disabled']);
-             
+             echo $this->Html->link( __('Change Password'),['controller'=>'Seguridad','action'=>'change'])
              
         ?>
     </fieldset>

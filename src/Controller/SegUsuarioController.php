@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Mailer\Email;
+use Cake\Event\Event;
 
 /**
  * SegUsuario Controller
@@ -14,6 +15,12 @@ use Cake\Mailer\Email;
 class SegUsuarioController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarUsers');
+    }
+    
     /**
      *  Checks if the username or email is already on database
      *  @author Esteban Rojas
@@ -347,6 +354,7 @@ class SegUsuarioController extends AppController
      */
     public function profileView($id = null)
     {
+        $this->set('active_title', 'User');
         //Obtain logged user id
         $id = $this->obtenerUsuarioActual();
 

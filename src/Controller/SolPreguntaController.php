@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * SolPregunta Controller
@@ -12,6 +13,12 @@ use App\Controller\AppController;
  */
 class SolPreguntaController extends AppController
 {
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarQuestions');
+    }
+
     /**
      * Index method
      *
