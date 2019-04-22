@@ -37,8 +37,6 @@
                 <th scope="col"><?= $this->Paginator->sort('Language') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Location') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
-                <!--<th scope="col"><?= $this->Paginator->sort('PRO_PROGRAMA') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('SEG_USUARIO') ?></th>-->
                 <th scope="col" class="actions"><?= __('') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
@@ -62,8 +60,6 @@
                 <td><?= h($proCurso->IDIOMA) ?></td>
                 <td><?= h($proCurso->LOCACION) ?></td>
                 <td><?= h($proCurso->ACTIVO) ?></td>
-                 <!--<td><?= h($proCurso->PRO_PROGRAMA) ?></td>
-                <td><?= h($proCurso->SEG_USUARIO) ?></td>-->
                 <td class="actions">
                 <!-- Links the view button to the course-->
                 <button type="button" class="botonAccion btn btn-xs"> 
