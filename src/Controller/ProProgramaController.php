@@ -68,6 +68,7 @@ class ProProgramaController extends AppController
             $proPrograma = $this->ProPrograma->patchEntity($proPrograma, $this->request->getData());
 
             $proPrograma["PRO_PROGRAMA"] = $_REQUEST['NOMBRE']; //Primary Key is the name of the program
+            $proPrograma["ACTIVO"] = 'S';
             $lc_code = $this->checkUniqueData($proPrograma["NOMBRE"] );
             if($lc_code == "1"){
                  $this->Flash->error(__("Error: This program is already in the system."));

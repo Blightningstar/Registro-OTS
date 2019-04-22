@@ -27,7 +27,7 @@
 
 
                 <th scope="col"><?= $this->Paginator->sort('NOMBRE', ['label' => __('Program Name')]) ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ACTIVO', ['label' => __('Active / Inactive')]) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('ACTIVO', ['label' => __('State')]) ?></th>
 
                 <th scope="col" class="actions">View</th>
                 <th scope="col" class="actions">Edit</th>
@@ -40,7 +40,13 @@
             <tr>
 
                 <td><?= h($proPrograma->NOMBRE) ?></td>
-                <td><?= h($proPrograma->ACTIVO) ?></td>
+
+                <?php if($proPrograma->ACTIVO == 'S'):?>
+                    <td><?= h('Active') ?></td>
+                <?php else: ?>
+                    <td><?= h('Inactive') ?></td>
+
+                <?php endif ?>
 
                 <!-- Botones Consultar, Modificar y Borrar de la grilla de Programas -->
                 <td class="actions">
