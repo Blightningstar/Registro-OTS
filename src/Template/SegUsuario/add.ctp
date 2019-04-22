@@ -1,9 +1,11 @@
 <?php
 /**
+ * @author Esteban Rojas
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SegUsuario $segUsuario
  */
 ?>
+
 
 <div class="segUsuario form large-9 medium-8 columns content">
     <?= $this->Form->create($segUsuario) ?>

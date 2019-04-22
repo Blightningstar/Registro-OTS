@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Esteban Rojas
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SegUsuario $segUsuario
  */
