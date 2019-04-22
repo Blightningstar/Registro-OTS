@@ -4,6 +4,22 @@
  */
 ?>
 
+<?php 
+/**
+ * La variable $active_title se usa para indicar cuál sección está activo. Los posibles valores son:
+ * - LogIn
+ * - User
+ */
+if(isset($active_title)):?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var obj_id = '#<?php echo $active_title; ?>';
+            var clase = $(obj_id).attr('class');
+            $(obj_id).attr('class', clase + ' active' );
+        });
+    </script>
+<?php endif; ?>
+
 <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between" style="background-color:#659F31">
         <div class="navbar-nav">
 	
@@ -13,7 +29,7 @@
 
   
         <div class="navbar-bar">
-            <?php echo $this->Html->link( $actualUser['NOMBRE_USUARIO'],   array('controller' => 'usuario', 'action' => 'profileView'), [ 'class' => 'menuItem'] ); ?>
+            <?php echo $this->Html->link( $actualUser['NOMBRE_USUARIO'],   array('controller' => 'usuario', 'action' => 'profileView'), [ 'id'=>'User', 'class' => 'menuItem'] ); ?>
 
             
             <?php 

@@ -354,6 +354,7 @@ class SegUsuarioController extends AppController
      */
     public function profileView($id = null)
     {
+        $this->set('active_title', 'User');
         //Obtain logged user id
         $id = $this->obtenerUsuarioActual();
 
