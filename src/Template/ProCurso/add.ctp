@@ -17,6 +17,7 @@
     
         <br>
         <?php
+            
             echo $this->Form->control('PRO_CURSO', ['label' => _('Course ID')]);
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name')]);
             echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'class'=>'datepicker']);
@@ -43,6 +44,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $( function() {
-    $( ".datepicker" ).datepicker({'dateFormat':'dd/mm/yy', changeMonth: true, changeYear: true});
+    $( ".datepicker" ).datepicker({'dateFormat':'yy-mm-dd', changeMonth: true, changeYear: true});
   } );
 </script>

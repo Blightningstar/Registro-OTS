@@ -48,16 +48,25 @@ class ProCursoController extends AppController
      */
     public function add()
     {
-        //$this->loadModel('pro_programa');
+        //$programaTable = $this->loadModel('pro_programa');
         
+        //$limit = $this->mirrorDate($proCurso['FECHA_LIMITE']);
         /*// Converting the query to a key-value array will also execute it.
-        $vlc_data = $vlc_DsPrograma->toArray();*/
-        
+        $vlc_DsPrograma = toArray();*/
         $proCurso = $this->ProCurso->newEntity();
         if ($this->request->is('post')) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
+            $form_data = $this->request->getData();
+//            debug($form_data);
+//            die();
+ //           $limit = $this->mirrorDate($proCurso['FECHA_LIMITE']);
+            $limit = $form_data['FECHA_LIMITE'];
+           // debug($limit);
+            //die();
+            $end = $form_data['FECHA_FINALIZACION'];
+            $start = $form_data['FECHA_INICIO'];
             //$vlc_DsPrograma = $this->ProPrograma->patchEntity($proPrograma, $this->request->getData());
-            if ($this->ProCurso->save($proCurso)) {
+            if ($this->ProCurso->save($proCurso, $start, $end, $limit)) {
                 $this->Flash->success(__('The curso has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -81,6 +90,12 @@ class ProCursoController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
+            $form_data = $this->request->getData();
+            //debug($form_data);
+            //debug($proCurso);
+            //die();
+            // TODO: verificar que la llave colocada en form_data("pro_curso") está disponible
+            // TODO: alterar la llave de $proCurso("PRO_CURSO") = form_data("pro_curso")
             if ($this->ProCurso->save($proCurso)) {
                 $this->Flash->success(__('The course has been saved.'));
 

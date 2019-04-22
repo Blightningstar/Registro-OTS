@@ -36,8 +36,8 @@
                 <th scope="col"><?= $this->Paginator->sort('Academic charge') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Language') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Location') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
-               <!-- <th scope="col"><?= $this->Paginator->sort('PRO_PROGRAMA') ?></th>
+                <!--<th scope="col"><?= $this->Paginator->sort('Active') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('PRO_PROGRAMA') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('SEG_USUARIO') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('SOL_FORMULARIO') ?></th>-->
                 <th scope="col" class="actions"><?= __('') ?></th>
