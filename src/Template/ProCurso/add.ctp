@@ -38,8 +38,6 @@
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'placeholder'=> 'Language of the course']);
             echo $this->Form->control('LOCACION', ['label' => _('Location'), 'placeholder'=> 'Location of the course']);
             echo $this->Form->control('ACTIVO', ['label' => _(' Active'), 'type' => 'hidden','value' => 1]);
-            /*echo $this->Form->control('PRO_PROGRAMA', ['label' => _('Program'), 'type' => 'select', /*'options' => array($proCurso->$proPrograma->PRO_PROGRAMA)]);*/
-            /*echo $this->Form->control('SEG_USUARIO', ['label' => _('Username')]);*/
         ?>
     </fieldset>
     <br>
