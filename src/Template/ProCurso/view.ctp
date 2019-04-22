@@ -6,55 +6,27 @@
 ?>
 
 <div class="proCurso view large-9 medium-8 columns content">
-    <h3><?= h($proCurso->PRO_CURSO) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('PRO CURSO') ?></th>
-            <td><?= h($proCurso->PRO_CURSO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('NOMBRE') ?></th>
-            <td><?= h($proCurso->NOMBRE) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('IDIOMA') ?></th>
-            <td><?= h($proCurso->IDIOMA) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('LOCACION') ?></th>
-            <td><?= h($proCurso->LOCACION) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('ACTIVO') ?></th>
-            <td><?= h($proCurso->ACTIVO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('PRO PROGRAMA') ?></th>
-            <td><?= h($proCurso->PRO_PROGRAMA) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('SEG USUARIO') ?></th>
-            <td><?= h($proCurso->SEG_USUARIO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('SOL FORMULARIO') ?></th>
-            <td><?= h($proCurso->SOL_FORMULARIO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('CREDITOS') ?></th>
-            <td><?= $this->Number->format($proCurso->CREDITOS) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('FECHA INICIO') ?></th>
-            <td><?= h($proCurso->FECHA_INICIO) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('FECHA FINALIZACION') ?></th>
-            <td><?= h($proCurso->FECHA_FINALIZACION) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('FECHA LIMITE') ?></th>
-            <td><?= h($proCurso->FECHA_LIMITE) ?></td>
-        </tr>
-    </table>
+    <?= $this->Form->create($proCurso) ?>
+    <fieldset>
+    <legend class = "titulo"><?= __('View Course') ?>
+        <br></br>
+        <p class = "subtitulo"><?=__('View the information of a course')?></p>
+    </legend>
+    <?php
+            echo $this->Form->control('pro_curso', ['label' => _('Course ID'), 'readonly']);
+            echo $this->Form->control('NOMBRE', ['label' => _('Course Name'), 'readonly']);
+            echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'disabled']);
+            echo $this->Form->control('FECHA_FINALIZACION', ['label' => _('Final date'), 'disabled']);
+            echo $this->Form->control('FECHA_LIMITE', ['label' => _('Last enrollment date'), 'disabled']);
+            echo $this->Form->control('CREDITOS', ['label' => _('Academic charge'),'type' => 'number', 'readonly']);
+            echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'disabled']);
+            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'readonly']);
+            //echo $this->Form->control('ACTIVO', ['label' => _(' Active'), 'type' => 'checkbox']);
+            /*echo $this->Form->input('PRO_PROGRAMA', ['label' => _('Program'), 'type' => 'select', 'options' => array($vlc_DsPrograma)]);
+            echo $this->Form->control('SEG_USUARIO', ['label' => _('Username')]);
+            echo $this->Form->control('SOL_FORMULARIO', ['label' => _('Form')]);*/
+    ?>
+ </fieldset>
+    <a href=".."> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a>
+    <?= $this->Form->end() ?>
 </div>
