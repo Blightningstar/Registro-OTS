@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Event\Event;
 /**
  * ProPrograma Controller
  *
@@ -13,6 +13,12 @@ use App\Controller\AppController;
  */
 class ProProgramaController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarPrograms');
+    }
 
     function checkUniqueData($lc_name)
     {
