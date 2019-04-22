@@ -12,7 +12,7 @@
     <fieldset>
         <h1 class = "titulo"><?= __('Restore Password') ?></h1>
         <p class = "subtitulo">
-            <?= __('Password  must contain between 8 or 16 that are of at least one number, and one uppercase and lowercase letter.') ?>
+            <?= __('Password  must contain between 8 or 16 characters that are of at least one number, one uppercase letter and one lowercase letter.') ?>
         </p>
 
         <div class="row">
@@ -45,6 +45,6 @@
             </div>
         </div>
     </fieldset>
-    <?= $this->Form->button( __('Restore'), ['type' => 'submit', 'class' => '']) ?>
+    <?= $this->Form->button( __('Restore'), ['type' => 'submit', 'class' => 'botonAceptar']) ?>
     <?= $this->Form->end() ?>
 </div>

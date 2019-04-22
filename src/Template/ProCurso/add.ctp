@@ -1,33 +1,57 @@
 <?php
 /**
+ * @author Jason Zamora Trejos
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProCurso $proCurso
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Pro Curso'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
+
 <div class="proCurso form large-9 medium-8 columns content">
     <?= $this->Form->create($proCurso) ?>
+    <?=$this->Form->create('ProCurso',['type' => 'get']);?>
     <fieldset>
-        <legend><?= __('Add Pro Curso') ?></legend>
+        <legend class = "titulo"><?= __('Create a Course') ?>
+        <br></br>
+        <p class = "subtitulo"><?=__('Add a course to the system.')?></p>
+    </legend>
+    
+        <br>
         <?php
-            echo $this->Form->control('NOMBRE');
-            echo $this->Form->control('FECHA_INICIO');
-            echo $this->Form->control('FECHA_FINALIZACION');
-            echo $this->Form->control('FECHA_LIMITE');
-            echo $this->Form->control('CREDITOS');
-            echo $this->Form->control('IDIOMA');
-            echo $this->Form->control('LOCACION');
-            echo $this->Form->control('ACTIVO');
-            echo $this->Form->control('PRO_PROGRAMA');
-            echo $this->Form->control('SEG_USUARIO');
-            echo $this->Form->control('SOL_FORMULARIO');
+            
+            echo $this->Form->control('PRO_CURSO', [
+               'label' => _('Course ID'),
+               'value' => $proCurso ['PRO_CURSO'],
+               'pattern' => '[a-zA-Z]{2}\-[0-9]{4}', 
+               'placeholder' => 'e.g. "CI-2020"'
+            ]);
+            echo $this->Form->control('NOMBRE', ['label' => _('Course Name')]);
+            echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'class'=>'datepicker']);
+            echo $this->Form->control('FECHA_FINALIZACION', ['label' => _('Final date'), 'class'=>'datepicker']);
+            echo $this->Form->control('FECHA_LIMITE', ['label' => _('Last enrollment date'), 'class'=>'datepicker']);
+            echo $this->Form->control('CREDITOS', [
+               'label' => _('Academic charge'),
+               'type' => 'number',
+               'value' => 0 ,
+               'pattern'=> '^(?:[0-9]|0[0-9]|1[0-9]|20)$', 
+               'placeholder'=> 'hint'
+            ]);
+            echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'placeholder'=> 'Language of the course']);
+            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'placeholder'=> 'Location of the course']);
+            echo $this->Form->control('ACTIVO', ['label' => _(' Active'), 'type' => 'hidden','value' => 1]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <br>
+    <a href="."> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
+    <?= $this->Form->button(__('Submit'), ['class' => 'botonAceptar'], ['label' => __('Submit')]) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<!-- Everything necessary to implement datepicker in the add view -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+    $( ".datepicker" ).datepicker({'dateFormat':'yy-mm-dd', changeMonth: true, changeYear: true});
+  } );
+</script>

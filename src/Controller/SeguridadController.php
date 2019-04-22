@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Utility\Security;
+use Cake\Event\Event;
 
 /**
  * Seguridad Controller
@@ -12,6 +13,13 @@ use Cake\Utility\Security;
  */
 class SeguridadController extends AppController
 {
+
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_title', 'LogIn');
+    }
 
     /**
      * login
@@ -104,7 +112,7 @@ class SeguridadController extends AppController
                         // TODO: send mail
 
                         $user_c->setCode($email,$code);
-                        $this->Flash->success('Code sent.');
+                        $this->Flash->success('Code sent to ' . $email . '.');
                        
                         return $this->redirect(['action' => 'restoreVerify', $email]);
 
@@ -113,7 +121,7 @@ class SeguridadController extends AppController
                         // TODO: Change error message to a warning message, fix warning bug.
                         // $this->Flash->warning('Code already sent, please check the email.');
 
-                        $this->Flash->error('Code already sent, please check the email.');                    
+                        $this->Flash->error('Code already sent  to ' . $email . ', please check your email.');                    
                        
                         return $this->redirect(['action' => 'restoreVerify', $email]);
 
@@ -203,7 +211,7 @@ class SeguridadController extends AppController
                     $user_c->setHash($user['NOMBRE_USUARIO'],$new_pass);
                     $this->Flash->success('Password Changed Correctly.');
                    
-                    return $this->redirect(['controller'=>'SegUsuario','action' => 'view', $user['SEG_USUARIO']]);
+                    return $this->redirect(['controller'=>'SegUsuario','action' => 'profile_view', $user['SEG_USUARIO']]);
 
                 }
             }
