@@ -147,11 +147,17 @@ fieldset legend {
 }
 
 /*Formatea los campos de texto*/
-input[type=text]
+input[type=text], input[type=number]
 {
     background: #EBFFCA;
     border-radius: 13px;
     float: left; 
+}
+
+
+select option,select, input[type=select] 
+{
+    background-color: #EBFFCA !important;
 }
 
 input[type=password]
