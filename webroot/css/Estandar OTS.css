@@ -147,32 +147,13 @@ fieldset legend {
 }
 
 /*Formatea los campos de texto*/
-input[type=text], input[type=number]
+input[type=text], input[type=number], input[type=password], input[type=text]:disabled
 {
-    background: #EBFFCA;
     border-radius: 13px;
     float: left; 
 }
 
 
-select option,select, input[type=select] 
-{
-    background-color: #EBFFCA !important;
-}
-
-input[type=password]
-{
-    background: #EBFFCA;
-    border-radius: 13px;
-    float: left; 
-}
-
-input[type=text]:disabled
-{
-    background: #EBFFCA;
-    border-radius: 13px;
-    float: left; 
-}
 
 /*Formatea las tablas de los grids de los index*/
 
