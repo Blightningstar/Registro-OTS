@@ -13,7 +13,7 @@
     <fieldset>
         <legend class = "titulo"><?= __('Profile View') ?>
         <br></br>
-        <p class = "subtitulo"> <?= __('Muestra su información personal.') ?> </p>
+        <p class = "subtitulo"> <?= __('View your personal information.') ?> </p>
     </legend>
     <br>
         <?php

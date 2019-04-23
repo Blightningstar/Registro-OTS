@@ -15,8 +15,8 @@
 <div class="proPrograma form large-9 medium-8 columns content">
     <?= $this->Form->create($proPrograma) ?>
         <?php
-            echo $this->Form->control('NOMBRE',  ['label' => 'Nombre']);
-            echo $this->Form->control('ACTIVO',  ['label' => 'Activo']);
+            echo $this->Form->control('NOMBRE',  ['label' => 'Name of the program']);
+            // echo $this->Form->control('ACTIVO',  ['label' => 'Activo']);
         ?>
 
     <a href="."> <button type="button" class="botonCancelar">CANCEL</button> </a>
