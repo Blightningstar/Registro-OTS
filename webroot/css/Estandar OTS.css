@@ -199,4 +199,19 @@ input[type=text], input[type=number], input[type=password], input[type=text]:dis
 }
 
 
+.field
+{
+    font-weight:bold;
+}
 
+.value
+{
+    margin-left: 15%;
+}
+
+.separator
+{
+
+    height:1px;
+    background: #7BC143;
+}
