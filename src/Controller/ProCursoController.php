@@ -29,10 +29,7 @@ class ProCursoController extends AppController
     public function index()
     {
         $proCurso = $this->paginate($this->ProCurso);
-        $this->loadModel('ProPrograma');
-        $this->ProPrograma->find('all');
         $this->set(compact('proCurso'));
-        $this->set(compact('proPrograma'));
     }
 
     /**
@@ -58,31 +55,31 @@ class ProCursoController extends AppController
      */
     public function add()
     {
-        $programaTable = $this->loadModel('pro_programa');
         $proCurso = $this->ProCurso->newEntity();
         if ($this->request->is('post')) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
-            $limit = $form_data['FECHA_LIMITE'];
-            $end = $form_data['FECHA_FINALIZACION'];
-            $start = $form_data['FECHA_INICIO'];
-            $lc_code = $this->checkUniqueData($proCurso["PRO_CURSO"]);
+            $proCurso['FECHA_LIMITE'] = date("Y-m-d", strtotime($form_data['FECHA_LIMITE']));
+            $proCurso['FECHA_FINALIZACION'] = date("Y-m-d", strtotime($form_data['FECHA_FINALIZACION']));
+            $proCurso['FECHA_INICIO'] = date("Y-m-d", strtotime($form_data['FECHA_INICIO']));
+            debug($proCurso);
+            $lc_code = $this->checkUniqueData($form_data['PRO_CURSO']);
+            debug($lc_code);
             if($lc_code == "1")
             {
                $this->Flash->error(__('The course alredy exits in the system.'));
             }
             else
             {
-               if ($this->ProCurso->save($proCurso, $start, $end, $limit)) {
+               if ($this->ProCurso->save($proCurso)) {
                 $this->Flash->success(__('The course has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
+               }
+               $this->Flash->error(__('The course could not be saved. Please, try again.'));
             }
-            }
-            $this->Flash->error(__('The course could not be saved. Please, try again.'));
         }
         $this->set(compact('proCurso'));
-        $this->set(compact('proPrograma'));
     }
 
     /**

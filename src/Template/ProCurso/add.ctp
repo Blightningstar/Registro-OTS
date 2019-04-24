@@ -42,7 +42,7 @@
     </fieldset>
     <br>
     <a href="."> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
-    <?= $this->Form->button(__('Submit'), ['class' => 'botonAceptar'], ['label' => __('Submit')]) ?>
+    <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar'], ['label' => __('Confirm')]) ?>
     <?= $this->Form->end() ?>
 </div>
 
@@ -52,6 +52,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $( function() {
-    $( ".datepicker" ).datepicker({'dateFormat':'yy-mm-dd', changeMonth: true, changeYear: true});
+    $( ".datepicker" ).datepicker({'dateFormat':'mm/dd/yy', changeMonth: true, changeYear: true});
   } );
 </script>

@@ -16,10 +16,10 @@
     </legend>
     <?php
             //Converts the format of the dates in one that the database can save it.
-            $proCurso->FECHA_INICIO = date("Y-m-d", strtotime($proCurso->FECHA_INICIO)); 
-            $proCurso->FECHA_FINALIZACION = date("Y-m-d", strtotime($proCurso->FECHA_FINALIZACION));
-            $proCurso->FECHA_LIMITE = date("Y-m-d", strtotime($proCurso->FECHA_LIMITE));          
-            //Displays the data of a course.
+            $proCurso->FECHA_INICIO = date("m/d/Y", strtotime($proCurso->FECHA_INICIO)); 
+            $proCurso->FECHA_FINALIZACION = date("m/d/Y", strtotime($proCurso->FECHA_FINALIZACION));
+            $proCurso->FECHA_LIMITE = date("m/d/Y", strtotime($proCurso->FECHA_LIMITE));          
+            
             echo $this->Form->control('PRO_CURSO', ['label' => _('Course ID'), 'disabled', 'value' => $proCurso['PRO_CURSO']]);
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name'), 'disabled','value' => $proCurso['NOMBRE']]);
             echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'disabled','value' => $proCurso['FECHA_INICIO']]);
