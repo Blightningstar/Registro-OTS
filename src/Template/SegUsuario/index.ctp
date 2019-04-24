@@ -23,12 +23,20 @@
         
         <?= $this->Html->link(__('Add User'), ['controller' => 'usuario', 'action' => 'add'], ['style' => 'color:white;']) ?>   
     </button>
+    <br>
+  
+
 
   
+    <label style=" display: inline-block;;margin-top:40px;margin-left:80px;"><?= __('Search Users ') ?></label>
+        <input type="text" id="queryTextbox" style="width:50%;float:right;margin-top:40px;margin-right:120px;"> 
+        
+
+
     <div class="container-fluid table-responsive">
     <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
         <thead>
-            <tr >
+            <tr id="headTr">
                 
                 <th scope="col"><?= $this->Paginator->sort(__('ID')) ?></th>
                 <th scope="col"><?= $this->Paginator->sort(__('Name')) ?></th>
@@ -45,11 +53,12 @@
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
-        <tbody>
+    
+        <tbody  >
             
             <?php foreach ($segUsuario as $segUsuario): ?>
-            <?php if(($segUsuario["ACTIVO"] != "N") && ($segUsuario->SEG_ROL != "3" || $lc_role != "2")):?>
-            <tr>
+           <!-- <?php if(($segUsuario["ACTIVO"] != "N") && ($segUsuario->SEG_ROL != "3" || $lc_role != "2")):?>-->
+            <tr >
                 <td><?= h($segUsuario->SEG_USUARIO) ?></td>
                 <td><?= h($segUsuario->NOMBRE) ?></td>
                 <td><?= h($segUsuario->APELLIDO_1) ?></td>
@@ -91,7 +100,7 @@
                     </button>
                 </td>
             </tr>
-            <?php endif;?>
+           <!-- <?php endif;?>-->
             <?php endforeach; ?>
         </tbody>
     </table>
@@ -110,4 +119,17 @@
     </div>
 </div>
 
+<script>
+$(document).ready(function(){
+  $("#queryTextbox").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tr").filter(function() 
+    {
+        var excludeHeader = $(this).attr("id") == "headTr";
+        if(!excludeHeader)
+            $(this).toggle(($(this).text().toLowerCase().indexOf(value) > -1));
+    });
+  });
+});
+</script>
 
