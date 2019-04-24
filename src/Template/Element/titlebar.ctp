@@ -35,9 +35,10 @@ if(isset($active_title)):?>
             <?php 
   
                 if($actualUser){
-                    echo $this->Html->link( "Log Out",   array('controller' => 'seguridad', 'action' => 'logout'), ['class' => 'menuItem'] );
+                    echo $this->Html->link( "Sign out",   array('controller' => 'seguridad', 'action' => 'logout'), ['class' => 'menuItem'] );
                 }else{
-                    echo $this->Html->link( "Log In",   array('controller' => 'seguridad', 'action' => 'login'), [ 'id'=>'LogIn','class' => 'menuItem'] ); 
+                    echo $this->Html->link( "Sign in",   array('controller' => 'seguridad', 'action' => 'login'), [ 'id'=>'LogIn','class' => 'menuItem', 'style' => 'text-decoration: underline;font-weight:normal;'] ); 
+                    echo $this->Html->link( "Sign up",   array('controller' => 'usuario', 'action' => 'register'), [ 'class' => 'menuItem', 'style' => 'border-style: solid;font-weight:normal;border-width: 2px;'] ); 
                 }
             ?>
             <?php //echo $this->Html->link( "Cambiar a inglés",   array('controller' => 'idioma'), [ 'class' => 'menuItem'] ); ?>

@@ -16,8 +16,7 @@
     <?= $this->Form->create($proPrograma) ?>
     <fieldset>
         <?php
-            echo $this->Form->control('NOMBRE', ['label' => _('Name'), 'disabled']);
-            echo $this->Form->control('ACTIVO', ['label' => _('Active / Inactive'), 'disabled']);
+            echo $this->Form->control('NOMBRE', ['label' => _('Program Name'), 'disabled']);
         ?>
     </fieldset>
     <a href=".."> <button type="button" class="botonCancelar">Cancel</button> </a>
