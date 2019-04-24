@@ -43,9 +43,7 @@ class SeguridadController extends AppController
                     $this->request->getSession()->write('actualUser',$actualUser);
                     $this->set(compact('actualUser'));
                     $this->Flash->success('Logged in succefully.');
-                    
-                    return $this->redirect(['controller'=>'SolPregunta','action' => 'index']);
-                    //return $this->redirect(['controller'=>'mainpage','action' => 'index']);
+                    return $this->redirect(['controller'=>'MainPage','action' => 'index']);
                     
                 }else{
                     $this->Flash->error('The username or the password are incorrect, please try again.');
@@ -53,9 +51,7 @@ class SeguridadController extends AppController
             }
         }else{
             $this->Flash->error('You are already logged in.');
-           
-            return $this->redirect(['controller'=>'SolPregunta','action' => 'index']);
-            //return $this->redirect(['controller'=>'mainpage','action' => 'index']);
+            return $this->redirect(['controller'=>'MainPage','action' => 'index']);
 
         }
     }
@@ -81,10 +77,7 @@ class SeguridadController extends AppController
 
         }else{
             $this->Flash->error('You have not logged in.');
-           
-            return $this->redirect(['controller'=>'SolPregunta','action' => 'index']);
-            //return $this->redirect(['controller'=>'mainpage','action' => 'index']);
-
+            return $this->redirect(['controller'=>'MainPage','action' => 'index']);
         }
     }
 
@@ -132,9 +125,7 @@ class SeguridadController extends AppController
             }
         }else{
             $this->Flash->error('You are already logged in.');
-            
-            return $this->redirect(['controller'=>'SolPregunta','action' => 'index']);
-            //return $this->redirect(['controller'=>'mainpage','action' => 'index']);
+            return $this->redirect(['controller'=>'MainPage','action' => 'index']);
 
         }
     }
@@ -172,10 +163,7 @@ class SeguridadController extends AppController
             }
         }else{
             $this->Flash->error('You are already logged in.');
-            
-            return $this->redirect(['controller'=>'SolPregunta','action' => 'index']);
-            //return $this->redirect(['controller'=>'mainpage','action' => 'index']);
-
+            return $this->redirect(['controller'=>'MainPage','action' => 'index']);
         }
     }
 

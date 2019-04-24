@@ -39,8 +39,8 @@
                'pattern'=> '^(?:[0-9]|0[0-9]|1[0-9]|20)$', 
                'placeholder'=> 'number from 1 to 20'
             ]);
-            echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'value' => $proCurso ['IDIOMA'], 'placeholder'=> 'Language of the course']);
-            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'value' => $proCurso ['LOCACION'], 'placeholder'=> 'Location of the course']);
+            echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'value' => $proCurso ['IDIOMA'], 'placeholder'=> 'Language of the course','pattern' => '^[a-zA-Z]*$']);
+            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'value' => $proCurso ['LOCACION'], 'placeholder'=> 'Location of the course','pattern' => '^[a-zA-Z\s]*$']);
         ?>
     </fieldset>
     <br>

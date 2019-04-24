@@ -17,7 +17,6 @@
     <fieldset>
         <?php
             echo $this->Form->control('NOMBRE', ['label' => 'Nombre']);
-            echo $this->Form->control('ACTIVO', ['label' => 'Activo']);
         ?>
     </fieldset>
     <a href="/Registro-OTS/programa/"> <button type="button" class="botonCancelar">CANCEL</button> </a>
