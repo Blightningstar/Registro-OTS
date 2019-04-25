@@ -27,9 +27,12 @@
   
 
 
+    <div class="row">
+    <label style="margin-left:30px;" ><?= __('Search Users ') ?></label>
+        <input type="text" id="queryTextbox" style="width:50%;margin-left:20px;"> 
+        </div>
   
-    <label style=" display: inline-block;;margin-top:40px;margin-left:80px;"><?= __('Search Users ') ?></label>
-        <input type="text" id="queryTextbox" style="width:50%;float:right;margin-top:40px;margin-right:120px;"> 
+
         
 
 
@@ -48,9 +51,9 @@
                 <th scope="col"><?= $this->Paginator->sort(__('Country')) ?></th>
 
                 <th scope="col"><?= $this->Paginator->sort(__('Role')) ?></th>
-                <th scope="col" class="actions"><?= __('') ?></th>
-                <th scope="col" class="actions"><?= __('') ?></th>
-                <th scope="col" class="actions"><?= __('') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+
+  
             </tr>
         </thead>
     
@@ -79,25 +82,10 @@
                 <?php endif ?>
                 <?php endif ?>
 
-                <td class="actions">
-
-                <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('View'), ['controller' => 'usuario', 'action' => 'view', $segUsuario->SEG_USUARIO]) ?>    
-                    </button>
-                </td>
-                <td class="actions">
-
-              
-                <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('Edit'), ['controller' => 'usuario', 'action' => 'edit', $segUsuario->SEG_USUARIO]) ?>    
-                    </button>
-                </td>
-
-        
                 <td>
-                   <button type="button" class="botonAccion btn btn-xs"> 
-                       <?= $this->Form->postLink(__('Delete'), ['controller' => 'usuario', 'action' => 'delete', $segUsuario->SEG_USUARIO], ['confirm' => __('¿Desea eliminar el usuario con identificación: # {0}?', $segUsuario->SEG_USUARIO)]) ?>
-                    </button>
+                <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'usuario', 'action' => 'view',  $segUsuario->SEG_USUARIO], ['escape'=>false]) ?>
+                <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $segUsuario->SEG_USUARIO], ['escape'=>false]) ?>
+                <?= $this->Form->postLink('<i class="fa fa-trash"></i>', ['action' => 'delete', $segUsuario->SEG_USUARIO], ['escape'=>false, 'confirm' => __('¿Do you really want to remove this user?')]) ?>
                 </td>
             </tr>
            <!-- <?php endif;?>-->
