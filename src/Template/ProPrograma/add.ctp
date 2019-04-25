@@ -20,6 +20,7 @@
                     'pattern' => '\w+', 
                     'placeholder' => 'Only alphanumeric characters'
                     ]);
+
             ?>
 
         <a href="."> <button type="button" class="botonCancelar">CANCEL</button> </a>
