@@ -15,12 +15,7 @@
         <p class = "subtitulo"> <?=__('Edit the information of a course') ?> </p>
    </legend>
    <br>
-        <?php
-           //Converts the format of the dates in one that the database can save it.
-           $proCurso->FECHA_INICIO = date("Y-m-d", strtotime($proCurso->FECHA_INICIO)); 
-           $proCurso->FECHA_FINALIZACION = date("Y-m-d", strtotime($proCurso->FECHA_FINALIZACION));
-           $proCurso->FECHA_LIMITE = date("Y-m-d", strtotime($proCurso->FECHA_LIMITE));
-                 
+        <?php                 
            //Displays the data of a course.    
            echo $this->Form->control('PRO_CURSO', [
                'label' => _('Course ID'),
@@ -28,6 +23,11 @@
                'pattern' => '[a-zA-Z]{2}\-[0-9]{4}', 
                'placeholder' => 'e.g. "CI-2020"'
             ]);
+            //This is needed so the date is display in the same format as the rest
+            $proCurso['FECHA_LIMITE'] = date("m/d/Y", strtotime($proCurso['FECHA_LIMITE']));
+            $proCurso['FECHA_INICIO'] = date("m/d/Y", strtotime($proCurso['FECHA_INICIO']));
+            $proCurso['FECHA_FINALIZACION'] = date("m/d/Y", strtotime($proCurso['FECHA_FINALIZACION'])); 
+                  
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name'),'value' => $proCurso ['NOMBRE']]);
             echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'class'=>'datepicker','value' => $proCurso ['FECHA_INICIO']]);
             echo $this->Form->control('FECHA_FINALIZACION', ['label' => _('Final date'), 'class'=>'datepicker', 'value' => $proCurso ['FECHA_FINALIZACION']]);
@@ -35,17 +35,18 @@
             echo $this->Form->control('CREDITOS', [
                'label' => _('Academic charge'),
                'type' => 'number',
+               'min' => 0,
                'value' => $proCurso ['CREDITOS'] ,
-               'pattern'=> '^(?:[0-9]|0[0-9]|1[0-9]|20)$', 
-               'placeholder'=> 'number from 1 to 20'
+               'pattern'=> '^(?:[0-9]|0[0-9]|10)$', 
+               'placeholder'=> 'number from 1 to 10'
             ]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'value' => $proCurso ['IDIOMA'], 'placeholder'=> 'Language of the course','pattern' => '^[a-zA-Z]*$']);
             echo $this->Form->control('LOCACION', ['label' => _('Location'), 'value' => $proCurso ['LOCACION'], 'placeholder'=> 'Location of the course','pattern' => '^[a-zA-Z\s]*$']);
         ?>
     </fieldset>
     <br>
-    <a href="."> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
-    <?= $this->Form->button(__('Submit'), ['class' => 'botonAceptar'], ['label' => __('Submit')]) ?>
+    <a href=".."> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
+    <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar'], ['label' => __('Confirm')]) ?>
     <?= $this->Form->end() ?>
 </div>
 

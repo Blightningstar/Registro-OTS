@@ -31,9 +31,10 @@
             echo $this->Form->control('CREDITOS', [
                'label' => _('Academic charge'),
                'type' => 'number',
+               'min' => 0,
                'value' => 0 ,
-               'pattern'=> '^(?:[0-9]|0[0-9]|1[0-9]|20)$', 
-               'placeholder'=> 'hint'
+               'pattern'=> '^(?:[0-9]|0[0-9]|10)$', 
+               'placeholder'=> 'number from 1 to 10'
             ]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'placeholder'=> 'Language of the course','pattern' => '^[a-zA-Z]*$']);
             echo $this->Form->control('LOCACION', ['label' => _('Location'), 'placeholder'=> 'Location of the course','pattern' => '^[a-zA-Z\s]*$']);

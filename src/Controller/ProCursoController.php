@@ -92,14 +92,16 @@ class ProCursoController extends AppController
     public function edit($id = null)
     {
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
+        $lc_oldID = $proCurso['PRO_CURSO'];
+        $form_data = $this->request->getData();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
-            $limit = $form_data['FECHA_LIMITE'];
-            $end = $form_data['FECHA_FINALIZACION'];
-            $start = $form_data['FECHA_INICIO'];
+            $proCurso['FECHA_LIMITE'] = date("Y-m-d", strtotime($form_data['FECHA_LIMITE']));
+            $proCurso['FECHA_FINALIZACION'] = date("Y-m-d", strtotime($form_data['FECHA_FINALIZACION']));
+            $proCurso['FECHA_INICIO'] = date("Y-m-d", strtotime($form_data['FECHA_INICIO']));
             $lc_code = $this->checkUniqueData($proCurso["PRO_CURSO"]);
-            if($lc_code == "1" && $proCurso["NOMBRE"] != $form_data["NOMBRE"])
+            if($lc_code == "1" && $proCurso['PRO_CURSO'] != $form_data['PRO_CURSO'])
             {
                $this->Flash->error(__('The course alredy exits in the system.'));
             }
@@ -107,13 +109,12 @@ class ProCursoController extends AppController
             {
                $lo_connet = ConnectionManager::get('default');
                $lc_SiglaCurso = $proCurso["PRO_CURSO"];
-               $lc_SiglaForm = $form_data["PRO_CURSO"];
                $lc_result = $lo_connet->execute("
                update pro_curso 
-               set PRO_CURSO = '$lc_SiglaForm' 
-               where PRO_CURSO = '$lc_SiglaCurso'
+               set PRO_CURSO = '$lc_SiglaCurso' 
+               where PRO_CURSO = '$lc_oldID'
                ");
-               if ($this->ProCurso->save($proCurso, $start, $end, $limit)) 
+               if ($this->ProCurso->save($proCurso)) 
                {
                   $this->Flash->success(__('The course has been saved.'));
    
