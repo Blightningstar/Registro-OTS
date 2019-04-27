@@ -41,14 +41,10 @@
         <thead>
             <tr id="headTr">
                 
-                <th scope="col"><?= $this->Paginator->sort(__('ID')) ?></th>
-                <th scope="col"><?= $this->Paginator->sort(__('Name')) ?></th>
-                <th scope="col"><?= $this->Paginator->sort(__('Lastname 1')) ?></th>
-                <th scope="col"><?= $this->Paginator->sort(__('Lastname 2')) ?></th>
+
                 <th scope="col"><?= $this->Paginator->sort(__('Username')) ?></th>
                 <th scope="col"><?= $this->Paginator->sort(__('E-mail')) ?></th>
                 <th scope="col"><?= $this->Paginator->sort(__('Telephone'))?></th>
-                <th scope="col"><?= $this->Paginator->sort(__('Country')) ?></th>
 
                 <th scope="col"><?= $this->Paginator->sort(__('Role')) ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -60,16 +56,12 @@
         <tbody  >
             
             <?php foreach ($segUsuario as $segUsuario): ?>
-           <!-- <?php if(($segUsuario["ACTIVO"] != "N") && ($segUsuario->SEG_ROL != "3" || $lc_role != "2")):?>-->
+           
             <tr >
-                <td><?= h($segUsuario->SEG_USUARIO) ?></td>
-                <td><?= h($segUsuario->NOMBRE) ?></td>
-                <td><?= h($segUsuario->APELLIDO_1) ?></td>
-                <td><?= h($segUsuario->APELLIDO_2) ?></td>
+
                 <td><?= h($segUsuario->NOMBRE_USUARIO) ?></td>
                 <td><?= h($segUsuario->CORREO) ?></td>
                 <td><?= h($segUsuario->NUMERO_TELEFONO) ?></td>
-                <td><?= h($segUsuario->NACIONALIDAD) ?></td>
 
 
                 <?php   if($segUsuario->SEG_ROL == 1): ?>
@@ -88,7 +80,7 @@
                 <?= $this->Form->postLink('<i class="fa fa-trash"></i>', ['action' => 'delete', $segUsuario->SEG_USUARIO], ['escape'=>false, 'confirm' => __('¿Do you really want to remove this user?')]) ?>
                 </td>
             </tr>
-           <!-- <?php endif;?>-->
+        
             <?php endforeach; ?>
         </tbody>
     </table>
