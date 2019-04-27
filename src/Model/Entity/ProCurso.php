@@ -6,6 +6,8 @@ use Cake\ORM\Entity;
 /**
  * ProCurso Entity
  *
+ * @author Jason Zamora Trejos
+ *
  * @property string $PRO_CURSO
  * @property string $NOMBRE
  * @property \Cake\I18n\FrozenDate|null $FECHA_INICIO

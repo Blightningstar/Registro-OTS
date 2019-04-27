@@ -1,9 +1,11 @@
 <?php
 /**
+ * @author Esteban Rojas
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SegUsuario $segUsuario
  */
 ?>
+
 
 <div class="segUsuario form large-9 medium-8 columns content">
     <?= $this->Form->create($segUsuario) ?>
@@ -33,6 +35,6 @@
     </fieldset>
     <br>
     <a href="."> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
-    <?= $this->Form->button(__('Acept'), ['class' => 'botonAceptar'], ['label' => 'Acept']) ?>
+    <?= $this->Form->button(__('Accept'), ['class' => 'botonAceptar'], ['label' => 'Acept']) ?>
     <?= $this->Form->end() ?>
 </div>
