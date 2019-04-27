@@ -194,33 +194,44 @@ class SegUsuarioController extends AppController
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
 
             
-       
             $segUsuario["SEG_ROL"] = 1;
-            $lc_password = $this-> generatePassword();
-            $segUsuario["CONTRASEÑA"] = hash('sha256',$lc_password);
 
+
+            $user_c = new SeguridadController;
+            $credentials = $this->request->getData();
+       
+            $samePasswords = $credentials['new_password'] == $credentials['new_password_confirmation'];
             $lc_code = $this->checkUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"]);
+            
 
 
-            if ($lc_code == "1")
+            if(!$samePasswords)
             {
-                if ($this->SegUsuario->save($segUsuario)) {
-                    $this->Flash->success(__('User was added correctly. Password: ' . $lc_password));
-
-
-                    return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
-                }
-                $this->Flash->error(__("Error: User can't be added"));
+                $this->Flash->error('New password and its confirmation doesn\'t match.');
             }
-            else 
+            else
             {
-                if($lc_code == "2")
+                $segUsuario["CONTRASEÑA"] = $user_c->hash($credentials['new_password']);
+                if ($lc_code == "1")
                 {
-                    $this->Flash->error(__("Error: The username is already in the system."));
+                    if ($this->SegUsuario->save($segUsuario)) {
+                        $this->Flash->success(__('Your user account was created.'));
+
+
+                        return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
+                    }
+                    $this->Flash->error(__("Error: User can't be added"));
                 }
-                else
+                else 
                 {
-                    $this->Flash->error(__("Error: The email is already in the system."));
+                    if($lc_code == "2")
+                    {
+                        $this->Flash->error(__("Error: The username is already in the system."));
+                    }
+                    else
+                    {
+                        $this->Flash->error(__("Error: The email is already in the system."));
+                    }
                 }
             }
         }
@@ -366,14 +377,16 @@ class SegUsuarioController extends AppController
     }
 
     /**
-     * Remove logically a user by his id.
      * 
      * @author Esteban Rojas
-     * @return resultado indicando si el borrado fue exitoso o no.
+     * Change the active status of the user
+     * @param id user id
+     * @param active the new active value
+     * @return true/false 
      */
-    public function deleteUser($id)
+    public function changeUserActive($id,$active)
     {
-        return $this->SegUsuario->deleteUser($id);
+        return $this->SegUsuario->changeUserActive($id,$active);
     }
 
     /**
@@ -386,9 +399,11 @@ class SegUsuarioController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
+        $data = $this->request->getData();
+
         $segUsuario = $this->SegUsuario->get($id);
-        if ($this->deleteUser($id)) {
-            $this->Flash->success(__('The user was erased correctly'));
+        if ($this->changeUserActive($id,$data['newActive'])) {
+            $this->Flash->success(__('The user active value was modified correctly.'));
         } else {
             $this->Flash->error(__("Error: the user can't be removed."));
         }

@@ -59,11 +59,13 @@
     
     background-color:#7BC143;
     text-align:center;
-    border-radius: 17px;
+
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     float: right;
     margin-right: 2%;
+    padding: 10px 24px;
+    border-radius: 12px;
 }
 
 .botonAceptar:hover {
@@ -75,11 +77,12 @@
 {
     background-color:#F26631;
     text-align:center;
-    border-radius: 17px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     float: right;
     margin-right: 10px;
+    padding: 10px 24px;
+    border-radius: 12px;
 }
 
 .botonAccion
@@ -111,12 +114,14 @@
 {
     background-color:#F26631;
     text-align:center;
-    border-radius: 17px;
+    
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     float: right;
     margin-bottom: 30px;
     color:white !important;
+    padding: 10px 24px;
+    border-radius: 12px;
 }
 
 
@@ -147,32 +152,13 @@ fieldset legend {
 }
 
 /*Formatea los campos de texto*/
-input[type=text], input[type=number]
+input[type=text], input[type=number], input[type=password], input[type=text]:disabled
 {
-    background: #EBFFCA;
     border-radius: 13px;
     float: left; 
 }
 
 
-select option,select, input[type=select] 
-{
-    background-color: #EBFFCA !important;
-}
-
-input[type=password]
-{
-    background: #EBFFCA;
-    border-radius: 13px;
-    float: left; 
-}
-
-input[type=text]:disabled
-{
-    background: #EBFFCA;
-    border-radius: 13px;
-    float: left; 
-}
 
 /*Formatea las tablas de los grids de los index*/
 
@@ -192,7 +178,7 @@ input[type=text]:disabled
 
 .gridIndex th
 {
-    background-color:#EBFFCA;
+    background-color:#7BC143;
     text-align:center;
 }
 
@@ -204,7 +190,7 @@ input[type=text]:disabled
 
 .gridIndex tr:nth-child(even)
 {
-    background-color:#EBFFCA;
+    background-color:white;
 }
 
 .gridIndex tr:nth-child(odd)
@@ -213,4 +199,19 @@ input[type=text]:disabled
 }
 
 
-/*Termina Esteban*/
+.field
+{
+    font-weight:bold;
+}
+
+.value
+{
+    margin-left: 15%;
+}
+
+.separator
+{
+
+    height:1px;
+    background: #7BC143;
+}
