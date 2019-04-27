@@ -377,14 +377,16 @@ class SegUsuarioController extends AppController
     }
 
     /**
-     * Remove logically a user by his id.
      * 
      * @author Esteban Rojas
-     * @return resultado indicando si el borrado fue exitoso o no.
+     * Change the active status of the user
+     * @param id user id
+     * @param active the new active value
+     * @return true/false 
      */
-    public function deleteUser($id)
+    public function changeUserActive($id,$active)
     {
-        return $this->SegUsuario->deleteUser($id);
+        return $this->SegUsuario->changeUserActive($id,$active);
     }
 
     /**
@@ -397,9 +399,11 @@ class SegUsuarioController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
+        $data = $this->request->getData();
+
         $segUsuario = $this->SegUsuario->get($id);
-        if ($this->deleteUser($id)) {
-            $this->Flash->success(__('The user was erased correctly'));
+        if ($this->changeUserActive($id,$data['newActive'])) {
+            $this->Flash->success(__('The user active value was modified correctly.'));
         } else {
             $this->Flash->error(__("Error: the user can't be removed."));
         }

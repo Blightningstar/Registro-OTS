@@ -41,7 +41,7 @@
         <thead>
             <tr id="headTr">
                 
-
+                <th scope="col"><?= $this->Paginator->sort(__('Active')) ?></th>
                 <th scope="col"><?= $this->Paginator->sort(__('Username')) ?></th>
                 <th scope="col"><?= $this->Paginator->sort(__('E-mail')) ?></th>
                 <th scope="col"><?= $this->Paginator->sort(__('Telephone'))?></th>
@@ -56,9 +56,16 @@
         <tbody  >
             
             <?php foreach ($segUsuario as $segUsuario): ?>
-           
-            <tr >
 
+
+            <tr >
+            
+                <td>
+                <?= $this->Form->create('Post', ['url' => '/usuario/delete/' . $segUsuario->SEG_USUARIO ]) ?>
+                <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($segUsuario->ACTIVO == 1) ,
+                'onclick' => 'submit(12)']) ?>
+                <?= $this->Form->end() ?>
+                </td>
                 <td><?= h($segUsuario->NOMBRE_USUARIO) ?></td>
                 <td><?= h($segUsuario->CORREO) ?></td>
                 <td><?= h($segUsuario->NUMERO_TELEFONO) ?></td>
@@ -77,7 +84,7 @@
                 <td>
                 <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'usuario', 'action' => 'view',  $segUsuario->SEG_USUARIO], ['escape'=>false]) ?>
                 <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $segUsuario->SEG_USUARIO], ['escape'=>false]) ?>
-                <?= $this->Form->postLink('<i class="fa fa-trash"></i>', ['action' => 'delete', $segUsuario->SEG_USUARIO], ['escape'=>false, 'confirm' => __('¿Do you really want to remove this user?')]) ?>
+                <!--<?= $this->Form->postLink('<i class="fa fa-trash"></i>', ['action' => 'delete', $segUsuario->SEG_USUARIO], ['escape'=>false, 'confirm' => __('¿Do you really want to remove this user?')]) ?>-->
                 </td>
             </tr>
         
