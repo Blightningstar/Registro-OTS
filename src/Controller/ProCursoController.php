@@ -150,10 +150,20 @@ class ProCursoController extends AppController
      * Logically delete a course
      * 
      */
-    public function logicalDelete($id)
+    public function logicalDelete($id=null, $active=null)
     {
         $con = ConnectionManager::get('default');
-        $result = $con->execute("update pro_curso set activo = '0' where PRO_CURSO = '$id'");
+        debug($id);
+        debug($active);
+        die();
+        if($active == 1)
+        {
+            $result = $con->execute("update pro_curso set activo = '0' where PRO_CURSO = '$id'");
+        }
+        else
+        {
+            $result = $con->execute("update pro_curso set activo = '1' where PRO_CURSO = '$id'");
+        }
         return 1;
     }
     

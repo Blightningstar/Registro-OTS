@@ -59,12 +59,23 @@
                 <td><?= h($proCurso->FECHA_LIMITE) ?></td>
                 <td><?= $this->Number->format($proCurso->CREDITOS) ?></td>
                 <td><?= h($proCurso->LOCACION) ?></td>
-                <td><?= h($proCurso->ACTIVO) ?></td>
+                
+                
+                <td>
+                  <?php if( h($proCurso->ACTIVO) == 1) { ?>  
+                     <input id="toggle-activo" type="checkbox" data-toggle="toggle" onclick= "change()" data-on="Enabled" data-off="Disabled" checked>
+                  <?php } else { ?>
+                     <input id="toggle-activo" type="checkbox" data-toggle="toggle" onclick= "change()" data-on="Enabled" data-off="Disabled">
+                  <?php } ?>
+                 
+                </td>
+                
+                 
                 <td class="actions">
                 <!-- Links the view button to the course-->
                 <button type="button" class="botonAccion btn btn-xs"> 
                         <?= $this->Html->link(__('View'), ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO]) ?>    
-                    </button>
+                    </button> 
                 </td>
                 <td class="actions">
 
@@ -92,3 +103,16 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+<script type="text/javascript">
+      //Changes the ACTIVE row in the course table
+//      $('#toggle-activo').change(function()
+//      {
+//            debug("Cambio");
+//            <?= $this->Form->postLink(__('Active'), ['controller' => 'curso', 'action' => 'logicalDelete', $proCurso->PRO_CURSO, $proCurso->ACTIVO]) ?>
+//      });
+   function change() {
+         debug("Cambio");
+         die();
+      <?= $this->Form->postLink(__('Active'), ['controller' => 'curso', 'action' => 'logicalDelete', $proCurso->PRO_CURSO, $proCurso->ACTIVO]) ?>
+  }
+</script>
