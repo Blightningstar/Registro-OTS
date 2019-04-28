@@ -24,11 +24,11 @@ if(isset($active_menu)):?>
 <?php endif; ?>
 
 
-<nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-center sticky" style="background-color:#7BC143">
+<nav class="navbar navbar-fixed-top navbar-expand-xl  sticky" style="background-color:#7BC143">
 
 
 
-<div class="navbar-bar flex flex-horizontal justify-content-center">    
+<div class="navbar-bar flex flex-horizontal ">    
     <?php if($actualUser["SEG_ROL"] != "1"):?>
                 <?php echo $this->Html->link( "Main",   array('controller' => 'main'), ['id'=> 'MenubarUsers', 'class' => 'menuItem'] ); ?>
 
