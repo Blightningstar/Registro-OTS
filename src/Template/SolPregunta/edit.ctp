@@ -9,7 +9,10 @@
 <div class="solPregunta form large-9 medium-8 columns content">
     <?= $this->Form->create($solPreguntum) ?>
     <fieldset>
-        <legend><?= __('Edit Question') ?></legend>
+        <legend class = "titulo"><?= __('Edit Question') ?>
+        <br></br>
+        <p class = "subtitulo">Edit this question to the question bank.</p>
+    </legend>
         <?php
             echo $this->Form->control('DESCRIPCION_ESP', [
                 'label' => 'Description in spanish',
@@ -31,6 +34,6 @@
     </fieldset>
     </fieldset>
     <br>
-    <a href=".."> <button type="button" class="botonCancelar"><?= __('Go back') ?></button> </a>
-    <?= $this->Form->button(__('Save'), ['class' => 'botonAceptar'], ['label' => 'Save']) ?>
+    <a href=".."> <button type="button" class="botonCancelar"><?= __('CANCEL') ?></button> </a>
+    <?= $this->Form->button(__('ACCEPT'), ['class' => 'botonAceptar'], ['label' => 'ACCEPT']) ?>
     <?= $this->Form->end() ?>
