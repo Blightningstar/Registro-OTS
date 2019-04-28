@@ -1,27 +1,30 @@
 <?php
 /**
+ * @author Anyelo Mijael Lobo Cheloukhin
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProPrograma $proPrograma
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Pro Programa'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="proPrograma form large-9 medium-8 columns content">
-    <?= $this->Form->create($proPrograma) ?>
+<div class="proPrograma index large-9 medium-8 columns content container-fluid">
     <fieldset>
-        <legend><?= __('Add Pro Programa') ?></legend>
-        <?php
-            echo $this->Form->control('NOMBRE');
-            echo $this->Form->control('IDIOMA');
-            echo $this->Form->control('CREDITAJE');
-            echo $this->Form->control('PAIS');
-            echo $this->Form->control('ACTIVO');
-        ?>
+        <legend class = "titulo">Program Administration<br></br>
+        <p class = "subtitulo">Add New Program</p>
+        </legend>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+    <div class="proPrograma form large-9 medium-8 columns content">
+        <?= $this->Form->create($proPrograma) ?>
+            <?php
+                echo $this->Form->control('NOMBRE',  [
+                    'label' => 'Name of the program',
+                    'pattern' => '\w+', 
+                    'placeholder' => 'Only alphanumeric characters'
+                    ]);
+
+            ?>
+
+        <a href="."> <button type="button" class="botonCancelar">CANCEL</button> </a>
+        <?= $this->Form->button(__('ACCEPT'), ['class' => 'botonAceptar']) ?>
+        <?= $this->Form->end() ?>
+    </div>
 </div>

@@ -1,65 +1,120 @@
 <?php
 /**
+ * @author Esteban Rojas
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SegUsuario[]|\Cake\Collection\CollectionInterface $segUsuario
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Seg Usuario'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="segUsuario index large-9 medium-8 columns content">
-    <h3><?= __('Seg Usuario') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+
+
+
+
+<div class="segUsuario index large-9 medium-8 columns content container-fluid">
+   
+<fieldset>
+        <legend class = "titulo"><?= __('User Administration') ?>
+        <br></br>
+        <p class = "subtitulo"> <?= __('Administrate system users') ?></p>
+    </legend>
+    <br>
+
+    <!--Shows the button to add users-->
+    <button type="button" class="botonAgregar">
+        
+        <?= $this->Html->link(__('Add User'), ['controller' => 'usuario', 'action' => 'add'], ['style' => 'color:white;']) ?>   
+    </button>
+    <br>
+  
+    <!-- Shows/hide rows by user input -->
+    <div class="row">
+    <label style="margin-left:30px;" ><?= __('Search Users ') ?></label>
+        <input type="text" id="queryTextbox" style="width:50%;margin-left:20px;"> 
+    </div>
+  
+    <!-- grid with all users-->
+    <div class="container-fluid table-responsive">
+    <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
         <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('SEG_USUARIO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('NOMBRE') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('APELLIDO_1') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('APELLIDO_2') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('NOMBRE_USUARIO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('CONTRASEÑA') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('CORREO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('NUMERO_TELEFONO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('NACIONALIDAD') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ACTIVO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ESTUDIANTE') ?></th>
+            <!-- id="headTr" allows the search function to keep headers right! -->
+            <tr id="headTr">
+                
+                <th scope="col"><?= $this->Paginator->sort(__('Active')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Username')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('E-mail')) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Telephone'))?></th>
+                <th scope="col"><?= $this->Paginator->sort(__('Role')) ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
-        <tbody>
+    
+        <tbody>         
+            
             <?php foreach ($segUsuario as $segUsuario): ?>
+            <!--Each user is a row-->
             <tr>
-                <td><?= h($segUsuario->SEG_USUARIO) ?></td>
-                <td><?= h($segUsuario->NOMBRE) ?></td>
-                <td><?= h($segUsuario->APELLIDO_1) ?></td>
-                <td><?= h($segUsuario->APELLIDO_2) ?></td>
+                
+
+                <!--Uses a form as wrapper to contain a checkbox wich will modify active value of the user.
+                Better than use hidden inputs, from a security's perspective.-->
+                <td>    
+                    <?= $this->Form->create('Post', ['url' => '/usuario/delete/' . $segUsuario->SEG_USUARIO ]) ?>
+                    <!-- Checkbox will submit each time user modify his value. -->
+                    <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($segUsuario->ACTIVO == 1) ,
+                    'onclick' => 'submit()', 'disabled' => ($segUsuario["NOMBRE_USUARIO"] == $actualUserName)]) ?>
+                    <?= $this->Form->end() ?>
+                </td>
+
                 <td><?= h($segUsuario->NOMBRE_USUARIO) ?></td>
-                <td><?= h($segUsuario->CONTRASEÑA) ?></td>
                 <td><?= h($segUsuario->CORREO) ?></td>
                 <td><?= h($segUsuario->NUMERO_TELEFONO) ?></td>
-                <td><?= h($segUsuario->NACIONALIDAD) ?></td>
-                <td><?= h($segUsuario->ACTIVO) ?></td>
-                <td><?= h($segUsuario->ESTUDIANTE) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $segUsuario->SEG_USUARIO]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $segUsuario->SEG_USUARIO]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $segUsuario->SEG_USUARIO], ['confirm' => __('Are you sure you want to delete # {0}?', $segUsuario->SEG_USUARIO)]) ?>
+
+                <!-- mapping between role number and role name -->
+                <?php   if($segUsuario->SEG_ROL == 1): ?>
+                        <td><?= __('Student') ?></td>
+                    <?php else: if($segUsuario->SEG_ROL == 2): ?>
+                        <td><?= __('Administrator') ?></td>
+                        <?php else: if($segUsuario->SEG_ROL == 3): ?>
+                            <td><?= __('Superuser') ?></td>
+                        <?php endif ?>
+                <?php endif ?>
+                <?php endif ?>
+
+                <!-- eye and pencil buttons allows to view and edit users -->
+                <td>
+                <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'usuario', 'action' => 'view',  $segUsuario->SEG_USUARIO], ['escape'=>false]) ?>
+                <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $segUsuario->SEG_USUARIO], ['escape'=>false]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
+    </fieldset>
+    <br>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('First')) ?>
+            <?= $this->Paginator->prev('< ' . __('Previous')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('Next') . ' >') ?>
+            <?= $this->Paginator->last(__('Last') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} register(s) of {{count}}')]) ?></p>
     </div>
 </div>
+
+<script>
+//Allows the user to hide/show rows by typing data in the queryTextbox.
+$(document).ready(function(){
+  $("#queryTextbox").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tr").filter(function() 
+    {
+        var excludeHeader = $(this).attr("id") == "headTr"; //Keeps header safe.
+        if(!excludeHeader)
+            $(this).toggle(($(this).text().toLowerCase().indexOf(value) > -1));
+    });
+  });
+});
+</script>
+

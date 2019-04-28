@@ -6,29 +6,29 @@
  */
 ?>
 
-<style media="screen">
-    tr:nth-child(2n+1) {
-        background-color:#EBFFCA;
-    }
-    tr:nth-child(2n+2) {
-        background-color:#FFFFFF;
-    }
-    #header{
-        background-color: #659F31;
-    }
-</style>
-
 <div class="segRol index large-8 medium-8 columns content text-grid col-lg-offset-4">
-    <h3 style="color:#7BC143"><?= __('Permission') ?></h3>
-    <br><br>
+    <!-- Etiquetas de titulo y subtitulo de la página -->
+    <fieldset>
+        <legend class = "titulo"><?= __('Permissions') ?>
+            <br><br>
+            <p class = "subtitulo"> Administration of system permissions </p>
+        </legend>
+        <br><br>
+    <fieldset>
+
+    <!-- Shows/hide rows by user input -->
+    <div class="row">
+    <label style="margin-left:30px;" ><?= __('Search Permisions ') ?></label>
+        <input type="text" id="queryTextbox" style="width:50%;margin-left:20px;"> 
+    </div>
 
     <div class="row">
         <div class="col-xl-12 offset-xl-3">
 
             <!-- Permission matrix. -->
-            <table cellspacing="10" id="rightstable" class="table text-center table-bordered">
+            <table cellspacing="10" id="rightstable" class="gridIndex table table-bordered">
                 <thead>
-                    <tr id = "header">
+                    <tr id = "headTr">
                         <th colspan="2" scope="col" style="text-align:center;">Permission description</th>
                         <th scope="col" style="text-align:center;">SuperUser</th>
                         <th scope="col" style="text-align:center;">Administrator</th>
@@ -92,18 +92,22 @@
             echo $this->Form->input('segrol', ['type'=>'hidden'] );
             // Action to do, grant a permission to some rol or remove it. 0 remove, 1 grant.
             echo $this->Form->input('tipo', ['type'=>'hidden'] );
+            // Description of the permission.
+            echo $this->Form->input('descripcion', ['type'=>'hidden'] );
+            // Rol who will be granted or removed the permission.
+            echo $this->Form->input('rol', ['type'=>'hidden'] );
             // This variables wil be sent to the controller.
             $this->Form->unlockField('segpermiso');
             $this->Form->unlockField('segrol');
             $this->Form->unlockField('tipo');
+            $this->Form->unlockField('descripcion');
+            $this->Form->unlockField('rol');
         ?> 
     <?= $this->Form->end(); ?>
 <div>
 
 <?= $this->Html->script('Generic'); ?>
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $(document).ready( function () {
         /**
@@ -130,14 +134,35 @@
             document.getElementById('segpermiso').value = vln_idPermiso;
             document.getElementById('segrol').value = vlo_col; //SuperUser = 1, Administrator = 2, Student = 3.
             
-            if($(this).is(":checked")){
+            if($(this).is(":checked"))
                 document.getElementById('tipo').value = "1"; // Grant a permission for some rol.
-            }
-            else{
+            else
                 document.getElementById('tipo').value = "0"; // Remove a permission granted for some rol.
+
+            document.getElementById('descripcion').value = vlo_Dttable.rows[vlo_row].cells[0].innerHTML; //Description of the process permission.
+
+            if(vlo_col == 1)
+                document.getElementById('rol').value = 'SuperUser';
+            else{
+                if(vlo_col == 2)
+                    document.getElementById('rol').value = 'Administrator';
+                else
+                    document.getElementById('rol').value = 'Student';
             }
 
             document.getElementById('submitRequest').submit(); // Submit the request.
+        });
+
+        //Allows the user to hide/show rows by typing data in the queryTextbox.
+        $(document).ready(function(){
+            $("#queryTextbox").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("tr").filter(function(){
+                    var excludeHeader = $(this).attr("id") == "headTr"; //Keeps header safe.
+                    if(!excludeHeader)
+                        $(this).toggle(($(this).text().toLowerCase().indexOf(value) > -1));
+                });
+            });
         });
     });
 </script>

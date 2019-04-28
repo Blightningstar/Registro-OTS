@@ -2,16 +2,29 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Event\Event;
 /**
  * ProPrograma Controller
  *
+ * @author Anyelo Mijael Lobo Cheloukhin
  * @property \App\Model\Table\ProProgramaTable $ProPrograma
  *
  * @method \App\Model\Entity\ProPrograma[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ProProgramaController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarPrograms');
+    }
+
+    function checkUniqueData($lc_name)
+    {
+        return $this->ProPrograma->checkUniqueData($lc_name);
+    }
+
     /**
      * Index method
      *
@@ -48,14 +61,26 @@ class ProProgramaController extends AppController
     public function add()
     {
         $proPrograma = $this->ProPrograma->newEntity();
+
+        
+        
         if ($this->request->is('post')) {
             $proPrograma = $this->ProPrograma->patchEntity($proPrograma, $this->request->getData());
-            if ($this->ProPrograma->save($proPrograma)) {
-                $this->Flash->success(__('The pro programa has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+            $proPrograma["PRO_PROGRAMA"] = $_REQUEST['NOMBRE']; //Primary Key is the name of the program
+            $proPrograma["ACTIVO"] = 'S';
+            $lc_code = $this->checkUniqueData($proPrograma["NOMBRE"] );
+            if($lc_code == "1"){
+                 $this->Flash->error(__("Error: This program is already in the system."));
             }
-            $this->Flash->error(__('The pro programa could not be saved. Please, try again.'));
+            else{
+                if ($this->ProPrograma->save($proPrograma)) {
+                    $this->Flash->success(__('The pro programa has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+            }
+            $this->Flash->error(__('The program could not be saved. Please, try again.'));
         }
         $this->set(compact('proPrograma'));
     }
@@ -84,9 +109,21 @@ class ProProgramaController extends AppController
         $this->set(compact('proPrograma'));
     }
 
+
+     /**
+     * Removes logically a program by his id
+     * From S to N
+     *
+     * @return Succesful logical delete or not.
+     */
+    public function deleteProgram($id)
+    {
+        return $this->ProPrograma->deleteProgram($id);
+    }
+
     /**
      * Delete method
-     *
+     * 
      * @param string|null $id Pro Programa id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -95,10 +132,10 @@ class ProProgramaController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $proPrograma = $this->ProPrograma->get($id);
-        if ($this->ProPrograma->delete($proPrograma)) {
-            $this->Flash->success(__('The pro programa has been deleted.'));
+        if ($this->deleteProgram($id)) {
+            $this->Flash->success(__('The program was erased correctly'));
         } else {
-            $this->Flash->error(__('The pro programa could not be deleted. Please, try again.'));
+            $this->Flash->error(__("Error: the program can't be removed."));
         }
 
         return $this->redirect(['action' => 'index']);

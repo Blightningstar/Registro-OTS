@@ -8,9 +8,6 @@ use Cake\ORM\Entity;
  *
  * @property string $PRO_PROGRAMA
  * @property string $NOMBRE
- * @property string $IDIOMA
- * @property int $CREDITAJE
- * @property string $PAIS
  * @property string|null $ACTIVO
  */
 class ProPrograma extends Entity
@@ -25,10 +22,8 @@ class ProPrograma extends Entity
      * @var array
      */
     protected $_accessible = [
+        //'PRO_PROGRAMA' => true,
         'NOMBRE' => true,
-        'IDIOMA' => true,
-        'CREDITAJE' => true,
-        'PAIS' => true,
         'ACTIVO' => true
     ];
 }
