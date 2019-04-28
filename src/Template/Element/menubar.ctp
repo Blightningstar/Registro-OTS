@@ -1,69 +1,112 @@
 <?php
-/**
- * Barra del menú de navegación para el registro de estudiantes de la OET
- */
+    /**
+     * Barra del menú de navegación para el registro de estudiantes de la OET
+     */
+    $rol = $actualUser["SEG_ROL"];
 ?>
 
 <?php 
-/**
- * La variable $active_menu se usa para indicar cuál es el menú activo. Los posibles valores son:
- * - MenubarQuestions
- * - MenubarCourses
- * - MenubarPrograms
- * - MenubarUsers
- * - LogIn
- */
-if(isset($active_menu)):?>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var obj_id = '#<?php echo $active_menu; ?>';
-            var clase = $(obj_id).attr('class');
-            $(obj_id).attr('class', clase + ' active' );
-        });
-    </script>
+    /**
+     * La variable $active_menu se usa para indicar cuál es el menú activo. Los posibles valores son:
+     * - MenubarQuestions
+     * - MenubarCourses
+     * - MenubarPrograms
+     * - MenubarUsers
+     * - LogIn
+     */
+    if(isset($active_menu)):?>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var obj_id = '#<?php echo $active_menu; ?>';
+                console.log(obj_id);
+                var clase = $(obj_id).attr('class');
+                console.log(clase);
+                $(obj_id).attr('class', clase + ' active' );
+            });
+        </script>
 <?php endif; ?>
 
 
-<nav class="navbar navbar-fixed-top navbar-expand-xl  sticky" style="background-color:#7BC143">
+<nav class="navbar menubar navbar-fixed-top navbar-expand-xl collapse navbar-collapse sticky " style="background-color:#7BC143">
+    <ul class = "navbar-nav mr-auto">
+        <?php// if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+            <li id = 'MenubarMain' class="nav-item menuItem">
+                <?= $this->Html->link( "Main",[
+                    'controller' => 'main'
+                ],[
+                    'class' => 'nav-link menuLink'
+                ]);?>
+            </li>
+        <?php// endif;?>
 
+        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+            <li id = 'MenubarUsers' class="nav-item menuItem">
+                <?= $this->Html->link( "Users",[
+                    'controller' => 'usuario'
+                ],[
+                    'class' => 'nav-link menuLink'
+                ]);?>
+            </li>
+        <?php endif;?>
 
+        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+            <li id = 'MenubarPrograms' class="nav-item menuItem">
+                <?= $this->Html->link( "Programs",[
+                    'controller' => 'programa'
+                ],[
+                    'class' => 'nav-link menuLink'
+                ]);?>
+            </li>
+        <?php endif;?>
 
-<div class="navbar-bar flex flex-horizontal ">    
-    <?php if($actualUser["SEG_ROL"] != "1"):?>
-                <?php echo $this->Html->link( "Main",   array('controller' => 'main'), ['id'=> 'MenubarUsers', 'class' => 'menuItem'] ); ?>
+        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+            <li id = 'MenubarCourses', class="nav-item menuItem">
+                <?= $this->Html->link( "Courses",[
+                    'controller' => 'curso'
+                ],[
+                    'class' => 'nav-link menuLink'
+                ]);?>
+            </li>
+        <?php endif;?>        
 
-                <?php echo $this->Html->link( "Users",   array('controller' => 'usuario'), ['id'=> 'MenubarUsers', 'class' => 'menuItem'] ); ?>
-                
-                <?php echo $this->Html->link( "Programs",   array('controller' => 'programa'), ['id'=> 'MenubarPrograms', 'class' => 'menuItem'] ); ?>
+        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+            <li id = 'MenubarQuestions' class="nav-item menuItem">
+                <?= $this->Html->link( "Questions",[
+                    'controller' => 'pregunta'
+                ],[
+                    'class' => 'nav-link menuLink'
+                ]);?>
+            </li>
+        <?php endif;?>
 
-                <?php echo $this->Html->link( "Courses",   array('controller' => 'curso'), ['id'=> 'MenubarCourses', 'class' => 'menuItem'] ); ?>
-                
-                <?php //echo $this->Html->link( "Dashboard",   array('controller' => 'dashboard'), [ 'class' => 'menuItem'] ); ?>
+        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+            <li id = 'MenubarPermissions' class="nav-item menuItem">
+                <?= $this->Html->link( "Permissions",[
+                    'controller' => 'permiso'
+                ],[
+                    'class' => 'nav-link menuLink'
+                ]);?>
+            </li>
+        <?php endif;?>
 
-                <?php echo $this->Html->link( "Questions",   array('controller' => 'pregunta'), ['id'=>'MenubarQuestions','class' => 'menuItem'] ); ?>
+        <!-- 
+            <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+                <li class="nav-item">
+                    <?php //echo $this->Html->link( "Dashboard",   array('controller' => 'dashboard'), [ 'class' => 'menuItem'] ); ?>
+                </li>
+            <?php endif;?>
 
-                <?php echo $this->Html->link( "Permisions",   array('controller' => 'permiso'), ['id'=> 'MenubarPermisions', 'class' => 'menuItem'] ); ?>
+            <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+                <li class="nav-item">
+                    <?php //echo $this->Html->link( "Applications",   array('controller' => 'solicitudes'), [ 'class' => 'menuItem'] ); ?>
+                </li>
+            <?php endif;?>
 
-                <?php //echo $this->Html->link( "Applications",   array('controller' => 'solicitudes'), [ 'class' => 'menuItem'] ); ?>
-
-                <?php //echo $this->Html->link( "About OTS",   array('controller' => '', 'action' => ''), [ 'class' => 'menuItem'] ); ?>
-            
-
-            </ul>
-        </div>
-    <?php else:?>
-
-        <?php echo $this->Html->link( "Courses",   array('controller' => 'curso'), [ 'class' => 'menuItem'] ); ?>
-
-        <?php echo $this->Html->link( "Programs",   array('controller' => 'programa'), [ 'class' => 'menuItem'] ); ?>
-
-        <?php echo $this->Html->link( "Applications",   array('controller' => 'solicitudes'), [ 'class' => 'menuItem'] ); ?>
-
-        <?php echo $this->Html->link( "About OTS",   array('controller' => '', 'action' => ''), [ 'class' => 'menuItem'] ); ?>
-
-
-    <?php endif;?>
-
-
-</div>
+            <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+                <li class="nav-item">
+                    <?php //echo $this->Html->link( "About OTS",   array('controller' => '', 'action' => ''), [ 'class' => 'menuItem'] ); ?>
+                </li>
+            <?php endif;?>
+        -->
+    <ul>    
 </nav>
