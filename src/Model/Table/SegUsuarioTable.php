@@ -365,11 +365,11 @@ class SegUsuarioTable extends Table
      * @param string $userdata, it's the user email or username.
      * @return string the user email.
      */
-    public function getUser($userdata,$hash){
+    public function getUser($userdata){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
             "SELECT * FROM SEG_USUARIO
-             WHERE CONTRASEÑA = '$hash' AND (NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata')"
+             WHERE NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata'"
         )->fetchAll('assoc');
         if($result){
             return $result[0];
