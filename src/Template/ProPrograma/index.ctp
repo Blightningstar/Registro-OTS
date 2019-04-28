@@ -5,6 +5,7 @@
  * @var \App\Model\Entity\ProPrograma[]|\Cake\Collection\CollectionInterface $proPrograma
  */
 ?>
+<div class="proPrograma index large-9 medium-8 columns content container-fluid">
     <fieldset>
 
     <legend class = "titulo">Program Administration<br></br>
@@ -85,4 +86,5 @@
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} program(s) out of {{count}} total')]) ?></p>
     </div>
+</div>
 </div>
