@@ -41,17 +41,16 @@ class SegPermisoController extends AppController
 
         // If the request was submited.
         if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
-            
             // Take the submited information.
             $data = $this->request->getData();
 
             if($data['tipo'] == 1){ // Will create a relation between the given permission and the given rol.
                 $this->SegPermiso->SEG_POSEE_AgregarRegistro($data['segpermiso'], $data['segrol']);
-                $this->Flash->success(__('The permission was granted corrently.'));
+                $this->Flash->success(__('The permission '.$data['descripcion'].' was granted corrently to the rol '.$data['rol'].'.'));
             }
             else{ // Will remove a relation between the given permission and the given rol.
                 $this->SegPermiso->SEG_POSEE_EliminarRegistro($data['segpermiso'], $data['segrol']);
-                $this->Flash->success(__('The permission was remove corrently.'));
+                $this->Flash->success(__('The permission '.$data['descripcion'].' was remove corrently to the rol '.$data['rol'].'.'));
             }
 
             // Will refrash the view
