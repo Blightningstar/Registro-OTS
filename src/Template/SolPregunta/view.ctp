@@ -136,7 +136,7 @@
 
 </fieldset>
 
-<a href=".."> <button type="button" class="botonCancelar"><?= __('Go back') ?></button> </a>
+<a href=".."> <button type="button" class="botonCancelar"><?= __('GO BACK') ?></button> </a>
 </div>
 
 

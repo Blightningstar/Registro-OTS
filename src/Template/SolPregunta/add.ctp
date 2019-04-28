@@ -11,7 +11,7 @@
     <fieldset>
         <legend class = "titulo"><?= __('Add Question') ?>
         <br></br>
-        <p class = "subtitulo">Adds a new question to the question bank.</p>
+        <p class = "subtitulo">Adds a new question data.</p>
     </legend>
         
         <br>
@@ -37,7 +37,7 @@
         ?>
     </fieldset>
     <br>
-    <a href="."> <button type="button" class="botonCancelar">Go back</button> </a>
-    <?= $this->Form->button(__('Save'), ['class' => 'botonAceptar'], ['label' => 'Save']) ?>
+    <a href="."> <button type="button" class="botonCancelar">CANCEL</button> </a>
+    <?= $this->Form->button(__('ACCEPT'), ['class' => 'botonAceptar'], ['label' => 'ACCEPT']) ?>
     <?= $this->Form->end() ?>
 </div>
