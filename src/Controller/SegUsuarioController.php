@@ -222,6 +222,7 @@ class SegUsuarioController extends AppController
     public function register()
     {
 
+        $this->set('active_title', 'TitlebarSignUp');
         $segUsuario = $this->SegUsuario->newEntity();
 
         //Only executed if user submitted a form.
@@ -420,7 +421,7 @@ class SegUsuarioController extends AppController
      */
     public function profileView($id = null)
     {
-        $this->set('active_title', 'User');
+        $this->set('active_title', 'TitlebarUser');
 
         //Obtain authenticated user id.
         $id = $this->obtenerUsuarioActual();
