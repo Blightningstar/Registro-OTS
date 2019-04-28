@@ -20,11 +20,14 @@ class SegPermisoController extends AppController
     }
 
     /**
+     * MatrizPermisos
+     * @author Nathan González
+     * 
      * Will allow me load the view with all the relations of rols and permission alredy existint
      * and after submit the request will call the corresponding action depending of the number 
      * given by the view (0 remove relation and 1 create) with the rol and the permission id.
      * 
-     * @author Nathan González
+     * @return flash indicating the success of the removal or granting of a permission to some rol.
      */
     public function MatrizPermisos()//SEG_POSEE_MatrizPermisos()
     {

@@ -20,9 +20,10 @@ class MainPageController extends AppController
     }
 
     /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|void
+     * Index
+     * @author Nathan González H
+     * 
+     * Visualization of a background image in the home page of the system.
      */
     public function index()
     {

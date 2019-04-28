@@ -7,7 +7,7 @@
 ?>
 
 <div class="segRol index large-8 medium-8 columns content text-grid col-lg-offset-4">
-    <!-- Etiquetas de titulo y subtitulo de la página -->
+    <!-- Labels of the title and subtitle of the page -->
     <fieldset>
         <legend class = "titulo"><?= __('Permissions') ?>
             <br><br>
@@ -141,6 +141,7 @@
 
             document.getElementById('descripcion').value = vlo_Dttable.rows[vlo_row].cells[0].innerHTML; //Description of the process permission.
 
+            // Define who rol will be have acess to the permission or who will be revoke that acess.
             if(vlo_col == 1)
                 document.getElementById('rol').value = 'SuperUser';
             else{
