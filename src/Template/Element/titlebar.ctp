@@ -2,35 +2,111 @@
 /**
  * Barra superior con el logo de la OET, el nombre del sistema y la información de sesión del usuario
  */
+if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+    //ip from share internet
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    //ip pass from proxy
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+}else{
+    $ip = $_SERVER['REMOTE_ADDR'];
+}
+
+// Ip Costa Rica
+//$ip = "190.171.106.117";
+// Ip Sudafrica
+$ip = "41.85.255.255";
+
+$details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+$country = $details->country;
+if($actualUser)
+    $username = $actualUser['NOMBRE_USUARIO'];
+    $rol = $actualUser['SEG_ROL']
 ?>
 
-<nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between" style="background-color:#659F31">
-        <div class="navbar-nav">
-	
-            <?= $this->Html->image('Logos/eng/s/3.png', ['style' => 'height:50px'])?>
-        
-        </div>
+<?php if(isset($active_title)):?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var obj_id = '#<?php echo $active_title; ?>';
+            var clase = $(obj_id).attr('class');
+            $(obj_id).attr('class', clase + ' active' );
+        });
+    </script>
+<?php endif; ?>
 
-  
-        <div class="navbar-bar">
-            <?php echo $this->Html->link( $actualUser['NOMBRE_USUARIO'],   array('controller' => 'usuario', 'action' => 'profileView'), [ 'class' => 'menuItem'] ); ?>
-
-            
-            <?php 
-  
-                if($actualUser){
-                    echo $this->Html->link( "Log Out",   array('controller' => 'seguridad', 'action' => 'logout'), ['class' => 'menuItem'] );
-                }else{
-                    echo $this->Html->link( "Log In",   array('controller' => 'seguridad', 'action' => 'login'), [ 'id'=>'LogIn','class' => 'menuItem'] ); 
-                }
-            ?>
-            <?php //echo $this->Html->link( "Cambiar a inglés",   array('controller' => 'idioma'), [ 'class' => 'menuItem'] ); ?>
-
-
-
-
-    
-            
-        </div>
-
+<nav class="navbar topbar navbar-fixed-top navbar-expand-xl justify-content-between">
+    <?= $this->Html->image('Logos/eng/s/3.png', ['style' => 'height:50px'])?>
+    <div>
+        <ul class = "navbar-nav mr-auto">
+            <?php if($actualUser):?>
+                <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+                    <li id = 'TitlebarUser' class="nav-item menuItem">
+                        <?= $this->Html->link( $username,[
+                            'controller' => 'usuario',
+                            'action' => 'profileView'
+                        ],[
+                            'class' => 'nav-link menuLink'
+                        ]);?>
+                    </li>
+                <?php endif;?>
+                <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+                    <li class="nav-item menuItem">
+                        <?= $this->Html->link( "Sign out",[
+                            'controller' => 'seguridad',
+                            'action' => 'logout'
+                        ],[
+                            'class' => 'nav-link menuLink'
+                        ]);?>
+                    </li>
+                <?php endif;?>
+                <?php if($country == 'CR'):?>
+                    <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+                        <li id="Language" class="nav-item menuItem">
+                            <?= $this->Html->link( '',[
+                                'controller' => 'idioma',
+                                'action' => 'show',
+                                "Español"
+                            ],[
+                               'class' => 'fa fa-globe-americas menuLink icon'
+                            ]);?>
+                        </li>
+                    <?php endif;?>
+                <?php else:?>
+                    <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+                        <li  class="nav-item menuItem">
+                            <?= $this->Html->link( '',[
+                                'controller' => 'idioma',
+                                'action' => 'show',
+                                "English"
+                            ],[
+                                'class' => 'fa fa-globe-africa menuLink icon'
+                            ]);?>
+                        </li>
+                    <?php endif;?>
+                <?php endif;?>
+            <?php else:?>
+                <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+                    <li id = 'TitlebarSignIn' class="nav-item menuItem">
+                        <?= $this->Html->link( "Sign in",[
+                            'controller' => 'seguridad',
+                            'action' => 'login'
+                        ],[
+                            'class' => 'nav-link menuLink underlined'
+                        ]);?>
+                    </li>
+                <?php endif;?>
+                <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+                    <li id = 'TitlebarSignUp' class="nav-item menuItem">
+                        <?= $this->Html->link( "Sign up",[
+                            'controller' => 'usuario',
+                            'action' => 'register'
+                        ],[
+                            'id'=>'TitlebarSignUp',
+                            'class' => 'nav-link menuLink boxed'
+                        ]);?>
+                    </li>
+                <?php endif;?>
+            <?php endif;?>
+        </ul>
+    <div>
 </nav>
