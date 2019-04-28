@@ -20,6 +20,7 @@
        
        $rol = "";
 
+        //Obtains user role 
        switch($segUsuario["SEG_ROL"])
        {
            case "1":
@@ -31,12 +32,10 @@
            case "3":
                $rol = __("Superuser");
                break;
-       }
-
-
-       
+       }    
    ?>
 
+       <!--Print each field in the view-->
         <br>
         <div>
             <p class= "field"> <?= __('Name:') ?></p>

@@ -250,9 +250,7 @@
 <option value="Zambia">Zambia</option>
 <option value="Zimbabwe">Zimbabwe</option>
 
-
-
-
+<!--If the view is an edit, then it will create an extra option with the selected value.-->
 <?php if($segUsuario["NACIONALIDAD"] != null):?>
 
     <option selected="selected">

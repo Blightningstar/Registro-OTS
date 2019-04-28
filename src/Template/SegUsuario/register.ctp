@@ -24,12 +24,10 @@ $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
             echo $this->Form->control('NOMBRE_USUARIO', ['label' => __('Username'),'pattern' => '\w+', 'title' => __('Username invalid')]);
             echo $this->Form->control('CORREO', ['label' => __('E-mail'),  'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'title' => __("Error: E-mail invalid")]);
             echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone'), 'pattern' => "[/+]?[0-9\-\s]+", 'title' => 'Error: Put a valid number. You can use + - or spaces']);
+            //Located at src/template/element/countrSelectOptions.ctp
             echo $this->element('countrySelectOptions');
 
-            
-
-
-           
+            //User must create his password.       
             echo $this->Form->control('new_password', [
                 'pattern' => $password_pattern,
                 'title' => __("Error: invalid password"),
@@ -42,12 +40,7 @@ $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
                 'placeholder'=> 'PaSs3xample', 'label' => __('New password confirmation'), 'type' => 'password'
             ]);    
            
-           ?>
-
-  
-
-
-        
+        ?>
     </fieldset>
     <br>
     <a href="."> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>

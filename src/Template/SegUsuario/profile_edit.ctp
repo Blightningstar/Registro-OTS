@@ -20,14 +20,13 @@
             echo $this->Form->control('APELLIDO_2', ['label' => __('Lastname 2')] );
             echo $this->Form->control('CORREO', ['label' => __('E-mail'),  'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'title' => __("Error: E-mail invalid")]);
             echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone'),'pattern' => "[/+]?[0-9\-\s]+", 'title' => 'Error: Put a valid number. You can use + - or spaces']);
+            //Located at src/template/element/countrSelectOptions.ctp
             echo $this->element('countrySelectOptions');
         ?>
     </fieldset>
     <br><br>
     <a href="./profile-view"> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
     <?= $this->Form->button(__('Accept'), ['class' => 'botonAceptar'], ['label' => 'Acept']) ?>
-
-
-    
+ 
     <?= $this->Form->end() ?>
 </div>

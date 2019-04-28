@@ -112,10 +112,13 @@ class SegUsuarioTable extends Table
 
 
    /**
-    *  @author Esteban Rojas
+     * changeUserActive.
+     *  @author Esteban Rojas.
      * Removes logically a user by his id.
-     * @param id User's id.
+     * 
+     * @param id The User's id.
      * @param  newActve The new active's value.
+     * @return 0 if change failed. Else, return 1.
      */
     public function changeUserActive($id,$newActive)
 	{
@@ -128,27 +131,33 @@ class SegUsuarioTable extends Table
 
 
     /**
-     *  Checks if the username or email is already on database
-     *  @author Esteban Rojas
-     *  @return 1 if email and username don't exist, 2 if user is already on database 3 same, but email
+     * checkUniqueData
+     *  @author Esteban Rojas.
+     *  Checks if the username or email is already in the database.
+     * 
+     *  @param lc_username The username to search in the database.
+     *  @param lc_email The username to search in the database.
+     *  @return 1 if email and username don't exist, 2 if user is already on database 3 same, but email isn't.
      */
     public function checkUniqueData($lc_username, $lc_email)
     {
         $lc_code = "1";
+
+        //username and email aren't case sensitive.
         $lc_username = strtolower($lc_username);
         $lc_email = strtolower($lc_email);
-
 
         $connet = ConnectionManager::get('default');
         $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO, LOWER(NOMBRE_USUARIO) AS NOMBRE_USUARIO FROM SEG_USUARIO WHERE(CORREO = '$lc_email' or 
         NOMBRE_USUARIO = '$lc_username')");
 
-
         $result = $result->fetchAll('assoc');
 
+        //If the query don't fetch any row, then the username and email aren't in the database.
         if(empty($result) == 0)
         {
   
+            //Sends a code to determine which data is already in the database: username or email.
             if($result[0]["NOMBRE_USUARIO"] == $lc_username)
             {
                 $lc_code = "2";
@@ -164,13 +173,19 @@ class SegUsuarioTable extends Table
     }
 
      /**
-     *  Checks if the username or email is already on database. Version for edit user
-     *  @author Esteban Rojas
-     *  @return 1 if emai and username don't exist, 2 if user is already on database 3 same, but email
+     * checkEditUniqueData
+     *  @author Esteban Rojas.
+     *  Checks if the username or email is already on database. Version for edit user. The difference with the
+     *  checkUniqueData is that this function ignores username and email of the actually user.
+     *  @param lc_username The username to seatch in the database.
+     *  @param lc_email The email to search in the database.
+     *  @param lc_us The actually user id.
+     *  @return 1 if email and username don't exist, 2 if user is already on database 3 same, but email.
      */
     public function checkEditUniqueData($lc_username, $lc_email, $lc_us)
     {
         $lc_code = "1";
+        //username and email aren't case sensitive.
         $lc_username = strtolower($lc_username);
         $lc_email = strtolower($lc_email);
 
@@ -178,12 +193,13 @@ class SegUsuarioTable extends Table
         $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO, LOWER(NOMBRE_USUARIO) AS NOMBRE_USUARIO FROM SEG_USUARIO WHERE((CORREO = '$lc_email' or 
         NOMBRE_USUARIO = '$lc_username') AND SEG_USUARIO != '$lc_us')");
 
-
         $result = $result->fetchAll('assoc');
 
+        //If the query don't fetch any row, then the username and email aren't in the database.
         if(empty($result) == 0)
         {
   
+            //Sends a code to determine which data is already in the database: username or email.
             if($result[0]["NOMBRE_USUARIO"] == $lc_username)
             {
                 $lc_code = "2";
@@ -200,20 +216,27 @@ class SegUsuarioTable extends Table
 
 
      /**
-     *  Checks if  email is already on database
+     * checkUniqueEmail
      *  @author Esteban Rojas
-     *  @return 1 if email doesn't exist. Otherwise, return 2
+     *  Checks if  email is already on database. Used in profile-edit only, because the user can't edit his username.
+     *  so the previous functions can't be used.
+     *  @param lc_username The username to search in database.
+     *  @param lc_email The email to search in database.
+     *  @return 1 if email doesn't exist. Otherwise, return 2.
      */
     public function checkUniqueEmail($lc_username, $lc_email)
     {
         $lc_code = "1";
+        //email isn't case sensitive.
         $lc_email = strtolower($lc_email);
+
         $connet = ConnectionManager::get('default');
         $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO FROM SEG_USUARIO WHERE(CORREO = '$lc_email')");
 
 
         $result = $result->fetchAll('assoc');
 
+        //If the query don't fetch any row, then the username and email aren't in the database.
         if(empty($result) == 0)
         {
    
@@ -226,9 +249,12 @@ class SegUsuarioTable extends Table
     }
 
     /**
-     * Obtains the user role
-     * @author Esteban Rojas
-     * @return "1" = Student, "2" = Administrator, "3" = "Superuser"
+     * getUserRoleByUsername
+     * @author Esteban Rojas.
+     * Get the user's role. 
+     * TODO: Remove this function when user_role is setted as sesion variable. 
+     * @param username The username of the user which role must be know.
+     * @return "1" = Student, "2" = Administrator, "3" = "Superuser".
      */
     public function getUserRoleByUsername($username)
     {
