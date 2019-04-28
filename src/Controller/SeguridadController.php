@@ -45,14 +45,6 @@ class SeguridadController extends AppController
                         $this->request->getSession()->write('actualUser',$actualUser);
                         $this->set(compact('actualUser'));
                         $this->Flash->success('Logged in succefully.');
-
-                        /**
-                         * return $this->redirect($this->referer()); 
-                         * Se encicla redireccionandose asi mismo y luego a la página requerida
-                         * No fue posible manejar esta redireccioón eniclada se optó por
-                         * redireccionar a la página principal luego del logueo.
-                         */
-
                         return $this->redirect(['controller'=>'MainPage','action' => 'index']);
                     }
                 }
@@ -60,7 +52,6 @@ class SeguridadController extends AppController
         }else{
             $this->Flash->error('You are already logged in.');
             return $this->redirect($this->referer());
-            //return $this->redirect(['controller'=>'MainPage','action' => 'index']);
         }
     }
 
@@ -80,11 +71,7 @@ class SeguridadController extends AppController
             $this->request->getSession()->write('actualUser',null);
             $this->set(compact('actualUser'));
             $this->Flash->success('You are now logged out.');
-
-            //TODO: chose where to redirect
-            
             return $this->redirect(['action' => 'login']);
-
         }else{
             $this->Flash->error('You have not logged in.');
             return $this->redirect(['controller'=>'MainPage','action' => 'index']);
@@ -112,23 +99,12 @@ class SeguridadController extends AppController
                 if($email){
                     $user_code = $userController->getCode($email);
                     if(!$user_code){
-                        
-                        // TODO: send mail
-
                         $userController->setCode($email,$code);
                         $this->Flash->success('Code sent to ' . $email . '.' . $code);
-                       
                         return $this->redirect(['action' => 'restoreVerify', $email]);
-
                     }else if($user_code){
-
-                        // TODO: Change error message to a warning message, fix warning bug.
-                        // $this->Flash->warning('Code already sent  to ' . $email . ', please check your email.');
-
                         $this->Flash->error('Code already sent  to ' . $email . ', please check your email.');                    
-                       
                         return $this->redirect(['action' => 'restoreVerify', $email]);
-
                     }
                 }else{
                     $this->Flash->error('The user doesn\'t exist.');
@@ -197,7 +173,7 @@ class SeguridadController extends AppController
                 $old_pass = $userController->getHash($user['NOMBRE_USUARIO']);
             
                 $condition1 = $credentials['new_password'] == $credentials['new_password_confirmation'];
-                $condition2 = $this->check($user['NOMBRE_USUARIO'],$credentials['old_password'],$old_pass);//TODO Cambiar
+                $condition2 = $this->check($user['NOMBRE_USUARIO'],$credentials['old_password'],$old_pass);
                 $condition3 = $credentials['old_password'] != $credentials['new_password'];
                 $all_conditions = $condition1 && $condition2 && $condition3;
                 if(!$condition1)
@@ -210,17 +186,11 @@ class SeguridadController extends AppController
                     $new_pass = $this->hash($credentials['new_password']);
                     $userController->setHash($user['NOMBRE_USUARIO'],$new_pass);
                     $this->Flash->success('Password Changed Correctly.');
-                   
                     return $this->redirect(['controller'=>'SegUsuario','action' => 'profile_view', $user['SEG_USUARIO']]);
-
                 }
             }
         }else{
-            $this->Flash->error('You have not logged in.');
-
-            // TODO: elegir donde redirigir: a la página principal o a la página anterior o a la página de logueo
-            //return $this->redirect($this->referer());
-            
+            $this->Flash->error('You have not logged in.');            
             return $this->redirect(['action' => 'login']);
         }
     }

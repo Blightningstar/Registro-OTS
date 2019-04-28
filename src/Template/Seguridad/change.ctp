@@ -4,7 +4,6 @@
      * 
      **/
     $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
-    //$password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*..*).{8,16}';
 ?>
 <div class="container mt-5 mb-5 pb-5 pt-5 class card ">
     <h1 class = "titulo"><?= __('Change Password') ?></h1>
