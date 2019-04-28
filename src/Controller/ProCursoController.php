@@ -62,6 +62,14 @@ class ProCursoController extends AppController
             $proCurso['FECHA_LIMITE'] = date("Y-m-d", strtotime($form_data['FECHA_LIMITE']));
             $proCurso['FECHA_FINALIZACION'] = date("Y-m-d", strtotime($form_data['FECHA_FINALIZACION']));
             $proCurso['FECHA_INICIO'] = date("Y-m-d", strtotime($form_data['FECHA_INICIO']));
+            if($proCurso['LOCACION']==0)
+            {
+               $proCurso['LOCACION'] = 'Costa Rica';
+            }
+            else
+            {
+               $proCurso['LOCACION'] = __('South Africa');
+            }
             debug($proCurso);
             $lc_code = $this->checkUniqueData($form_data['PRO_CURSO']);
             debug($lc_code);
@@ -100,6 +108,14 @@ class ProCursoController extends AppController
             $proCurso['FECHA_LIMITE'] = date("Y-m-d", strtotime($form_data['FECHA_LIMITE']));
             $proCurso['FECHA_FINALIZACION'] = date("Y-m-d", strtotime($form_data['FECHA_FINALIZACION']));
             $proCurso['FECHA_INICIO'] = date("Y-m-d", strtotime($form_data['FECHA_INICIO']));
+            if($proCurso['LOCACION']==0)
+            {
+               $proCurso['LOCACION'] = 'Costa Rica';
+            }
+            else
+            {
+               $proCurso['LOCACION'] = __('South Africa');
+            }
             $lc_code = $this->checkUniqueData($proCurso["PRO_CURSO"]);
             if($lc_code == "1" && $proCurso['PRO_CURSO'] != $form_data['PRO_CURSO'])
             {

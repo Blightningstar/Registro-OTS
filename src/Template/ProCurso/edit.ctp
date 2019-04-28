@@ -41,7 +41,7 @@
                'placeholder'=> 'number from 1 to 10'
             ]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'value' => $proCurso ['IDIOMA'], 'placeholder'=> 'Language of the course','pattern' => '^[a-zA-Z]*$']);
-            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'value' => $proCurso ['LOCACION'], 'placeholder'=> 'Location of the course','pattern' => '^[a-zA-Z\s]*$']);
+            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'value' => $proCurso ['LOCACION'], 'placeholder'=> 'Location of the course', 'options' => array('Costa Rica', __('South Africa'))]);
         ?>
     </fieldset>
     <br>
