@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * SegPermiso Controller
@@ -11,6 +12,13 @@ use App\Controller\AppController;
  */
 class SegPermisoController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_title', 'MenubarPermissions');
+    }
+
     /**
      * Will allow me load the view with all the relations of rols and permission alredy existint
      * and after submit the request will call the corresponding action depending of the number 
