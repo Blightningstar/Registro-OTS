@@ -13,12 +13,12 @@
         <?php
             echo $this->Form->control('DESCRIPCION_ESP', [
                 'label' => 'Description in spanish',
-                'pattern' => '\w+', 
+                'pattern' => '^[A-Za-z0-9 _,.\/ ?¿]*$', 
                 'placeholder' => 'Only alphanumeric characters'
         ]);
             echo $this->Form->control('DESCRIPCION_ING', [
                 'label' => 'Description in english',
-                'pattern' => '\w+', 
+                'pattern' => '^[A-Za-z0-9 _,.\/ ?¿]*$', 
                 'placeholder' => 'Only alphanumeric characters'
             ]);
             echo '<label for="TIPO">Type</label>';
