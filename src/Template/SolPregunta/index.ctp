@@ -37,8 +37,8 @@
             <tr id="headTr">
                 <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
                 <!-- <th scope="col"><?= $this->Paginator->sort('Question ID') ?></th> -->
-                <th scope="col"><?= $this->Paginator->sort('Description in spanish') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Description in english') ?></th>
+               <!--  <th scope="col"><?= $this->Paginator->sort('Description in spanish') ?></th> -->
+                <th scope="col"><?= $this->Paginator->sort('Description') ?></th>
                 <!-- <th scope="col"><?= $this->Paginator->sort('Type') ?></th> -->
                 <th scope="col"><?= $this->Paginator->sort('Required') ?></th>
                 
@@ -63,7 +63,7 @@
 
                 <!-- <td><?= $this->Number->format($solPreguntum->SOL_PREGUNTA) ?></td> -->
 
-                <td><?= h($solPreguntum->DESCRIPCION_ESP) ?></td>
+                <!-- <td><?= h($solPreguntum->DESCRIPCION_ESP) ?></td> -->
                 <td><?= h($solPreguntum->DESCRIPCION_ING) ?></td>
                 
 
