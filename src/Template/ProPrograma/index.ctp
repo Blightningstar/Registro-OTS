@@ -42,7 +42,7 @@
 
                 <td><?= h($proPrograma->NOMBRE) ?></td>
 
-                <?php if($proPrograma->ACTIVO == 'S'):?>
+                <?php if($proPrograma->ACTIVO == '1'):?>
                     <td><?= h('Active') ?></td>
                 <?php else: ?>
                     <td><?= h('Inactive') ?></td>
