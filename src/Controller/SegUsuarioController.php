@@ -178,9 +178,12 @@ class SegUsuarioController extends AppController
             //To fix index mismatch.
             $segUsuario["SEG_ROL"] += 1;
 
+            $user_c = new SeguridadController;
+
             //Creates a new password for the user.
             $lc_password = $this-> generatePassword();
-            $segUsuario["CONTRASEÑA"] = hash('sha256',$lc_password);
+            $segUsuario["CONTRASEÑA"] = $user_c->hash($lc_password);
+            
 
             //Verifies if username and email aren't in the database.
             $lc_code = $this->checkUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"]);
@@ -222,6 +225,7 @@ class SegUsuarioController extends AppController
     public function register()
     {
 
+        $this->set('active_title', 'TitlebarSignUp');
         $segUsuario = $this->SegUsuario->newEntity();
 
         //Only executed if user submitted a form.
@@ -420,7 +424,7 @@ class SegUsuarioController extends AppController
      */
     public function profileView($id = null)
     {
-        $this->set('active_title', 'User');
+        $this->set('active_title', 'TitlebarUser');
 
         //Obtain authenticated user id.
         $id = $this->obtenerUsuarioActual();

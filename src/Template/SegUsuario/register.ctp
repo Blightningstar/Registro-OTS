@@ -44,6 +44,6 @@ $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
     </fieldset>
     <br>
     <a href="."> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
-    <?= $this->Form->button(__('Accept'), ['class' => 'botonAceptar'], ['label' => 'Acept']) ?>
+    <?= $this->Form->button(__('Accept'), ['class' => 'botonAceptar'], ['label' => 'Accept']) ?>
     <?= $this->Form->end() ?>
 </div>
