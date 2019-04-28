@@ -15,11 +15,12 @@
         <p class = "subtitulo"> <?=__('Edit a user information') ?> </p>
     </legend>
         <?php
-            echo $this->Form->control('NOMBRE', ['label' => __('Name')]);
-            echo $this->Form->control('APELLIDO_1', ['label' => __('Lastname 1')]); 
-            echo $this->Form->control('APELLIDO_2', ['label' => __('Lastname 2')] );
-            echo $this->Form->control('NOMBRE_USUARIO' ,  ['label' => __('Username')]);
-            echo $this->Form->control('CORREO', ['label' => __('E-mail'),  'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'title' => __("Error: E-mail invalid")]);
+            echo $this->Form->control('NOMBRE', ['label' => __('Name'),'pattern' => '^[A-Za-z0-9 _,.\/ ?¿\s]*$','placeholder' => __('Only alphanumeric characters') ]);
+            echo $this->Form->control('APELLIDO_1', ['label' => __('Lastname 1'),'pattern' => '^[A-Za-z0-9 _,.\/ ?¿\s]*$','placeholder' => __('Only alphanumeric characters')]);
+            echo $this->Form->control('APELLIDO_2', ['label' => __('Lastname 2'),'pattern' => '^[A-Za-z0-9 _,.\/ ?¿\s]*$','placeholder' => __('Only alphanumeric characters')]);
+            echo $this->Form->control('NOMBRE_USUARIO', ['label' => __('Username'),  'title' => __('Username invalid'), 'pattern' => '^[A-Za-z0-9 _,.\/ ?¿\s]*$','placeholder' => __('Only alphanumeric characters')]);
+            echo $this->Form->control('CORREO', ['label' => __('E-mail'),  'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'title' => __("Error: E-mail invalid"), 'placeholder' => __('Only email valid formats')]);
+            echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone'), 'pattern' => "[/+]?[0-9\-\s]+", 'title' => 'Error: Put a valid number. You can use + - or spaces' , 'placeholder' => __('Only number valid formats')]);
             echo $this->element('countrySelectOptions');
 
 
