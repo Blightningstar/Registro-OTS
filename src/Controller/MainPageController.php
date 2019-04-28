@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * MainPage Controller
@@ -11,6 +12,13 @@ use App\Controller\AppController;
  */
 class MainPageController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarMain');
+    }
+
     /**
      * Index method
      *
