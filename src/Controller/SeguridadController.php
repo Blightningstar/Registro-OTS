@@ -31,26 +31,30 @@ class SeguridadController extends AppController
             if($this->request->is('post')){
                 $credentials = $this->request->getData();
                 $userdata = $credentials['email'];
-                $hash = $this->hash($credentials['password']);
+                $pasword = $credentials['password'];
 
                 $userController = new SegUsuarioController;
-                $actualUser = $userController->getUser($userdata,$hash);
-                
+                $actualUser = $userController->getUser($userdata);
                 if(!$actualUser)
                     $this->Flash->error(__('The username or the password are incorrect, please try again.'));
                 else{
-                    $this->request->getSession()->write('actualUser',$actualUser);
-                    $this->set(compact('actualUser'));
-                    $this->Flash->success('Logged in succefully.');
+                    $hash = $actualUser['CONTRASEÑA'];              
+                    if(!$this->check($userdata,$pasword,$hash))
+                        $this->Flash->error(__('The username or the password are incorrect, please try again.'));
+                    else{
+                        $this->request->getSession()->write('actualUser',$actualUser);
+                        $this->set(compact('actualUser'));
+                        $this->Flash->success('Logged in succefully.');
 
-                    /**
-                     * return $this->redirect($this->referer()); 
-                     * Se encicla redireccionandose asi mismo y luego a la página requerida
-                     * No fue posible manejar esta redireccioón eniclada se optó por
-                     * redireccionar a la página principal luego del logueo.
-                     */
+                        /**
+                         * return $this->redirect($this->referer()); 
+                         * Se encicla redireccionandose asi mismo y luego a la página requerida
+                         * No fue posible manejar esta redireccioón eniclada se optó por
+                         * redireccionar a la página principal luego del logueo.
+                         */
 
-                    return $this->redirect(['controller'=>'MainPage','action' => 'index']);
+                        return $this->redirect(['controller'=>'MainPage','action' => 'index']);
+                    }
                 }
            }
         }else{
@@ -97,23 +101,22 @@ class SeguridadController extends AppController
      * 
      * @return \Cake\Http\Response|null Redirects if the user exists, renders view otherwise.
      */
-    public function restoreSend()
-    {
+    public function restoreSend(){
         $actualUser = $this->viewVars['actualUser'];
         if(!$actualUser){
             if($this->request->is('post')){            
-                $user_c = new SegUsuarioController;
+                $userController = new SegUsuarioController;
                 $code = Security::randomString(15);
                 $data = $this->request->getData();
-                $email = $user_c->getEmailByUserData($data['username']);
+                $email = $userController->getEmailByUserData($data['username']);
                 if($email){
-                    $user_code = $user_c->getCode($email);
+                    $user_code = $userController->getCode($email);
                     if(!$user_code){
                         
                         // TODO: send mail
 
-                        $user_c->setCode($email,$code);
-                        $this->Flash->success('Code sent to ' . $email . '.');
+                        $userController->setCode($email,$code);
+                        $this->Flash->success('Code sent to ' . $email . '.' . $code);
                        
                         return $this->redirect(['action' => 'restoreVerify', $email]);
 
@@ -151,10 +154,10 @@ class SeguridadController extends AppController
         $actualUser = $this->viewVars['actualUser'];
         if(!$actualUser){
             if($this->request->is('post')){
-                $user_c = new SegUsuarioController;
+                $userController = new SegUsuarioController;
                 $credentials = $this->request->getData();            
                 $condition1 = $credentials['new_password'] == $credentials['password_confirmation'];
-                $condition2 = $user_c->getCode($email) == $credentials['code'];
+                $condition2 = $userController->getCode($email) == $credentials['code'];
                 $all_conditions = $condition1 && $condition2;
                 if(!$condition1)
                     $this->Flash->error('New password and its confirmation doesn\'t match.');
@@ -162,8 +165,8 @@ class SeguridadController extends AppController
                     $this->Flash->error('Wrong restauration code.');
                 else if($all_conditions){
                     $new_pass = $this->hash($credentials['new_password']);
-                    $user_c->setHash($email,$new_pass);
-                    $user_c->setCode($email,null);
+                    $userController->setHash($email,$new_pass);
+                    $userController->setCode($email,null);
                     $this->Flash->success('Password Changed Correctly.');
                     
                     return $this->redirect(['action' => 'login']);
@@ -188,14 +191,13 @@ class SeguridadController extends AppController
     {
         $user = $this->viewVars['actualUser'];
         if($user){
-            
             if($this->request->is('post')){
-                $user_c = new SegUsuarioController;
+                $userController = new SegUsuarioController;
                 $credentials = $this->request->getData();
-                $old_pass = $user_c->getHash($user['NOMBRE_USUARIO']);
+                $old_pass = $userController->getHash($user['NOMBRE_USUARIO']);
             
                 $condition1 = $credentials['new_password'] == $credentials['new_password_confirmation'];
-                $condition2 = $this->check($credentials['old_password'],$old_pass);
+                $condition2 = $this->check($user['NOMBRE_USUARIO'],$credentials['old_password'],$old_pass);//TODO Cambiar
                 $condition3 = $credentials['old_password'] != $credentials['new_password'];
                 $all_conditions = $condition1 && $condition2 && $condition3;
                 if(!$condition1)
@@ -206,7 +208,7 @@ class SeguridadController extends AppController
                     $this->Flash->error('New password can\'t be the same as old password.');
                 else if($all_conditions){
                     $new_pass = $this->hash($credentials['new_password']);
-                    $user_c->setHash($user['NOMBRE_USUARIO'],$new_pass);
+                    $userController->setHash($user['NOMBRE_USUARIO'],$new_pass);
                     $this->Flash->success('Password Changed Correctly.');
                    
                     return $this->redirect(['controller'=>'SegUsuario','action' => 'profile_view', $user['SEG_USUARIO']]);
@@ -227,28 +229,61 @@ class SeguridadController extends AppController
      * hash
      * @author Daniel Marín <110100010111h@gmail.com>
      *
+     * Uses becypt with 0.2(200 miliseconds) as timeTarget,
      * hash the given plain text password and returns it.
+     * 
      * @param string $password, the plain text string to be hashed.
      * @return string the hashed password.
      */
-    public function hash($password)
-    {
-        // TODO: Mejorar método de encripción debido a inseguridad de sha256
-        $sha256 = Security::hash($password, 'sha256');
-        return $sha256;
+    public function hash($password){
+        $cost = $this->calculateCost(0.2);
+        $options = ['cost'=>$cost];
+        $bcrypt = password_hash($password, PASSWORD_BCRYPT, $options);
+        return $bcrypt;
     }
 
     /**
      * check
      * @author Daniel Marín <110100010111h@gmail.com>
      *
-     * Generate hash for the user provided password and check against the existing hash.
+     * Verifies the password and checks if it needs to be rehashed.
+     * 
+     * @param string $userdata, The username or email in case of rehashing th password.
      * @param string $password, the plain text string to be hashed.
      * @param string $hashed, existing hashed password.
-     * @return bool true if both match, else false.
+     * @return bool true if password match, else false.
      */
-    public function check($password,$hashed)
-    {
-        return $this->hash($password) === $hashed;
+    public function check($userdata,$password,$hash){
+        if(password_verify($password, $hash)){
+            $cost = $this->calculateCost(0.2);
+            $options = ['cost' => $cost];
+            if (password_needs_rehash($hash, PASSWORD_DEFAULT, $options)) {
+                $newHash = $this->hash($password);
+                $userController = new SegUsuarioController;
+                $userController->setHash($userdata,$newHash);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * calculateCost
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *
+     * Calculates the cost necessary to obtain the target time on the hashing algorithm.
+     * 
+     * @param double $timeTarget, the time that we want on the hashing algorithm.
+     * @return int the cost to accomplish that time.
+     */
+    public function calculateCost($timeTarget){
+        $cost = 8;
+        do {
+            $cost++;
+            $start = microtime(true);
+            password_hash("test", PASSWORD_BCRYPT, ["cost" => $cost]);
+            $end = microtime(true);
+        } while (($end - $start) < $timeTarget);
+        return $cost;
     }
 }
