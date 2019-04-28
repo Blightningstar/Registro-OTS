@@ -69,9 +69,12 @@ class SegPermisoTable extends Table
     }
 
     /**
+     * SEG_POSEE_TraerPermisosPoseidos
+     * @author Nathan González
+     * 
      * Query to get all the relations in the SEG_POSEE table.
      * 
-     * @author Nathan González
+     * @return set all the relation between rols and permissions.
      */
     public function SEG_POSEE_TraerPermisosPoseidos()
     {
@@ -86,9 +89,13 @@ class SegPermisoTable extends Table
     }
 
     /**
+     * SEG_POSEE_AgregarRegistro
+     * @author Nathan González
+     * 
      * Storage procedure to grant a given perssion ($SEG_PERMISO) to a given rol ($SEG_ROL).
      * 
-     * @author Nathan González
+     * @param int $SEG_PERMISO the id of the given permission.
+     * @param int $SEG_ROL the id of the given rol.
      */
     public function SEG_POSEE_AgregarRegistro($SEG_PERMISO, $SEG_ROL){
         $connet = ConnectionManager::get('default');
@@ -98,9 +105,13 @@ class SegPermisoTable extends Table
     }
 
     /**
+     * SEG_POSEE_EliminarRegistro
+     * @author Nathan González
+     * 
      * Storage procedure to remove a given perssion ($SEG_PERMISO) to a given rol ($SEG_ROL).
      * 
-     * @author Nathan González
+     * @param int $SEG_PERMISO the id of the given permission.
+     * @param int $SEG_ROL the id of the given rol.
      */
     public function SEG_POSEE_EliminarRegistro($SEG_PERMISO, $SEG_ROL){
         $connet = ConnectionManager::get('default');
