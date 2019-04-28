@@ -25,11 +25,16 @@
         <?= $this->Html->link(__('Add Course'), ['controller' => 'curso', 'action' => 'add'], ['style' => 'color:white;']) ?>   
     </button>
     
+    <div class="row">
+      <label style="margin-left:30px;" ><?= __('Search Courses ') ?></label>
+      <input type="text" id="queryTextbox" style="width:50%;margin-left:20px;"> 
+    </div>
+    
  <!-- Shows a placebar in case that there are a lot of data to display -->
  <div class="container-fluid table-responsive">
  <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
         <thead>
-            <tr>
+            <tr id="headTr">
                 <!-- Puts each field of the table in the grid -->
                 <th scope="col"><?= $this->Paginator->sort('Course ID') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Course name') ?></th>
@@ -39,7 +44,6 @@
                 <th scope="col"><?= $this->Paginator->sort('Academic charge') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Location') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
-                <th scope="col" class="actions"><?= __('') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
@@ -63,9 +67,9 @@
                 
                 <td>
                   <?php if( h($proCurso->ACTIVO) == 1) { ?>  
-                     <input id="toggle-activo" type="checkbox" data-toggle="toggle" onclick= "change()" data-on="Enabled" data-off="Disabled" checked>
+                     <input id="toggle-activo" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled" checked>
                   <?php } else { ?>
-                     <input id="toggle-activo" type="checkbox" data-toggle="toggle" onclick= "change()" data-on="Enabled" data-off="Disabled">
+                     <input id="toggle-activo" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled">
                   <?php } ?>
                  
                 </td>
@@ -73,16 +77,9 @@
                  
                 <td class="actions">
                 <!-- Links the view button to the course-->
-                <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('View'), ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO]) ?>    
-                    </button> 
-                </td>
-                <td class="actions">
-
-                <!-- Links the edit button to the course-->
-                <!-- <button type="button" class="botonAccion btn btn-xs"> -->
-                        <?= $this->Html->link(__('Edit'), ['controller' => 'curso', 'action' => 'edit', $proCurso->PRO_CURSO], [ 'class'=> 'btn bnt-primary']) ?>    
-                    <!-- </button> -->
+                  <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO], ['escape'=>false])?> 
+                  &nbsp;  
+                  <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['controller' => 'curso', 'action' => 'edit', $proCurso->PRO_CURSO], ['escape'=>false]) ?>    
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -103,16 +100,29 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
-<script type="text/javascript">
-      //Changes the ACTIVE row in the course table
-//      $('#toggle-activo').change(function()
-//      {
-//            debug("Cambio");
-//            <?= $this->Form->postLink(__('Active'), ['controller' => 'curso', 'action' => 'logicalDelete', $proCurso->PRO_CURSO, $proCurso->ACTIVO]) ?>
-//      });
-   function change() {
-         debug("Cambio");
-         die();
-      <?= $this->Form->postLink(__('Active'), ['controller' => 'curso', 'action' => 'logicalDelete', $proCurso->PRO_CURSO, $proCurso->ACTIVO]) ?>
-  }
+<script>
+//When the user write in the search bar it filters the table.
+$(document).ready(function(){
+  $("#queryTextbox").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tr").filter(function() 
+    {
+        var excludeHeader = $(this).attr("id") == "headTr";
+        if(!excludeHeader)
+            $(this).toggle(($(this).text().toLowerCase().indexOf(value) > -1));
+    });
+  });
+});
+</script>
+
+<script>
+//Changes the ACTIVE row in the course table
+$(document).ready(function(){
+//   $("#toggle-event").change(function() {
+//      <?= $this->Form->postLink(__('Active'), ['controller' => 'curso', 'action' => 'logicalDelete', $proCurso->PRO_CURSO, $proCurso->ACTIVO]) ?>
+//    });
+$( "#toggle-activo" ).change(function() { 
+   alert( "val" ); 
+   });
+});
 </script>
