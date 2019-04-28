@@ -6,6 +6,14 @@
 
 /* Empieza Daniel */
 
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+  }
+
 nav.navbar.topbar{
     background-color:#387C2C;
 }
@@ -39,7 +47,6 @@ li.nav-item.menuItem:focus{
 }
 
 .menuLink{
-    vertical-align: middle;
     color: white;
 }
 
@@ -61,7 +68,6 @@ li.nav-item.menuItem:focus{
     color: #EEEEEE;
 }
 
-
 .menuLink.icon{
     font-size:40px;
 }
@@ -70,30 +76,15 @@ li.nav-item.menuItem:focus{
     text-decoration: none;
     font-weight: bold;
 }
-
-/*
-.menuLink.active{
-    pointer-events: none;
-    cursor: default;
-    font-weight: bold;
+div.card {
+    width: 500px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-size: cover;
+    color: black;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.menuLink.active:hover{
-    color: white;
-    font-weight: bold;
-}*/
-/*
-.menuLink.underlined{
-    text-decoration: underline;
-    /*font-weight:normal;*/
-/*}*/
-/*
-.menuLink.boxed{
-    padding: 2px;
-    border: 2px solid white;
-}*/
-
-div.card {
+div.card.background {
     width: 500px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: url(SignIn.jpg) no-repeat;
