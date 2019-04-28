@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Joel Chaves
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SegUsuario $solPreguntum
  */

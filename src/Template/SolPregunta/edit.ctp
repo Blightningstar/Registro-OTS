@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Joel Chaves
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SolPreguntum $solPreguntum
  */
@@ -30,6 +31,6 @@
     </fieldset>
     </fieldset>
     <br>
-    <a href="."> <button type="button" class="botonCancelar">Go back</button> </a>
+    <a href=".."> <button type="button" class="botonCancelar"><?= __('Go back') ?></button> </a>
     <?= $this->Form->button(__('Save'), ['class' => 'botonAceptar'], ['label' => 'Save']) ?>
     <?= $this->Form->end() ?>

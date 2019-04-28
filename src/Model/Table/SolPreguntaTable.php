@@ -136,7 +136,7 @@ class SolPreguntaTable extends Table
     {
 
         $connet = ConnectionManager::get('default');
-        $result = $connet->execute("UPDATE sol_pregunta SET ACTIVO=1 WHERE SOL_PREGUNTA= $id");
+        $result = $connet->execute("UPDATE sol_pregunta SET ACTIVO=1-ACTIVO WHERE SOL_PREGUNTA= $id");
        return 1;
     }
    
