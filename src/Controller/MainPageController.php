@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * MainPage Controller
@@ -11,10 +12,18 @@ use App\Controller\AppController;
  */
 class MainPageController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarMain');
+    }
+
     /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|void
+     * Index
+     * @author Nathan González H
+     * 
+     * Visualization of a background image in the home page of the system.
      */
     public function index()
     {
