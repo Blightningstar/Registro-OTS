@@ -131,18 +131,10 @@
             <?php else: ?>
                <p class= "value"> <?= __('Active') ?></p>
             <?php endif ?>
-            <hr class= "separator">
+           <hr class= "separator">
         </div>
 
-     
-
-
-
-
-
 </fieldset>
-
-
 
 <a href=".."> <button type="button" class="botonCancelar"><?= __('Go back') ?></button> </a>
 </div>

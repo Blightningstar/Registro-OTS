@@ -79,7 +79,7 @@ class SolPreguntaTable extends Table
 
 
      /**
-     *  Iser
+     *  Insert new preguntas to database
      *  @author Joel Chaves
      *  @param string $dEsp, it's the question's description in spanish
      *  @param string $dIng, it's the question's description in english
@@ -127,7 +127,7 @@ class SolPreguntaTable extends Table
 
 
      /**
-     *  Logically deletes a question from the datebase, it changes the value ACTIVO from 0 to 1 
+     *  Logically activates and deactivates a question from the datebase, it changes the value ACTIVO from 0 to 1 and viceversa
      *  @author Joel Chaves
      *  @param int $id, it's the question identifier
      *  @return 1 when succeded
