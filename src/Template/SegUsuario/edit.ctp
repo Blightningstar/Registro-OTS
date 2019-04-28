@@ -20,7 +20,7 @@
             echo $this->Form->control('APELLIDO_2', ['label' => __('Lastname 2')] );
             echo $this->Form->control('NOMBRE_USUARIO' ,  ['label' => __('Username')]);
             echo $this->Form->control('CORREO', ['label' => __('E-mail'),  'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'title' => __("Error: E-mail invalid")]);
-            echo $this->Form->control('NACIONALIDAD',  ['label' => __('Country')]);
+            echo $this->element('countrySelectOptions');
 
 
             $segUsuario["SEG_ROL"] -= 1;

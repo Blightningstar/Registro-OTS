@@ -24,7 +24,11 @@ $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
             echo $this->Form->control('NOMBRE_USUARIO', ['label' => __('Username'),'pattern' => '\w+', 'title' => __('Username invalid')]);
             echo $this->Form->control('CORREO', ['label' => __('E-mail'),  'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'title' => __("Error: E-mail invalid")]);
             echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone'), 'pattern' => "[/+]?[0-9\-\s]+", 'title' => 'Error: Put a valid number. You can use + - or spaces']);
-            echo $this->Form->control('NACIONALIDAD', ['label' => __('Country')]);
+            echo $this->element('countrySelectOptions');
+
+            
+
+
            
             echo $this->Form->control('new_password', [
                 'pattern' => $password_pattern,

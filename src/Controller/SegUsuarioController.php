@@ -145,8 +145,6 @@ class SegUsuarioController extends AppController
         $segUsuario = $this->SegUsuario->newEntity();
         if ($this->request->is('post')) {
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
-
-            
        
             $segUsuario["SEG_ROL"] += 1;
             $lc_password = $this-> generatePassword();
@@ -265,9 +263,9 @@ class SegUsuarioController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
             $segUsuario["SEG_ROL"] += 1;
-
+   
             $lc_code = $this->SegUsuario->checkEditUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"],$id);
-
+            
 
             if($lc_code == "1") 
             {
