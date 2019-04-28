@@ -45,11 +45,19 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
-
-        /*
-         * Enable the following component for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
+    }
+    
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * This method runs before any other method of any controller, it sets values to variables
+     * that can be used in any place of the program, for example the user data, it's set to null 
+     * if there's no any
+     * 
+     */
+    public function beforeFilter(Event $event){
+        parent::beforeFilter($event);
+        $actualUser = $this->getRequest()->getSession()->read('actualUser');
+        $this->set(compact('actualUser'));
     }
 }

@@ -19,8 +19,14 @@
 </style>
 
 <div class="segRol index large-8 medium-8 columns content text-grid col-lg-offset-4">
-    <h3 style="color:#7BC143"><?= __('Permission') ?></h3>
-    <br><br>
+    <!-- Etiquetas de titulo y subtitulo de la página -->
+    <fieldset>
+        <legend class = "titulo"><?= __('Permissions') ?>
+            <br>
+            <p class = "subtitulo"> Administration of system permissions </p>
+        </legend>
+        <br><br>
+    <fieldset>
 
     <div class="row">
         <div class="col-xl-12 offset-xl-3">
@@ -102,8 +108,6 @@
 
 <?= $this->Html->script('Generic'); ?>
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $(document).ready( function () {
         /**

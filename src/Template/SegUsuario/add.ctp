@@ -1,32 +1,42 @@
 <?php
 /**
+ * @author Esteban Rojas
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SegUsuario $segUsuario
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Seg Usuario'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
+
+
 <div class="segUsuario form large-9 medium-8 columns content">
     <?= $this->Form->create($segUsuario) ?>
     <fieldset>
-        <legend><?= __('Add Seg Usuario') ?></legend>
+        <legend class = "titulo"><?= __('Add User') ?>
+        <br></br>
+        <p class = "subtitulo"> <?= __('Create a new user.') ?> </p>
+    </legend>
+        
+        <br>
         <?php
-            echo $this->Form->control('NOMBRE');
-            echo $this->Form->control('APELLIDO_1');
-            echo $this->Form->control('APELLIDO_2');
-            echo $this->Form->control('NOMBRE_USUARIO');
-            echo $this->Form->control('CONTRASEÑA');
-            echo $this->Form->control('CORREO');
-            echo $this->Form->control('NUMERO_TELEFONO');
-            echo $this->Form->control('NACIONALIDAD');
-            echo $this->Form->control('ACTIVO');
-            echo $this->Form->control('ESTUDIANTE');
+            echo $this->Form->control('NOMBRE', ['label' => __('Name'),'pattern' => '^[A-Za-z0-9 _,.\/ ?¿\s]*$','placeholder' => __('Only alphanumeric characters') ]);
+            echo $this->Form->control('APELLIDO_1', ['label' => __('Lastname 1'),'pattern' => '^[A-Za-z0-9 _,.\/ ?¿\s]*$','placeholder' => __('Only alphanumeric characters')]);
+            echo $this->Form->control('APELLIDO_2', ['label' => __('Lastname 2'),'pattern' => '^[A-Za-z0-9 _,.\/ ?¿\s]*$','placeholder' => __('Only alphanumeric characters')]);
+            echo $this->Form->control('NOMBRE_USUARIO', ['label' => __('Username'),  'title' => __('Username invalid'), 'pattern' => '^[A-Za-z0-9 _,.\/ ?¿\s]*$','placeholder' => __('Only alphanumeric characters')]);
+            echo $this->Form->control('CORREO', ['label' => __('E-mail'),  'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'title' => __("Error: E-mail invalid"), 'placeholder' => __('Only email valid formats')]);
+            echo $this->Form->control('NUMERO_TELEFONO', ['label' => __('Telephone'), 'pattern' => "[/+]?[0-9\-\s]+", 'title' => 'Error: Put a valid number. You can use + - or spaces' , 'placeholder' => __('Only number valid formats')]);
+            //Located at src/template/element/countrSelectOptions.ctp
+            echo $this->element('countrySelectOptions');
+            
+
+            //Administrator can't create superusers
+            if($lc_role == "3")
+                echo $this->Form->control('SEG_ROL', ['label' => __('Role'), 'type' => 'select', 'options' => array(__('Student'),__('Administrator'),__('Superuser'))]);
+            else
+            echo $this->Form->control('SEG_ROL', ['label' => __('Role'), 'type' => 'select', 'options' => array(__('Student'),__('Administrator'))]);
+           
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <br>
+    <a href="."> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
+    <?= $this->Form->button(__('Accept'), ['class' => 'botonAceptar'], ['label' => 'Acept']) ?>
     <?= $this->Form->end() ?>
 </div>

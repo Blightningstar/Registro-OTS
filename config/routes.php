@@ -28,19 +28,37 @@ use Cake\Routing\Route\DashedRoute;
  El segundo router connect se encarga de reemplazar el nombore exacto de la tabla por un nombre normal en los indexs
 Agregado por Esteban*/
 
-Router::connect('curso/:action', array('controller' => 'ProCurso'));
+Router::connect('curso/add', array('controller' => 'ProCurso', 'action' => 'add' ));
+Router::connect('curso/view/*', array('controller' => 'ProCurso', 'action' => 'view'));
+Router::connect('curso/edit/*', array('controller' => 'ProCurso', 'action' => 'edit'));
+Router::connect('curso/delete/*', array('controller' => 'ProCurso', 'action' => 'delete'));
 Router::connect('curso', array('controller' => 'ProCurso'));
 
-Router::connect('usuario/:action', array('controller' => 'SegUsuario'));
+
+Router::connect('usuario/add', array('controller' => 'SegUsuario', 'action' => 'add' ));
+Router::connect('usuario/register', array('controller' => 'SegUsuario', 'action' => 'register' ));
+Router::connect('usuario/view/*', array('controller' => 'SegUsuario', 'action' => 'view'));
+Router::connect('usuario/edit/*', array('controller' => 'SegUsuario', 'action' => 'edit'));
+Router::connect('usuario/password-change', array('controller' => 'SegUsuario', 'action' => 'PasswordChange'));
+Router::connect('usuario/profile-edit', array('controller' => 'SegUsuario', 'action' => 'profileEdit'));
+Router::connect('usuario/profile-view', array('controller' => 'SegUsuario', 'action' => 'profileView'));
+Router::connect('usuario/delete/*', array('controller' => 'SegUsuario', 'action' => 'delete'));
 Router::connect('usuario', array('controller' => 'SegUsuario'));
 
-Router::connect('programa/:action', array('controller' => 'ProPrograma'));
+
+Router::connect('programa/add', array('controller' => 'ProPrograma', 'action' => 'add' ));
+Router::connect('programa/view/*', array('controller' => 'ProPrograma', 'action' => 'view'));
+Router::connect('programa/edit/*', array('controller' => 'ProPrograma', 'action' => 'edit'));
+Router::connect('programa/delete/*', array('controller' => 'ProPrograma', 'action' => 'delete'));
 Router::connect('programa', array('controller' => 'ProPrograma'));
 
-Router::connect('pregunta/:action', array('controller' => 'SolPregunta'));
+Router::connect('pregunta/add', array('controller' => 'SolPregunta', 'action' => 'add' ));
+Router::connect('pregunta/view/*', array('controller' => 'SolPregunta', 'action' => 'view'));
+Router::connect('pregunta/edit/*', array('controller' => 'SolPregunta', 'action' => 'edit'));
+Router::connect('pregunta/delete/*', array('controller' => 'SolPregunta', 'action' => 'delete'));
 Router::connect('pregunta', array('controller' => 'SolPregunta'));
 
-Router::connect('permiso/:action', array('controller' => 'SegPermiso'));
+Router::connect('permiso/*', array('controller' => 'SegPermiso', 'action' => 'MatrizPermisos'));
 Router::connect('permiso', array('controller' => 'SegPermiso'));
 
 Router::connect('/main', ['controller' => 'MainPage', 'action' => 'index']);

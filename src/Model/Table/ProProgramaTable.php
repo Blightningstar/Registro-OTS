@@ -5,10 +5,12 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * ProPrograma Model
  *
+ * @author Anyelo Mijael Lobo Cheloukhin
  * @method \App\Model\Entity\ProPrograma get($primaryKey, $options = [])
  * @method \App\Model\Entity\ProPrograma newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\ProPrograma[] newEntities(array $data, array $options = [])
@@ -55,27 +57,46 @@ class ProProgramaTable extends Table
             ->allowEmptyString('NOMBRE', false);
 
         $validator
-            ->scalar('IDIOMA')
-            ->maxLength('IDIOMA', 256)
-            ->requirePresence('IDIOMA', 'create')
-            ->allowEmptyString('IDIOMA', false);
-
-        $validator
-            ->integer('CREDITAJE')
-            ->requirePresence('CREDITAJE', 'create')
-            ->allowEmptyString('CREDITAJE', false);
-
-        $validator
-            ->scalar('PAIS')
-            ->maxLength('PAIS', 256)
-            ->requirePresence('PAIS', 'create')
-            ->allowEmptyString('PAIS', false);
-
-        $validator
             ->scalar('ACTIVO')
             ->maxLength('ACTIVO', 1)
             ->allowEmptyString('ACTIVO');
 
         return $validator;
+    }
+
+    /**
+     *  Checks if there is already a program with that name
+     *  @author Anyelo Lobo
+     *  @return 0 if program don't exist, 1 if exist
+     */
+    public function checkUniqueData($lc_name)
+    {
+        $lc_code = "0";
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("SELECT NOMBRE FROM PRO_PROGRAMA WHERE NOMBRE = '$lc_name'");
+
+        $result = $result->fetchAll('assoc');
+        if(empty($result) == 0)
+        {
+   
+            if($result[0]["NOMBRE"] == $lc_name)
+                $lc_code = "1";
+            
+        }
+
+        return $lc_code;
+    }
+
+       /**
+     * Removes logically a program by his id
+     * From S to N
+     * 
+     */
+    public function deleteProgram($id)
+    {
+        $code = 1;
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("update pro_programa set activo = 'N' where pro_programa = '$id'");
+        return $code;
     }
 }
