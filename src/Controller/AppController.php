@@ -73,12 +73,19 @@ class AppController extends Controller
         $this->set(compact('country'));
     }
 
+
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Gets the current user country using his ip
+       because whe are working on localhost this is simulated by given ip addresses
+     * 
+     * @return string the country where the user is defined by his ip
+     */
     public function getLocation(){
         if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-            //ip from share internet
             $ip = $_SERVER['HTTP_CLIENT_IP'];
         }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-            //ip pass from proxy
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
         }else{
             $ip = $_SERVER['REMOTE_ADDR'];
