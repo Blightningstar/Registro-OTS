@@ -23,7 +23,8 @@ class ProCursoTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.ProCurso'
+        'app.ProCurso',
+        'app.ProPrograma'
     ];
 
     /**
@@ -66,6 +67,16 @@ class ProCursoTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test nonLogicalDelete method
+     *
+     * @return void
+     */
+    public function testNonLogicalDelete()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

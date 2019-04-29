@@ -5,11 +5,9 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Cake\Datasource\ConnectionManager;
 
 /**
  * ProCurso Model
- *
  * @author Jason Zamora Trejos
  * @method \App\Model\Entity\ProCurso get($primaryKey, $options = [])
  * @method \App\Model\Entity\ProCurso newEntity($data = null, array $options = [])
@@ -35,10 +33,6 @@ class ProCursoTable extends Table
         $this->setTable('pro_curso');
         $this->setDisplayField('PRO_CURSO');
         $this->setPrimaryKey('PRO_CURSO');
-        $this->belongsTo('pro_programa',[
-             'foreignKey' => ['pro_curso_ibfk_2'],
-             'bindingKey' => ['PRO_PROGRAMA'],
-             'joinType' => 'INNER']);
     }
 
     /**
@@ -50,10 +44,14 @@ class ProCursoTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->scalar('PRO_CURSO')
-            ->maxLength('PRO_CURSO', 256)
-            ->requirePresence('PRO_CURSO', 'create')
-            ->allowEmptyString('PRO_CURSO', false);
+            ->integer('PRO_CURSO')
+            ->allowEmptyString('PRO_CURSO', 'create');
+
+        $validator
+            ->scalar('SIGLA')
+            ->maxLength('SIGLA', 8)
+            ->requirePresence('SIGLA', 'create')
+            ->allowEmptyString('SIGLA', false);
 
         $validator
             ->scalar('NOMBRE')
@@ -63,13 +61,11 @@ class ProCursoTable extends Table
 
         $validator
             ->date('FECHA_INICIO')
-            ->requirePresence('FECHA_INICIO', 'create')
-            ->allowEmptyDate('FECHA_INICIO', false);
+            ->allowEmptyDate('FECHA_INICIO');
 
         $validator
             ->date('FECHA_FINALIZACION')
-            ->requirePresence('FECHA_FINALIZACION', 'create')
-            ->allowEmptyDate('FECHA_FINALIZACION', false);
+            ->allowEmptyDate('FECHA_FINALIZACION');
 
         $validator
             ->date('FECHA_LIMITE')
@@ -94,8 +90,7 @@ class ProCursoTable extends Table
             ->allowEmptyString('LOCACION', false);
 
         $validator
-            ->scalar('ACTIVO')
-            ->maxLength('ACTIVO', 1)
+            ->nonNegativeInteger('ACTIVO')
             ->allowEmptyString('ACTIVO');
 
         $validator
@@ -114,19 +109,5 @@ class ProCursoTable extends Table
             ->allowEmptyString('SOL_FORMULARIO');
 
         return $validator;
-    }
-    
-     /**
-     *  @author Jason Zamora Trejos
-     *  Checks the course Active state to show it or not
-     * 
-     *  @return 0 if program don't exist, 1 if exist
-     */
-    public function nonLogicalDelete()
-    {
-        $con = ConnectionManager::get('default');
-        $result = $con->execute("SELECT NOMBRE FROM PRO_CURSO WHERE ACTIVO = '1'");
-        $result = $result->fetchAll('assoc');
-        return $result;
     }
 }

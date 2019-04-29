@@ -21,7 +21,8 @@ class ProCursoFixture extends TestFixture
      */
     // @codingStandardsIgnoreStart
     public $fields = [
-        'PRO_CURSO' => ['type' => 'string', 'length' => 256, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'PRO_CURSO' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'SIGLA' => ['type' => 'string', 'length' => 8, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'NOMBRE' => ['type' => 'string', 'length' => 256, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'FECHA_INICIO' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'FECHA_FINALIZACION' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
@@ -29,7 +30,7 @@ class ProCursoFixture extends TestFixture
         'CREDITOS' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'IDIOMA' => ['type' => 'string', 'length' => 256, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'LOCACION' => ['type' => 'string', 'length' => 256, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'ACTIVO' => ['type' => 'string', 'fixed' => true, 'length' => 1, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null],
+        'ACTIVO' => ['type' => 'integer', 'length' => 1, 'unsigned' => true, 'null' => true, 'default' => '1', 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'PRO_PROGRAMA' => ['type' => 'string', 'length' => 256, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'SEG_USUARIO' => ['type' => 'string', 'length' => 256, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'SOL_FORMULARIO' => ['type' => 'string', 'length' => 256, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
@@ -59,15 +60,16 @@ class ProCursoFixture extends TestFixture
     {
         $this->records = [
             [
-                'PRO_CURSO' => '917ca931-0da7-48af-bbeb-6da0aa5fae15',
+                'PRO_CURSO' => 1,
+                'SIGLA' => 'Lorem ',
                 'NOMBRE' => 'Lorem ipsum dolor sit amet',
-                'FECHA_INICIO' => '2019-04-18',
-                'FECHA_FINALIZACION' => '2019-04-18',
-                'FECHA_LIMITE' => '2019-04-18',
+                'FECHA_INICIO' => '2019-04-29',
+                'FECHA_FINALIZACION' => '2019-04-29',
+                'FECHA_LIMITE' => '2019-04-29',
                 'CREDITOS' => 1,
                 'IDIOMA' => 'Lorem ipsum dolor sit amet',
                 'LOCACION' => 'Lorem ipsum dolor sit amet',
-                'ACTIVO' => 'L',
+                'ACTIVO' => 1,
                 'PRO_PROGRAMA' => 'Lorem ipsum dolor sit amet',
                 'SEG_USUARIO' => 'Lorem ipsum dolor sit amet',
                 'SOL_FORMULARIO' => 'Lorem ipsum dolor sit amet'

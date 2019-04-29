@@ -17,7 +17,7 @@
     <br>
         <div>
             <p class= "field"> <?= __('Course ID:') ?></p>
-            <p class= "value"> <?= $proCurso['PRO_CURSO'] ?></p>
+            <p class= "value"> <?= $proCurso['SIGLA'] ?></p>
             <hr class= "separator">
         </div>
         

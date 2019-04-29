@@ -51,7 +51,7 @@
             <!-- Iterate the data and places it in the respective column -->
             <?php foreach ($proCurso as $proCurso): ?>
             <tr>
-                <td><?= h($proCurso->PRO_CURSO) ?></td>
+                <td><?= h($proCurso->SIGLA) ?></td>
                 <td><?= h($proCurso->NOMBRE) ?></td>
                  <?php   //Converts the format of the dates in one that the database can save it.
                      $proCurso->FECHA_INICIO = date("m/d/Y", strtotime($proCurso->FECHA_INICIO)); 
@@ -65,13 +65,14 @@
                 <td><?= h($proCurso->LOCACION) ?></td>
                 
                 
-                <td>
-                  <?php if( h($proCurso->ACTIVO) == 1) { ?>  
-                     <input id="toggle-activo" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled" checked>
-                  <?php } else { ?>
-                     <input id="toggle-activo" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled">
-                  <?php } ?>
-                 
+                <!--Uses a form as wrapper to contain a checkbox wich will modify active value of the user.
+                Better than use hidden inputs, from a security's perspective.-->
+                <td>    
+                    <?= $this->Form->create('Post', ['url' => '/curso/delete/' . $proCurso->PRO_CURSO ]) ?>
+                    <!-- Checkbox will submit each time user modify his value. -->
+                    <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proCurso->ACTIVO == 1) ,
+                    'onclick' => 'submit()']) ?>
+                    <?= $this->Form->end() ?>
                 </td>
                 
                  
@@ -100,6 +101,7 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+
 <script>
 //When the user write in the search bar it filters the table.
 $(document).ready(function(){
@@ -112,17 +114,5 @@ $(document).ready(function(){
             $(this).toggle(($(this).text().toLowerCase().indexOf(value) > -1));
     });
   });
-});
-</script>
-
-<script>
-//Changes the ACTIVE row in the course table
-$(document).ready(function(){
-//   $("#toggle-event").change(function() {
-//      <?= $this->Form->postLink(__('Active'), ['controller' => 'curso', 'action' => 'logicalDelete', $proCurso->PRO_CURSO, $proCurso->ACTIVO]) ?>
-//    });
-$( "#toggle-activo" ).change(function() { 
-   alert( "val" ); 
-   });
 });
 </script>
