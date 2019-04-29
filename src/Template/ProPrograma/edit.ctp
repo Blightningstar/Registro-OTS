@@ -17,7 +17,7 @@
         <?= $this->Form->create($proPrograma) ?>
         <fieldset>
             <?php
-                echo $this->Form->control('NOMBRE', ['label' => 'Nombre']);
+                echo $this->Form->control('NOMBRE', ['label' => 'Program Name']);
             ?>
         </fieldset>
         <a href="/Registro-OTS/programa/"> <button type="button" class="botonCancelar">CANCEL</button> </a>

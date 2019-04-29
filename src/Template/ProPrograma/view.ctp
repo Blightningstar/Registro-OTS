@@ -12,11 +12,11 @@
         </legend>
     </fieldset>
 
-    <div>
+<!--     <div>
         <p class= "field"> <?= __('ID:') ?></p>
         <p class= "value"> <?= $proPrograma["PRO_PROGRAMA"] ?></p>
         <hr class= "separator">
-    </div>
+    </div> -->
 
     <div>
         <p class= "field"> <?= __('Program Name:') ?></p>
@@ -24,7 +24,7 @@
         <hr class= "separator">
     </div>
 
-    <a href=".."> <button type="button" class="botonCancelar">Cancel</button> </a>
+    <a href=".."> <button type="button" class="botonCancelar"><?= __('GO BACK') ?></button> </a>
     <?= $this->Form->end() ?>
 
 </div>
