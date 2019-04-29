@@ -14,8 +14,6 @@
         <br></br>
         <p class = "subtitulo"> <?= __('Create a new user.') ?> </p>
     </legend>
-        
-        <br>
         <?php
             echo $this->Form->control('NOMBRE', ['label' => __('Name'),'pattern' => '^[A-Za-z0-9 _,.\/ ?¿\s]*$','placeholder' => __('Only alphanumeric characters') ]);
             echo $this->Form->control('APELLIDO_1', ['label' => __('Lastname 1'),'pattern' => '^[A-Za-z0-9 _,.\/ ?¿\s]*$','placeholder' => __('Only alphanumeric characters')]);
