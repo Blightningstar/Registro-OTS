@@ -16,9 +16,8 @@
         <p class = "subtitulo"> <?= __('View the user information') ?></p>
     </legend>
 
-        <?php
-            $rol = "";
-
+        <!--Mapping between role id and role anem-->
+        <?php $rol = "";
             switch($segUsuario["SEG_ROL"])
             {
                 case "1":
@@ -30,12 +29,7 @@
                 case "3":
                     $rol = __("Superuser");
                     break;
-            }
-
-     
-            
-        ?>
-
+            }?>
         <br>
         <div>
             <p class= "field"> <?= __('Name:') ?></p>
@@ -85,9 +79,7 @@
             <hr class= "separator">
         </div>
 
-
-
     </fieldset>
-    <a href=".."> <button type="button" class="botonCancelar"><?= __('Cancel') ?></button> </a>
+    <a href=".."> <button type="button" class="botonCancelar"><?= __('Go Back') ?></button> </a>
     <?= $this->Form->end() ?>
 </div>

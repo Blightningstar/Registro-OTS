@@ -5,53 +5,103 @@
 /* Estandariza todos los items de la barra de navegación y barra de título*/
 
 /* Empieza Daniel */
-.menuItem:hover
-{
-    color: white;
-    margin-left:30px;
-    margin-right:30px;
+
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+  }
+
+nav.navbar.topbar{
+    background-color:#387C2C;
+}
+
+nav.navbar.menubar{
+    background-color:#7BC143;
+    height: 41px;
+}
+
+li.nav-item.menuItem{
+    width: 120px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+li.nav-item.menuItem.active{
+    /* background-color:#387C2C;*/
+    pointer-events: none;
+    cursor: default;
+    font-weight: bold;
+}
+
+li.nav-item.menuItem:hover{
     text-decoration: none;
+    font-weight: bold;
 }
 
-.menuItem:focus{
-    color: white;
+li.nav-item.menuItem:focus{
+
     font-weight: bold;
-    margin-left:30px;
-    margin-right:30px;
 }
 
-.menuItem.active
-{
+.menuLink{
     color: white;
-    font-weight: bold;
-    margin-left:30px;
-    margin-right:30px;
 }
 
-.menuItem.active:hover { 
-    color: white;
-    font-weight: bold;
-    margin-left:30px;
-    margin-right:30px;
+.menuLink.underlined{
+    text-decoration: underline;
+    /*font-weight:normal;*/
+}
+
+.menuLink.boxed{
+    padding: 2px;
+    border: 2px solid white;
+}
+
+.menuLink:hover{
+    color: #EEEEEE;
+}
+
+.menuLink:focus{
+    color: #EEEEEE;
+}
+
+.menuLink.icon{
+    font-size:40px;
+}
+
+.menuLink.icon:hover{
     text-decoration: none;
+    font-weight: bold;
+}
+div.card {
+    width: 500px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: black;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.menuItem.active:focus { 
+div.card.background {
+    background: url(SignIn.jpg) no-repeat;
+    background-size: cover;
     color: white;
-    font-weight: bold;
-    margin-left:30px;
-    margin-right:30px;
-    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
+
+.securityLink.Colored{
+    color: white;
+}
+
+.securityLink.Colored:hover{
+    color: #E5E5E5;
+}
+
 /*Termina Daniel*/
 /*Empieza Esteban*/
 
-.menuItem
-{
-    color: white;
-    margin-left:30px;
-    margin-right:30px;
-}
+
 
 /*Formatea los botones*/
 .botonAceptar

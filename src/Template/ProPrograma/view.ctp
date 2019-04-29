@@ -12,14 +12,13 @@
         </legend>
     </fieldset>
 
-    <div class="proPrograma form large-9 medium-8 columns content">
-        <?= $this->Form->create($proPrograma) ?>
-        <fieldset>
-            <?php
-                echo $this->Form->control('NOMBRE', ['label' => _('Program Name'), 'disabled']);
-            ?>
-        </fieldset>
-        <a href=".."> <button type="button" class="botonCancelar">Cancel</button> </a>
-        <?= $this->Form->end() ?>
+    <div>
+        <p class= "field"> <?= __('Program Name:') ?></p>
+        <p class= "value"> <?= $proPrograma["NOMBRE"] ?></p>
+        <hr class= "separator">
     </div>
+
+    <a href=".."> <button type="button" class="botonCancelar"><?= __('GO BACK') ?></button> </a>
+    <?= $this->Form->end() ?>
+
 </div>
