@@ -392,7 +392,7 @@ fieldset {
 
 .form button[type="submit"] {
     float: right;
-    text-transform: uppercase;
+
     box-shadow: none;
 }
 

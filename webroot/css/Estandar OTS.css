@@ -101,20 +101,18 @@ div.card.background {
 /*Termina Daniel*/
 
 /*Empieza Nathan*/
-.mainContainer{
+.mainBackground{
     width: 100%;
+    height: 100%;
     padding-right: 0px;
     padding-left: 0px;
     margin-right: auto;
     margin-left: auto;
-}
-.mainBackground{
     background-image: url("https://tropicalstudies.org/wp-content/uploads/2018/06/708OTS1124_web.jpg");
     background-repeat: no-repeat;
-    width: 100%;
-    padding-right: 0px;
-    padding-left: 0px;
     background-color: #659F31;
+    background-size: cover; 
+    background-position: center center;
 }
 /*Termina Nathan*/
 
