@@ -22,11 +22,13 @@ $cakeDescription = __('Organization for Tropical Studies');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         <?= $cakeDescription ?>
+        <?= $this->fetch('title')?>
     </title>
     <!-- 
         Colocar dentro del title para mostrar el nombre del módulo actual
@@ -57,21 +59,14 @@ $cakeDescription = __('Organization for Tropical Studies');
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 
-
-
 </head>
 <body>
 
     <?= $this->Flash->render() ?>
-	
-	<?=$this->element('titlebar')?>
+    <?=$this->element('titlebar')?>
     <?=$this->element('menubar')?>
-	
-	
+    
     <div class="container clearfix">
-	
-	
-	
         <?= $this->fetch('content') ?>
     </div>
 

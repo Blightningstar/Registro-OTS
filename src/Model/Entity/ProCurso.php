@@ -5,10 +5,9 @@ use Cake\ORM\Entity;
 
 /**
  * ProCurso Entity
- *
  * @author Jason Zamora Trejos
- *
- * @property string $PRO_CURSO
+ * @property int $PRO_CURSO
+ * @property string $SIGLA
  * @property string $NOMBRE
  * @property \Cake\I18n\FrozenDate|null $FECHA_INICIO
  * @property \Cake\I18n\FrozenDate|null $FECHA_FINALIZACION
@@ -16,10 +15,12 @@ use Cake\ORM\Entity;
  * @property int $CREDITOS
  * @property string $IDIOMA
  * @property string $LOCACION
- * @property string|null $ACTIVO
+ * @property int|null $ACTIVO
  * @property string|null $PRO_PROGRAMA
  * @property string|null $SEG_USUARIO
  * @property string|null $SOL_FORMULARIO
+ *
+ * @property \App\Model\Entity\ProPrograma $pro_programa
  */
 class ProCurso extends Entity
 {
@@ -33,7 +34,7 @@ class ProCurso extends Entity
      * @var array
      */
     protected $_accessible = [
-        'PRO_CURSO' => true,
+        'SIGLA' => true,
         'NOMBRE' => true,
         'FECHA_INICIO' => true,
         'FECHA_FINALIZACION' => true,
