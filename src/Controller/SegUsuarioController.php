@@ -89,7 +89,7 @@ class SegUsuarioController extends AppController
     {
         if(empty($this->viewVars['actualUser']) == 1)
             return $this->redirect(['controller' => 'seguridad','action' => 'login']);
-        return $this->viewVars['actualUser']['ROL'];
+        return $this->viewVars['actualUser']['SEG_ROL'];
     }
 
 

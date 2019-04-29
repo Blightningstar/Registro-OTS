@@ -37,6 +37,7 @@ $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
                 'pattern' => $password_pattern,
                 'placeholder'=> 'PaSs3xample', 'label' => __('New password confirmation'), 'type' => 'password'
             ]);    
+
            
         ?>
     </fieldset>
