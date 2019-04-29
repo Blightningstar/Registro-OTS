@@ -171,8 +171,7 @@ class ProCursoController extends AppController
      * @author Jason Zamora Trejos
      * Logically delete a course
      * @param $id = the course ID
-     * @return $result = 1 the ACTIVE is 1
-     *         $result = 0 the ACTIVE is 0
+     * @return int $result is 1 if ACTIVE is 1, 0 if ACTIVE is 0
      */
     public function logicalDelete($id=null, $active=null)
     {
@@ -194,8 +193,7 @@ class ProCursoController extends AppController
      * @author Jason Zamora Trejos
      * Checks if the course ID exists alredy in the database.
      * @param $lc_Id = The course ID 
-     * @return $lc_code = 1 if the param is found alredy in the data base
-     *         $lc_code = 0 if the parm
+     * @return int $lc_code = 1 if the parameter is found alredy in the data base, 0 if the parmeter it isn't
      */
      public function isUnique($lc_Id)
      {  
