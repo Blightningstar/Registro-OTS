@@ -37,13 +37,6 @@
             <!-- Itera tupla por tupla y coloca los datos en cada columna -->
             <?php foreach ($proPrograma as $proPrograma): ?>
             <tr>
-<!-- 
-                <?php if($proPrograma->ACTIVO == '1'):?>
-                    <td><?= h('Active') ?></td>
-                <?php else: ?>
-                    <td><?= h('Inactive') ?></td>
-                <?php endif ?>
- -->
                 <td>
                     <?= $this->Form->create('Post', ['url' => '/programa/delete/' . $proPrograma->PRO_PROGRAMA ]) ?>
                     <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proPrograma->ACTIVO == 1) ,
@@ -53,31 +46,10 @@
 
                 <td><?= h($proPrograma->NOMBRE) ?></td>
 
-                <!-- Botones Consultar, Modificar y Borrar de la grilla de Programas -->
-                <!-- <td class="actions">
-                <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('View'), ['controller' => 'programa', 'action' => 'view', $proPrograma->PRO_PROGRAMA]) ?>    
-                    </button>
-                </td>
-
-                <td class="actions">
-                <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $proPrograma->PRO_PROGRAMA]) ?>   
-                    </button>
-                </td>
-
-                <td class="actions">
-                <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $proPrograma->PRO_PROGRAMA], ['confirm' => __('Are you sure you want to delete # {0}?', $proPrograma->NOMBRE)]) ?>   
-                </button>
-                </td> -->
-
                  <td>
                 <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'programa', 'action' => 'view',  $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
                 <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
-               
                 </td
-
 
             </tr>
             <?php endforeach; ?>
