@@ -88,6 +88,6 @@
 
 
     </fieldset>
-    <a href=".."> <button type="button" class="botonCancelar"><?= __('Cancel') ?></button> </a>
+    <a href=".."> <button type="button" class="botonCancelar"><?= __('Go Back') ?></button> </a>
     <?= $this->Form->end() ?>
 </div>

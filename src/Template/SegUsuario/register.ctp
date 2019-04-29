@@ -11,7 +11,7 @@ $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
 <div class="segUsuario form large-9 medium-8 columns content">
     <?= $this->Form->create($segUsuario) ?>
     <fieldset>
-        <legend class = "titulo"><?= __('Register') ?>
+        <legend class = "titulo"><?= __('Sign Up') ?>
         <br></br>
         <p class = "subtitulo"> <?= __('Password  must contain between 8 or 16 characters that are of at least one number, one uppercase letter and one lowercase letter.') ?>  </p>
     </legend>
