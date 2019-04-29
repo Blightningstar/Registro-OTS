@@ -18,9 +18,9 @@
         <br>
         <?php
             
-            echo $this->Form->control('PRO_CURSO', [
+            echo $this->Form->control('SIGLA', [
                'label' => _('Course ID'),
-               'value' => $proCurso ['PRO_CURSO'],
+               'value' => $proCurso ['SIGLA'],
                'pattern' => '[a-zA-Z]{2}\-[0-9]{4}', 
                'placeholder' => 'e.g. "CI-2020"'
             ]);
@@ -31,12 +31,13 @@
             echo $this->Form->control('CREDITOS', [
                'label' => _('Academic charge'),
                'type' => 'number',
+               'min' => 0,
                'value' => 0 ,
-               'pattern'=> '^(?:[0-9]|0[0-9]|1[0-9]|20)$', 
-               'placeholder'=> 'hint'
+               'pattern'=> '^(?:[0-9]|0[0-9]|10)$', 
+               'placeholder'=> 'number from 1 to 10'
             ]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'placeholder'=> 'Language of the course','pattern' => '^[a-zA-Z]*$']);
-            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'placeholder'=> 'Location of the course','pattern' => '^[a-zA-Z\s]*$']);
+            echo $this->Form->control('LOCACION', ['label' => _('Location'), 'placeholder'=> 'Location of the course','options' => array('Costa Rica', __('South Africa'))]);
             echo $this->Form->control('ACTIVO', ['label' => _(' Active'), 'type' => 'hidden','value' => 1]);
         ?>
     </fieldset>
