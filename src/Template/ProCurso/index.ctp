@@ -5,6 +5,9 @@
  * @var \App\Model\Entity\ProCurso[]|\Cake\Collection\CollectionInterface $proCurso
  */
 ?>
+<!--Everything necessary to implement a toggle button to change the ACTIVE field in the index view-->
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <!--This makes the container able to adapt to diffent resolutions-->
 <div class="proCurso index large-9 medium-8 columns content container-fluid">
@@ -22,11 +25,16 @@
         <?= $this->Html->link(__('Add Course'), ['controller' => 'curso', 'action' => 'add'], ['style' => 'color:white;']) ?>   
     </button>
     
+    <div class="row">
+      <label style="margin-left:30px;" ><?= __('Search Courses ') ?></label>
+      <input type="text" id="queryTextbox" style="width:50%;margin-left:20px;"> 
+    </div>
+    
  <!-- Shows a placebar in case that there are a lot of data to display -->
  <div class="container-fluid table-responsive">
  <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
         <thead>
-            <tr>
+            <tr id="headTr">
                 <!-- Puts each field of the table in the grid -->
                 <th scope="col"><?= $this->Paginator->sort('Course ID') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Course name') ?></th>
@@ -34,11 +42,8 @@
                 <th scope="col"><?= $this->Paginator->sort('Final date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Last enrollment date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Academic charge') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Language') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Location') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
-                <th scope="col" class="actions"><?= __('') ?></th>
-                <th scope="col" class="actions"><?= __('') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
@@ -46,39 +51,36 @@
             <!-- Iterate the data and places it in the respective column -->
             <?php foreach ($proCurso as $proCurso): ?>
             <tr>
-                <td><?= h($proCurso->PRO_CURSO) ?></td>
+                <td><?= h($proCurso->SIGLA) ?></td>
                 <td><?= h($proCurso->NOMBRE) ?></td>
-                <?php   //Converts the format of the dates in one that the database can save it.
-                     $proCurso->FECHA_INICIO = date("Y-m-d", strtotime($proCurso->FECHA_INICIO)); 
-                     $proCurso->FECHA_FINALIZACION = date("Y-m-d", strtotime($proCurso->FECHA_FINALIZACION));
-                     $proCurso->FECHA_LIMITE = date("Y-m-d", strtotime($proCurso->FECHA_LIMITE));          
+                 <?php   //Converts the format of the dates in one that the database can save it.
+                     $proCurso->FECHA_INICIO = date("m/d/Y", strtotime($proCurso->FECHA_INICIO)); 
+                     $proCurso->FECHA_FINALIZACION = date("m/d/Y", strtotime($proCurso->FECHA_FINALIZACION));
+                     $proCurso->FECHA_LIMITE = date("m/d/Y", strtotime($proCurso->FECHA_LIMITE));          
                 ?>
                 <td><?= h($proCurso->FECHA_INICIO) ?></td>
                 <td><?= h($proCurso->FECHA_FINALIZACION) ?></td>
                 <td><?= h($proCurso->FECHA_LIMITE) ?></td>
                 <td><?= $this->Number->format($proCurso->CREDITOS) ?></td>
-                <td><?= h($proCurso->IDIOMA) ?></td>
                 <td><?= h($proCurso->LOCACION) ?></td>
-                <td><?= h($proCurso->ACTIVO) ?></td>
+                
+                
+                <!--Uses a form as wrapper to contain a checkbox wich will modify active value of the user.
+                Better than use hidden inputs, from a security's perspective.-->
+                <td>    
+                    <?= $this->Form->create('Post', ['url' => '/curso/delete/' . $proCurso->PRO_CURSO ]) ?>
+                    <!-- Checkbox will submit each time user modify his value. -->
+                    <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proCurso->ACTIVO == 1) ,
+                    'onclick' => 'submit()']) ?>
+                    <?= $this->Form->end() ?>
+                </td>
+                
+                 
                 <td class="actions">
                 <!-- Links the view button to the course-->
-                <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('View'), ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO]) ?>    
-                    </button>
-                </td>
-                <td class="actions">
-
-                <!-- Links the edit button to the course-->
-                <button type="button" class="botonAccion btn btn-xs"> 
-                        <?= $this->Html->link(__('Edit'), ['controller' => 'curso', 'action' => 'edit', $proCurso->PRO_CURSO]) ?>    
-                    </button>
-                </td>
-
-                <!-- Links the delete button to the course-->
-                <td>
-                   <button type="button" class="botonAccion btn btn-xs"> 
-                       <?= $this->Form->postLink(__('Delete'), ['controller' => 'curso', 'action' => 'delete', $proCurso->PRO_CURSO], ['confirm' => __('Do you want to delete the course {0}?', $proCurso->PRO_CURSO)]) ?>
-                    </button>
+                  <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO], ['escape'=>false])?> 
+                  &nbsp;  
+                  <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['controller' => 'curso', 'action' => 'edit', $proCurso->PRO_CURSO], ['escape'=>false]) ?>    
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -99,3 +101,18 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+
+<script>
+//When the user write in the search bar it filters the table.
+$(document).ready(function(){
+  $("#queryTextbox").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tr").filter(function() 
+    {
+        var excludeHeader = $(this).attr("id") == "headTr";
+        if(!excludeHeader)
+            $(this).toggle(($(this).text().toLowerCase().indexOf(value) > -1));
+    });
+  });
+});
+</script>
