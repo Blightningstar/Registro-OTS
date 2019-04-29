@@ -1,40 +1,39 @@
 <?php
     /** 
      * @author Daniel Marín <110100010111h@gmail.com>
-     * 
      **/
 
-    $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
-    //$password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*..*).{8,16}';
-    $userData_pattern = '([a-zA-Z0-9.!#$%&*+\/?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)|(\w+)'
+    $password_pattern = '(?=.*\d+.*)(?=.*[a-z]+.*)(?=.*[A-Z]+.*).{8,20}';
+    $userData_pattern = '([a-zA-Z0-9.!#$%&*+\/?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)|(\w+)';
 ?>
-<div class="container mt-5 mb-5 pb-5 pt-5" style="width:500px">
-    <h1  class = "titulo" ><?= __('Log In') ?></h1>
-    <p class = "subtitulo"> <?= __('Use your email or username to log in.') ?> </p>
+<div class="container col mt-5 mb-5 pb-5 pt-5 card background">
+    <h1  class = "titulo" ><?= __('Sign In to OTS') ?></h1>
     <?= $this->Form->create() ?>
     <fieldset>
-        <div class="row">
-            <div class="col-5"><?= __('Email or username:') ?></div>
-            <div class="col-7">
-                <?= $this->Form->text('email', [
-                    'pattern' => $userData_pattern,
-                    'title' => __("Error: invalid email or username"),
-                    'placeholder'=> 'Your email or username'
-                ]); ?>
-            </div>
+        <div ><?= __('Email or username:') ?></div>
+        <div >
+            <?= $this->Form->text('email', [
+                'pattern' => $userData_pattern,
+                'placeholder'=> 'Your email or username',
+            ]); ?>
         </div>
-        <div class="row">
-            <div class="col-5"><?= __('Password:') ?></div>
-            <div class="col-7"><?= $this->Form->password('password', [
-                    'pattern' => $password_pattern,
-                    'title' => __("Error: invalid password"),
-                    'placeholder'=> 'Your Actual Password'
-                ]); ?>
-            </div>
+        <div ><?= __('Password:') ?></div>
+        <div ><?= $this->Form->password('password', [
+                'id' => 'password',
+                'pattern' => $password_pattern,
+                'placeholder'=> 'Your Actual Password'
+            ]); ?>
         </div>
+            <span toggle="#password" class="fa fa-fw fa-eye field-icon password"></span>
     </fieldset>
-    <?= $this->Form->button( __('Log In'), ['type' => 'submit', 'class' => 'botonAceptar']) ?>
+    <div>
+        <?= $this->Html->link( __('¿Forgot your password?'),['controller'=>'Seguridad','action'=>'restoreSend'],['id'=>'forgotPassword']) ?><br>
+    </div>
+    <div>
+        <?= $this->Form->button( __('Sign In'), ['id'=>'SignInButton', 'type' => 'submit', 'class' => 'botonAceptar']) ?>
+    </div>
     <?= $this->Form->end() ?>
-    <?= $this->Html->link( __('Restore Password'),['controller'=>'Seguridad','action'=>'restoreSend']) ?><br>
-    <?= $this->Html->link(__('Create an acount'),['controller'=>'SegUsuario','action'=>'register'])?>
+
 </div>
+
+<?= $this->Html->script('togglePassword'); ?>

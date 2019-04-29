@@ -5,6 +5,7 @@
  * @var \App\Model\Entity\ProPrograma[]|\Cake\Collection\CollectionInterface $proPrograma
  */
 ?>
+<div class="proPrograma index large-9 medium-8 columns content container-fluid">
     <fieldset>
 
     <legend class = "titulo">Program Administration<br></br>
@@ -25,31 +26,35 @@
             <tr >
                 <!-- Coloca cada campo de la tabla en el grid -->
 
-
+                 <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('NOMBRE', ['label' => __('Program Name')]) ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ACTIVO', ['label' => __('State')]) ?></th>
+                <!-- <th scope="col"><?= $this->Paginator->sort('ACTIVO', ['label' => __('State')]) ?></th> -->
 
-                <th scope="col" class="actions">View</th>
-                <th scope="col" class="actions">Edit</th>
-                <th scope="col" class="actions">Delete</th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <!-- Itera tupla por tupla y coloca los datos en cada columna -->
             <?php foreach ($proPrograma as $proPrograma): ?>
             <tr>
-
-                <td><?= h($proPrograma->NOMBRE) ?></td>
-
-                <?php if($proPrograma->ACTIVO == 'S'):?>
+<!-- 
+                <?php if($proPrograma->ACTIVO == '1'):?>
                     <td><?= h('Active') ?></td>
                 <?php else: ?>
                     <td><?= h('Inactive') ?></td>
-
                 <?php endif ?>
+ -->
+                <td>
+                    <?= $this->Form->create('Post', ['url' => '/programa/delete/' . $proPrograma->PRO_PROGRAMA ]) ?>
+                    <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proPrograma->ACTIVO == 1) ,
+                    'onclick' => 'submit(12)']) ?>
+                    <?= $this->Form->end() ?>
+                </td>
+
+                <td><?= h($proPrograma->NOMBRE) ?></td>
 
                 <!-- Botones Consultar, Modificar y Borrar de la grilla de Programas -->
-                <td class="actions">
+                <!-- <td class="actions">
                 <button type="button" class="botonAccion btn btn-xs"> 
                         <?= $this->Html->link(__('View'), ['controller' => 'programa', 'action' => 'view', $proPrograma->PRO_PROGRAMA]) ?>    
                     </button>
@@ -65,7 +70,13 @@
                 <button type="button" class="botonAccion btn btn-xs"> 
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $proPrograma->PRO_PROGRAMA], ['confirm' => __('Are you sure you want to delete # {0}?', $proPrograma->NOMBRE)]) ?>   
                 </button>
-                </td>
+                </td> -->
+
+                 <td>
+                <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'programa', 'action' => 'view',  $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+                <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+               
+                </td
 
 
             </tr>
@@ -85,4 +96,5 @@
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} program(s) out of {{count}} total')]) ?></p>
     </div>
+</div>
 </div>

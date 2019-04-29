@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * SolPregunta Controller
@@ -12,6 +13,12 @@ use App\Controller\AppController;
  */
 class SolPreguntaController extends AppController
 {
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarQuestions');
+    }
+
     /**
      * Index method
      *
@@ -62,10 +69,10 @@ class SolPreguntaController extends AppController
         }
         $this->set(compact('solPreguntum'));
 
-        $ACTIVO = array('Active','Inactive');
+        $ACTIVO = array('Inactive','Active');
          $this->set('ACTIVO',$ACTIVO);
 
-         $REQUERIDO = array('Required','Not requered');
+         $REQUERIDO = array('Not required','Required');
          $this->set('REQUERIDO',$REQUERIDO);
 
          $TIPO = array('Text','Number','Date', 'Select');
@@ -82,8 +89,7 @@ class SolPreguntaController extends AppController
     public function edit($id = null)
     {
         $solPreguntum = $this->SolPregunta->get($id, [
-            'contain' => []
-        ]);
+            'contain' => []]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
             if ($this->SolPregunta->save($solPreguntum)) {
@@ -95,10 +101,10 @@ class SolPreguntaController extends AppController
         }
         $this->set(compact('solPreguntum'));
 
-        $ACTIVO = array('Active','Inactive');
+        $ACTIVO = array('Inactive','Active');
          $this->set('ACTIVO',$ACTIVO);
 
-         $REQUERIDO = array('Required','Not requered');
+         $REQUERIDO = array('Not required','Required');
          $this->set('REQUERIDO',$REQUERIDO);
 
          $TIPO = array('Text','Number','Date', 'Select');
@@ -115,7 +121,7 @@ class SolPreguntaController extends AppController
     public function delete($id )
     {
          if ($this->desactivarPregunta($id)) {
-             $this->Flash->success(__('The question has been deleted.'));
+             $this->Flash->success(__('The question active state has been changed'));
          } else {
              $this->Flash->error(__('The question could not be deleted. Please, try again.'));
          }

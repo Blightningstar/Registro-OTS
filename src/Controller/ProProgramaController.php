@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Event\Event;
 /**
  * ProPrograma Controller
  *
@@ -13,6 +13,12 @@ use App\Controller\AppController;
  */
 class ProProgramaController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarPrograms');
+    }
 
     function checkUniqueData($lc_name)
     {
@@ -62,7 +68,7 @@ class ProProgramaController extends AppController
             $proPrograma = $this->ProPrograma->patchEntity($proPrograma, $this->request->getData());
 
             $proPrograma["PRO_PROGRAMA"] = $_REQUEST['NOMBRE']; //Primary Key is the name of the program
-            $proPrograma["ACTIVO"] = 'S';
+            $proPrograma["ACTIVO"] = '1';
             $lc_code = $this->checkUniqueData($proPrograma["NOMBRE"] );
             if($lc_code == "1"){
                  $this->Flash->error(__("Error: This program is already in the system."));

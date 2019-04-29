@@ -47,13 +47,16 @@ class AppController extends Controller
         $this->loadComponent('Flash');
     }
     
-    public function beforeFilter(Event $event)
-    {
-        /** 
-         *  @author Daniel Marín <110100010111h@gmail.com>
-         * 
-         *  Converts the actual user data into a global variable
-         */
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * This method runs before any other method of any controller, it sets values to variables
+     * that can be used in any place of the program, for example the user data, it's set to null 
+     * if there's no any
+     * 
+     */
+    public function beforeFilter(Event $event){
+        parent::beforeFilter($event);
         $actualUser = $this->getRequest()->getSession()->read('actualUser');
         $this->set(compact('actualUser'));
     }

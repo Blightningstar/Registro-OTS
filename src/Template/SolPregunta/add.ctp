@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Joel Chaves
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SegUsuario $solPreguntum
  */
@@ -10,14 +11,23 @@
     <fieldset>
         <legend class = "titulo"><?= __('Add Question') ?>
         <br></br>
-        <p class = "subtitulo">Adds a new question to the question bank.</p>
+        <p class = "subtitulo">Adds a new question data.</p>
     </legend>
         
         <br>
         <?php
 
-            echo $this->Form->control('DESCRIPCION_ESP', ['label' => 'Description in spanish']);
-            echo $this->Form->control('DESCRIPCION_ING', ['label' => 'Description in english']);
+            echo $this->Form->control('DESCRIPCION_ESP', [
+                'label' => 'Description in spanish',
+                'pattern' => '^[A-Za-z0-9 _,.\/ ?¿]*$', 
+                'placeholder' => 'Only alphanumeric characters'
+            ]);
+            echo $this->Form->control('DESCRIPCION_ING', [
+                'label' => 'Description in english',
+                'pattern' => '^[A-Za-z0-9 _,.\/ ?¿]*$', 
+                'placeholder' => 'Only alphanumeric characters'
+            ]);
+
             echo '<label for="TIPO">Type</label>';
             echo $this->Form->select('TIPO',$TIPO);
             echo '<label for="ACTIVO">State</label>';
@@ -27,7 +37,7 @@
         ?>
     </fieldset>
     <br>
-    <a href="."> <button type="button" class="botonCancelar">Go back</button> </a>
-    <?= $this->Form->button(__('Save'), ['class' => 'botonAceptar'], ['label' => 'Save']) ?>
+    <a href="."> <button type="button" class="botonCancelar">CANCEL</button> </a>
+    <?= $this->Form->button(__('ACCEPT'), ['class' => 'botonAceptar'], ['label' => 'ACCEPT']) ?>
     <?= $this->Form->end() ?>
 </div>
