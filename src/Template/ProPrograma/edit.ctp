@@ -9,7 +9,7 @@
 
     <fieldset>
         <legend class = "titulo">Program Administration<br></br>
-        <p class = "subtitulo">Editing program></p>
+        <p class = "subtitulo">Editing program</p>
         </legend>
     </fieldset>
 
