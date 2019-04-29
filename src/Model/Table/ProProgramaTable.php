@@ -89,14 +89,14 @@ class ProProgramaTable extends Table
 
        /**
      * Removes logically a program by his id
-     * From S to N
+     * From 1 to 0
      * 
      */
     public function deleteProgram($id)
     {
         $code = 1;
         $connet = ConnectionManager::get('default');
-        $result = $connet->execute("update pro_programa set activo = 'N' where pro_programa = '$id'");
+        $result = $connet->execute("update pro_programa set activo = 1-ACTIVO where pro_programa = '$id'");
         return $code;
     }
 }

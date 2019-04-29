@@ -9,7 +9,7 @@
 
     <fieldset>
         <legend class = "titulo">Program Administration<br></br>
-        <p class = "subtitulo">Editing program></p>
+        <p class = "subtitulo">Editing program</p>
         </legend>
     </fieldset>
 
@@ -17,7 +17,7 @@
         <?= $this->Form->create($proPrograma) ?>
         <fieldset>
             <?php
-                echo $this->Form->control('NOMBRE', ['label' => 'Nombre']);
+                echo $this->Form->control('NOMBRE', ['label' => 'Program Name']);
             ?>
         </fieldset>
         <a href="/Registro-OTS/programa/"> <button type="button" class="botonCancelar">CANCEL</button> </a>

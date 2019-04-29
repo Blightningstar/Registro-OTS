@@ -68,7 +68,7 @@ class ProProgramaController extends AppController
             $proPrograma = $this->ProPrograma->patchEntity($proPrograma, $this->request->getData());
 
             $proPrograma["PRO_PROGRAMA"] = $_REQUEST['NOMBRE']; //Primary Key is the name of the program
-            $proPrograma["ACTIVO"] = 'S';
+            $proPrograma["ACTIVO"] = '1';
             $lc_code = $this->checkUniqueData($proPrograma["NOMBRE"] );
             if($lc_code == "1"){
                  $this->Flash->error(__("Error: This program is already in the system."));
@@ -100,13 +100,15 @@ class ProProgramaController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proPrograma = $this->ProPrograma->patchEntity($proPrograma, $this->request->getData());
             if ($this->ProPrograma->save($proPrograma)) {
-                $this->Flash->success(__('The pro programa has been saved.'));
+                $this->Flash->success(__('The programa has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The pro programa could not be saved. Please, try again.'));
+            $this->Flash->error(__('The programa could not be saved. Please, try again.'));
         }
         $this->set(compact('proPrograma'));
+        $ACTIVO = array('Inactive','Active');
+        $this->set('ACTIVO',$ACTIVO);
     }
 
 
@@ -133,7 +135,7 @@ class ProProgramaController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $proPrograma = $this->ProPrograma->get($id);
         if ($this->deleteProgram($id)) {
-            $this->Flash->success(__('The program was erased correctly'));
+            $this->Flash->success(__('The program active state has been changed'));
         } else {
             $this->Flash->error(__("Error: the program can't be removed."));
         }
