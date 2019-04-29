@@ -546,8 +546,8 @@ class SegUsuarioController extends AppController
      * @param string $userdata, it's the user email or username.
      * @return string all the user data.
      */
-    public function getUser($userdata, $hash){
+    public function getUser($userdata){
         $userTable=$this->loadmodel('SegUsuario');
-        return $userTable->getUser($userdata, $hash);
+        return $userTable->getUser($userdata);
     }
 }
