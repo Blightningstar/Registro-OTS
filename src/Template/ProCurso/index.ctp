@@ -33,6 +33,7 @@
         <thead>
             <tr id="headTr">
                 <!-- Puts each field of the table in the grid -->
+                <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Course ID') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Course name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Start date') ?></th>
@@ -40,7 +41,6 @@
                 <th scope="col"><?= $this->Paginator->sort('Last enrollment date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Academic charge') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Location') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
@@ -48,6 +48,15 @@
             <!-- Iterate the data and places it in the respective column -->
             <?php foreach ($proCurso as $proCurso): ?>
             <tr>
+               <!--Uses a form as wrapper to contain a checkbox which will modify active value of the course.
+                Better than use hidden inputs, from a security's perspective.-->
+                <td>    
+                    <?= $this->Form->create('Post', ['url' => '/curso/delete/' . $proCurso->PRO_CURSO ]) ?>
+                    <!-- Checkbox will submit each time user modify his value. -->
+                    <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proCurso->ACTIVO == 1) ,
+                    'onclick' => 'submit()']) ?>
+                    <?= $this->Form->end() ?>
+                </td>
                 <td><?= h($proCurso->SIGLA) ?></td>
                 <td><?= h($proCurso->NOMBRE) ?></td>
                  <?php   //Converts the format of the dates in one that the database can save it.
@@ -61,22 +70,9 @@
                 <td><?= $this->Number->format($proCurso->CREDITOS) ?></td>
                 <td><?= h($proCurso->LOCACION) ?></td>
                 
-                
-                <!--Uses a form as wrapper to contain a checkbox wich will modify active value of the user.
-                Better than use hidden inputs, from a security's perspective.-->
-                <td>    
-                    <?= $this->Form->create('Post', ['url' => '/curso/delete/' . $proCurso->PRO_CURSO ]) ?>
-                    <!-- Checkbox will submit each time user modify his value. -->
-                    <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proCurso->ACTIVO == 1) ,
-                    'onclick' => 'submit()']) ?>
-                    <?= $this->Form->end() ?>
-                </td>
-                
-                 
                 <td class="actions">
                 <!-- Links the view button to the course-->
-                  <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO], ['escape'=>false])?> 
-                  &nbsp;  
+                  <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO], ['escape'=>false])?>  
                   <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['controller' => 'curso', 'action' => 'edit', $proCurso->PRO_CURSO], ['escape'=>false]) ?>    
                 </td>
             </tr>
