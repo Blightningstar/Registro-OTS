@@ -80,7 +80,7 @@ class ProProgramaTable extends Table
         {
    
             if($result[0]["NOMBRE"] == $lc_name)
-                $lc_code = "1";S
+                $lc_code = "1";
             
         }
 
