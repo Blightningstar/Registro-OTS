@@ -24,7 +24,8 @@
         <div><?= $this->Form->password('new_password', [
                 'id' => 'NewPassword',
                 'pattern' => $password_pattern,
-                'placeholder'=> 'PaSs3xample'
+                'placeholder'=> 'PaSs3xample',
+                'required'
             ]);?>
         </div>
         <span toggle="#NewPassword" class="fa fa-fw fa-eye field-icon password"></span>
@@ -32,7 +33,8 @@
         <div ><?= $this->Form->password('password_confirmation', [
                 'id' => 'PasswordConfirmation',
                 'pattern' => $password_pattern,
-                'placeholder'=> 'PaSs3xample'
+                'placeholder'=> 'PaSs3xample',
+                'required'
             ]);?>
         </div>
         <span toggle="#PasswordConfirmation" class="fa fa-fw fa-eye field-icon password"></span>

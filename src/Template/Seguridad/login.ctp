@@ -21,7 +21,8 @@
         <div ><?= $this->Form->password('password', [
                 'id' => 'password',
                 'pattern' => $password_pattern,
-                'placeholder'=> 'Your Actual Password'
+                'placeholder'=> 'Your Actual Password',
+                'required'
             ]); ?>
         </div>
             <span toggle="#password" class="fa fa-fw fa-eye field-icon password"></span>
