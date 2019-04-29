@@ -24,21 +24,25 @@ if(isset($active_menu)):?>
 <?php endif; ?>
 
 
-<nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-center sticky" style="background-color:#7BC143">
+<nav class="navbar navbar-fixed-top navbar-expand-xl  sticky" style="background-color:#7BC143">
 
 
 
-<div class="navbar-bar flex flex-horizontal justify-content-center">    
+<div class="navbar-bar flex flex-horizontal ">    
     <?php if($actualUser["SEG_ROL"] != "1"):?>
-                <?php echo $this->Html->link( "Questions",   array('controller' => 'pregunta'), ['id'=>'MenubarQuestions','class' => 'menuItem'] ); ?>
+                <?php echo $this->Html->link( "Main",   array('controller' => 'main'), ['id'=> 'MenubarUsers', 'class' => 'menuItem'] ); ?>
+
+                <?php echo $this->Html->link( "Users",   array('controller' => 'usuario'), ['id'=> 'MenubarUsers', 'class' => 'menuItem'] ); ?>
+                
+                <?php echo $this->Html->link( "Programs",   array('controller' => 'programa'), ['id'=> 'MenubarPrograms', 'class' => 'menuItem'] ); ?>
 
                 <?php echo $this->Html->link( "Courses",   array('controller' => 'curso'), ['id'=> 'MenubarCourses', 'class' => 'menuItem'] ); ?>
-
-                <?php echo $this->Html->link( "Programs",   array('controller' => 'programa'), ['id'=> 'MenubarPrograms', 'class' => 'menuItem'] ); ?>
                 
                 <?php //echo $this->Html->link( "Dashboard",   array('controller' => 'dashboard'), [ 'class' => 'menuItem'] ); ?>
 
-                <?php echo $this->Html->link( "Users",   array('controller' => 'usuario'), ['id'=> 'MenubarUsers', 'class' => 'menuItem'] ); ?>
+                <?php echo $this->Html->link( "Questions",   array('controller' => 'pregunta'), ['id'=>'MenubarQuestions','class' => 'menuItem'] ); ?>
+
+                <?php echo $this->Html->link( "Permisions",   array('controller' => 'permiso'), ['id'=> 'MenubarPermisions', 'class' => 'menuItem'] ); ?>
 
                 <?php //echo $this->Html->link( "Applications",   array('controller' => 'solicitudes'), [ 'class' => 'menuItem'] ); ?>
 

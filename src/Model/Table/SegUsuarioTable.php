@@ -112,15 +112,17 @@ class SegUsuarioTable extends Table
 
 
    /**
-     * Removes logically a user by his id
-     * 
-     * @author Esteban Rojas
+    *  @author Esteban Rojas
+     * Removes logically a user by his id.
+     * @param id User's id.
+     * @param  newActve The new active's value.
      */
-    public function deleteUser($id)
+    public function changeUserActive($id,$newActive)
 	{
-        $code = 1;
+        $code = 0;
 		$connet = ConnectionManager::get('default');
-        $result = $connet->execute("update seg_usuario set activo = 'N' where seg_usuario = '$id'");
+        $result = $connet->execute("update seg_usuario set activo = '$newActive' where seg_usuario = '$id'");
+        $code = 1;
         return $code;
     }
 
