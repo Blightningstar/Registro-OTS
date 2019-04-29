@@ -20,7 +20,6 @@
             ]);?>
         </div>
 
-
         <div><?= __('New password:') ?></div>
         <div><?= $this->Form->password('new_password', [
                 'id' => 'NewPassword',
@@ -38,6 +37,7 @@
         </div>
         <span toggle="#PasswordConfirmation" class="fa fa-fw fa-eye field-icon password"></span>
     </fieldset>
+    <?= $this->Html->link( __('Resend Code'),['controller'=>'Seguridad','action'=>'sendNewCode',$email],['class' => 'securityLink']) ?><br>
     <?= $this->Form->button( __('Restore'), ['type' => 'submit', 'class' => 'botonAceptar']) ?>
     <?= $this->Form->end() ?>
 </div>

@@ -93,15 +93,12 @@ class SeguridadController extends AppController
         if(!$actualUser){
             if($this->request->is('post')){            
                 $userController = new SegUsuarioController;
-                $code = Security::randomString(15);
                 $data = $this->request->getData();
                 $email = $userController->getEmailByUserData($data['username']);
                 if($email){
                     $user_code = $userController->getCode($email);
                     if(!$user_code){
-                        $userController->setCode($email,$code);
-                        $this->Flash->success('Code sent to ' . $email . '.' . $code);
-                        return $this->redirect(['action' => 'restoreVerify', $email]);
+                        $this->sendNewCode($email);
                     }else if($user_code){
                         $this->Flash->error('Code already sent  to ' . $email . ', please check your email.');                    
                         return $this->redirect(['action' => 'restoreVerify', $email]);
@@ -117,6 +114,15 @@ class SeguridadController extends AppController
         }
     }
 
+    public function sendNewCode($email){
+        $code = Security::randomString(15);
+        $userController = new SegUsuarioController;
+        $user_code = $userController->getCode($email);
+        $userController->setCode($email,$code);
+        $this->Flash->success('Code sent to ' . $email . '. ' . $code);
+        return $this->redirect(['action' => 'restoreVerify', $email]);
+    }
+
     /**
      * restoreVerify
      * @author Daniel Marín <110100010111h@gmail.com>
@@ -128,6 +134,7 @@ class SeguridadController extends AppController
     public function restoreVerify($email)
     {
         $actualUser = $this->viewVars['actualUser'];
+        $this->set(compact('email'));
         if(!$actualUser){
             if($this->request->is('post')){
                 $userController = new SegUsuarioController;
@@ -154,6 +161,8 @@ class SeguridadController extends AppController
             return $this->redirect(['controller'=>'MainPage','action' => 'index']);
         }
     }
+
+
 
     /**
      * change

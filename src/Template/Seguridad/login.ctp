@@ -27,7 +27,7 @@
             <span toggle="#password" class="fa fa-fw fa-eye field-icon password"></span>
     </fieldset>
     <div>
-        <?= $this->Html->link( __('¿Forgot your password?'),['controller'=>'Seguridad','action'=>'restoreSend'],['id'=>'forgotPassword']) ?><br>
+        <?= $this->Html->link( __('¿Forgot your password?'),['controller'=>'Seguridad','action'=>'restoreSend'],['class' => 'securityLink Colored']) ?><br>
     </div>
     <div>
         <?= $this->Form->button( __('Sign In'), ['id'=>'SignInButton', 'type' => 'submit', 'class' => 'botonAceptar']) ?>
