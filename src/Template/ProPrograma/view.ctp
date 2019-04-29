@@ -12,7 +12,7 @@
         </legend>
     </fieldset>
 
-    <div class="proPrograma form large-9 medium-8 columns content">
+<!--     <div class="proPrograma form large-9 medium-8 columns content">
         <?= $this->Form->create($proPrograma) ?>
         <fieldset>
             <?php
@@ -21,5 +21,20 @@
         </fieldset>
         <a href=".."> <button type="button" class="botonCancelar">Cancel</button> </a>
         <?= $this->Form->end() ?>
+    </div> -->
+
+    <div>
+            <p class= "field"> <?= __('ID:') ?></p>
+            <p class= "value"> <?= $proPrograma["PRO_PROGRAMA"] ?></p>
+            <hr class= "separator">
+        </div>
+
+        <div>
+            <p class= "field"> <?= __('Program Name:') ?></p>
+            <p class= "value"> <?= $proPrograma["NOMBRE"] ?></p>
+            <hr class= "separator">
     </div>
+    <a href=".."> <button type="button" class="botonCancelar">Cancel</button> </a>
+    <?= $this->Form->end() ?>
+
 </div>
