@@ -178,9 +178,12 @@ class SegUsuarioController extends AppController
             //To fix index mismatch.
             $segUsuario["SEG_ROL"] += 1;
 
+            $user_c = new SeguridadController;
+
             //Creates a new password for the user.
             $lc_password = $this-> generatePassword();
-            $segUsuario["CONTRASEÑA"] = hash('sha256',$lc_password);
+            $segUsuario["CONTRASEÑA"] = $user_c->hash($lc_password);
+            
 
             //Verifies if username and email aren't in the database.
             $lc_code = $this->checkUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"]);
@@ -545,8 +548,8 @@ class SegUsuarioController extends AppController
      * @param string $userdata, it's the user email or username.
      * @return string all the user data.
      */
-    public function getUser($userdata, $hash){
+    public function getUser($userdata){
         $userTable=$this->loadmodel('SegUsuario');
-        return $userTable->getUser($userdata, $hash);
+        return $userTable->getUser($userdata);
     }
 }
