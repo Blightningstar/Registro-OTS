@@ -12,7 +12,13 @@ use Cake\Event\Event;
  */
 class IdiomaController extends AppController
 {
-    public function show($language){
+    public function change(){
+        $language = $this->getRequest()->getSession()->read('language');
+        if($language == "Español"){
+            $language = "English";
+        }else{
+            $language = "Español";
+        }
         $this->request->getSession()->write('language',$language);
         $this->set(compact('language'));
         $this->Flash->success('Actual Language: ' . $language . '.');

@@ -2,23 +2,6 @@
 /**
  * Barra superior con el logo de la OET, el nombre del sistema y la información de sesión del usuario
  */
-if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-    //ip from share internet
-    $ip = $_SERVER['HTTP_CLIENT_IP'];
-}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-    //ip pass from proxy
-    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-}else{
-    $ip = $_SERVER['REMOTE_ADDR'];
-}
-
-// Ip Costa Rica
-//$ip = "190.171.106.117";
-// Ip Sudafrica
-$ip = "41.85.255.255";
-
-$details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-$country = $details->country;
 if($actualUser)
     $username = $actualUser['NOMBRE_USUARIO'];
     $rol = $actualUser['SEG_ROL']
@@ -64,8 +47,7 @@ if($actualUser)
                         <li id="Language" class="nav-item menuItem">
                             <?= $this->Html->link( '',[
                                 'controller' => 'idioma',
-                                'action' => 'show',
-                                "Español"
+                                'action' => 'change'
                             ],[
                                'class' => 'fa fa-globe-americas menuLink icon'
                             ]);?>
@@ -76,8 +58,7 @@ if($actualUser)
                         <li  class="nav-item menuItem">
                             <?= $this->Html->link( '',[
                                 'controller' => 'idioma',
-                                'action' => 'show',
-                                "English"
+                                'action' => 'change'
                             ],[
                                 'class' => 'fa fa-globe-africa menuLink icon'
                             ]);?>

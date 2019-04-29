@@ -59,5 +59,38 @@ class AppController extends Controller
         parent::beforeFilter($event);
         $actualUser = $this->getRequest()->getSession()->read('actualUser');
         $this->set(compact('actualUser'));
+        
+        $country = $this->getRequest()->getSession()->read('country');
+        $country = $this->getLocation();//TODO: Eliminar esta linea a la hora de desplegar la página
+        if(!$country){
+            $country = $this->getLocation();
+            $this->request->getSession()->write('country',$country);
+            $language = ($country == 'CR'? "Español" : "English");
+            $this->request->getSession()->write('language',$language);
+        }
+        $language = $this->getRequest()->getSession()->read('language');
+        $this->set(compact('language'));
+        $this->set(compact('country'));
+    }
+
+    public function getLocation(){
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+            //ip from share internet
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+            //ip pass from proxy
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }else{
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        
+        //TODO: Borrar las lineas IP siguientes, debido a la falta de ip por trabajar en localhost se utilizan las siguientes para simular la ubicación
+        // Ip Costa Rica
+        $ip = "190.171.106.117";
+        // Ip Sudafrica
+        //$ip = "41.85.255.255";
+        
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+        return $details->country;
     }
 }
