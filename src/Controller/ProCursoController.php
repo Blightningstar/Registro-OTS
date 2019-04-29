@@ -78,7 +78,7 @@ class ProCursoController extends AppController
             {
                $proCurso['LOCACION'] = __('South Africa');
             }
-            
+          
             /*This section is in charge of saving the user input if it is correct to do so*/
             $lc_code = $this->isUnique($form_data['SIGLA']); //If the course ID existed alredy don't save it
             if($lc_code == "1")
@@ -126,7 +126,7 @@ class ProCursoController extends AppController
             {
                $proCurso['LOCACION'] = __('South Africa');
             }
-            
+
             /*This section is in charge of saving the user input if it is correct to do so*/
             $lc_code = $this->isUnique($proCurso["SIGLA"]);
             if($lc_code == "1" && $proCurso['SIGLA'] != $lc_oldID ['SIGLA']) //If the course ID existed alredy don't save it
