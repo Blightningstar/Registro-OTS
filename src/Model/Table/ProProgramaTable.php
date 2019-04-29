@@ -96,7 +96,7 @@ class ProProgramaTable extends Table
     {
         $code = 1;
         $connet = ConnectionManager::get('default');
-        $result = $connet->execute("update pro_programa set activo = '0' where pro_programa = '$id'");
+        $result = $connet->execute("update pro_programa set activo = 1-ACTIVO where pro_programa = '$id'");
         return $code;
     }
 }
