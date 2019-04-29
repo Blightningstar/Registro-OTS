@@ -12,12 +12,6 @@
         </legend>
     </fieldset>
 
-<!--     <div>
-        <p class= "field"> <?= __('ID:') ?></p>
-        <p class= "value"> <?= $proPrograma["PRO_PROGRAMA"] ?></p>
-        <hr class= "separator">
-    </div> -->
-
     <div>
         <p class= "field"> <?= __('Program Name:') ?></p>
         <p class= "value"> <?= $proPrograma["NOMBRE"] ?></p>

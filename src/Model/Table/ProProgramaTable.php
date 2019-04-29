@@ -10,7 +10,7 @@ use Cake\Datasource\ConnectionManager;
 /**
  * ProPrograma Model
  *
- * @author Anyelo Mijael Lobo Cheloukhin
+ * @author Anyelo Lobo
  * @method \App\Model\Entity\ProPrograma get($primaryKey, $options = [])
  * @method \App\Model\Entity\ProPrograma newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\ProPrograma[] newEntities(array $data, array $options = [])
@@ -80,17 +80,18 @@ class ProProgramaTable extends Table
         {
    
             if($result[0]["NOMBRE"] == $lc_name)
-                $lc_code = "1";
+                $lc_code = "1";S
             
         }
 
         return $lc_code;
     }
 
-       /**
-     * Removes logically a program by his id
-     * From 1 to 0
-     * 
+    /**
+     * Changes the state of a program by his id
+     * From 1 to 0, or from 0 to 1
+     * @author Anyelo Lobo
+     * @return 1 when succeed
      */
     public function deleteProgram($id)
     {
