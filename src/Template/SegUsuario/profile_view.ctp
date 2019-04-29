@@ -86,7 +86,7 @@
         </div>
         
     </fieldset>
-    <a href="../main"> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
+    <a href="../main"> <button type="button" class="botonCancelar"> <?= __('Go Back') ?> </button> </a>
     <a href="./profile-edit"> <button type="button" class="botonAceptar"><?= __('Edit') ?></button> </a>
     <?= $this->Form->end() ?>
 </div>

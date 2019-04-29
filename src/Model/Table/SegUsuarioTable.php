@@ -249,25 +249,6 @@ class SegUsuarioTable extends Table
     }
 
     /**
-     * getUserRoleByUsername
-     * @author Esteban Rojas.
-     * Get the user's role. 
-     * TODO: Remove this function when user_role is setted as sesion variable. 
-     * @param username The username of the user which role must be know.
-     * @return "1" = Student, "2" = Administrator, "3" = "Superuser".
-     */
-    public function getUserRoleByUsername($username)
-    {
-
-        $connet = ConnectionManager::get('default');
-        $result = $connet->execute("SELECT SEG_ROL FROM seg_usuario where NOMBRE_USUARIO = '$username'");
-        $result = $result->fetchAll('assoc');
-
-        return $result[0]["SEG_ROL"];
-    }
-
-
-    /**
      * getHash
      * @author Daniel Marín <110100010111h@gmail.com>
      * 
@@ -365,11 +346,11 @@ class SegUsuarioTable extends Table
      * @param string $userdata, it's the user email or username.
      * @return string the user email.
      */
-    public function getUser($userdata,$hash){
+    public function getUser($userdata){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
             "SELECT * FROM SEG_USUARIO
-             WHERE CONTRASEÑA = '$hash' AND (NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata')"
+             WHERE NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata'"
         )->fetchAll('assoc');
         if($result){
             return $result[0];
