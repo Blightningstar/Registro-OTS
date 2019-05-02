@@ -11,7 +11,7 @@ $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
 <div class="segUsuario form large-9 medium-8 columns content">
     <?= $this->Form->create($segUsuario) ?>
     <fieldset>
-        <legend class = "titulo"><?= __('Register') ?>
+        <legend class = "titulo"><?= __('Sign Up') ?>
         <br></br>
         <p class = "subtitulo"> <?= __('Password  must contain between 8 or 16 characters that are of at least one number, one uppercase letter and one lowercase letter.') ?>  </p>
     </legend>
@@ -30,15 +30,14 @@ $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
             //User must create his password.       
             echo $this->Form->control('new_password', [
                 'pattern' => $password_pattern,
-                'title' => __("Error: invalid password"),
                 'placeholder'=> 'PaSs3xample', 'label' => __('New password'), 'type' => 'password'
             ]);    
 
             echo $this->Form->control('new_password_confirmation', [
                 'pattern' => $password_pattern,
-                'title' => __("Error: invalid password"),
                 'placeholder'=> 'PaSs3xample', 'label' => __('New password confirmation'), 'type' => 'password'
             ]);    
+
            
         ?>
     </fieldset>
