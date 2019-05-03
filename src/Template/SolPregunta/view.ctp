@@ -72,5 +72,5 @@
 
 </fieldset>
 
-<a href=".."> <button type="button" class="botonCancelar"><?= __('GO BACK') ?></button> </a>
+<a href=".."> <button type="button" class="botonCancelar"><?= __('Return') ?></button> </a>
 </div>
