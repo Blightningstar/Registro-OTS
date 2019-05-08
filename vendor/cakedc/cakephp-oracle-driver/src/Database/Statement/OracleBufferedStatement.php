@@ -24,21 +24,33 @@ class OracleBufferedStatement extends BufferedStatement
     /**
      * {@inheritDoc}
      */
-    public function fetch($type = 'num')
+    //public function fetch($type = 'num')
+    public function fetch($type = self::FETCH_TYPE_NUM)
     {
         if ($this->_allFetched) {
-            $row = ($this->_counter < $this->_count) ? $this->_records[$this->_counter++] : false;
-            $row = ($row && $type === 'num') ? array_values($row) : $row;
+            //$row = ($this->_counter < $this->_count) ? $this->_records[$this->_counter++] : false;
+            //$row = ($row && $type === 'num') ? array_values($row) : $row;
+            $row = false;
+            if (isset($this->buffer[$this->index])) {
+                $row = $this->buffer[$this->index];
+            }
+            $this->index += 1;
+            if ($row && $type === static::FETCH_TYPE_NUM) {
+                return array_values($row);
+            }
             return $row;
         }
 
-        $this->_fetchType = $type;
-        $record = $this->_statement->fetch($type);
+        //$this->_fetchType = $type;
+        //$record = $this->_statement->fetch($type);
+
+        $record = $this->statement->fetch($type);
 
         if ($record === false) {
             $this->_allFetched = true;
-            $this->_counter = $this->_count + 1;
-            $this->_statement->closeCursor();
+            //$this->_counter = $this->_count + 1;
+            //$this->_statement->closeCursor();
+            $this->statement->closeCursor();
             return false;
         }
 
@@ -50,8 +62,10 @@ class OracleBufferedStatement extends BufferedStatement
             }
         }
 
-        $this->_count++;
-        return $this->_records[] = $record;
+        $this->buffer[] = $record;
+        return $record;
+        //$this->_count++;
+        //return $this->_records[] = $record;
     }
 
 }

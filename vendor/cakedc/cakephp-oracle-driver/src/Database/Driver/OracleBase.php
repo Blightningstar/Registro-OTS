@@ -26,7 +26,7 @@ abstract class OracleBase extends Driver
 {
     use ConfigTrait;
     use OracleDialectTrait;
-    use PDODriverTrait;
+    //use PDODriverTrait;
 
     /**
      * Base configuration settings for MySQL driver
@@ -140,7 +140,7 @@ abstract class OracleBase extends Driver
         $this->connect();
         $isObject = ($query instanceof \Cake\ORM\Query) || ($query instanceof \Cake\Database\Query);
         $queryStringRaw = $isObject ? $query->sql() : $query;
-        Log::write('debug', $queryStringRaw);
+        //Log::write('debug', $queryStringRaw);
         // debug($queryStringRaw);
         $queryString = $this->_fromDualIfy($queryStringRaw);
         list($queryString, $paramMap) = self::convertPositionalToNamedPlaceholders($queryString);
@@ -156,7 +156,10 @@ abstract class OracleBase extends Driver
             $disableBuffer = true;
         }
 
-        if ($isObject && $query->bufferResults() === false || $disableBuffer) {
+        //if ($isObject && $query->bufferResults() === false || $disableBuffer) {
+          //  $statement->bufferResults(false);
+        //}
+        if (($isObject && $query->isBufferedResultsEnabled() === false) || $disableBuffer) {
             $statement->bufferResults(false);
         }
         return $statement;
