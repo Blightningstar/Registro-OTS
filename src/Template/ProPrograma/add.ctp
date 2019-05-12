@@ -17,8 +17,8 @@
             <?php
                 echo $this->Form->control('NOMBRE',  [
                     'label' => 'Name of the program',
-                    'pattern' => '\w+', 
-                    'placeholder' => 'Only alphanumeric characters'
+                    'pattern' => '[a-zA-Z]+(\w)*', 
+                    'placeholder' => 'Letters and then alphanumeric characters if needed. Ex: Pregrado_01'
                     ]);
 
             ?>
