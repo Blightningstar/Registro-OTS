@@ -23,8 +23,8 @@
 
             ?>
 
-        <a href="."> <button type="button" class="botonCancelar">CANCEL</button> </a>
-        <?= $this->Form->button(__('ACCEPT'), ['class' => 'botonAceptar']) ?>
+        <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
+        <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar']) ?>
         <?= $this->Form->end() ?>
     </div>
 </div>
