@@ -17,14 +17,14 @@
             <?php
                 echo $this->Form->control('NOMBRE',  [
                     'label' => 'Name of the program',
-                    'pattern' => '\w+', 
-                    'placeholder' => 'Only alphanumeric characters'
+                    'pattern' => '[a-zA-Z]+(\w)*', 
+                    'placeholder' => 'Letters and then alphanumeric characters if needed. Ex: Pregrado_01'
                     ]);
 
             ?>
 
-        <a href="."> <button type="button" class="botonCancelar">CANCEL</button> </a>
-        <?= $this->Form->button(__('ACCEPT'), ['class' => 'botonAceptar']) ?>
+        <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
+        <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar']) ?>
         <?= $this->Form->end() ?>
     </div>
 </div>

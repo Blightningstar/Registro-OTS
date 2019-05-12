@@ -37,7 +37,7 @@
         ?>
     </fieldset>
     <br>
-    <a href="."> <button type="button" class="botonCancelar">CANCEL</button> </a>
-    <?= $this->Form->button(__('ACCEPT'), ['class' => 'botonAceptar'], ['label' => 'ACCEPT']) ?>
+    <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
+    <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar'], ['label' => 'ACCEPT']) ?>
     <?= $this->Form->end() ?>
 </div>
