@@ -1,6 +1,6 @@
 <?php
 namespace App\Model\Table;
- use Cake\Datasource\ConnectionManager;   
+use Cake\Datasource\ConnectionManager;   
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -30,7 +30,7 @@ class SolPreguntaTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('sol_pregunta');
+        $this->setTable('SOL_PREGUNTA');
         $this->setDisplayField('SOL_PREGUNTA');
         $this->setPrimaryKey('SOL_PREGUNTA');
     }
@@ -138,6 +138,14 @@ class SolPreguntaTable extends Table
         $connet = ConnectionManager::get('default');
         $result = $connet->execute("UPDATE sol_pregunta SET ACTIVO=1-ACTIVO WHERE SOL_PREGUNTA= $id");
        return 1;
+    }
+
+    public function getPreguntas(){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT * FROM SOL_PREGUNTA"
+        )->fetchAll('assoc');
+        return $result;
     }
    
 

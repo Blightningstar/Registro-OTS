@@ -40,7 +40,7 @@ class OracleBufferedStatement extends BufferedStatement
             }
             return $row;
         }
-
+        
         //$this->_fetchType = $type;
         //$record = $this->_statement->fetch($type);
 
