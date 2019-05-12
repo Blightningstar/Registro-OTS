@@ -16,11 +16,15 @@
         <?= $this->Form->create($proPrograma) ?>
         <fieldset>
             <?php
-                echo $this->Form->control('NOMBRE', ['label' => 'Program Name']);
+                echo $this->Form->control('NOMBRE',  [
+                    'label' => 'Program Name',
+                    'pattern' => '[a-zA-Z]+(\w)*', 
+                    'placeholder' => 'Letters and then alphanumeric characters if needed. Ex: Pregrado_01'
+                    ]);
             ?>
         </fieldset>
-        <a href="/Registro-OTS/programa/"> <button type="button" class="botonCancelar">CANCEL</button> </a>
-        <?= $this->Form->button(__('ACCEPT'), ['class' => 'botonAceptar']) ?>
+        <a href="/Registro-OTS/programa/"> <button type="button" class="botonCancelar">Cancel</button> </a>
+        <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar']) ?>
         <?= $this->Form->end() ?>
     </div>
 </div>

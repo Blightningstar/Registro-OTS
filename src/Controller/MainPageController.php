@@ -23,6 +23,9 @@ class MainPageController extends AppController
     {
         parent::beforeFilter($event);
         $this->set('active_menu', 'MenubarMain');
+        $active_menu = 'MenubarMain';
+        $this->request->getSession()->write('active_menu',$active_menu);
+        $this->set(compact('active_menu'));
     }
 
     /**
