@@ -18,7 +18,7 @@
         <hr class= "separator">
     </div>
 
-    <a href=".."> <button type="button" class="botonCancelar"><?= __('GO BACK') ?></button> </a>
+    <a href=".."> <button type="button" class="botonCancelar"><?= __('Return') ?></button> </a>
     <?= $this->Form->end() ?>
 
 </div>
