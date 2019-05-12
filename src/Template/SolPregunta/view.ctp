@@ -15,70 +15,6 @@
     </legend>
     <br>
 
-
-
-<!-- 
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Description in spanish') ?></th>
-            <td><?= h($solPreguntum->DESCRIPCION_ESP) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Description in english') ?></th>
-            <td><?= h($solPreguntum->DESCRIPCION_ING) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Required') ?></th>
-
-            <?php if($solPreguntum->REQUERIDO ==0):?>
-
-                <td><?= h('Required') ?></td>
-            <?php else: ?>
-                <td><?= h('Not required') ?></td>
-
-            <?php endif ?>
-
-
-
-        </tr>
-        <tr>
-            <th scope="row"><?= __('State') ?></th>
-            <?php if($solPreguntum->ACTIVO ==0):?>
-
-                <td><?= h('Active') ?></td>
-            <?php else: ?>
-                <td><?= h('Inactive') ?></td>
-
-            <?php endif ?>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Type') ?></th>
-            
-            
-
-            <?php if(($this->Number->format($solPreguntum->TIPO)) ==0):?>
-
-                <td><?= h('Text') ?></td>
-
-            <?php elseif(($this->Number->format($solPreguntum->TIPO)) ==1):?>
-
-                <td><?= h('Number') ?></td>
-
-            <?php elseif(($this->Number->format($solPreguntum->TIPO)) ==2):?>
-
-                <td><?= h('Date') ?></td>
-
-            <?php elseif(($this->Number->format($solPreguntum->TIPO)) ==3):?>
-
-                <td><?= h('Select') ?></td>
-
-
-            <?php endif ?>
-
-        </tr>
-    </table> -->
-
-
 <br>
         <div>
             <p class= "field"> <?= __('ID:') ?></p>
@@ -136,9 +72,5 @@
 
 </fieldset>
 
-<a href=".."> <button type="button" class="botonCancelar"><?= __('GO BACK') ?></button> </a>
+<a href=".."> <button type="button" class="botonCancelar"><?= __('Return') ?></button> </a>
 </div>
-
-
-
-

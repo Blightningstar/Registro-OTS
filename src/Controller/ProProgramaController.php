@@ -6,20 +6,31 @@ use Cake\Event\Event;
 /**
  * ProPrograma Controller
  *
- * @author Anyelo Mijael Lobo Cheloukhin
+ * @author Anyelo Lobo
  * @property \App\Model\Table\ProProgramaTable $ProPrograma
  *
  * @method \App\Model\Entity\ProPrograma[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ProProgramaController extends AppController
 {
-
+    /**
+     * beforeFilter
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * This method runs before any other method of this controller, it sets values to variables
+     * that can be used in any view of this módule, in this case sets $active_menu = "MenubarPrograms"
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
         $this->set('active_menu', 'MenubarPrograms');
     }
 
+    /**
+     * Checks if there is already a program with that name
+     * @author Anyelo Lobo
+     * @return 0 if program don't exist, 1 if exist
+     */
     function checkUniqueData($lc_name)
     {
         return $this->ProPrograma->checkUniqueData($lc_name);
@@ -55,7 +66,7 @@ class ProProgramaController extends AppController
 
     /**
      * Add method
-     *
+     * @author Anyelo Lobo
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
@@ -87,7 +98,7 @@ class ProProgramaController extends AppController
 
     /**
      * Edit method
-     *
+     * @author Anyelo Lobo
      * @param string|null $id Pro Programa id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -113,10 +124,9 @@ class ProProgramaController extends AppController
 
 
      /**
-     * Removes logically a program by his id
-     * From S to N
-     *
-     * @return Succesful logical delete or not.
+     * Change the active attribute of the program
+     * @author Anyelo Lobo
+     * @return Succesful active change or not.
      */
     public function deleteProgram($id)
     {
@@ -124,8 +134,8 @@ class ProProgramaController extends AppController
     }
 
     /**
-     * Delete method
-     * 
+     * Delete method that calls deleteProgram() method 
+     * @author Anyelo Lobo
      * @param string|null $id Pro Programa id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.

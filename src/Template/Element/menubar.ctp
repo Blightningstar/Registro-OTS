@@ -18,9 +18,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 var obj_id = '#<?php echo $active_menu; ?>';
-                console.log(obj_id);
                 var clase = $(obj_id).attr('class');
-                console.log(clase);
                 $(obj_id).attr('class', clase + ' active' );
             });
         </script>

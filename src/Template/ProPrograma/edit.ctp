@@ -6,7 +6,6 @@
  */
 ?>
 <div class="proPrograma index large-9 medium-8 columns content container-fluid">
-
     <fieldset>
         <legend class = "titulo">Program Administration<br></br>
         <p class = "subtitulo">Editing program</p>
