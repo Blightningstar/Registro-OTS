@@ -15,8 +15,15 @@ use Cake\Event\Event;
 class SegUsuarioController extends AppController
 {
 
+    /**
+     * beforeFilter
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * This method runs before any other method of this controller, it sets values to variables
+     * that can be used in any view of this módule, in this case sets $active_menu = "MenubarUsers"
+     */
     public function beforeFilter(Event $event)
-    {
+    {        
         parent::beforeFilter($event);
         $this->set('active_menu', 'MenubarUsers');
     }
@@ -83,14 +90,13 @@ class SegUsuarioController extends AppController
      * @author Esteban Rojas
      * 
      * Get the authenticated user role.
-     * @return "1" => student, "2" => "Administrator", "3" => "Superuser"
+     * @return "1" => student, "2" => "Administrator", "3" => "Superuser", or redirect to login if user is not logged
      */
     function actualRole()
     {
-        $actualUser = $this->viewVars['actualUser'];
-        if(($actualUser["NOMBRE_USUARIO"]) == null)
-            return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
-        return $this->SegUsuario->getUserRoleByUsername($this->getActualUsername());
+        if(empty($this->viewVars['actualUser']) == 1)
+            return $this->redirect(['controller' => 'seguridad','action' => 'login']);
+        return $this->viewVars['actualUser']['SEG_ROL'];
     }
 
 
@@ -105,7 +111,6 @@ class SegUsuarioController extends AppController
     {
         $actualUserName = $this->viewVars['actualUser']["NOMBRE_USUARIO"];
         $lc_role = $this->actualRole();
- 
         //Redirect students 
         if($lc_role == "1")
         {

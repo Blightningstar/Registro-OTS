@@ -25,7 +25,9 @@
         ?>
     </fieldset>
     <br><br>
+    <?= $this->Html->link( __('Change Password'),['controller'=>'Seguridad','action'=>'change'],['class' => 'securityLink']) ?><br>
     <a href="./profile-view"> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
+    
     <?= $this->Form->button(__('Accept'), ['class' => 'botonAceptar'], ['label' => 'Acept']) ?>
  
     <?= $this->Form->end() ?>

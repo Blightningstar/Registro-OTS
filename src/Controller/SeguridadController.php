@@ -93,19 +93,15 @@ class SeguridadController extends AppController
         if(!$actualUser){
             if($this->request->is('post')){            
                 $userController = new SegUsuarioController;
-                $code = Security::randomString(15);
                 $data = $this->request->getData();
                 $email = $userController->getEmailByUserData($data['username']);
                 if($email){
                     $user_code = $userController->getCode($email);
-                    if(!$user_code){
-                        $userController->setCode($email,$code);
-                        $this->Flash->success('Code sent to ' . $email . '.' . $code);
-                        return $this->redirect(['action' => 'restoreVerify', $email]);
-                    }else if($user_code){
+                    if($user_code){
                         $this->Flash->error('Code already sent  to ' . $email . ', please check your email.');                    
                         return $this->redirect(['action' => 'restoreVerify', $email]);
                     }
+                    $this->sendNewCode($email);
                 }else{
                     $this->Flash->error('The user doesn\'t exist.');
                 }
@@ -113,8 +109,27 @@ class SeguridadController extends AppController
         }else{
             $this->Flash->error('You are already logged in.');
             return $this->redirect(['controller'=>'MainPage','action' => 'index']);
-
         }
+    }
+
+    /**
+     * sendNewCode
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *
+     * Generates a 15 char code then sends an email with the code and
+     * saves the on the database for the given user
+     * 
+     * @return \Cake\Http\Response|null Redirects.
+     */
+    public function sendNewCode($email){
+        $code = Security::randomString(15);
+        $userController = new SegUsuarioController;
+        $user_code = $userController->getCode($email);
+        $userController->setCode($email,$code);
+        //$options = ['email' => $email, 'messageType' => "code"];
+        //$this->sendMail($options);
+        $this->Flash->success('Code sent to ' . $email . '. ' . $code);
+        return $this->redirect(['action' => 'restoreVerify', $email]);
     }
 
     /**
@@ -128,6 +143,7 @@ class SeguridadController extends AppController
     public function restoreVerify($email)
     {
         $actualUser = $this->viewVars['actualUser'];
+        $this->set(compact('email'));
         if(!$actualUser){
             if($this->request->is('post')){
                 $userController = new SegUsuarioController;
@@ -154,6 +170,8 @@ class SeguridadController extends AppController
             return $this->redirect(['controller'=>'MainPage','action' => 'index']);
         }
     }
+
+
 
     /**
      * change
@@ -199,14 +217,16 @@ class SeguridadController extends AppController
      * hash
      * @author Daniel Marín <110100010111h@gmail.com>
      *
-     * Uses becypt with 0.2(200 miliseconds) as timeTarget,
+     * Uses bcrypt with 0.2(200 miliseconds) as timeTarget,
+     * calculates the cost for the timeTarget and
      * hash the given plain text password and returns it.
      * 
      * @param string $password, the plain text string to be hashed.
      * @return string the hashed password.
      */
     public function hash($password){
-        $cost = $this->calculateCost(0.2);
+        $timeTarget = 0.2; 
+        $cost = $this->calculateCost($timeTarget);
         $options = ['cost'=>$cost];
         $bcrypt = password_hash($password, PASSWORD_BCRYPT, $options);
         return $bcrypt;
@@ -225,7 +245,8 @@ class SeguridadController extends AppController
      */
     public function check($userdata,$password,$hash){
         if(password_verify($password, $hash)){
-            $cost = $this->calculateCost(0.2);
+            $timeTarget = 0.2;
+            $cost = $this->calculateCost($timeTarget);
             $options = ['cost' => $cost];
             if (password_needs_rehash($hash, PASSWORD_DEFAULT, $options)) {
                 $newHash = $this->hash($password);
