@@ -100,8 +100,7 @@ class SolPreguntaController extends AppController
             'contain' => []]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
-            debug($solPreguntum);
-            die();
+            
             if ($this->SolPregunta->save($solPreguntum)) {
                 $this->Flash->success(__('The question has been saved.'));
 

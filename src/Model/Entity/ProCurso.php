@@ -5,22 +5,20 @@ use Cake\ORM\Entity;
 
 /**
  * ProCurso Entity
- * @author Jason Zamora Trejos
+ *
  * @property int $PRO_CURSO
  * @property string $SIGLA
  * @property string $NOMBRE
- * @property \Cake\I18n\FrozenDate|null $FECHA_INICIO
- * @property \Cake\I18n\FrozenDate|null $FECHA_FINALIZACION
- * @property \Cake\I18n\FrozenDate $FECHA_LIMITE
- * @property int $CREDITOS
+ * @property \Cake\I18n\FrozenTime $FECHA_INICIO
+ * @property \Cake\I18n\FrozenTime $FECHA_FINALIZACION
+ * @property \Cake\I18n\FrozenTime $FECHA_LIMITE
+ * @property int|null $CREDITOS
  * @property string $IDIOMA
  * @property string $LOCACION
- * @property int|null $ACTIVO
+ * @property string|null $ACTIVO
  * @property string|null $PRO_PROGRAMA
- * @property string|null $SEG_USUARIO
- * @property string|null $SOL_FORMULARIO
- *
- * @property \App\Model\Entity\ProPrograma $pro_programa
+ * @property int|null $SOL_FORMULARIO
+ * @property int|null $SEG_USUARIO
  */
 class ProCurso extends Entity
 {
@@ -44,7 +42,7 @@ class ProCurso extends Entity
         'LOCACION' => true,
         'ACTIVO' => true,
         'PRO_PROGRAMA' => true,
-        'SEG_USUARIO' => true,
-        'SOL_FORMULARIO' => true
+        'SOL_FORMULARIO' => true,
+        'SEG_USUARIO' => true
     ];
 }

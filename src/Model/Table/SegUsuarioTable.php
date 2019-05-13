@@ -7,7 +7,6 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Datasource\ConnectionManager;
 
-
 /**
  * SegUsuario Model
  *
@@ -46,25 +45,24 @@ class SegUsuarioTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->scalar('SEG_USUARIO')
-            ->maxLength('SEG_USUARIO', 256)
+            ->integer('SEG_USUARIO')
             ->allowEmptyString('SEG_USUARIO', 'create');
 
         $validator
             ->scalar('NOMBRE')
-            ->maxLength('NOMBRE', 256)
+            ->maxLength('NOMBRE', 30)
             ->requirePresence('NOMBRE', 'create')
             ->allowEmptyString('NOMBRE', false);
 
         $validator
             ->scalar('APELLIDO_1')
-            ->maxLength('APELLIDO_1', 256)
+            ->maxLength('APELLIDO_1', 30)
             ->requirePresence('APELLIDO_1', 'create')
             ->allowEmptyString('APELLIDO_1', false);
 
         $validator
             ->scalar('APELLIDO_2')
-            ->maxLength('APELLIDO_2', 256)
+            ->maxLength('APELLIDO_2', 30)
             ->allowEmptyString('APELLIDO_2');
 
         $validator
@@ -74,10 +72,10 @@ class SegUsuarioTable extends Table
             ->allowEmptyString('NOMBRE_USUARIO', false);
 
         $validator
-            ->scalar('CONTRASEÑA')
-            ->maxLength('CONTRASEÑA', 256)
-            ->requirePresence('CONTRASEÑA', 'create')
-            ->allowEmptyString('CONTRASEÑA', false);
+            ->scalar('CONTRASENA')
+            ->maxLength('CONTRASENA', 60)
+            ->requirePresence('CONTRASENA', 'create')
+            ->allowEmptyString('CONTRASENA', false);
 
         $validator
             ->scalar('CORREO')
@@ -87,13 +85,13 @@ class SegUsuarioTable extends Table
 
         $validator
             ->scalar('NUMERO_TELEFONO')
-            ->maxLength('NUMERO_TELEFONO', 256)
+            ->maxLength('NUMERO_TELEFONO', 28)
             ->requirePresence('NUMERO_TELEFONO', 'create')
             ->allowEmptyString('NUMERO_TELEFONO', false);
 
         $validator
             ->scalar('NACIONALIDAD')
-            ->maxLength('NACIONALIDAD', 256)
+            ->maxLength('NACIONALIDAD', 20)
             ->requirePresence('NACIONALIDAD', 'create')
             ->allowEmptyString('NACIONALIDAD', false);
 
@@ -107,11 +105,15 @@ class SegUsuarioTable extends Table
             ->requirePresence('SEG_ROL', 'create')
             ->allowEmptyString('SEG_ROL', false);
 
+        $validator
+            ->scalar('CODIGO_RESTAURACION')
+            ->maxLength('CODIGO_RESTAURACION', 15)
+            ->allowEmptyString('CODIGO_RESTAURACION');
+
         return $validator;
     }
 
-
-   /**
+    /**
      * changeUserActive.
      *  @author Esteban Rojas.
      * Removes logically a user by his id.

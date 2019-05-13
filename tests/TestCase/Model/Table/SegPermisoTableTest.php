@@ -23,7 +23,8 @@ class SegPermisoTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.SegPermiso'
+        'app.SegPermiso',
+        'app.SegPosee'
     ];
 
     /**
@@ -66,6 +67,36 @@ class SegPermisoTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test SEG_POSEE_TraerPermisosPoseidos method
+     *
+     * @return void
+     */
+    public function testSEGPOSEETraerPermisosPoseidos()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test SEG_POSEE_AgregarRegistro method
+     *
+     * @return void
+     */
+    public function testSEGPOSEEAgregarRegistro()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test SEG_POSEE_EliminarRegistro method
+     *
+     * @return void
+     */
+    public function testSEGPOSEEEliminarRegistro()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
