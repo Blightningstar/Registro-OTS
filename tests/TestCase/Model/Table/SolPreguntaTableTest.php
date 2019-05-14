@@ -69,4 +69,44 @@ class SolPreguntaTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    /**
+     * Test insertarPregunta method
+     *
+     * @return void
+     */
+    public function testInsertarPregunta()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test returnMaxSolPregunta method
+     *
+     * @return void
+     */
+    public function testReturnMaxSolPregunta()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test desactivarPregunta method
+     *
+     * @return void
+     */
+    public function testDesactivarPregunta()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test getPreguntas method
+     *
+     * @return void
+     */
+    public function testGetPreguntas()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

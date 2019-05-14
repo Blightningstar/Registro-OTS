@@ -78,7 +78,7 @@ class ProProgramaController extends AppController
         if ($this->request->is('post')) {
             $proPrograma = $this->ProPrograma->patchEntity($proPrograma, $this->request->getData());
 
-            $proPrograma["PRO_PROGRAMA"] = $_REQUEST['NOMBRE']; //Primary Key is the name of the program
+            $proPrograma["PRO_PROGRAMA"] = substr($_REQUEST['NOMBRE'], 0, 3); //Primary Key is the name of the program
             $proPrograma["ACTIVO"] = '1';
             $lc_code = $this->checkUniqueData($proPrograma["NOMBRE"] );
             if($lc_code == "1"){

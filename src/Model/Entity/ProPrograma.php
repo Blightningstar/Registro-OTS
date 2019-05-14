@@ -22,7 +22,6 @@ class ProPrograma extends Entity
      * @var array
      */
     protected $_accessible = [
-        //'PRO_PROGRAMA' => true,
         'NOMBRE' => true,
         'ACTIVO' => true
     ];

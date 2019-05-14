@@ -3,7 +3,7 @@
      * @author Daniel Marín <110100010111h@gmail.com>
      * 
      **/
-    $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
+    $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,16}';
     $code_pattern = '\w{15}';
 ?>
 <div class="container mt-5 mb-5 pb-5 pt-5 card">

@@ -5,10 +5,11 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * ProCurso Model
- * @author Jason Zamora Trejos
+ *
  * @method \App\Model\Entity\ProCurso get($primaryKey, $options = [])
  * @method \App\Model\Entity\ProCurso newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\ProCurso[] newEntities(array $data, array $options = [])
@@ -55,58 +56,58 @@ class ProCursoTable extends Table
 
         $validator
             ->scalar('NOMBRE')
-            ->maxLength('NOMBRE', 256)
+            ->maxLength('NOMBRE', 64)
             ->requirePresence('NOMBRE', 'create')
             ->allowEmptyString('NOMBRE', false);
 
         $validator
-            ->date('FECHA_INICIO')
-            ->allowEmptyDate('FECHA_INICIO');
+            ->dateTime('FECHA_INICIO')
+            ->requirePresence('FECHA_INICIO', 'create')
+            ->allowEmptyDateTime('FECHA_INICIO', false);
 
         $validator
-            ->date('FECHA_FINALIZACION')
-            ->allowEmptyDate('FECHA_FINALIZACION');
+            ->dateTime('FECHA_FINALIZACION')
+            ->requirePresence('FECHA_FINALIZACION', 'create')
+            ->allowEmptyDateTime('FECHA_FINALIZACION', false);
 
         $validator
-            ->date('FECHA_LIMITE')
+            ->dateTime('FECHA_LIMITE')
             ->requirePresence('FECHA_LIMITE', 'create')
-            ->allowEmptyDate('FECHA_LIMITE', false);
+            ->allowEmptyDateTime('FECHA_LIMITE', false);
 
         $validator
             ->integer('CREDITOS')
-            ->requirePresence('CREDITOS', 'create')
-            ->allowEmptyString('CREDITOS', false);
+            ->allowEmptyString('CREDITOS');
 
         $validator
             ->scalar('IDIOMA')
-            ->maxLength('IDIOMA', 256)
+            ->maxLength('IDIOMA', 16)
             ->requirePresence('IDIOMA', 'create')
             ->allowEmptyString('IDIOMA', false);
 
         $validator
             ->scalar('LOCACION')
-            ->maxLength('LOCACION', 256)
+            ->maxLength('LOCACION', 64)
             ->requirePresence('LOCACION', 'create')
             ->allowEmptyString('LOCACION', false);
 
         $validator
-            ->nonNegativeInteger('ACTIVO')
+            ->scalar('ACTIVO')
+            ->maxLength('ACTIVO', 1)
             ->allowEmptyString('ACTIVO');
 
         $validator
             ->scalar('PRO_PROGRAMA')
-            ->maxLength('PRO_PROGRAMA', 256)
+            ->maxLength('PRO_PROGRAMA', 3)
             ->allowEmptyString('PRO_PROGRAMA');
 
         $validator
-            ->scalar('SEG_USUARIO')
-            ->maxLength('SEG_USUARIO', 256)
-            ->allowEmptyString('SEG_USUARIO');
+            ->integer('SOL_FORMULARIO')
+            ->allowEmptyString('SOL_FORMULARIO');
 
         $validator
-            ->scalar('SOL_FORMULARIO')
-            ->maxLength('SOL_FORMULARIO', 256)
-            ->allowEmptyString('SOL_FORMULARIO');
+            ->integer('SEG_USUARIO')
+            ->allowEmptyString('SEG_USUARIO');
 
         return $validator;
     }

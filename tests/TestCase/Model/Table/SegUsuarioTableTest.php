@@ -69,4 +69,104 @@ class SegUsuarioTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    /**
+     * Test changeUserActive method
+     *
+     * @return void
+     */
+    public function testChangeUserActive()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test checkUniqueData method
+     *
+     * @return void
+     */
+    public function testCheckUniqueData()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test checkEditUniqueData method
+     *
+     * @return void
+     */
+    public function testCheckEditUniqueData()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test checkUniqueEmail method
+     *
+     * @return void
+     */
+    public function testCheckUniqueEmail()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test getHash method
+     *
+     * @return void
+     */
+    public function testGetHash()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test setHash method
+     *
+     * @return void
+     */
+    public function testSetHash()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test getCode method
+     *
+     * @return void
+     */
+    public function testGetCode()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test setCode method
+     *
+     * @return void
+     */
+    public function testSetCode()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test getEmailByUserData method
+     *
+     * @return void
+     */
+    public function testGetEmailByUserData()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test getUser method
+     *
+     * @return void
+     */
+    public function testGetUser()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

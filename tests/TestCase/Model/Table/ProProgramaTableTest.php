@@ -69,4 +69,24 @@ class ProProgramaTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    /**
+     * Test checkUniqueData method
+     *
+     * @return void
+     */
+    public function testCheckUniqueData()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test deleteProgram method
+     *
+     * @return void
+     */
+    public function testDeleteProgram()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

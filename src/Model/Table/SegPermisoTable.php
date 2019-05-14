@@ -34,12 +34,6 @@ class SegPermisoTable extends Table
         $this->setTable('seg_permiso');
         $this->setDisplayField('SEG_PERMISO');
         $this->setPrimaryKey('SEG_PERMISO');
-
-        $this->belongsTo('seg_posee', [
-            'foreignKey' => ['SEG_PERMISO'],
-            'bindingKey' => ['SEG_ROL'],
-            'joinType' => 'INNER'
-		]);
     }
 
     /**
@@ -57,7 +51,8 @@ class SegPermisoTable extends Table
         $validator
             ->scalar('DESCRIPCION_ESP')
             ->maxLength('DESCRIPCION_ESP', 256)
-            ->allowEmptyString('DESCRIPCION_ESP');
+            ->requirePresence('DESCRIPCION_ESP', 'create')
+            ->allowEmptyString('DESCRIPCION_ESP', false);
 
         $validator
             ->scalar('DESCRIPCION_ING')

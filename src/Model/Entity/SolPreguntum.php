@@ -7,10 +7,10 @@ use Cake\ORM\Entity;
  * SolPreguntum Entity
  *
  * @property int $SOL_PREGUNTA
- * @property string|null $DESCRIPCION_ESP
+ * @property string $DESCRIPCION_ESP
  * @property string $DESCRIPCION_ING
- * @property int $TIPO
- * @property string $REQUERIDO
+ * @property int|null $TIPO
+ * @property string|null $REQUERIDO
  * @property string|null $ACTIVO
  */
 class SolPreguntum extends Entity
