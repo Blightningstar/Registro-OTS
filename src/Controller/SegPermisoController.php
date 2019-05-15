@@ -39,7 +39,7 @@ class SegPermisoController extends AppController
     {
         // Grant access to the SEG_POSEE table.
         $this->loadModel('seg_posee');
-
+        
         // Get all the permission and all the relation with rols. 
         $vgo_DsPermisos = $this->SegPermiso->find('all');  
         $vgo_DsPermisosDeRol = $this->SegPermiso->SEG_POSEE_TraerPermisosPoseidos();  

@@ -34,6 +34,13 @@ class SegPermisoTable extends Table
         $this->setTable('seg_permiso');
         $this->setDisplayField('SEG_PERMISO');
         $this->setPrimaryKey('SEG_PERMISO');
+
+        
+        /*$this->belongsTo('SEG_POSEE', [
+            'foreignKey' => ['SEG_PERMISO'],
+            'bindingKey' => ['SEG_ROL'],
+            'joinType' => 'INNER'
+		]);*/
     }
 
     /**
@@ -78,7 +85,7 @@ class SegPermisoTable extends Table
         "SELECT PO.SEG_PERMISO, PO.SEG_ROL
         FROM SEG_PERMISO P, SEG_POSEE PO
         WHERE P.SEG_PERMISO = PO.SEG_PERMISO 
-        ORDER BY PO.SEG_PERMISO, PO.SEG_ROL ASC;"
+        ORDER BY PO.SEG_PERMISO, PO.SEG_ROL ASC"
         )->fetchAll();
         return $query;
     }

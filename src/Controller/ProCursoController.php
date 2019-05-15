@@ -67,9 +67,9 @@ class ProCursoController extends AppController
             $form_data = $this->request->getData();
             
             /*This section is in charge of converting the user input to store it correctly in the data base*/
-            $proCurso['FECHA_LIMITE'] = date("Y-m-d", strtotime($form_data['FECHA_LIMITE']));
-            $proCurso['FECHA_FINALIZACION'] = date("Y-m-d", strtotime($form_data['FECHA_FINALIZACION']));
-            $proCurso['FECHA_INICIO'] = date("Y-m-d", strtotime($form_data['FECHA_INICIO']));
+            $proCurso['FECHA_LIMITE'] = date("d-M-Y", strtotime($form_data['FECHA_LIMITE']));
+            $proCurso['FECHA_FINALIZACION'] = date("d-M-Y", strtotime($form_data['FECHA_FINALIZACION']));
+            $proCurso['FECHA_INICIO'] = date("d-M-Y", strtotime($form_data['FECHA_INICIO']));
             if($proCurso['LOCACION']==0)
             {
                $proCurso['LOCACION'] = 'Costa Rica';
@@ -78,9 +78,10 @@ class ProCursoController extends AppController
             {
                $proCurso['LOCACION'] = __('South Africa');
             }
-          
+
             /*This section is in charge of saving the user input if it is correct to do so*/
             $lc_code = $this->isUnique($form_data['SIGLA']); //If the course ID existed alredy don't save it
+
             if($lc_code == "1")
             {
                $this->Flash->error(__('The course alredy exits in the system.'));
@@ -108,16 +109,16 @@ class ProCursoController extends AppController
     public function edit($id = null)
     {
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
-        $lc_oldID = $proCurso['PRO_CURSO'];
+        $lc_oldID = $proCurso['SIGLA'];
         $form_data = $this->request->getData();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
             
             /*This section is in charge of converting the user input to store it correctly in the data base*/
-            $proCurso['FECHA_LIMITE'] = date("Y-m-d", strtotime($form_data['FECHA_LIMITE']));
-            $proCurso['FECHA_FINALIZACION'] = date("Y-m-d", strtotime($form_data['FECHA_FINALIZACION']));
-            $proCurso['FECHA_INICIO'] = date("Y-m-d", strtotime($form_data['FECHA_INICIO']));
+            $proCurso['FECHA_LIMITE'] = date("d-M-Y", strtotime($form_data['FECHA_LIMITE']));
+            $proCurso['FECHA_FINALIZACION'] = date("d-M-Y", strtotime($form_data['FECHA_FINALIZACION']));
+            $proCurso['FECHA_INICIO'] = date("d-M-Y", strtotime($form_data['FECHA_INICIO']));
             if($proCurso['LOCACION']==0)
             {
                $proCurso['LOCACION'] = 'Costa Rica';
@@ -129,7 +130,7 @@ class ProCursoController extends AppController
 
             /*This section is in charge of saving the user input if it is correct to do so*/
             $lc_code = $this->isUnique($proCurso["SIGLA"]);
-            if($lc_code == "1" && $proCurso['SIGLA'] != $lc_oldID ['SIGLA']) //If the course ID existed alredy don't save it
+            if($lc_code == "1" && $proCurso['SIGLA'] != $lc_oldID) //If the course ID existed alredy don't save it
             {
                $this->Flash->error(__('The course alredy exits in the system.'));
             }
