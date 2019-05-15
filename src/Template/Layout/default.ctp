@@ -71,14 +71,9 @@ $cakeDescription = __('Organization for Tropical Studies');
     <?=$this->element('titlebar')?>
     <?=$this->element('menubar')?>
     
-    <?php if($active_menu == 'MenubarMain'){ ?>
-        <div class="mainBackground">
-        </div>
-    <?php } else { ?> 
+
         <div class="container clearfix">
-            <?= $this->fetch('content') ?>
-        </div>
-    <?php } ?>
+        <?= $this->fetch('content') ?>
 
 </body>
 </html>
