@@ -14,6 +14,19 @@ use Cake\Event\Event;
 class SeguridadController extends AppController
 {
     /**
+     * beforeFilter
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * This method runs before any other method of this controller, it sets values to variables
+     * that can be used in any view of this módule, in this case sets $active_menu = "MenubarPermissions"
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', '');
+    }
+
+    /**
      * login
      * @author Daniel Marín <110100010111h@gmail.com>
      * 
@@ -38,7 +51,7 @@ class SeguridadController extends AppController
                 if(!$actualUser)
                     $this->Flash->error(__('The username or the password are incorrect, please try again.'));
                 else{
-                    $hash = $actualUser['CONTRASEÑA'];              
+                    $hash = $actualUser['CONTRASENA'];              
                     if(!$this->check($userdata,$pasword,$hash))
                         $this->Flash->error(__('The username or the password are incorrect, please try again.'));
                     else{

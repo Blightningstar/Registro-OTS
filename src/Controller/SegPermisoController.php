@@ -22,7 +22,7 @@ class SegPermisoController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->set('active_title', 'MenubarPermissions');
+        $this->set('active_menu', 'MenubarPermissions');
     }
 
     /**
