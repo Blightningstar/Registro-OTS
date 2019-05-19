@@ -4,15 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * SegPermiso Entity
+ * SolPreguntum Entity
  *
- * @property int $SEG_PERMISO
- * @property string $DESCRIPCION_ESP
+ * @property int $SOL_PREGUNTA
+ * @property string|null $DESCRIPCION_ESP
  * @property string $DESCRIPCION_ING
- *
- * @property \App\Model\Entity\SegPosee $seg_posee
+ * @property int $TIPO
+ * @property string $REQUERIDO
+ * @property string|null $ACTIVO
  */
-class SegPermiso extends Entity
+class SolPreguntum extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -26,6 +27,8 @@ class SegPermiso extends Entity
     protected $_accessible = [
         'DESCRIPCION_ESP' => true,
         'DESCRIPCION_ING' => true,
-        //'seg_posee' => true
+        'TIPO' => true,
+        'REQUERIDO' => true,
+        'ACTIVO' => true
     ];
 }

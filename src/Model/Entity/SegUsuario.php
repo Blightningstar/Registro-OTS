@@ -6,17 +6,18 @@ use Cake\ORM\Entity;
 /**
  * SegUsuario Entity
  *
- * @property string $SEG_USUARIO
+ * @property int $SEG_USUARIO
  * @property string $NOMBRE
  * @property string $APELLIDO_1
  * @property string|null $APELLIDO_2
  * @property string $NOMBRE_USUARIO
- * @property string $CONTRASEÑA
+ * @property string $CONTRASENA
  * @property string $CORREO
  * @property string $NUMERO_TELEFONO
  * @property string $NACIONALIDAD
  * @property string|null $ACTIVO
  * @property int $SEG_ROL
+ * @property string|null $CODIGO_RESTAURACION
  */
 class SegUsuario extends Entity
 {
@@ -34,11 +35,12 @@ class SegUsuario extends Entity
         'APELLIDO_1' => true,
         'APELLIDO_2' => true,
         'NOMBRE_USUARIO' => true,
-        'CONTRASEÑA' => true,
+        'CONTRASENA' => true,
         'CORREO' => true,
         'NUMERO_TELEFONO' => true,
         'NACIONALIDAD' => true,
         'ACTIVO' => true,
-        'SEG_ROL' => true
+        'SEG_ROL' => true,
+        'CODIGO_R' => false
     ];
 }

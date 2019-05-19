@@ -244,28 +244,28 @@ return [
      *   other RDBMS.
      */
     'Datasources' => [
-        'default' => [
+        /*'default' => [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
-            'host' => 'localhost',
+            'host' => 'localhost',*/
             /*
              * CakePHP will use the default DB port based on the driver selected
              * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
+            /*'username' => 'my_app',
             'password' => 'secret',
-            'database' => 'my_app',
+            'database' => 'my_app',*/
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
              */
             //'encoding' => 'utf8mb4',
-            'timezone' => 'UTC',
+            /*'timezone' => 'UTC',
             'flags' => [],
             'cacheMetadata' => true,
-            'log' => false,
+            'log' => false,*/
 
             /**
              * Set identifier quoting to true if you are using reserved words or
@@ -275,7 +275,7 @@ return [
              * decreases performance because each query needs to be traversed and
              * manipulated before being executed.
              */
-            'quoteIdentifiers' => false,
+            //l'quoteIdentifiers' => false,
 
             /**
              * During development, if using MySQL < 5.6, uncommenting the
@@ -286,13 +286,13 @@ return [
              */
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
 
-            'url' => env('DATABASE_URL', null),
-        ],
+            /*'url' => env('DATABASE_URL', null),
+        ],*/
 
         /**
          * The test connection is used during the test suite.
          */
-        'test' => [
+        /*'test' => [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
@@ -308,6 +308,32 @@ return [
             'log' => false,
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
             'url' => env('DATABASE_TEST_URL', null),
+        ]*/
+        'default' => [
+            'className' => 'CakeDC\OracleDriver\Database\OracleConnection',
+            'driver' => 'CakeDC\OracleDriver\Database\Driver\OracleOCI', # For OCI8
+            #'driver' => 'CakeDC\\OracleDriver\\Database\\Driver\\OraclePDO', # For PDO_OCI
+            'host' => '172.16.202.38',          # Database host name or IP address
+            'port' => '3306', # Database port number (default: 1521)
+            'username' => 'OTS',          # Database username
+            'password' => 'oracle',       # Database password
+            'database' => 'XE',             # Database name (maps to Oracle's `SERVICE_NAME`)
+            'sid' => '',                    # Database System ID (maps to Oracle's `SID`)
+            'instance' => '',               # Database instance name (maps to Oracle's `INSTANCE_NAME`)
+            'pooled' => '',                 # Database pooling (maps to Oracle's `SERVER=POOLED`)
+        ],
+        'test' => [
+            'className' => 'CakeDC\OracleDriver\Database\OracleConnection',
+            'driver' => 'CakeDC\OracleDriver\Database\Driver\OracleOCI', # For OCI8
+            #'driver' => 'CakeDC\\OracleDriver\\Database\\Driver\\OraclePDO', # For PDO_OCI
+            'host' => '172.16.202.38',          # Database host name or IP address
+            'port' => '3306', # Database port number (default: 1521)
+            'username' => 'OTS',          # Database username
+            'password' => 'oracle',       # Database password
+            'database' => 'XE',             # Database name (maps to Oracle's `SERVICE_NAME`)
+            'sid' => '',                    # Database System ID (maps to Oracle's `SID`)
+            'instance' => '',               # Database instance name (maps to Oracle's `INSTANCE_NAME`)
+            'pooled' => '',                 # Database pooling (maps to Oracle's `SERVER=POOLED`)
         ],
     ],
 

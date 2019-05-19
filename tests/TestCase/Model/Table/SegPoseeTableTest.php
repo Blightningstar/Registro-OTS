@@ -1,21 +1,21 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ProCursoTable;
+use App\Model\Table\SegPoseeTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ProCursoTable Test Case
+ * App\Model\Table\SegPoseeTable Test Case
  */
-class ProCursoTableTest extends TestCase
+class SegPoseeTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\ProCursoTable
+     * @var \App\Model\Table\SegPoseeTable
      */
-    public $ProCurso;
+    public $SegPosee;
 
     /**
      * Fixtures
@@ -23,7 +23,7 @@ class ProCursoTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.ProCurso'
+        'app.SegPosee'
     ];
 
     /**
@@ -34,8 +34,8 @@ class ProCursoTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('ProCurso') ? [] : ['className' => ProCursoTable::class];
-        $this->ProCurso = TableRegistry::getTableLocator()->get('ProCurso', $config);
+        $config = TableRegistry::getTableLocator()->exists('SegPosee') ? [] : ['className' => SegPoseeTable::class];
+        $this->SegPosee = TableRegistry::getTableLocator()->get('SegPosee', $config);
     }
 
     /**
@@ -45,7 +45,7 @@ class ProCursoTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->ProCurso);
+        unset($this->SegPosee);
 
         parent::tearDown();
     }

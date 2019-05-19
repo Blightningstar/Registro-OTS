@@ -7,7 +7,6 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Datasource\ConnectionManager;
 
-
 /**
  * SegUsuario Model
  *
@@ -46,25 +45,24 @@ class SegUsuarioTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->scalar('SEG_USUARIO')
-            ->maxLength('SEG_USUARIO', 256)
+            ->integer('SEG_USUARIO')
             ->allowEmptyString('SEG_USUARIO', 'create');
 
         $validator
             ->scalar('NOMBRE')
-            ->maxLength('NOMBRE', 256)
+            ->maxLength('NOMBRE', 30)
             ->requirePresence('NOMBRE', 'create')
             ->allowEmptyString('NOMBRE', false);
 
         $validator
             ->scalar('APELLIDO_1')
-            ->maxLength('APELLIDO_1', 256)
+            ->maxLength('APELLIDO_1', 30)
             ->requirePresence('APELLIDO_1', 'create')
             ->allowEmptyString('APELLIDO_1', false);
 
         $validator
             ->scalar('APELLIDO_2')
-            ->maxLength('APELLIDO_2', 256)
+            ->maxLength('APELLIDO_2', 30)
             ->allowEmptyString('APELLIDO_2');
 
         $validator
@@ -74,10 +72,10 @@ class SegUsuarioTable extends Table
             ->allowEmptyString('NOMBRE_USUARIO', false);
 
         $validator
-            ->scalar('CONTRASEÑA')
-            ->maxLength('CONTRASEÑA', 256)
-            ->requirePresence('CONTRASEÑA', 'create')
-            ->allowEmptyString('CONTRASEÑA', false);
+            ->scalar('CONTRASENA')
+            ->maxLength('CONTRASENA', 60)
+            ->requirePresence('CONTRASENA', 'create')
+            ->allowEmptyString('CONTRASENA', false);
 
         $validator
             ->scalar('CORREO')
@@ -87,13 +85,13 @@ class SegUsuarioTable extends Table
 
         $validator
             ->scalar('NUMERO_TELEFONO')
-            ->maxLength('NUMERO_TELEFONO', 256)
+            ->maxLength('NUMERO_TELEFONO', 28)
             ->requirePresence('NUMERO_TELEFONO', 'create')
             ->allowEmptyString('NUMERO_TELEFONO', false);
 
         $validator
             ->scalar('NACIONALIDAD')
-            ->maxLength('NACIONALIDAD', 256)
+            ->maxLength('NACIONALIDAD', 20)
             ->requirePresence('NACIONALIDAD', 'create')
             ->allowEmptyString('NACIONALIDAD', false);
 
@@ -110,8 +108,7 @@ class SegUsuarioTable extends Table
         return $validator;
     }
 
-
-   /**
+    /**
      * changeUserActive.
      *  @author Esteban Rojas.
      * Removes logically a user by his id.
@@ -125,6 +122,9 @@ class SegUsuarioTable extends Table
         $code = 0;
 		$connet = ConnectionManager::get('default');
         $result = $connet->execute("update seg_usuario set activo = '$newActive' where seg_usuario = '$id'");
+        $connet->execute(
+            "COMMIT"
+        );
         $code = 1;
         return $code;
     }
@@ -259,10 +259,10 @@ class SegUsuarioTable extends Table
     public function getHash($username){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
-            "SELECT CONTRASEÑA FROM SEG_USUARIO 
+            "SELECT CONTRASENA FROM SEG_USUARIO 
              WHERE NOMBRE_USUARIO = '$username'"
         )->fetchAll('assoc');
-        return $result[0]['CONTRASEÑA'];
+        return $result[0]['CONTRASENA'];
     }
 
     /**
@@ -276,8 +276,11 @@ class SegUsuarioTable extends Table
     public function setHash($userdata,$hash){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
-            "UPDATE SEG_USUARIO SET CONTRASEÑA = '$hash'
+            "UPDATE SEG_USUARIO SET CONTRASENA = '$hash'
              WHERE NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata'"
+        );
+        $connet->execute(
+            "COMMIT"
         );
     }
 
@@ -292,10 +295,10 @@ class SegUsuarioTable extends Table
     public function getCode($email){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
-            "SELECT CÓDIGO_RESTAURACIÓN FROM SEG_USUARIO
+            "SELECT CODIGO_R FROM SEG_USUARIO
              WHERE CORREO = '$email'"
         )->fetchAll('assoc');
-        return $result[0]['CÓDIGO_RESTAURACIÓN'];
+        return $result[0]['CODIGO_R'];
     }
 
 
@@ -310,8 +313,11 @@ class SegUsuarioTable extends Table
     public function setCode($email,$code){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
-            "UPDATE SEG_USUARIO SET CÓDIGO_RESTAURACIÓN = '$code'
+            "UPDATE SEG_USUARIO SET CODIGO_R = '$code'
              WHERE CORREO = '$email'"
+        );
+        $connet->execute(
+            "COMMIT"
         );
     }
 

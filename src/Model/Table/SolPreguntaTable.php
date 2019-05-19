@@ -1,10 +1,11 @@
 <?php
 namespace App\Model\Table;
- use Cake\Datasource\ConnectionManager;   
+
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * SolPregunta Model
@@ -50,7 +51,8 @@ class SolPreguntaTable extends Table
         $validator
             ->scalar('DESCRIPCION_ESP')
             ->maxLength('DESCRIPCION_ESP', 256)
-            ->allowEmptyString('DESCRIPCION_ESP');
+            ->requirePresence('DESCRIPCION_ESP', 'create')
+            ->allowEmptyString('DESCRIPCION_ESP', false);
 
         $validator
             ->scalar('DESCRIPCION_ING')
@@ -60,14 +62,12 @@ class SolPreguntaTable extends Table
 
         $validator
             ->integer('TIPO')
-            ->requirePresence('TIPO', 'create')
-            ->allowEmptyString('TIPO', false);
+            ->allowEmptyString('TIPO');
 
         $validator
             ->scalar('REQUERIDO')
             ->maxLength('REQUERIDO', 1)
-            ->requirePresence('REQUERIDO', 'create')
-            ->allowEmptyString('REQUERIDO', false);
+            ->allowEmptyString('REQUERIDO');
 
         $validator
             ->scalar('ACTIVO')
@@ -77,8 +77,7 @@ class SolPreguntaTable extends Table
         return $validator;
     }
 
-
-     /**
+    /**
      *  Insert new preguntas to database
      *  @author Joel Chaves
      *  @param string $dEsp, it's the question's description in spanish
@@ -93,6 +92,9 @@ class SolPreguntaTable extends Table
         $temp=$this->returnMaxSolPregunta ();
         $connet = ConnectionManager::get('default');
         $result = $connet->execute("INSERT INTO sol_pregunta VALUES ($temp, '$dEsp', '$dIng', $tipo, $req, $act)");
+        $connet->execute(
+            "COMMIT"
+        );
         return 1;
     }
 
@@ -120,7 +122,7 @@ class SolPreguntaTable extends Table
             $result=$maximo+1;
         }
         debug($maximo);
-       debug($result);
+        debug($result);
         return $result;
     }
 
@@ -137,9 +139,17 @@ class SolPreguntaTable extends Table
 
         $connet = ConnectionManager::get('default');
         $result = $connet->execute("UPDATE sol_pregunta SET ACTIVO=1-ACTIVO WHERE SOL_PREGUNTA= $id");
-       return 1;
+        $connet->execute(
+            "COMMIT"
+        );
+        return 1;
     }
-   
 
-  
+    public function getPreguntas(){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT * FROM SOL_PREGUNTA"
+        )->fetchAll('assoc');
+        return $result;
+    }
 }

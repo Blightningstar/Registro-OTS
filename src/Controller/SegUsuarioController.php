@@ -116,7 +116,7 @@ class SegUsuarioController extends AppController
         {
             return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
         }
-
+        
         $segUsuario = $this->paginate($this->SegUsuario);
 
         $this->set(compact('segUsuario','lc_role','actualUserName'));
@@ -187,7 +187,7 @@ class SegUsuarioController extends AppController
 
             //Creates a new password for the user.
             $lc_password = $this-> generatePassword();
-            $segUsuario["CONTRASEÑA"] = $user_c->hash($lc_password);
+            $segUsuario["CONTRASENA"] = $user_c->hash($lc_password);
             
 
             //Verifies if username and email aren't in the database.
@@ -238,7 +238,7 @@ class SegUsuarioController extends AppController
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
 
             //Set student role for the new user.
-            $segUsuario["SEG_ROL"] = 1;
+            $segUsuario["SEG_ROL"] = 3;
 
 
             $user_c = new SeguridadController;
@@ -246,7 +246,7 @@ class SegUsuarioController extends AppController
        
             //Verifies than the two new passwords written by the user are equal.
             $samePasswords = $credentials['new_password'] == $credentials['new_password_confirmation'];
-
+            
             //lc_code will indicate if the username or email exists.
             $lc_code = $this->checkUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"]);
         
@@ -256,8 +256,9 @@ class SegUsuarioController extends AppController
             }
             else
             {
-                $segUsuario["CONTRASEÑA"] = $user_c->hash($credentials['new_password']);
-
+                $segUsuario["CONTRASENA"] = $user_c->hash($credentials['new_password']);
+                $segUsuario["SEG_USUARIO"] = 1;
+                //debug($segUsuario);
                 //Uses lc_code to control the action to do.
                 if ($lc_code == "1")
                 {

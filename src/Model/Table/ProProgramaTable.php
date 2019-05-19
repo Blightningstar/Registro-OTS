@@ -10,7 +10,6 @@ use Cake\Datasource\ConnectionManager;
 /**
  * ProPrograma Model
  *
- * @author Anyelo Lobo
  * @method \App\Model\Entity\ProPrograma get($primaryKey, $options = [])
  * @method \App\Model\Entity\ProPrograma newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\ProPrograma[] newEntities(array $data, array $options = [])
@@ -47,12 +46,12 @@ class ProProgramaTable extends Table
     {
         $validator
             ->scalar('PRO_PROGRAMA')
-            ->maxLength('PRO_PROGRAMA', 256)
+            ->maxLength('PRO_PROGRAMA', 3)
             ->allowEmptyString('PRO_PROGRAMA', 'create');
 
         $validator
             ->scalar('NOMBRE')
-            ->maxLength('NOMBRE', 256)
+            ->maxLength('NOMBRE', 20)
             ->requirePresence('NOMBRE', 'create')
             ->allowEmptyString('NOMBRE', false);
 
@@ -98,6 +97,9 @@ class ProProgramaTable extends Table
         $code = 1;
         $connet = ConnectionManager::get('default');
         $result = $connet->execute("update pro_programa set activo = 1-ACTIVO where pro_programa = '$id'");
+        $connet->execute(
+            "COMMIT"
+        );
         return $code;
     }
 }

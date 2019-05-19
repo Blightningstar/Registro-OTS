@@ -34,7 +34,8 @@ class SolPreguntaController extends AppController
     public function index()
     {
         $solPregunta = $this->paginate($this->SolPregunta);
-
+        //debug($solPregunta);
+        //die();
         $this->set(compact('solPregunta'));
     }
 
@@ -99,6 +100,7 @@ class SolPreguntaController extends AppController
             'contain' => []]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
+            
             if ($this->SolPregunta->save($solPreguntum)) {
                 $this->Flash->success(__('The question has been saved.'));
 
@@ -148,5 +150,10 @@ class SolPreguntaController extends AppController
         $solPreguntaTable = $this->loadmodel('SolPregunta');
         $solPreguntaTable->desactivarPregunta($id);
         return 1;
+    }
+
+    public function getPreguntas() {
+        $userTable=$this->loadmodel('SolPregunta');
+        return $userTable->getPreguntas();
     }
 }
