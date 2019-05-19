@@ -122,6 +122,9 @@ class SegUsuarioTable extends Table
         $code = 0;
 		$connet = ConnectionManager::get('default');
         $result = $connet->execute("update seg_usuario set activo = '$newActive' where seg_usuario = '$id'");
+        $connet->execute(
+            "COMMIT"
+        );
         $code = 1;
         return $code;
     }
@@ -276,6 +279,9 @@ class SegUsuarioTable extends Table
             "UPDATE SEG_USUARIO SET CONTRASENA = '$hash'
              WHERE NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata'"
         );
+        $connet->execute(
+            "COMMIT"
+        );
     }
 
     /**
@@ -309,6 +315,9 @@ class SegUsuarioTable extends Table
         $result = $connect->execute(
             "UPDATE SEG_USUARIO SET CODIGO_R = '$code'
              WHERE CORREO = '$email'"
+        );
+        $connet->execute(
+            "COMMIT"
         );
     }
 
