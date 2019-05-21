@@ -12,6 +12,7 @@
      * - MenubarCourses
      * - MenubarPrograms
      * - MenubarUsers
+     * - MenubarDashboardAdministrator
      * - LogIn
      */
     if(isset($active_menu)):?>
@@ -81,6 +82,16 @@
             <li id = 'MenubarPermissions' class="nav-item menuItem">
                 <?= $this->Html->link( "Permissions",[
                     'controller' => 'permiso'
+                ],[
+                    'class' => 'nav-link menuLink'
+                ]);?>
+            </li>
+        <?php endif;?>
+        
+        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+            <li id = 'MenubarDashboardAdministrator' class="nav-item menuItem">
+                <?= $this->Html->link( "Administrator Dashboard",[
+                    'controller' => 'DashboardAdministradorController'
                 ],[
                     'class' => 'nav-link menuLink'
                 ]);?>

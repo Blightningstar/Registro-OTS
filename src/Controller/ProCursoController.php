@@ -101,6 +101,7 @@ class ProCursoController extends AppController
     /**
      * Edit method
      *
+     * @author Jason Zamora Trejos
      * @param string|null $id Pro Curso id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -150,6 +151,7 @@ class ProCursoController extends AppController
     /**
      * Delete method
      *
+     * @author Jason Zamora Trejos
      * @param string|null $id Pro Curso id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
