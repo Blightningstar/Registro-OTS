@@ -92,6 +92,9 @@ class SolPreguntaTable extends Table
         $temp=$this->returnMaxSolPregunta ();
         $connet = ConnectionManager::get('default');
         $result = $connet->execute("INSERT INTO sol_pregunta VALUES ($temp, '$dEsp', '$dIng', $tipo, $req, $act)");
+        $connet->execute(
+            "COMMIT"
+        );
         return 1;
     }
 
@@ -119,7 +122,7 @@ class SolPreguntaTable extends Table
             $result=$maximo+1;
         }
         debug($maximo);
-       debug($result);
+        debug($result);
         return $result;
     }
 
@@ -136,7 +139,10 @@ class SolPreguntaTable extends Table
 
         $connet = ConnectionManager::get('default');
         $result = $connet->execute("UPDATE sol_pregunta SET ACTIVO=1-ACTIVO WHERE SOL_PREGUNTA= $id");
-       return 1;
+        $connet->execute(
+            "COMMIT"
+        );
+        return 1;
     }
 
     public function getPreguntas(){

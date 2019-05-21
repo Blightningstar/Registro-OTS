@@ -70,11 +70,11 @@
 
                 <!-- mapping between role number and role name -->
                 <?php   if($segUsuario->SEG_ROL == 1): ?>
-                        <td><?= __('Student') ?></td>
+                        <td><?= __('Superuser') ?></td>
                     <?php else: if($segUsuario->SEG_ROL == 2): ?>
                         <td><?= __('Administrator') ?></td>
                         <?php else: if($segUsuario->SEG_ROL == 3): ?>
-                            <td><?= __('Superuser') ?></td>
+                            <td><?= __('Student') ?></td>
                         <?php endif ?>
                 <?php endif ?>
                 <?php endif ?>

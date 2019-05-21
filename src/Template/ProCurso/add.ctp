@@ -21,7 +21,7 @@
             echo $this->Form->control('SIGLA', [
                'label' => _('Course ID'),
                'value' => $proCurso ['SIGLA'],
-               'pattern' => '[a-zA-Z]{2}\-[0-9]{4}', 
+               //'pattern' => '([a-zA-Z0-9]|\s){8}', 
                'placeholder' => 'e.g. "CI-2020"'
             ]);
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name')]);

@@ -41,6 +41,6 @@ class SegUsuario extends Entity
         'NACIONALIDAD' => true,
         'ACTIVO' => true,
         'SEG_ROL' => true,
-        'CODIGO_RESTAURACION' => true
+        'CODIGO_R' => false
     ];
 }
