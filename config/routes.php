@@ -34,7 +34,6 @@ Router::connect('curso/edit/*', array('controller' => 'ProCurso', 'action' => 'e
 Router::connect('curso/delete/*', array('controller' => 'ProCurso', 'action' => 'delete'));
 Router::connect('curso', array('controller' => 'ProCurso'));
 
-
 Router::connect('usuario/add', array('controller' => 'SegUsuario', 'action' => 'add' ));
 Router::connect('usuario/register', array('controller' => 'SegUsuario', 'action' => 'register' ));
 Router::connect('usuario/view/*', array('controller' => 'SegUsuario', 'action' => 'view'));
@@ -44,7 +43,6 @@ Router::connect('usuario/profile-edit', array('controller' => 'SegUsuario', 'act
 Router::connect('usuario/profile-view', array('controller' => 'SegUsuario', 'action' => 'profileView'));
 Router::connect('usuario/delete/*', array('controller' => 'SegUsuario', 'action' => 'delete'));
 Router::connect('usuario', array('controller' => 'SegUsuario'));
-
 
 Router::connect('programa/add', array('controller' => 'ProPrograma', 'action' => 'add' ));
 Router::connect('programa/view/*', array('controller' => 'ProPrograma', 'action' => 'view'));
@@ -57,6 +55,12 @@ Router::connect('pregunta/view/*', array('controller' => 'SolPregunta', 'action'
 Router::connect('pregunta/edit/*', array('controller' => 'SolPregunta', 'action' => 'edit'));
 Router::connect('pregunta/delete/*', array('controller' => 'SolPregunta', 'action' => 'delete'));
 Router::connect('pregunta', array('controller' => 'SolPregunta'));
+
+Router::connect('formulario/add', array('controller' => 'SolFormulario', 'action' => 'add' ));
+Router::connect('formulario/view/*', array('controller' => 'SolFormulario', 'action' => 'view'));
+Router::connect('formulario/edit/*', array('controller' => 'SolFormulario', 'action' => 'edit'));
+Router::connect('formulario/delete/*', array('controller' => 'SolFormulario', 'action' => 'delete'));
+Router::connect('formulario', array('controller' => 'SolFormulario'));
 
 Router::connect('permiso/*', array('controller' => 'SegPermiso', 'action' => 'MatrizPermisos'));
 Router::connect('permiso', array('controller' => 'SegPermiso'));
