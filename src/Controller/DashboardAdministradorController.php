@@ -5,7 +5,7 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 
 /**
- * SolPregunta Controller
+ * ProCurso Controller
  *
  * @property \App\Model\Table\ProCursoTable $proCurso
  *
@@ -33,9 +33,8 @@ her method of this controller, it sets values to variables     */
      */
     public function index()
     {
-        $proCurso = $this->paginate($this->ProCurso);
-        debug($proCurso);
-        die();
+        //debug('Sirve');
+        //die();
         $this->set(compact('proCurso'));
     }
 
