@@ -76,9 +76,9 @@ class SegPermisoTable extends Table
         $connet = ConnectionManager::get('default');
         $query = $connet->execute(
         "SELECT PO.SEG_PERMISO, PO.SEG_ROL
-        FROM SEG_PERMISO P, SEG_POSEE PO
-        WHERE P.SEG_PERMISO = PO.SEG_PERMISO 
-        ORDER BY PO.SEG_PERMISO, PO.SEG_ROL ASC;"
+         FROM SEG_PERMISO P, SEG_POSEE PO
+         WHERE P.SEG_PERMISO = PO.SEG_PERMISO 
+         ORDER BY PO.SEG_PERMISO, PO.SEG_ROL ASC"
         )->fetchAll();
         return $query;
     }
@@ -87,7 +87,7 @@ class SegPermisoTable extends Table
      * SEG_POSEE_AgregarRegistro
      * @author Nathan González
      * 
-     * Storage procedure to grant a given perssion ($SEG_PERMISO) to a given rol ($SEG_ROL).
+     * Funtion to grant a given perssion ($SEG_PERMISO) to a given rol ($SEG_ROL).
      * 
      * @param int $SEG_PERMISO the id of the given permission.
      * @param int $SEG_ROL the id of the given rol.
@@ -95,7 +95,11 @@ class SegPermisoTable extends Table
     public function SEG_POSEE_AgregarRegistro($SEG_PERMISO, $SEG_ROL){
         $connet = ConnectionManager::get('default');
         $connet->execute(
-            "CALL SEG_POSEE_AGREGAR('$SEG_PERMISO', '$SEG_ROL')"
+            "INSERT INTO SEG_POSEE
+             VALUES ('$SEG_ROL', '$SEG_PERMISO')"
+        );
+        $connet->execute(
+            "COMMIT"
         );
     }
 
@@ -103,7 +107,7 @@ class SegPermisoTable extends Table
      * SEG_POSEE_EliminarRegistro
      * @author Nathan González
      * 
-     * Storage procedure to remove a given perssion ($SEG_PERMISO) to a given rol ($SEG_ROL).
+     * Funtion to remove a given perssion ($SEG_PERMISO) to a given rol ($SEG_ROL).
      * 
      * @param int $SEG_PERMISO the id of the given permission.
      * @param int $SEG_ROL the id of the given rol.
@@ -111,7 +115,12 @@ class SegPermisoTable extends Table
     public function SEG_POSEE_EliminarRegistro($SEG_PERMISO, $SEG_ROL){
         $connet = ConnectionManager::get('default');
         $connet->execute(
-            "CALL SEG_POSEE_ELIMINAR('$SEG_PERMISO', '$SEG_ROL')"
+            "DELETE FROM SEG_POSEE S
+             WHERE S.SEG_ROL = '$SEG_ROL' 
+             AND  S.SEG_PERMISO = '$SEG_PERMISO'"
+        );
+        $connet->execute(
+            "COMMIT"
         );
     }
 }

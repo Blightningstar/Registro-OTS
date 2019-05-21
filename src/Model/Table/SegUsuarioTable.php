@@ -105,11 +105,6 @@ class SegUsuarioTable extends Table
             ->requirePresence('SEG_ROL', 'create')
             ->allowEmptyString('SEG_ROL', false);
 
-        $validator
-            ->scalar('CODIGO_RESTAURACION')
-            ->maxLength('CODIGO_RESTAURACION', 15)
-            ->allowEmptyString('CODIGO_RESTAURACION');
-
         return $validator;
     }
 
@@ -127,6 +122,9 @@ class SegUsuarioTable extends Table
         $code = 0;
 		$connet = ConnectionManager::get('default');
         $result = $connet->execute("update seg_usuario set activo = '$newActive' where seg_usuario = '$id'");
+        $connet->execute(
+            "COMMIT"
+        );
         $code = 1;
         return $code;
     }
@@ -261,10 +259,10 @@ class SegUsuarioTable extends Table
     public function getHash($username){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
-            "SELECT CONTRASEÑA FROM SEG_USUARIO 
+            "SELECT CONTRASENA FROM SEG_USUARIO 
              WHERE NOMBRE_USUARIO = '$username'"
         )->fetchAll('assoc');
-        return $result[0]['CONTRASEÑA'];
+        return $result[0]['CONTRASENA'];
     }
 
     /**
@@ -278,8 +276,11 @@ class SegUsuarioTable extends Table
     public function setHash($userdata,$hash){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
-            "UPDATE SEG_USUARIO SET CONTRASEÑA = '$hash'
+            "UPDATE SEG_USUARIO SET CONTRASENA = '$hash'
              WHERE NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata'"
+        );
+        $connet->execute(
+            "COMMIT"
         );
     }
 
@@ -294,10 +295,10 @@ class SegUsuarioTable extends Table
     public function getCode($email){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
-            "SELECT CÓDIGO_RESTAURACIÓN FROM SEG_USUARIO
+            "SELECT CODIGO_R FROM SEG_USUARIO
              WHERE CORREO = '$email'"
         )->fetchAll('assoc');
-        return $result[0]['CÓDIGO_RESTAURACIÓN'];
+        return $result[0]['CODIGO_R'];
     }
 
 
@@ -312,8 +313,11 @@ class SegUsuarioTable extends Table
     public function setCode($email,$code){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
-            "UPDATE SEG_USUARIO SET CÓDIGO_RESTAURACIÓN = '$code'
+            "UPDATE SEG_USUARIO SET CODIGO_R = '$code'
              WHERE CORREO = '$email'"
+        );
+        $connet->execute(
+            "COMMIT"
         );
     }
 
