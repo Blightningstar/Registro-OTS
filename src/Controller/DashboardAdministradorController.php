@@ -28,7 +28,7 @@ her method of this controller, it sets values to variables     */
 
     /**
      * Index method
-     *
+     * @author = Jason Zamora Trejos
      * @return \Cake\Http\Response|void
      */
     public function index()
@@ -39,19 +39,16 @@ her method of this controller, it sets values to variables     */
     }
 
     /**
-      * View method
+     * cursoViewDashboard method
      *
+     * @author = Jason Zamora Trejos
      * @param string|null $id Pro Curso id.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function cursoViewDashboard($id = null)
     {
-        $proCurso = $this->ProCurso->get($id, [
-            'contain' => []
-        ]);
-
-        $this->set('proCurso', $proCurso);
+        $this->set(compact('proCurso'));
     }
 
     /**
