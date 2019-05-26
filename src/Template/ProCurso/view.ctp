@@ -28,6 +28,12 @@
         </div>
         
         <div>
+            <p class= "field"> <?= __('Parent Program:') ?></p>
+            <p class= "value"> <?= $proCurso['PRO_PROGRAMA'] ?></p>
+            <hr class= "separator">
+        </div>
+        
+        <div>
             <p class= "field"> <?= __('Start date:') ?></p>
             <p class= "value"> <?= $proCurso['FECHA_INICIO'] ?></p>
             <hr class= "separator">

@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use App\Controller\ProProgramaController;
 use Cake\Event\Event;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 use Cake\Datasource\ConnectionManager;
 /**
  * ProCurso Controller
@@ -35,7 +36,12 @@ class ProCursoController extends AppController
     public function index()
     {
         $proCurso = $this->paginate($this->ProCurso);
-        $this->set(compact('proCurso'));
+        $this->Programa = $this->loadModel('pro_Programa');
+        $this->Usuario= $this->loadModel('seg_Usuario');
+        $proPrograma = $this->paginate($this->Programa);
+        $segUsuario = $this->paginate($this->Usuario);
+        debug($segUsuario);
+        $this->set(compact('proCurso','proPrograma'));
     }
 
     /**
@@ -61,11 +67,19 @@ class ProCursoController extends AppController
      */
     public function add()
     {
+        /*Loads the ID's of program's for the add view*/
+        $this->Programa = $this->loadModel('pro_Programa');
+        $proPrograma = $this->paginate($this->Programa);
+        $lo_vector_Programa = [];
+        foreach ($proPrograma as $proPrograma): 
+           array_push($lo_vector_Programa, $proPrograma['PRO_PROGRAMA']);
+        endforeach;
+        
         $proCurso = $this->ProCurso->newEntity();
         if ($this->request->is('post')) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
-            
+            $proCurso['PRO_PROGRAMA'] = $lo_vector_Programa[$proCurso['PRO_PROGRAMA']];
             /*This section is in charge of converting the user input to store it correctly in the data base*/
             $proCurso['FECHA_LIMITE'] = date("d-M-Y", strtotime($form_data['FECHA_LIMITE']));
             $proCurso['FECHA_FINALIZACION'] = date("d-M-Y", strtotime($form_data['FECHA_FINALIZACION']));
@@ -88,7 +102,7 @@ class ProCursoController extends AppController
             }
             else
             {
-               if ($this->ProCurso->save($proCurso)) {
+               if ($this->ProCurso->save($proCurso, $proPrograma)) {
                 $this->Flash->success(__('The course has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -96,7 +110,7 @@ class ProCursoController extends AppController
                $this->Flash->error(__('The course could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('proCurso'));
+        $this->set(compact('proCurso','lo_vector_Programa'));
     }
 
     /**
@@ -112,6 +126,15 @@ class ProCursoController extends AppController
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
         $lc_oldID = $proCurso['SIGLA'];
         $form_data = $this->request->getData();
+        
+        /*Loads the ID's of program's for the add view*/
+        $this->Programa = $this->loadModel('pro_Programa');
+        $proPrograma = $this->paginate($this->Programa);
+        $lo_vector_Programa = [];
+        foreach ($proPrograma as $proPrograma): 
+           array_push($lo_vector_Programa, $proPrograma['PRO_PROGRAMA']);
+        endforeach;
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
@@ -137,7 +160,7 @@ class ProCursoController extends AppController
             }
             else 
             {
-               if ($this->ProCurso->save($proCurso)) 
+               if ($this->ProCurso->save($proCurso, $proPrograma)) 
                {
                   $this->Flash->success(__('The course has been saved.'));
    
@@ -146,7 +169,7 @@ class ProCursoController extends AppController
             }
             $this->Flash->error(__('The course could not be saved. Please, try again.'));
         }
-        $this->set(compact('proCurso'));
+        $this->set(compact('proCurso','lo_vector_Programa'));
     }
 
     /**
@@ -178,15 +201,28 @@ class ProCursoController extends AppController
      */
     public function logicalDelete($id=null, $active=null)
     {
+        debug($proCurso['ACTIVO']);
         $con = ConnectionManager::get('default');
         if($active == 1)
         {
-            $result = $con->execute("update pro_curso set activo = '0' where PRO_CURSO = '$id'");
+            $result = TableRegistry::get('proCurso')->find('all');
+                $result->update()
+                    ->set(['activo' => 0])
+                    ->where(['PRO_CURSO' => $id])
+                    ->execute();
+//            $result = $con->execute("update pro_curso set activo = '0' where PRO_CURSO = '$id'");
+            debug($proCurso['ACTIVO']);
             return 0;
         }
         else
         {
-            $result = $con->execute("update pro_curso set activo = '1' where PRO_CURSO = '$id'");
+            $result = TableRegistry::get('proCurso')->find('all');
+                $result->update()
+                    ->set(['activo' => 1])
+                    ->where(['PRO_CURSO' => $id])
+                    ->execute();
+            debug($proCurso['ACTIVO']);
+//            $result = $con->execute("update pro_curso set activo = '1' where PRO_CURSO = '$id'");
             return 1;
         }
     }
@@ -200,10 +236,16 @@ class ProCursoController extends AppController
      */
      public function isUnique($lc_Id)
      {  
-        $lc_code = "0";
-        $lo_connet = ConnectionManager::get('default');
-        $lc_result = $lo_connet->execute("SELECT SIGLA FROM pro_curso WHERE SIGLA = '$lc_Id'");
-        $lc_result = $lc_result->fetchAll('assoc');
+//        $lc_code = "0";
+//        $lo_connet = ConnectionManager::get('default');
+//        $lc_result = $lo_connet->execute("SELECT SIGLA FROM pro_curso WHERE SIGLA = '$lc_Id'");
+        $assets = TableRegistry::get('proCurso')->find('all');
+        $lc_result = $assets->find()
+                        ->select(['proCurso.SIGLA'])
+                        ->where(['proCurso.SIGLA' => $lc_Id])
+                        ->toList();
+        debug($lc_result);
+//        $lc_result = $lc_result->fetchAll('assoc');
         if(empty($lc_result) == 0)
         {
             if($lc_result[0]["SIGLA"] == $lc_Id)

@@ -19,8 +19,7 @@
            //Displays the data of a course.    
            echo $this->Form->control('SIGLA', [
                'label' => _('Course ID'),
-               'value' => $proCurso ['SIGLA'],
-               'pattern' => '[a-zA-Z]{2}\-[0-9]{4}', 
+               'value' => $proCurso ['SIGLA'], 
                'placeholder' => 'e.g. "CI-2020"'
             ]);
             //This is needed so the date is display in the same format as the rest
@@ -42,6 +41,7 @@
             ]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'value' => $proCurso ['IDIOMA'], 'placeholder'=> 'Language of the course','pattern' => '^[a-zA-Z]*$']);
             echo $this->Form->control('LOCACION', ['label' => _('Location'), 'value' => $proCurso ['LOCACION'], 'placeholder'=> 'Location of the course', 'options' => array('Costa Rica', __('South Africa'))]);
+            echo $this->Form->control('PRO_PROGRAMA', ['label' => _('Parent Program'), 'options' => $lo_vector_Programa]);
         ?>
     </fieldset>
     <br>

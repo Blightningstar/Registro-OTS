@@ -12,7 +12,7 @@
 <fieldset>
       <legend class = "titulo"><?= __('Administrator Dashboard') ?>
       <br></br>
-      <p class = "subtitulo"> Administration of application in your courses </p>
+      <p class = "subtitulo"><?= __('Administration of application in your courses')?> </p>
    </legend>
    <br>
    
