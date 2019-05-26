@@ -262,11 +262,17 @@ class SegUsuarioController extends AppController
                 //Uses lc_code to control the action to do.
                 if ($lc_code == "1")
                 {
-                    if ($this->SegUsuario->save($segUsuario)) {
-                        $this->Flash->success(__('Your user account was created.'));
-
-
-                        return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
+                    $email_controller = new EmailController;
+                    
+                    if($email_controller->sendEmail($segUsuario["CORREO"],"Register",$segUsuario)){
+                        if ($this->SegUsuario->save($segUsuario)) {
+                            $this->Flash->success(__('Your user account was created.'));
+                            
+                            
+                            return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
+                        }
+                    }else{
+                        $this->Flash->error(__("Error: Email doesn't exists"));
                     }
                     $this->Flash->error(__("Error: User can't be added"));
                 }

@@ -279,7 +279,7 @@ class SegUsuarioTable extends Table
             "UPDATE SEG_USUARIO SET CONTRASENA = '$hash'
              WHERE NOMBRE_USUARIO = '$userdata' OR CORREO = '$userdata'"
         );
-        $connet->execute(
+        $connect->execute(
             "COMMIT"
         );
     }
@@ -312,11 +312,11 @@ class SegUsuarioTable extends Table
      */
     public function setCode($email,$code){
         $connect = ConnectionManager::get('default');
-        $result = $connect->execute(
+        $connect->execute(
             "UPDATE SEG_USUARIO SET CODIGO_R = '$code'
              WHERE CORREO = '$email'"
         );
-        $connet->execute(
+        $connect->execute(
             "COMMIT"
         );
     }
