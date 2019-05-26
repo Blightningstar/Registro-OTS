@@ -89,9 +89,10 @@ class ProCursoController extends AppController
             else
             {
                if ($this->ProCurso->save($proCurso)) {
-                $this->Flash->success(__('The course has been saved.'));
+                    $this->FileSystem->addFolder('FileSystem/'.$proPrograma['NOMBRE']);
+                    $this->Flash->success(__('The course has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
                }
                $this->Flash->error(__('The course could not be saved. Please, try again.'));
             }

@@ -63,6 +63,10 @@ Router::connect('permiso', array('controller' => 'SegPermiso'));
 
 Router::connect('/main', ['controller' => 'MainPage', 'action' => 'index']);
 
+Router::connect('filesystem/add', array('controller' => 'FileSystem', 'action' => 'add' ));
+Router::connect('filesystem/view/', array('controller' => 'FileSystem', 'action' => 'view'));
+Router::connect('filesystem', array('controller' => 'FileSystem', 'action' => 'add'));
+
 //Router::connect('main/:action', array('controller' => 'MainPage'));
 //Router::connect('main', array('controller' => 'MainPage'));
 
