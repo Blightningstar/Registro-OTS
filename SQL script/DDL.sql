@@ -88,7 +88,7 @@ CREATE TABLE SEG_USUARIO(
 	CONSTRAINT	"APELLIDO_2_USU_REGEX"			CHECK(REGEXP_LIKE(APELLIDO_2, '^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,\s]{0,30}$')),
 	CONSTRAINT	"NOMBRE_USUARIO_USU_REGEX"		CHECK(REGEXP_LIKE(NOMBRE_USUARIO, '^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,\s]{1,30}$')),
 	CONSTRAINT	"CONTRASENA_USU_REGEX"			CHECK(REGEXP_LIKE(CONTRASENA, '^\$2[abxy]?\$([4-9]|[1-2][0-9]|3[0-1])\$[.\/A-Za-z0-9]{53}$')),
-	CONSTRAINT	"CORREO_USU_REGEX"				CHECK(REGEXP_LIKE(CORREO, '^([^\"\''\@\s\.\(\)\[\]\{\}\\\/,:;]+\.)*[^\"\''\@\s\.\(\)\[\]\{\}\\\/,:;]+@[^\"\''\@\s\.\(\)\[\]\{\}\\\/,:;]+(\.[^\"\''\@\s\.\(\)\[\]\{\}\\\/,:;]+)+$')),
+	CONSTRAINT	"CORREO_USU_REGEX"				CHECK(REGEXP_LIKE(CORREO, '^[^@.]+(\.[^@.]+)*@[^@.]+(\.[^@.]+)+$')),
 	CONSTRAINT	"NUMERO_TELEFONO_USU_REGEX"		CHECK(REGEXP_LIKE(NUMERO_TELEFONO, '^(\d|-|\+| ){7,28}$')),
 	CONSTRAINT	"NACIONALIDAD_USU_REGEX"		CHECK(REGEXP_LIKE(NACIONALIDAD, '^[a-zA-Z ]+$')),
 	CONSTRAINT 	"ACTIVO_USU_BOOL" 				CHECK(ACTIVO IN ('1','0')),
