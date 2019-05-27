@@ -277,6 +277,7 @@ class SegUsuarioTable extends Table
         $connect->execute(
             "COMMIT"
         );
+        return true;
     }
 
 
