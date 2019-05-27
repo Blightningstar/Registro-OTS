@@ -35,6 +35,31 @@ class SolFormularioController extends AppController
         $solFormulario = $this->paginate($this->SolFormulario);
 		
         $this->set(compact('solFormulario'));
+
+        // $test = "hola";
+        // $this->set(compact('test'));
+
+        $query = $sol_pregunta->find('all');
+        // Iteration will execute the query.
+        // foreach ($query as $row) {
+        //     $id = $row['sol_pregunta'];
+        //     $descrEsp = $row['DESCRIPCION_ESP'];
+        //     $descrIng = $row['DESCRIPCION_ING'];
+        //     $tipo = $row['TIPO'];
+        //     $req = $row['REQUERIDO'];
+        //     $active = $row['ACTIVO'];
+        // }
+
+        // Calling all() will execute the query
+        // and return the result set.
+        $results = $query->all();
+
+        // Once we have a result set we can get all the rows
+        $data = $results->toList();
+
+        // Converting the query to a key-value array will also execute it.
+        $data = $query->toArray();
+        $this->set(compact("data"));
     }
 
     /**
@@ -115,5 +140,40 @@ class SolFormularioController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Get all the questions for the add question function
+     * @author Anyelo Mijael Lobo Cheloukhin
+     *
+     * @param 
+     * @return 
+     */
+    public function get_questions(){
+    //     $data = array();
+    //     $query = $this->db->get(SOL_PREGUNTA);
+    //     $res = $query->result();
+        $query = $sol_pregunta->find('all');
+        // Iteration will execute the query.
+        foreach ($query as $row) {
+            $id = $row['sol_pregunta'];
+            $descrEsp = $row['DESCRIPCION_ESP'];
+            $descrIng = $row['DESCRIPCION_ING'];
+            $tipo = $row['TIPO'];
+            $req = $row['REQUERIDO'];
+            $active = $row['ACTIVO'];
+        }
+
+        // Calling all() will execute the query
+        // and return the result set.
+        $results = $query->all();
+
+        // Once we have a result set we can get all the rows
+        $data = $results->toList();
+
+        // Converting the query to a key-value array will also execute it.
+        $data = $query->toArray();
+        $this->set("data", $data);
+
     }
 }
