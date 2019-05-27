@@ -249,6 +249,39 @@ class SegUsuarioTable extends Table
     }
 
     /**
+     * insertUser
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * inserts an user by the given data.
+     * @param string $user, all the data of the new user.
+     */
+    public function insertUser($user){
+        $name = $user['NOMBRE'];
+        $lastname1 = $user['APELLIDO_1'];
+        $lastname2 = $user['APELLIDO_2'];
+        $username = $user['NOMBRE_USUARIO'];
+        $pass = $user['CONTRASENA'];
+        $email = $user['CORREO'];
+        $phone = $user['NUMERO_TELEFONO'];
+        $country = $user['NACIONALIDAD'];
+        $role = $user['SEG_ROL'];
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "INSERT INTO SEG_USUARIO
+            (NOMBRE,APELLIDO_1,APELLIDO_2,NOMBRE_USUARIO,CONTRASENA,
+             CORREO,NUMERO_TELEFONO,NACIONALIDAD,SEG_ROL)
+            VALUES
+            ('$name','$lastname1','$lastname2','$username','$pass',
+             '$email','$phone','$country',$role)"
+        );
+        $connect->execute(
+            "COMMIT"
+        );
+        return true;
+    }
+
+
+    /**
      * getHash
      * @author Daniel Marín <110100010111h@gmail.com>
      * 
