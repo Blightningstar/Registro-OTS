@@ -27,20 +27,22 @@
             </p>
 
             <br>
+            <form action="#" method="POST">
+                <!-- Select Box with the available questions -->
+                <select class="questions-dropdown" name="QuestList">
+                    <?php 
+                        foreach ($pregunta as $data){
+                    ?>
 
-            <!-- Select Box with the available questions -->
-            <select id="ddselect" onchange="ddlselect();">
-                <?php 
-                    foreach ($pregunta as $data){
-                ?>
-                <option><?php echo $data->DESCRIPCION_ING; ?></option>
-                <?php } ?>
-            </select>
-            <br>
-            <br>
-
-            <input type="text" id="textvalue">
+                    <option><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?>
+                </select>
+                <br>
+                <br>
+            </form>
         </div>
+        <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
+        <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar'], ['label' => 'ACCEPT']) ?>
+        <?= $this->Form->end() ?>
     </div>
 </div>
 
@@ -52,7 +54,7 @@
         var i = $('#addinput p').size() + 1;
         
         $('#addNew').live('click', function() {
-            $('<select id="ddselect"><?php foreach ($pregunta as $data){?><option><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?></select><a href="#" id="remNew">Remove</a> <br><br>').appendTo(addDiv);
+            $('<select class="questions-dropdown"><?php foreach ($pregunta as $data){?><option><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?></select><a href="#" id="remNew">Remove</a> <br><br>').appendTo(addDiv);
             i++;
             return false;
         });
@@ -74,9 +76,11 @@
 </script>
 
 <script type="text/javascript">
-    function ddlselect(){
-        var d=document.getElementById("ddselect")
-        var displayText = d.options[d.selectedIndex].text;
-        document.getElementById("textvalue").value=displayText;
-    }
+
+    $('.questions-dropdown').change(function() {
+     $val = $(this).val(); 
+     alert($val);
+     // return
+    });
+
 </script>
