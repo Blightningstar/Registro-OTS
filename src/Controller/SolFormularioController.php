@@ -85,9 +85,9 @@ class SolFormularioController extends AppController
         $pregunta = $preguntas->find('all');
         $this->set(compact('pregunta'));
 
-        $programas = TableRegistry::get('ProPrograma');
-        $programa = $programas->find('all');
-        $this->set(compact('programa'));
+        // $programas = TableRegistry::get('ProPrograma');
+        // $programa = $programas->find('all');
+        // $this->set(compact('programa'));
     }
 
     /**
