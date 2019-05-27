@@ -197,18 +197,13 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => 'Cake\Mailer\Transport\MailTransport',
-            /*
-             * The following keys are used in SMTP transports:
-             */
-            'host' => 'localhost',
-            'port' => 25,
+            'className' => 'Smtp',
+            // The following keys are used in SMTP transports
+            'host' => 'ssl://smtp.gmail.com',
+            'port' => 465,
             'timeout' => 30,
-            'username' => null,
-            'password' => null,
-            'client' => null,
-            'tls' => null,
-            'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            'username' => 'pruebasdecorreoparaots@gmail.com',
+            'password' => 'Holamundo123',
         ],
     ],
 
@@ -248,11 +243,14 @@ return [
             'className' => 'CakeDC\OracleDriver\Database\OracleConnection',
             'driver' => 'CakeDC\OracleDriver\Database\Driver\OracleOCI', # For OCI8
             #'driver' => 'CakeDC\\OracleDriver\\Database\\Driver\\OraclePDO', # For PDO_OCI
-            'host' => '172.16.202.38',          # Database host name or IP address
-            'port' => '3306', # Database port number (default: 1521)
+            //'host' => '172.16.202.38',          # Database host name or IP address
+            'host' => 'ec2-52-15-184-142.us-east-2.compute.amazonaws.com',          # Database host name or IP address
+            //'port' => '3306', # Database port number (default: 1521)
+            'port' => '1521', # Database port number (default: 1521)
             'username' => 'OTS',          # Database username
             'password' => 'oracle',       # Database password
-            'database' => 'XE',             # Database name (maps to Oracle's `SERVICE_NAME`)
+            //'database' => 'XE',             # Database name (maps to Oracle's `SERVICE_NAME`)
+            'database' => 'orcl',             # Database name (maps to Oracle's `SERVICE_NAME`)
             'sid' => '',                    # Database System ID (maps to Oracle's `SID`)
             'instance' => '',               # Database instance name (maps to Oracle's `INSTANCE_NAME`)
             'pooled' => '',                 # Database pooling (maps to Oracle's `SERVER=POOLED`)
