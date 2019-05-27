@@ -55,6 +55,14 @@ class EmailController extends AppController
                 "To sign in use your email or your username and your password.";
                 //. "if you received this mail by error, clic here to delete this account.\n"
                 break;
+            case "Accepted":
+                $message = "Dear " . $aditionalinfo["NOMBRE"] . "\n\n" .
+                "We would like to announce that you were accepted on the course " . $aditionalinfo["CURSO"] . "\n";
+                break;
+            case "Rejected":
+                $message = "Dear " . $aditionalinfo["NOMBRE"] . "\n\n" .
+                "We would like to announce that you were accepted on the course " . $aditionalinfo["CURSO"] . "\n";
+                break;
         }
         return $message;
     }
@@ -64,6 +72,10 @@ class EmailController extends AppController
         switch($messageId){
             case "Register":
                 $subject = "OTS Registration";
+                break;
+            case "Accepted":
+            case "Rejected":
+                $subject = "OTS Course Status";
                 break;
         }
         return $subject;
