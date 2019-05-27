@@ -257,12 +257,12 @@ class SegUsuarioController extends AppController
             else
             {
                 $segUsuario["CONTRASENA"] = $user_c->hash($credentials['new_password']);
-                $segUsuario["SEG_USUARIO"] = 1;
+                // $segUsuario["SEG_USUARIO"] = 1;
                 //debug($segUsuario);
                 //Uses lc_code to control the action to do.
                 if ($lc_code == "1")
                 {
-                    if ($this->SegUsuario->save($segUsuario)) {
+                    if ($this->SegUsuario->insertUser($segUsuario)) {
                         $this->Flash->success(__('Your user account was created.'));
 
 
