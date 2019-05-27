@@ -39,18 +39,6 @@
 
         </thead>
 
-        <thead>
-            <tr id="headTr">
-                <!-- Coloca cada campo de la tabla en el grid -->
-
-                <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('S', ['label' => __('Question Name')]) ?></th>
-
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-
-        </thead>
-
         <tbody>
             <!-- Itera tupla por tupla y coloca los datos en cada columna -->
             <?php foreach ($solFormulario as $solFormulario): ?>
@@ -62,7 +50,8 @@
                 <?= $this->Form->end() ?>
                 </td>
 
-                <td><?= h($solFormulario->SOL_FORMULARIO) ?></td>
+                <!-- <td><?= h($solFormulario->SOL_FORMULARIO) ?></td> -->
+                <td><?= h($solFormulario->DESCRIPCION_ESP) ?></td>
 
                 <td>
                 <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'programa', 'action' => 'view',  $solFormulario->SOL_FORMULARIO], ['escape'=>false]) ?>
@@ -71,32 +60,6 @@
 
             </tr>
             <?php endforeach; ?>
-
-
-        </tbody>
-
-        <tbody>
-            <!-- Itera tupla por tupla y coloca los datos en cada columna -->
-            <?php foreach ($solFormulario as $solFormulario): ?>
-            <tr>
-                <td>
-                <?= $this->Form->create('Post', ['url' => '/SolFormulario/delete/' . $data->SOL_PREGUNTA ]) ?>
-                <?= $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($data->ACTIVO == 1) ,
-                'onclick' => 'submit(12)']) ?>
-                <?= $this->Form->end() ?>
-                </td>
-
-                <td><?= h($data->SOL_PREGUNTA) ?></td>
-
-                <td>
-                <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'programa', 'action' => 'view',  $data->SOL_FORMULARIO], ['escape'=>false]) ?>
-                <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $data->SOL_FORMULARIO], ['escape'=>false]) ?>
-                </td
-
-            </tr>
-            <?php endforeach; ?>
-
-            
         </tbody>
 
     </table>

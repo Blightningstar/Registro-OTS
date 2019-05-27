@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 
+use Cake\ORM\TableRegistry;
+
 /**
  * SolFormulario Controller
  *
@@ -39,27 +41,9 @@ class SolFormularioController extends AppController
         // $test = "hola";
         // $this->set(compact('test'));
 
-        $query = $sol_pregunta->find('all');
-        // Iteration will execute the query.
-        // foreach ($query as $row) {
-        //     $id = $row['sol_pregunta'];
-        //     $descrEsp = $row['DESCRIPCION_ESP'];
-        //     $descrIng = $row['DESCRIPCION_ING'];
-        //     $tipo = $row['TIPO'];
-        //     $req = $row['REQUERIDO'];
-        //     $active = $row['ACTIVO'];
-        // }
-
-        // Calling all() will execute the query
-        // and return the result set.
-        $results = $query->all();
-
-        // Once we have a result set we can get all the rows
-        $data = $results->toList();
-
-        // Converting the query to a key-value array will also execute it.
-        $data = $query->toArray();
-        $this->set(compact("data"));
+        $preguntas = TableRegistry::get('SolPregunta');
+        $pregunta = $preguntas->find('all');
+        $this->set(compact('pregunta'));
     }
 
     /**
@@ -96,6 +80,14 @@ class SolFormularioController extends AppController
             $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
         }
         $this->set(compact('solFormulario'));
+
+        $preguntas = TableRegistry::get('SolPregunta');
+        $pregunta = $preguntas->find('all');
+        $this->set(compact('pregunta'));
+
+        $programas = TableRegistry::get('ProPrograma');
+        $programa = $programas->find('all');
+        $this->set(compact('programa'));
     }
 
     /**
