@@ -40,14 +40,13 @@ class EmailController extends AppController
      * Sets the message to be send via email.
      * 
      * @param int $messageId, Selects the template message.
-     * @param string[] $aditionalinfo, an array with personalised information.
+     * @param string[]|string $aditionalinfo, personalised information for every message.
      * TODO: Establecer las plantillas de los mensajes con el cliente
      */
     private function getMessage($messageId,$aditionalinfo){
         $message = "";
         switch($messageId){
             case 'Register':
-                
                 $message = "Hello " .  $aditionalinfo['NOMBRE'] . " " . $aditionalinfo['APELLIDO_1'] . ",\n\n" .
                 "Your account on the OTS system has been created.\n\n" .
                 "Email: ". $aditionalinfo['CORREO'] . "\n" .
@@ -63,6 +62,8 @@ class EmailController extends AppController
                 $message = "Dear " . $aditionalinfo["NOMBRE"] . "\n\n" .
                 "We would like to announce that you were accepted on the course " . $aditionalinfo["CURSO"] . "\n";
                 break;
+            case "Restore":
+                $message = "Your restauration code is: " . $aditionalinfo;
         }
         return $message;
     }
@@ -77,6 +78,8 @@ class EmailController extends AppController
             case "Rejected":
                 $subject = "OTS Course Status";
                 break;
+            case "Restore":
+                $subject = "OTS Restauration Code";
         }
         return $subject;
     }

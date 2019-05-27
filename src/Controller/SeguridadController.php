@@ -55,9 +55,10 @@ class SeguridadController extends AppController
                     if(!$this->check($userdata,$pasword,$hash))
                         $this->Flash->error(__('The username or the password are incorrect, please try again.'));
                     else{
+                        unset($actualUser["CONTRASENA"]);
                         $this->request->getSession()->write('actualUser',$actualUser);
                         $this->set(compact('actualUser'));
-                        $this->Flash->success('Logged in succefully.');
+                        $this->Flash->success('Logged in successfully.');
                         return $this->redirect(['controller'=>'MainPage','action' => 'index']);
                     }
                 }
@@ -137,11 +138,12 @@ class SeguridadController extends AppController
     public function sendNewCode($email){
         $code = Security::randomString(15);
         $userController = new SegUsuarioController;
-        $user_code = $userController->getCode($email);
         $userController->setCode($email,$code);
-        //$options = ['email' => $email, 'messageType' => "code"];
-        //$this->sendMail($options);
-        $this->Flash->success('Code sent to ' . $email . '. ' . $code);
+
+        $email_controller = new EmailController;
+        $email_controller->sendEmail($email,"Restore",$code);
+        
+        $this->Flash->success('Code sent to ' . $email . '. ');
         return $this->redirect(['action' => 'restoreVerify', $email]);
     }
 
