@@ -265,7 +265,7 @@ class SegUsuarioController extends AppController
                     $email_controller = new EmailController;
                     
                     if($email_controller->sendEmail($segUsuario["CORREO"],"Register",$segUsuario)){
-                        if ($this->SegUsuario->save($segUsuario)) {
+                        if ($this->SegUsuario-> insertUser($segUsuario)) {
                             $this->Flash->success(__('Your user account was created.'));
                             
                             
