@@ -77,6 +77,5 @@
     });
     function ddFunction(sel) {
       alert(sel.options[sel.selectedIndex].text);
-      this.options[this.selectedIndex].text
     }
 </script>
