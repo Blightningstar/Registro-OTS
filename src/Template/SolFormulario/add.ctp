@@ -56,7 +56,7 @@
         var i = $('#addinput p').size() + 1;
         
         $('#addNew').live('click', function() {
-            $('<p id="p_new" size="40" name="p_new_' + i +'" value=""><select onChange="ddFunction(this);"><option selected> -- Choose a Question -- </option><?php foreach ($pregunta as $data){?><option><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?></select><a href="#" id="remNew">Remove</a> <br><br>').appendTo(addDiv);
+            $('<p id="p_new" size="40" name="p_new_' + i +'" value=""><select onChange="ddFunction(this);"><option selected> -- Choose a Question -- </option><?php foreach ($pregunta as $data){?><option><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?></select><a href="#" id="remNew"><input type="button" style="background-color:rgb(242, 102, 49);color:white;width:150px;height:40px;border-radius: 5px;" value="Remove"></a> <br><br>').appendTo(addDiv);
             i++;
             return false;
         });
