@@ -16,7 +16,8 @@
         <div><?= __('Receipt Code:') ?></div>
         <div><?= $this->Form->text('code', [
                 'pattern' => $code_pattern,
-                'placeholder'=> 'code of 15 alphanumeric characters'
+                'placeholder'=> 'code of 15 alphanumeric characters',
+                'required'
             ]);?>
         </div>
 
