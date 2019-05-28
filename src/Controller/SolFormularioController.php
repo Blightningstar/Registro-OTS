@@ -14,6 +14,8 @@ use Cake\ORM\TableRegistry;
  */
 class SolFormularioController extends AppController
 {
+    // public $components = array('Session'); // To pass data from SolContiene Controller
+
 	/**
      * beforeFilter
      * @author Daniel Marín <110100010111h@gmail.com>
@@ -41,9 +43,9 @@ class SolFormularioController extends AppController
         // $test = "hola";
         // $this->set(compact('test'));
 
-        $preguntas = TableRegistry::get('SolPregunta');
-        $pregunta = $preguntas->find('all');
-        $this->set(compact('pregunta'));
+        // $preguntas = TableRegistry::get('SolPregunta');
+        // $pregunta = $preguntas->find('all');
+        // $this->set(compact('pregunta'));
     }
 
     /**
