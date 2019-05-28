@@ -62,6 +62,9 @@ Router::connect('formulario/edit/*', array('controller' => 'SolFormulario', 'act
 Router::connect('formulario/delete/*', array('controller' => 'SolFormulario', 'action' => 'delete'));
 Router::connect('formulario', array('controller' => 'SolFormulario'));
 
+Router::connect('Administrator Dashboard', array('controller' => 'Administrator Dashboard'));
+Router::connect('Administrator Dashboard/cursoViewDashboard', array('controller' => 'Administrator Dashboard'));
+
 Router::connect('permiso/*', array('controller' => 'SegPermiso', 'action' => 'MatrizPermisos'));
 Router::connect('permiso', array('controller' => 'SegPermiso'));
 
