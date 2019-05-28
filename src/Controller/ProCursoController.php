@@ -67,9 +67,11 @@ class ProCursoController extends AppController
             $form_data = $this->request->getData();
             
             /*This section is in charge of converting the user input to store it correctly in the data base*/
-            $proCurso['FECHA_LIMITE'] = date("d-M-Y", strtotime($form_data['FECHA_LIMITE']));
-            $proCurso['FECHA_FINALIZACION'] = date("d-M-Y", strtotime($form_data['FECHA_FINALIZACION']));
-            $proCurso['FECHA_INICIO'] = date("d-M-Y", strtotime($form_data['FECHA_INICIO']));
+            $proCurso['FECHA_LIMITE'] = date("d/m/y", strtotime($form_data['FECHA_LIMITE']));
+            $proCurso['FECHA_FINALIZACION'] = date("d/m/y", strtotime($form_data['FECHA_FINALIZACION']));
+            $proCurso['FECHA_INICIO'] = date("d/m/y", strtotime($form_data['FECHA_INICIO']));
+            debug($proCurso);
+            die();
             if($proCurso['LOCACION']==0)
             {
                $proCurso['LOCACION'] = 'Costa Rica';
@@ -88,7 +90,7 @@ class ProCursoController extends AppController
             }
             else
             {
-               if ($this->ProCurso->save($proCurso)) {
+               if($this->ProCurso->save($proCurso)) {
                     $this->FileSystem->addFolder('FileSystem/'.$proPrograma['NOMBRE']);
                     $this->Flash->success(__('The course has been saved.'));
 
