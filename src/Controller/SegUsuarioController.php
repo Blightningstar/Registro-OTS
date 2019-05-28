@@ -257,16 +257,22 @@ class SegUsuarioController extends AppController
             else
             {
                 $segUsuario["CONTRASENA"] = $user_c->hash($credentials['new_password']);
-                $segUsuario["SEG_USUARIO"] = 1;
+                // $segUsuario["SEG_USUARIO"] = 1;
                 //debug($segUsuario);
                 //Uses lc_code to control the action to do.
                 if ($lc_code == "1")
                 {
-                    if ($this->SegUsuario->save($segUsuario)) {
-                        $this->Flash->success(__('Your user account was created.'));
-
-
-                        return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
+                    $email_controller = new EmailController;
+                    
+                    if($email_controller->sendEmail($segUsuario["CORREO"],"Register",$segUsuario)){
+                        if ($this->SegUsuario-> insertUser($segUsuario)) {
+                            $this->Flash->success(__('Your user account was created.'));
+                            
+                            
+                            return $this->redirect(['controller' => 'Seguridad','action' => 'login']);
+                        }
+                    }else{
+                        $this->Flash->error(__("Error: Email doesn't exists"));
                     }
                     $this->Flash->error(__("Error: User can't be added"));
                 }
