@@ -43,7 +43,7 @@ class ProCursoTable extends Table
      * Saves the data in the database.
      * @author Jason Zamora Trejos
      * @param array $config The configuration for the Table.
-     * @return void
+     * @return true
      */
     public function insertCourse(array $course)
     {
@@ -69,6 +69,42 @@ class ProCursoTable extends Table
     }
     
     /**
+     * updateCourse
+     *
+     * Saves the data in the database in case the data needs to be updated.
+     * @author Jason Zamora Trejos
+     * @param array $config The configuration for the Table.
+     * @return true
+     */
+    public function updateCourse(array $course)
+    {
+        $id = $course['PRO_CURSO'];
+        $name = $course['NOMBRE'];
+        $startingDate = $course['FECHA_INICIO'];
+        $finalDate = $course['FECHA_FINALIZACION'];
+        $enrollmentDate = $course['FECHA_LIMITE'];
+        $academicCharge = $course['CREDITOS'];
+        $language = $course['IDIOMA'];
+        $location = $course['LOCACION'];
+        $parentProgram = $course['PRO_PROGRAMA'];
+        
+        $result = TableRegistry::get('proCurso')->find('all');
+                $result->update()
+                    ->set(['NOMBRE' => $name, 
+                           'FECHA_INICIO' => $startingDate, 
+                           'FECHA_FINALIZACION' => $finalDate, 
+                           'FECHA_LIMITE' => $enrollmentDate,
+                           'CREDITOS' => $academicCharge,
+                           'IDIOMA' => $language,
+                           'LOCACION' => $location,
+                           'PRO_PROGRAMA' => $parentProgram
+                           ])
+                    ->where(['PRO_CURSO' => $id])
+                    ->execute();
+        return true;
+    }
+    
+    /**
      * @author Jason Zamora Trejos
      * Logically delete a course
      * @param $id = the course ID
@@ -76,7 +112,6 @@ class ProCursoTable extends Table
      */
     public function logicalDelete($id=null, $active=null)
     {
-        $con = ConnectionManager::get('default');
         if($active == 1)
         {
            $result = TableRegistry::get('proCurso')->find('all');

@@ -146,8 +146,8 @@ class ProCursoController extends AppController
             }
 
             /*This section is in charge of saving the user input if it is correct to do so*/
-            debug($proCurso);
-            if ($this->ProCurso->insertCourse($proCurso)) 
+//            debug($proCurso);
+            if ($this->ProCurso->updateCourse($proCurso)) 
             {
                $this->Flash->success(__('The course has been saved.'));
                return $this->redirect(['action' => 'index']);
