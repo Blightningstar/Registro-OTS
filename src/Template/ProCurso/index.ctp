@@ -18,7 +18,6 @@
     
     <!--Links the create button to a new course -->
     <button type="button" class="botonAgregar">
-        <!-- Se especifica que el controlador sea curso para evitar que el nombre de la tabla aparezca en la url-->
         <?= $this->Html->link(__('Add Course'), ['controller' => 'curso', 'action' => 'add'], ['style' => 'color:white;']) ?>   
     </button>
     

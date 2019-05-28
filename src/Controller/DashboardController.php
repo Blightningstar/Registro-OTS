@@ -11,7 +11,7 @@ use Cake\Event\Event;
  *
  * @method \App\Model\Entity\ProCurso[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class DashboardAdministradorController extends AppController
+class DashboardController extends AppController
 {
     /**
      * beforeFilter
@@ -23,7 +23,7 @@ her method of this controller, it sets values to variables     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->set('active_menu', 'MenubarDashboardAdministrator');
+        $this->set('active_menu', 'MenubarDashboard');
     }
 
     /**
@@ -35,6 +35,8 @@ her method of this controller, it sets values to variables     */
     {
         //debug('Sirve');
         //die();
+        $this->Curso = $this->loadModel('pro_Curso');
+        $proCurso= $this->paginate($this->Curso);
         $this->set(compact('proCurso'));
     }
 
