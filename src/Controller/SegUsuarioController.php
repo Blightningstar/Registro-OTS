@@ -112,7 +112,7 @@ class SegUsuarioController extends AppController
         $actualUserName = $this->viewVars['actualUser']["NOMBRE_USUARIO"];
         $lc_role = $this->actualRole();
         //Redirect students 
-        if($lc_role == "3")
+        if($lc_role == "1")
         {
             return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
         }
