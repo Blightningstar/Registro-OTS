@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use App\Controller\ProProgramaController;
 use Cake\Event\Event;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 use Cake\Datasource\ConnectionManager;
 /**
  * ProCurso Controller
@@ -35,7 +36,9 @@ class ProCursoController extends AppController
     public function index()
     {
         $proCurso = $this->paginate($this->ProCurso);
-        $this->set(compact('proCurso'));
+        $this->Programa = $this->loadModel('pro_Programa');
+        $proPrograma = $this->paginate($this->Programa);
+        $this->set(compact('proCurso','proPrograma'));
     }
 
     /**
@@ -50,8 +53,12 @@ class ProCursoController extends AppController
         $proCurso = $this->ProCurso->get($id, [
             'contain' => []
         ]);
-
-        $this->set('proCurso', $proCurso);
+        $segUsuario = TableRegistry::get('seg_Usuario');
+        $queryUsuario = $segUsuario->find()
+                                    ->select(['NOMBRE_USUARIO'])
+                                    ->where(['SEG_USUARIO'=>$proCurso['SEG_USUARIO']])
+                                    ->toList();
+        $this->set(compact('proCurso', 'queryUsuario'));
     }
 
     /**
@@ -61,17 +68,25 @@ class ProCursoController extends AppController
      */
     public function add()
     {
+        /*Loads the ID's of program's for the add view*/
+        $this->Programa = $this->loadModel('pro_Programa');
+        $proPrograma = $this->paginate($this->Programa);
+        $lo_vector_Programa = [];
+        foreach ($proPrograma as $proPrograma): 
+           array_push($lo_vector_Programa, $proPrograma['PRO_PROGRAMA']);
+        endforeach;
+        
         $proCurso = $this->ProCurso->newEntity();
         if ($this->request->is('post')) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
-            
+            $proCurso['PRO_PROGRAMA'] = $lo_vector_Programa[$proCurso['PRO_PROGRAMA']];
             /*This section is in charge of converting the user input to store it correctly in the data base*/
             $proCurso['FECHA_LIMITE'] = date("d/m/y", strtotime($form_data['FECHA_LIMITE']));
             $proCurso['FECHA_FINALIZACION'] = date("d/m/y", strtotime($form_data['FECHA_FINALIZACION']));
             $proCurso['FECHA_INICIO'] = date("d/m/y", strtotime($form_data['FECHA_INICIO']));
-            debug($proCurso);
-            die();
+            $proCurso['SEG_USUARIO'] = $this->viewVars['actualUser']['SEG_USUARIO'];
+            $proCurso['ACTIVO'] = 1;
             if($proCurso['LOCACION']==0)
             {
                $proCurso['LOCACION'] = 'Costa Rica';
@@ -80,31 +95,27 @@ class ProCursoController extends AppController
             {
                $proCurso['LOCACION'] = __('South Africa');
             }
-
+//            debug($proCurso);
+//            die();
             /*This section is in charge of saving the user input if it is correct to do so*/
-            $lc_code = $this->isUnique($form_data['SIGLA']); //If the course ID existed alredy don't save it
-
-            if($lc_code == "1")
-            {
-               $this->Flash->error(__('The course alredy exits in the system.'));
-            }
-            else
-            {
-               if($this->ProCurso->save($proCurso)) {
-                    $this->FileSystem->addFolder('FileSystem/'.$proPrograma['NOMBRE']);
-                    $this->Flash->success(__('The course has been saved.'));
+               if ($this->ProCurso->insertCourse($proCurso)) {
+                $this->Flash->success(__('The course has been saved.'));
 
                     return $this->redirect(['action' => 'index']);
                }
-               $this->Flash->error(__('The course could not be saved. Please, try again.'));
-            }
+               else
+               {
+                  debug($proCurso);
+                  $this->Flash->error(__('The course could not be saved. Please, try again.'));
+               }
         }
-        $this->set(compact('proCurso'));
+        $this->set(compact('proCurso','lo_vector_Programa'));
     }
 
     /**
      * Edit method
      *
+     * @author Jason Zamora Trejos
      * @param string|null $id Pro Curso id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -112,16 +123,24 @@ class ProCursoController extends AppController
     public function edit($id = null)
     {
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
-        $lc_oldID = $proCurso['SIGLA'];
         $form_data = $this->request->getData();
+        
+        /*Loads the ID's of program's for the add view*/
+        $this->Programa = $this->loadModel('pro_Programa');
+        $proPrograma = $this->paginate($this->Programa);
+        $lo_vector_Programa = [];
+        foreach ($proPrograma as $proPrograma): 
+           array_push($lo_vector_Programa, $proPrograma['PRO_PROGRAMA']);
+        endforeach;
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
-            
+            $proCurso['PRO_PROGRAMA'] = $lo_vector_Programa[$proCurso['PRO_PROGRAMA']];
             /*This section is in charge of converting the user input to store it correctly in the data base*/
-            $proCurso['FECHA_LIMITE'] = date("d-M-Y", strtotime($form_data['FECHA_LIMITE']));
-            $proCurso['FECHA_FINALIZACION'] = date("d-M-Y", strtotime($form_data['FECHA_FINALIZACION']));
-            $proCurso['FECHA_INICIO'] = date("d-M-Y", strtotime($form_data['FECHA_INICIO']));
+            $proCurso['FECHA_LIMITE'] = date("d/m/y", strtotime($form_data['FECHA_LIMITE']));
+            $proCurso['FECHA_FINALIZACION'] = date("d/m/y", strtotime($form_data['FECHA_FINALIZACION']));
+            $proCurso['FECHA_INICIO'] = date("d/m/y", strtotime($form_data['FECHA_INICIO']));
             if($proCurso['LOCACION']==0)
             {
                $proCurso['LOCACION'] = 'Costa Rica';
@@ -132,28 +151,20 @@ class ProCursoController extends AppController
             }
 
             /*This section is in charge of saving the user input if it is correct to do so*/
-            $lc_code = $this->isUnique($proCurso["SIGLA"]);
-            if($lc_code == "1" && $proCurso['SIGLA'] != $lc_oldID) //If the course ID existed alredy don't save it
+            if ($this->ProCurso->updateCourse($proCurso)) 
             {
-               $this->Flash->error(__('The course alredy exits in the system.'));
-            }
-            else 
-            {
-               if ($this->ProCurso->save($proCurso)) 
-               {
-                  $this->Flash->success(__('The course has been saved.'));
-   
-                  return $this->redirect(['action' => 'index']);
-               }
+               $this->Flash->success(__('The course has been saved.'));
+               return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The course could not be saved. Please, try again.'));
         }
-        $this->set(compact('proCurso'));
+        $this->set(compact('proCurso','lo_vector_Programa'));
     }
 
     /**
      * Delete method
      *
+     * @author Jason Zamora Trejos
      * @param string|null $id Pro Curso id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -162,56 +173,11 @@ class ProCursoController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $proCurso = $this->ProCurso->get($id);
-        if ($this->logicalDelete($proCurso['PRO_CURSO'], $proCurso['ACTIVO']) == 0) {
+        if ($this->ProCurso->logicalDelete($proCurso['PRO_CURSO'], $proCurso['ACTIVO']) == 0) {
             $this->Flash->success(__('The course has been disabled.'));
         } else {
             $this->Flash->success(__('The course has been activated'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
-    
-     /**
-     * @author Jason Zamora Trejos
-     * Logically delete a course
-     * @param $id = the course ID
-     * @return int $result is 1 if ACTIVE is 1, 0 if ACTIVE is 0
-     */
-    public function logicalDelete($id=null, $active=null)
-    {
-        $con = ConnectionManager::get('default');
-        if($active == 1)
-        {
-            $result = $con->execute("update pro_curso set activo = '0' where PRO_CURSO = '$id'");
-            return 0;
-        }
-        else
-        {
-            $result = $con->execute("update pro_curso set activo = '1' where PRO_CURSO = '$id'");
-            return 1;
-        }
-    }
-    
-    
-    /**
-     * @author Jason Zamora Trejos
-     * Checks if the course ID exists alredy in the database.
-     * @param $lc_Id = The course ID 
-     * @return int $lc_code = 1 if the parameter is found alredy in the data base, 0 if the parmeter it isn't
-     */
-     public function isUnique($lc_Id)
-     {  
-        $lc_code = "0";
-        $lo_connet = ConnectionManager::get('default');
-        $lc_result = $lo_connet->execute("SELECT SIGLA FROM pro_curso WHERE SIGLA = '$lc_Id'");
-        $lc_result = $lc_result->fetchAll('assoc');
-        if(empty($lc_result) == 0)
-        {
-            if($lc_result[0]["SIGLA"] == $lc_Id)
-            {
-               $lc_code = "1";
-            }
-        }
-        return $lc_code;
-      }  
 }
