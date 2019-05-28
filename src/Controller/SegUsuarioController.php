@@ -136,7 +136,7 @@ class SegUsuarioController extends AppController
    
         //Redirect students 
         $lc_role = $this->actualRole();
-        if( $lc_role == "1")
+        if( $lc_role == "3")
             return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
 
         $segUsuario = $this->SegUsuario->get($id, [
@@ -144,7 +144,7 @@ class SegUsuarioController extends AppController
         ]);
 
         //Administrator can't view superuser information
-        if($lc_role == "2" && $segUsuario["ROL"] =="3")
+        if($lc_role == "2" && $segUsuario["ROL"] =="1")
             return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
 
         //Allow user edit only if the user is active.
@@ -169,7 +169,7 @@ class SegUsuarioController extends AppController
     {
         $lc_role = $this->actualRole();
         //Redirect students 
-        if( $lc_role == "1")
+        if( $lc_role == "3")
         {
             return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
         }
