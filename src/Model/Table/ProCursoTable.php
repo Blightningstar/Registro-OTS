@@ -6,6 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableRegistry;
 
 /**
  * ProCurso Model
@@ -35,6 +36,67 @@ class ProCursoTable extends Table
         $this->setDisplayField('PRO_CURSO');
         $this->setPrimaryKey('PRO_CURSO');
     }
+    
+    /**
+     * insertCourse
+     *
+     * Saves the data in the database.
+     * @author Jason Zamora Trejos
+     * @param array $config The configuration for the Table.
+     * @return void
+     */
+    public function insertCourse(array $course)
+    {
+        $name = $course['NOMBRE'];
+        $startingDate = $course['FECHA_INICIO'];
+        $finalDate = $course['FECHA_FINALIZACION'];
+        $enrollmentDate = $course['FECHA_LIMITE'];
+        $academicCharge = $course['CREDITOS'];
+        $language = $course['IDIOMA'];
+        $location = $course['LOCACION'];
+        $parentProgram = $course['PRO_PROGRAMA'];
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "INSERT INTO PRO_CURSO
+            (NOMBRE, FECHA_INICIO, FECHA_FINALIZACION, FECHA_LIMITE, CREDITOS,
+            IDIOMA, LOCACION, PRO_PROGRAMA)
+            VALUES
+            ('$name','$startingDate','$finalDate','$enrollmentDate','$academicCharge',
+            '$language','$location','$parentProgram')"
+        );
+        $connect->commit();
+        return true;
+    }
+    
+    /**
+     * @author Jason Zamora Trejos
+     * Logically delete a course
+     * @param $id = the course ID
+     * @return int $result is 1 if ACTIVE is 1, 0 if ACTIVE is 0
+     */
+    public function logicalDelete($id=null, $active=null)
+    {
+        $con = ConnectionManager::get('default');
+        if($active == 1)
+        {
+           $result = TableRegistry::get('proCurso')->find('all');
+                $result->update()
+                    ->set(['activo' => 0])
+                    ->where(['PRO_CURSO' => $id])
+                    ->execute();
+            return 0;
+        }
+        else
+        {
+            $result = TableRegistry::get('proCurso')->find('all');
+                $result->update()
+                    ->set(['activo' => 1])
+                    ->where(['PRO_CURSO' => $id])
+                    ->execute();
+            return 1;
+        }
+    }
+    
 
     /**
      * Default validation rules.
@@ -50,9 +112,7 @@ class ProCursoTable extends Table
 
         $validator
             ->scalar('SIGLA')
-            ->maxLength('SIGLA', 8)
-            ->requirePresence('SIGLA', 'create')
-            ->allowEmptyString('SIGLA', false);
+            ->maxLength('SIGLA', 8);
 
         $validator
             ->scalar('NOMBRE')

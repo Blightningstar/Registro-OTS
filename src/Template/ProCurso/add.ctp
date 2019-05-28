@@ -17,12 +17,6 @@
     
         <br>
         <?php
-            
-            echo $this->Form->control('SIGLA', [
-               'label' => _('Course ID'),
-               'value' => $proCurso ['SIGLA'],
-               'placeholder' => 'e.g. "CI-2020"'
-            ]);
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name')]);
             echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'class'=>'datepicker']);
             echo $this->Form->control('FECHA_FINALIZACION', ['label' => _('Final date'), 'class'=>'datepicker']);

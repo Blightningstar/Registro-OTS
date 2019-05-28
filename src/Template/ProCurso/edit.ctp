@@ -17,11 +17,6 @@
    <br>
         <?php                 
            //Displays the data of a course.    
-           echo $this->Form->control('SIGLA', [
-               'label' => _('Course ID'),
-               'value' => $proCurso ['SIGLA'], 
-               'placeholder' => 'e.g. "CI-2020"'
-            ]);
             //This is needed so the date is display in the same format as the rest
             $proCurso['FECHA_LIMITE'] = date("m/d/Y", strtotime($proCurso['FECHA_LIMITE']));
             $proCurso['FECHA_INICIO'] = date("m/d/Y", strtotime($proCurso['FECHA_INICIO']));
