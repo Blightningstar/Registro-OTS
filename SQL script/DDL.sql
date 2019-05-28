@@ -447,3 +447,12 @@ DROP TABLE PRO_PROGRAMA;
 DROP TABLE SEG_ROL;
 DROP TABLE SEG_PERMISO;
 
+SELECT L.SID, S.serial#, DO.object_name 
+FROM v$lock L, dba_objects DO, v$session S
+WHERE 'OTS' = DO.owner
+AND DO.object_id = L.ID1
+AND L.SID = S.SID;
+
+SELECT B.Owner, B.Object_Name, A.Oracle_Username, A.OS_User_Name  
+FROM V$Locked_Object A, All_Objects B
+WHERE A.Object_ID = B.Object_ID;
