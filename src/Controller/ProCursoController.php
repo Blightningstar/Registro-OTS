@@ -82,9 +82,9 @@ class ProCursoController extends AppController
             $form_data = $this->request->getData();
             $proCurso['PRO_PROGRAMA'] = $lo_vector_Programa[$proCurso['PRO_PROGRAMA']];
             /*This section is in charge of converting the user input to store it correctly in the data base*/
-            $proCurso['FECHA_LIMITE'] = date("d-m-y", strtotime($form_data['FECHA_LIMITE']));
-            $proCurso['FECHA_FINALIZACION'] = date("d-m-y", strtotime($form_data['FECHA_FINALIZACION']));
-            $proCurso['FECHA_INICIO'] = date("d-m-y", strtotime($form_data['FECHA_INICIO']));
+            $proCurso['FECHA_LIMITE'] = date("d/m/y", strtotime($form_data['FECHA_LIMITE']));
+            $proCurso['FECHA_FINALIZACION'] = date("d/m/y", strtotime($form_data['FECHA_FINALIZACION']));
+            $proCurso['FECHA_INICIO'] = date("d/m/y", strtotime($form_data['FECHA_INICIO']));
             $proCurso['SEG_USUARIO'] = $this->viewVars['actualUser']['SEG_USUARIO'];
             $proCurso['ACTIVO'] = 1;
             if($proCurso['LOCACION']==0)
@@ -95,6 +95,8 @@ class ProCursoController extends AppController
             {
                $proCurso['LOCACION'] = __('South Africa');
             }
+//            debug($proCurso);
+//            die();
             /*This section is in charge of saving the user input if it is correct to do so*/
                if ($this->ProCurso->insertCourse($proCurso)) {
                 $this->Flash->success(__('The course has been saved.'));
@@ -136,9 +138,9 @@ class ProCursoController extends AppController
             $form_data = $this->request->getData();
             $proCurso['PRO_PROGRAMA'] = $lo_vector_Programa[$proCurso['PRO_PROGRAMA']];
             /*This section is in charge of converting the user input to store it correctly in the data base*/
-            $proCurso['FECHA_LIMITE'] = date("d-m-y", strtotime($form_data['FECHA_LIMITE']));
-            $proCurso['FECHA_FINALIZACION'] = date("d-m-y", strtotime($form_data['FECHA_FINALIZACION']));
-            $proCurso['FECHA_INICIO'] = date("d-m-y", strtotime($form_data['FECHA_INICIO']));
+            $proCurso['FECHA_LIMITE'] = date("d/m/y", strtotime($form_data['FECHA_LIMITE']));
+            $proCurso['FECHA_FINALIZACION'] = date("d/m/y", strtotime($form_data['FECHA_FINALIZACION']));
+            $proCurso['FECHA_INICIO'] = date("d/m/y", strtotime($form_data['FECHA_INICIO']));
             if($proCurso['LOCACION']==0)
             {
                $proCurso['LOCACION'] = 'Costa Rica';
