@@ -44,6 +44,16 @@
                <p class= "value"> <?= __('Date') ?></p>
             <?php elseif($solPreguntum->REQUERIDO ==3):?>
                <p class= "value"> <?= __('Select') ?></p>
+             <?php elseif($solPreguntum->REQUERIDO ==4):?>
+               <p class= "value"> <?= __('Large text') ?></p>
+               <?php elseif($solPreguntum->REQUERIDO ==5):?>
+               <p class= "value"> <?= __('Upload document') ?></p>
+               <?php elseif($solPreguntum->REQUERIDO ==6):?>
+               <p class= "value"> <?= __('Email') ?></p>
+               <?php elseif($solPreguntum->REQUERIDO ==7):?>
+               <p class= "value"> <?= __('Phone number') ?></p>
+               <?php elseif($solPreguntum->REQUERIDO ==8):?>
+               <p class= "value"> <?= __('URL') ?></p>
             <?php endif ?>
             <hr class= "separator">
         </div>
