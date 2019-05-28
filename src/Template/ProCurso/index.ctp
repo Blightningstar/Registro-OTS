@@ -61,7 +61,6 @@
                 <td><?= h($proCurso->NOMBRE) ?></td>
                 <td><?= h($proCurso->PRO_PROGRAMA) ?></td>
                  <?php   //Converts the format of the dates in one that the database can save it.
-//                     debug($proCurso);
                      $proCurso->FECHA_INICIO = date("m/d/Y", strtotime($proCurso->FECHA_INICIO)); 
                      $proCurso->FECHA_FINALIZACION = date("m/d/Y", strtotime($proCurso->FECHA_FINALIZACION));
                      $proCurso->FECHA_LIMITE = date("m/d/Y", strtotime($proCurso->FECHA_LIMITE));          

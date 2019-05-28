@@ -55,14 +55,15 @@ class ProCursoTable extends Table
         $language = $course['IDIOMA'];
         $location = $course['LOCACION'];
         $parentProgram = $course['PRO_PROGRAMA'];
+        $admin = $course['SEG_USUARIO'];
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
             "INSERT INTO PRO_CURSO
             (NOMBRE, FECHA_INICIO, FECHA_FINALIZACION, FECHA_LIMITE, CREDITOS,
-            IDIOMA, LOCACION, PRO_PROGRAMA)
+            IDIOMA, LOCACION, PRO_PROGRAMA, SEG_USUARIO)
             VALUES
             ('$name','$startingDate','$finalDate','$enrollmentDate','$academicCharge',
-            '$language','$location','$parentProgram')"
+            '$language','$location','$parentProgram','$admin')"
         );
         $connect->commit();
         return true;

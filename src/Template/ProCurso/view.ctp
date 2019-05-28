@@ -34,20 +34,26 @@
         </div>
         
         <div>
+            <p class= "field"> <?= __('Administrator:') ?></p>
+            <p class= "value"> <?= $queryUsuario[0]['NOMBRE_USUARIO'] ?></p>
+            <hr class= "separator">
+        </div>
+        
+        <div>
             <p class= "field"> <?= __('Start date:') ?></p>
-            <p class= "value"> <?= $proCurso['FECHA_INICIO'] ?></p>
+            <p class= "value"> <?= $proCurso['FECHA_INICIO'] = date("m/d/Y", strtotime($proCurso['FECHA_INICIO'])) ?></p>
             <hr class= "separator">
         </div>
         
         <div>
             <p class= "field"> <?= __('Final date:') ?></p>
-            <p class= "value"> <?= $proCurso['FECHA_FINALIZACION'] ?></p>
+            <p class= "value"> <?= $proCurso['FECHA_FINALIZACION'] = date("m/d/Y", strtotime($proCurso['FECHA_FINALIZACION'])); ?></p>
             <hr class= "separator">
         </div>
         
         <div>
             <p class= "field"> <?= __('Last enrollment date:') ?></p>
-            <p class= "value"> <?= $proCurso['FECHA_LIMITE'] ?></p>
+            <p class= "value"> <?= $proCurso['FECHA_LIMITE'] = date("m/d/Y", strtotime($proCurso['FECHA_LIMITE'])); ?></p>
             <hr class= "separator">
         </div>
         

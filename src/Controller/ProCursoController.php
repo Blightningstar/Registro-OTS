@@ -37,9 +37,7 @@ class ProCursoController extends AppController
     {
         $proCurso = $this->paginate($this->ProCurso);
         $this->Programa = $this->loadModel('pro_Programa');
-        $this->Usuario= $this->loadModel('seg_Usuario');
         $proPrograma = $this->paginate($this->Programa);
-        $segUsuario = $this->paginate($this->Usuario);
         $this->set(compact('proCurso','proPrograma'));
     }
 
@@ -55,8 +53,12 @@ class ProCursoController extends AppController
         $proCurso = $this->ProCurso->get($id, [
             'contain' => []
         ]);
-
-        $this->set('proCurso', $proCurso);
+        $segUsuario = TableRegistry::get('seg_Usuario');
+        $queryUsuario = $segUsuario->find()
+                                    ->select(['NOMBRE_USUARIO'])
+                                    ->where(['SEG_USUARIO'=>$proCurso['SEG_USUARIO']])
+                                    ->toList();
+        $this->set(compact('proCurso', 'queryUsuario'));
     }
 
     /**
@@ -83,6 +85,8 @@ class ProCursoController extends AppController
             $proCurso['FECHA_LIMITE'] = date("d-m-y", strtotime($form_data['FECHA_LIMITE']));
             $proCurso['FECHA_FINALIZACION'] = date("d-m-y", strtotime($form_data['FECHA_FINALIZACION']));
             $proCurso['FECHA_INICIO'] = date("d-m-y", strtotime($form_data['FECHA_INICIO']));
+            $proCurso['SEG_USUARIO'] = $this->viewVars['actualUser']['SEG_USUARIO'];
+            $proCurso['ACTIVO'] = 1;
             if($proCurso['LOCACION']==0)
             {
                $proCurso['LOCACION'] = 'Costa Rica';
@@ -117,7 +121,6 @@ class ProCursoController extends AppController
     public function edit($id = null)
     {
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
-        //$lc_oldID = $proCurso['SIGLA'];
         $form_data = $this->request->getData();
         
         /*Loads the ID's of program's for the add view*/
@@ -146,7 +149,6 @@ class ProCursoController extends AppController
             }
 
             /*This section is in charge of saving the user input if it is correct to do so*/
-//            debug($proCurso);
             if ($this->ProCurso->updateCourse($proCurso)) 
             {
                $this->Flash->success(__('The course has been saved.'));
