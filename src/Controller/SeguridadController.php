@@ -219,7 +219,7 @@ class SeguridadController extends AppController
                     $new_pass = $this->hash($credentials['new_password']);
                     $userController->setHash($user['NOMBRE_USUARIO'],$new_pass);
                     $this->Flash->success('Password Changed Correctly.');
-                    return $this->redirect(['controller'=>'SegUsuario','action' => 'profile_view', $user['SEG_USUARIO']]);
+                    return $this->redirect(['controller'=>'SegUsuario','action' => 'profile_view']);
                 }
             }
         }else{

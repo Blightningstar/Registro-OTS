@@ -15,6 +15,7 @@
             <?= $this->Form->text('email', [
                 'pattern' => $userData_pattern,
                 'placeholder'=> 'Your email or username',
+                'required'
             ]); ?>
         </div>
         <div ><?= __('Password:') ?></div>

@@ -13,7 +13,8 @@
         <div ><?= __('Email or username:') ?></div>
         <div ><?= $this->Form->text('username', [
                 'pattern' => $userData_pattern,
-                'placeholder'=> 'Your email or username'
+                'placeholder'=> 'Your email or username',
+                'required'
             ]); ?>
         </div>
     </fieldset>
