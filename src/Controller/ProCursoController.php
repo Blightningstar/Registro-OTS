@@ -101,7 +101,7 @@ class ProCursoController extends AppController
                if ($this->ProCurso->insertCourse($proCurso)) {
                 $this->Flash->success(__('The course has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
                }
                else
                {
