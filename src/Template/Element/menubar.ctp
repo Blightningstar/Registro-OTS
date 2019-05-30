@@ -3,6 +3,10 @@
      * Barra del menú de navegación para el registro de estudiantes de la OET
      */
     $rol = $actualUser["SEG_ROL"];
+
+    $superuser = "1";
+    $administrator = "2";
+    $student = "3";
 ?>
 
 <?php 
@@ -92,6 +96,19 @@
             <li id = 'MenubarDashboardAdministrator' class="nav-item menuItem">
                 <?= $this->Html->link( "Administrator Dashboard",[
                     'controller' => 'DashboardAdministrador'
+                ],[
+                    'class' => 'nav-link menuLink'
+                ]);?>
+            </li>
+        <?php endif;?>
+        <?debug($rol);?>
+        <?debug($student);?>
+                    
+        <?php if($rol == $student):?>
+ 
+            <li id = 'MenubarDashboardStudent' class="nav-item menuItem">
+                <?= $this->Html->link( "Dashboard",[
+                    'controller' => 'Dashboard'
                 ],[
                     'class' => 'nav-link menuLink'
                 ]);?>
