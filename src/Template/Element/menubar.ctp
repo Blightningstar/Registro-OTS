@@ -101,14 +101,13 @@
                 ]);?>
             </li>
         <?php endif;?>
-        <?debug($rol);?>
-        <?debug($student);?>
                     
         <?php if($rol == $student):?>
  
             <li id = 'MenubarDashboardStudent' class="nav-item menuItem">
                 <?= $this->Html->link( "Dashboard",[
-                    'controller' => 'Dashboard'
+                    'controller' => 'Dashboard',
+                    'action' => 'studentDashboard'
                 ],[
                     'class' => 'nav-link menuLink'
                 ]);?>

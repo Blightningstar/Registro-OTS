@@ -11,7 +11,7 @@ use Cake\Event\Event;
  *
  * @method \App\Model\Entity\ProCurso[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class DashboardAdministradorController extends AppController
+class DashboardController extends AppController
 {
     /**
      * beforeFilter
@@ -36,6 +36,17 @@ her method of this controller, it sets values to variables     */
         //debug('Sirve');
         //die();
         $this->set(compact('proCurso'));
+    }
+
+    /**
+     * Shows the student dashboard. Don't require any submit action
+     * @author Esteban Rojas 
+     */
+    public function studentDashboard()
+    {
+        $user_applications = [];
+        
+        $this->set(compact('user_applications'));
     }
 
     /**
