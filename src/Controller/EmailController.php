@@ -64,6 +64,12 @@ class EmailController extends AppController
                 break;
             case "Restore":
                 $message = "Your restauration code is: " . $aditionalinfo;
+                break;
+            case 'Application':
+                $message = "Hello " .  $aditionalinfo['NOMBRE'] . " " . $aditionalinfo['APELLIDO_1'] . ",\n\n" .
+                "your application to course " . $aditionalinfo['CURSO'] . "was saved successfully.\n" .
+                "An administrator will view your application.";
+                break;
         }
         return $message;
     }
