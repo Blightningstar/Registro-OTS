@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 
+use Cake\ORM\TableRegistry;
+
 /**
  * SolFormulario Controller
  *
@@ -12,6 +14,8 @@ use Cake\Event\Event;
  */
 class SolFormularioController extends AppController
 {
+    // public $components = array('Session'); // To pass data from SolContiene Controller
+
 	/**
      * beforeFilter
      * @author Daniel Marín <110100010111h@gmail.com>
@@ -35,6 +39,13 @@ class SolFormularioController extends AppController
         $solFormulario = $this->paginate($this->SolFormulario);
 		
         $this->set(compact('solFormulario'));
+
+        // $test = "hola";
+        // $this->set(compact('test'));
+
+        // $preguntas = TableRegistry::get('SolPregunta');
+        // $pregunta = $preguntas->find('all');
+        // $this->set(compact('pregunta'));
     }
 
     /**
@@ -71,6 +82,14 @@ class SolFormularioController extends AppController
             $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
         }
         $this->set(compact('solFormulario'));
+
+        $preguntas = TableRegistry::get('SolPregunta');
+        $pregunta = $preguntas->find('all');
+        $this->set(compact('pregunta'));
+
+        // $programas = TableRegistry::get('ProPrograma');
+        // $programa = $programas->find('all');
+        // $this->set(compact('programa'));
     }
 
     /**
@@ -115,5 +134,40 @@ class SolFormularioController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Get all the questions for the add question function
+     * @author Anyelo Mijael Lobo Cheloukhin
+     *
+     * @param 
+     * @return 
+     */
+    public function get_questions(){
+    //     $data = array();
+    //     $query = $this->db->get(SOL_PREGUNTA);
+    //     $res = $query->result();
+        $query = $sol_pregunta->find('all');
+        // Iteration will execute the query.
+        foreach ($query as $row) {
+            $id = $row['sol_pregunta'];
+            $descrEsp = $row['DESCRIPCION_ESP'];
+            $descrIng = $row['DESCRIPCION_ING'];
+            $tipo = $row['TIPO'];
+            $req = $row['REQUERIDO'];
+            $active = $row['ACTIVO'];
+        }
+
+        // Calling all() will execute the query
+        // and return the result set.
+        $results = $query->all();
+
+        // Once we have a result set we can get all the rows
+        $data = $results->toList();
+
+        // Converting the query to a key-value array will also execute it.
+        $data = $query->toArray();
+        $this->set("data", $data);
+
     }
 }
