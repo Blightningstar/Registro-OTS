@@ -33,9 +33,7 @@ her method of this controller, it sets values to variables     */
      */
     public function index()
     {
-        //debug('Sirve');
-        //die();
-        $this->Curso = $this->loadModel('pro_Curso');
+        $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
         $proCurso= $this->paginate($this->Curso);
         $this->set(compact('proCurso'));
     }
@@ -50,6 +48,8 @@ her method of this controller, it sets values to variables     */
      */
     public function cursoViewDashboard($id = null)
     {
+        $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
+        $proCurso = $this->Curso->get($id, ['contain' => []]); //Use the id to show only the course selected we pass through an html link.
         $this->set(compact('proCurso'));
     }
 
