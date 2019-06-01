@@ -39,13 +39,6 @@ class SolFormularioController extends AppController
         $solFormulario = $this->paginate($this->SolFormulario);
 		
         $this->set(compact('solFormulario'));
-
-        // $test = "hola";
-        // $this->set(compact('test'));
-
-        // $preguntas = TableRegistry::get('SolPregunta');
-        // $pregunta = $preguntas->find('all');
-        // $this->set(compact('pregunta'));
     }
 
     /**
@@ -70,10 +63,32 @@ class SolFormularioController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {
+    {   
+        /* Select all questions for the select boxes in the view*/
+        $preguntas = TableRegistry::get('SolPregunta');
+        $pregunta = $preguntas->find('all');
+        $this->set(compact('pregunta'));
+
         $solFormulario = $this->SolFormulario->newEntity();
+
+        /* Bring SolContiene Model*/
+        $contiene = TableRegistry::get('SolContiene');
+        $this->loadModel('SolContiene');
+        $solContiene = $this->SolContiene->newEntity();
+
         if ($this->request->is('post')) {
+            $varQuest = $_POST['questions'];
+            echo $varQuest;
+            $this->Flash->error(__($varQuest));
+
             $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
+            $solFormulario['SOL_FORMULARIO'] = "TEST";
+
+            $solContiene = $this->SolContiene->patchEntity($solContiene, $this->request->getData());
+            $solContiene['SOL_PREGUNTA'] = $varQuest;
+            $solContiene['SOL_FORMULARIO'] = $solFormulario['SOL_FORMULARIO'];
+            // $solContiene['NUMERO_PREGUNTA'] = 1;
+
             if ($this->SolFormulario->save($solFormulario)) {
                 $this->Flash->success(__('The sol formulario has been saved.'));
 
@@ -82,14 +97,7 @@ class SolFormularioController extends AppController
             $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
         }
         $this->set(compact('solFormulario'));
-
-        $preguntas = TableRegistry::get('SolPregunta');
-        $pregunta = $preguntas->find('all');
-        $this->set(compact('pregunta'));
-
-        // $programas = TableRegistry::get('ProPrograma');
-        // $programa = $programas->find('all');
-        // $this->set(compact('programa'));
+        $this->set(compact('solContiene'));
     }
 
     /**
