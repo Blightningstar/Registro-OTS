@@ -18,7 +18,6 @@
     
     <!--Links the create button to a new course -->
     <button type="button" class="botonAgregar">
-        <!-- Se especifica que el controlador sea curso para evitar que el nombre de la tabla aparezca en la url-->
         <?= $this->Html->link(__('Add Course'), ['controller' => 'curso', 'action' => 'add'], ['style' => 'color:white;']) ?>   
     </button>
     
@@ -36,10 +35,10 @@
                 <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Course ID') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Course name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Parent program') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Start date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Final date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Last enrollment date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Academic charge') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Location') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
@@ -59,15 +58,21 @@
                 </td>
                 <td><?= h($proCurso->SIGLA) ?></td>
                 <td><?= h($proCurso->NOMBRE) ?></td>
+                <td><?= h($proCurso->PRO_PROGRAMA) ?></td>
                  <?php   //Converts the format of the dates in one that the database can save it.
+                     debug($proCurso->FECHA_INICIO);
+                     debug($proCurso->FECHA_FINALIZACION);
+                     debug($proCurso->FECHA_LIMITE);
                      $proCurso->FECHA_INICIO = date("m/d/Y", strtotime($proCurso->FECHA_INICIO)); 
                      $proCurso->FECHA_FINALIZACION = date("m/d/Y", strtotime($proCurso->FECHA_FINALIZACION));
-                     $proCurso->FECHA_LIMITE = date("m/d/Y", strtotime($proCurso->FECHA_LIMITE));          
+                     $proCurso->FECHA_LIMITE = date("m/d/Y", strtotime($proCurso->FECHA_LIMITE));
+                     debug($proCurso->FECHA_INICIO);
+                     debug($proCurso->FECHA_FINALIZACION);
+                     debug($proCurso->FECHA_LIMITE);          
                 ?>
                 <td><?= h($proCurso->FECHA_INICIO) ?></td>
                 <td><?= h($proCurso->FECHA_FINALIZACION) ?></td>
                 <td><?= h($proCurso->FECHA_LIMITE) ?></td>
-                <td><?= $this->Number->format($proCurso->CREDITOS) ?></td>
                 <td><?= h($proCurso->LOCACION) ?></td>
                 
                 <td class="actions">

@@ -16,7 +16,21 @@
     <?= $this->Form->create($solFormulario) ?>
     <?= $this->Form->create($solContiene) ?>    
 
-    <!-- Add questions to the form Dinamically -->
+
+
+    <?= $this->Form->create($solFormulario) ?>
+
+    <?php
+
+            echo $this->Form->control('NOMBRE', [
+                'label' => 'Form Name',
+                'pattern' => '^[A-Za-z0-9 _,.\/ ?¿]*$', 
+                'placeholder' => 'Only alphanumeric characters'
+            ]);
+            
+        ?>
+    
+        <!-- Add questions to the form Dinamically -->
     <div>
 
         <div id="addinput">
