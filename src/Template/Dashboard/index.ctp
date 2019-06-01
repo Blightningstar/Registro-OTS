@@ -46,7 +46,7 @@
                 <td class="actions">
                 <!-- Links the view button to the course-->
                      <button type="button" class="botonAgregar">
-                           <?= $this->Html->link(__('See Aplications'), ['controller' => 'Dashboard', 'action' => 'cursoViewDashboard'], ['style' => 'color:white;']) ?>   
+                           <?= $this->Html->link(__('See Aplications'), ['controller' => 'Dashboard', 'action' => 'cursoViewDashboard', $proCurso->PRO_CURSO], ['style' => 'color:white;']) ?>   
                      </button>
                   </td>
                </div>
