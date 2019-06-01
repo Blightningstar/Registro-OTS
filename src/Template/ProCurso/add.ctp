@@ -17,13 +17,6 @@
     
         <br>
         <?php
-            
-            echo $this->Form->control('SIGLA', [
-               'label' => _('Course ID'),
-               'value' => $proCurso ['SIGLA'],
-               //'pattern' => '([a-zA-Z0-9]|\s){8}', 
-               'placeholder' => 'e.g. "CI-2020"'
-            ]);
             echo $this->Form->control('NOMBRE', ['label' => _('Course Name')]);
             echo $this->Form->control('FECHA_INICIO', ['label' => _('Start date'), 'class'=>'datepicker']);
             echo $this->Form->control('FECHA_FINALIZACION', ['label' => _('Final date'), 'class'=>'datepicker']);
@@ -38,7 +31,7 @@
             ]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'placeholder'=> 'Language of the course','pattern' => '^[a-zA-Z]*$']);
             echo $this->Form->control('LOCACION', ['label' => _('Location'), 'placeholder'=> 'Location of the course','options' => array('Costa Rica', __('South Africa'))]);
-            echo $this->Form->control('ACTIVO', ['label' => _(' Active'), 'type' => 'hidden','value' => 1]);
+            echo $this->Form->control('PRO_PROGRAMA', ['label' => _('Parent Program'), 'options' => $lo_vector_Programa]);
         ?>
     </fieldset>
     <br>
@@ -56,3 +49,5 @@ $( function() {
     $( ".datepicker" ).datepicker({'dateFormat':'mm/dd/yy', changeMonth: true, changeYear: true});
   } );
 </script>
+
+

@@ -73,8 +73,6 @@ class ProProgramaController extends AppController
     {
         $proPrograma = $this->ProPrograma->newEntity();
 
-        
-        
         if ($this->request->is('post')) {
             $proPrograma = $this->ProPrograma->patchEntity($proPrograma, $this->request->getData());
 
@@ -86,6 +84,7 @@ class ProProgramaController extends AppController
             }
             else{
                 if ($this->ProPrograma->save($proPrograma)) {
+                    $this->FileSystem->addFolder('FileSystem/'.$proPrograma['NOMBRE']); 
                     $this->Flash->success(__('The pro programa has been saved.'));
 
                     return $this->redirect(['action' => 'index']);
