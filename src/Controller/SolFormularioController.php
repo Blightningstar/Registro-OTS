@@ -6,6 +6,8 @@ use Cake\Event\Event;
 
 use Cake\ORM\TableRegistry;
 
+
+
 /**
  * SolFormulario Controller
  *
@@ -14,6 +16,7 @@ use Cake\ORM\TableRegistry;
  */
 class SolFormularioController extends AppController
 {
+    
     // public $components = array('Session'); // To pass data from SolContiene Controller
 
 	/**
@@ -62,6 +65,8 @@ class SolFormularioController extends AppController
         ]);
 
         $this->set('solFormulario', $solFormulario);
+        $preguntas= $this->getPreguntasContiene($id);
+        $this->set('preguntas', $preguntas);
     }
 
     /**
@@ -169,5 +174,11 @@ class SolFormularioController extends AppController
         $data = $query->toArray();
         $this->set("data", $data);
 
+    }
+
+    public function getPreguntasContiene($id)
+    {
+        $formTable = $this->loadModel('SolFormulario');
+        return $formTable->getPreguntasContiene($id);
     }
 }
