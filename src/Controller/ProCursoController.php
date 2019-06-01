@@ -101,7 +101,7 @@ class ProCursoController extends AppController
                if ($this->ProCurso->insertCourse($proCurso)) {
                 $this->Flash->success(__('The course has been saved.'));
 
-                    return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index']);
                }
                else
                {
@@ -124,7 +124,7 @@ class ProCursoController extends AppController
     {
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
         $form_data = $this->request->getData();
-        
+        debug($proCurso);
         /*Loads the ID's of program's for the add view*/
         $this->Programa = $this->loadModel('pro_Programa');
         $proPrograma = $this->paginate($this->Programa);
@@ -149,6 +149,8 @@ class ProCursoController extends AppController
             {
                $proCurso['LOCACION'] = __('South Africa');
             }
+            
+            debug($proCurso);
 
             /*This section is in charge of saving the user input if it is correct to do so*/
             if ($this->ProCurso->updateCourse($proCurso)) 

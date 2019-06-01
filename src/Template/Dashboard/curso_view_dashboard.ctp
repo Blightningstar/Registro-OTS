@@ -42,23 +42,22 @@
                 <td></td>
                 <td class="actions">
                         <!-- Links to view of the form of a student in particular-->
-                     <button type="button" class="botonAgregar">
+                     <button type="button" class="botonDashboardAceptarConsultar">
                            <?= $this->Html->link(__('Review'), ['controller' => 'Dashboard'], ['style' => 'color:white;']) ?>
                      </button>
                 </td>
                 <td></td>
                 <td></td>
-                <div text-align: center>
                 <td class="actions">
                 <!-- Links the view button to the course-->
-                     <button type="button" class="botonAgregar">
+                     <button type="button" class="botonDashboardAceptarConsultar">
                            <?= $this->Html->link(__('Approve'), ['controller' => 'Dashboard'], ['style' => 'color:white;']) ?> 
                      </button>
-                     <button type="button" class="botonAgregar">
+                     
+                     <button type="button" class="botonDashboardDenegar">
                            <?= $this->Html->link(__('Reject'), ['controller' => 'Dashboard'], ['style' => 'color:white;']) ?> 
                      </button>
                   </td>
-               </div>
             </tr>
         </tbody>
  </table>
