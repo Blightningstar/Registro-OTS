@@ -44,8 +44,9 @@ her method of this controller, it sets values to variables     */
      */
     public function studentDashboard()
     {
-        $user_applications = [];
-        
+        $formulary_controller = new SolFormularioController;
+        $user_applications = $formulary_controller->getUserApplications($this->viewVars['actualUser']['SEG_USUARIO']);
+
         $this->set(compact('user_applications'));
     }
 

@@ -27,44 +27,47 @@
                 <!-- Puts each field of the table in the grid -->
                 <th scope="col"><?= $this->Paginator->sort('Course') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Details') ?></th>
-                <th scope="col" class="actions"><?= __('') ?></th>
+                <th scope="col" class="actions"><?= __('Action') ?></th>
             </tr>
             </thead>
         <tbody>
-            <?php foreach($user_applications  as $application): ?>
+            <?php foreach($user_applications  as $application):?>
             <tr>
-                <td><? h($user_applications["PRO_CURSO"]) ?></td>
+                <td><?= h($application["NOMBRE"]) ?></td>
                 
                     <!-- Details will depend of application's status -->
-                    <?
-                    $application_status = 1;
+                    <?php
                     
                     $details = "";
                     $buttonText = "";
-                    $link = "";
 
-                    switch($application_status)
+                    switch($application["RESULTADO"])
                     {
-                        case 1: // Incomplete application
-                            $details = "This application is incomplete.";
+                        case "Proceso ": // Incomplete application
+                            $details = "The application to course " . $application["NOMBRE"] ." is incomplete.";
                             $buttonText = "Complete Application";
                             break;
-                        case 2: //Pending of review application
-                            $details = "This application is pending of review.";
+                        case "Completo ": //Pending of review application
+                            $details = "The application to course " . $application["NOMBRE"] . " is pending of review.";
                             $buttonText = "View Application";
                             break;
-                        case 3: //Rejected application
-                            $details = "This application was rejected.";
+                        case "Rechazado ": //Rejected application
+                            $details = "The application to course " . $application["NOMBRE"] . " was rejected.";
                             $buttonText = "View Application";
                             break;
-                        case 4:  //Approved application
-                            $details = "This application was accepted.";
+                        case "Aceptado ":  //Approved application
+                            $details = "The application to course " . $application["NOMBRE"] . " was accepted.";
                             $buttonText = "View Application";
                             break;
                     }
+  
                     ?>
-                <td><? h($user_applications["PRO_CURSO"]) ?></td>
-                <td></td>
+                <td><?= $details ?></td>
+                <td>    
+                    <button type="button" class="botonAgregar">
+                        <?= $this->Html->link(__($buttonText), ['action'=>'#'], ['style' => 'color:white;']) ?>   
+                    
+                </td>
 
             </tr>
             <?php endforeach;?>  

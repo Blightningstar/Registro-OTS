@@ -116,4 +116,10 @@ class SolFormularioController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function getUserApplications($user_id)
+    {
+        $userTable=$this->loadmodel('SolFormulario');
+        return $userTable->getUserApplications($user_id);
+    }
 }
