@@ -111,7 +111,12 @@ her method of this controller, it sets values to variables     */
     {
         return $this->redirect(['action' => 'index']);
     }
-}
+
+	/**
+	 * studentDashboard
+	 * @author Esteban Rojas
+	 * Creates the view of the student Dashhboard. Don't require any submit action.
+	*/
     public function studentDashboard()
     {
         $application_controller = new SolSolicitudController;
@@ -119,3 +124,4 @@ her method of this controller, it sets values to variables     */
 
         $this->set(compact('user_applications'));
     }
+}
