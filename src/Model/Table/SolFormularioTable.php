@@ -55,8 +55,13 @@ class SolFormularioTable extends Table
 
         return $validator;
     }
-	
 
-    
+    public function getPreguntasContiene($id)
+    {
+        $connect= ConnectionManager::get('default');
+        $result= $connect->execute("SELECT * FROM SOL_PREGUNTA FULL OUTER JOIN SOL_CONTIENE ON SOL_PREGUNTA.SOL_PREGUNTA= SOL_CONTIENE.SOL_PREGUNTA
+            WHERE SOL_FORMULARIO=$id ORDER BY NUMERO_PREGUNTA")->fetchAll('assoc');
+        return $result;
 
+    }
 }

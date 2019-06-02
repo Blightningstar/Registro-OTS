@@ -33,4 +33,25 @@
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
+         <tbody>
+            <!-- Iterate the data and places it in the respective column -->
+            <?php foreach ($proCurso as $proCurso): ?>
+            <tr>
+               <!--Uses a form as wrapper to contain a checkbox which will modify active value of the course.
+                Better than use hidden inputs, from a security's perspective.-->
+                <td><?= h($proCurso->PRO_PROGRAMA) ?></td>
+                <td><?= h($proCurso->SIGLA) ?></td>
+                <td><?= h($proCurso->NOMBRE) ?></td>
+                <div text-align: center>
+                <td class="actions">
+                <!-- Links the view button to the course-->
+                     <button type="button" class="botonAgregar">
+                           <?= $this->Html->link(__('See Aplications'), ['controller' => 'Dashboard', 'action' => 'cursoViewDashboard', $proCurso->PRO_CURSO], ['style' => 'color:white;']) ?>   
+                     </button>
+                  </td>
+               </div>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+ </table>
 </div>

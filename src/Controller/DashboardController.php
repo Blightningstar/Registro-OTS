@@ -23,7 +23,7 @@ her method of this controller, it sets values to variables     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->set('active_menu', 'MenubarDashboardAdministrator');
+        $this->set('active_menu', 'MenubarDashboard');
     }
 
     /**
@@ -33,21 +33,9 @@ her method of this controller, it sets values to variables     */
      */
     public function index()
     {
-        //debug('Sirve');
-        //die();
+        $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
+        $proCurso= $this->paginate($this->Curso);
         $this->set(compact('proCurso'));
-    }
-
-    /**
-     * Shows the student dashboard. Don't require any submit action
-     * @author Esteban Rojas 
-     */
-    public function studentDashboard()
-    {
-        $application_controller = new SolSolicitudController;
-        $user_applications = $application_controller->getUserApplications($this->viewVars['actualUser']['SEG_USUARIO']);
-
-        $this->set(compact('user_applications'));
     }
 
     /**
@@ -60,6 +48,8 @@ her method of this controller, it sets values to variables     */
      */
     public function cursoViewDashboard($id = null)
     {
+        $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
+        $proCurso = $this->Curso->get($id, ['contain' => []]); //Use the id to show only the course selected we pass through an html link.
         $this->set(compact('proCurso'));
     }
 
@@ -122,3 +112,10 @@ her method of this controller, it sets values to variables     */
         return $this->redirect(['action' => 'index']);
     }
 }
+    public function studentDashboard()
+    {
+        $application_controller = new SolSolicitudController;
+        $user_applications = $application_controller->getUserApplications($this->viewVars['actualUser']['SEG_USUARIO']);
+
+        $this->set(compact('user_applications'));
+    }

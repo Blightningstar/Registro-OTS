@@ -93,9 +93,9 @@
         <?php endif;?>
         
         <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
-            <li id = 'MenubarDashboardAdministrator' class="nav-item menuItem">
-                <?= $this->Html->link( "Administrator Dashboard",[
-                    'controller' => 'DashboardAdministrador'
+            <li id = 'MenubarDashboard' class="nav-item menuItem">
+                <?= $this->Html->link( "Dashboard",[
+                    'controller' => 'Dashboard'
                 ],[
                     'class' => 'nav-link menuLink'
                 ]);?>

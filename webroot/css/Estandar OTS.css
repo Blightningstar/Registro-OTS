@@ -198,7 +198,33 @@ div.card.background {
  
 }
 
+/*Inicio parte de Jason*/
+.botonDashboardAceptarConsultar:hover {
+    background-color: rgb(98, 183, 70) !important; 
+ 
+}
 
+.botonDashboardAceptarConsultar
+{
+    background-color: #7BC143;
+    margin: 0 auto;
+    border-radius: 12px;
+    color:white !important;
+}
+
+.botonDashboardDenegar:hover {
+    background-color: rgb(230, 92, 42) !important; 
+ 
+}
+
+.botonDashboardDenegar
+{
+    background-color: #F26631;
+    margin: 0 auto;
+    border-radius: 12px;
+    color:white !important;
+}
+/*Fin parte de Jason*/
 
 /*Formatea los titulos de cada vista*/
 
