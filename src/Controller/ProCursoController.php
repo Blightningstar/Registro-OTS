@@ -70,8 +70,7 @@ class ProCursoController extends AppController
             $proCurso['FECHA_LIMITE'] = date("d/m/y", strtotime($form_data['FECHA_LIMITE']));
             $proCurso['FECHA_FINALIZACION'] = date("d/m/y", strtotime($form_data['FECHA_FINALIZACION']));
             $proCurso['FECHA_INICIO'] = date("d/m/y", strtotime($form_data['FECHA_INICIO']));
-            debug($proCurso);
-            die();
+            
             if($proCurso['LOCACION']==0)
             {
                $proCurso['LOCACION'] = 'Costa Rica';
@@ -82,7 +81,13 @@ class ProCursoController extends AppController
             }
 
             /*This section is in charge of saving the user input if it is correct to do so*/
-            $lc_code = $this->isUnique($form_data['SIGLA']); //If the course ID existed alredy don't save it
+            $lc_code = $this->ProCurso->isUnique($form_data['SIGLA']); //If the course ID existed alredy don't save it
+
+            // Es solo para probar, recordar borrar.
+            $this->loadModel('PRO_PROGRAMA');
+            $foldername = '/'.date('Y', strtotime($date)).'-'.date('m', strtotime($date)).'-'.str_replace(' ', '_', $proCurso['NOMBRE']);
+            $this->FileSystem->addFolder('FileSystem/'.'REU'.$foldername);
+            die();
 
             if($lc_code == "1")
             {
@@ -91,7 +96,14 @@ class ProCursoController extends AppController
             else
             {
                if($this->ProCurso->save($proCurso)) {
-                    $this->FileSystem->addFolder('FileSystem/'.$proPrograma['NOMBRE']);
+                    $this->loadModel('PRO_PROGRAMA'); // Load the program model
+                    
+                    // Make the path to create a folder for the new course.
+                    $foldername = '/'.date('Y', strtotime($date)).'-'.date('m', strtotime($date)).'-'.str_replace(' ', '_', $proCurso['NOMBRE']);
+                    
+                    // Create the new folder in the given path.
+                    $this->FileSystem->addFolder('FileSystem/'.$this->PRO_PROGRAMA->getProgramName($proCurso['PRO_PROGRAMA']).$foldername);
+                    
                     $this->Flash->success(__('The course has been saved.'));
 
                     return $this->redirect(['action' => 'index']);
@@ -132,7 +144,7 @@ class ProCursoController extends AppController
             }
 
             /*This section is in charge of saving the user input if it is correct to do so*/
-            $lc_code = $this->isUnique($proCurso["SIGLA"]);
+            $lc_code = $this->ProCurso->isUnique($proCurso["SIGLA"]);
             if($lc_code == "1" && $proCurso['SIGLA'] != $lc_oldID) //If the course ID existed alredy don't save it
             {
                $this->Flash->error(__('The course alredy exits in the system.'));
@@ -162,7 +174,7 @@ class ProCursoController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $proCurso = $this->ProCurso->get($id);
-        if ($this->logicalDelete($proCurso['PRO_CURSO'], $proCurso['ACTIVO']) == 0) {
+        if ($this->ProCurso->logicalDelete($proCurso['PRO_CURSO'], $proCurso['ACTIVO']) == 0) {
             $this->Flash->success(__('The course has been disabled.'));
         } else {
             $this->Flash->success(__('The course has been activated'));
@@ -170,48 +182,4 @@ class ProCursoController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
-     /**
-     * @author Jason Zamora Trejos
-     * Logically delete a course
-     * @param $id = the course ID
-     * @return int $result is 1 if ACTIVE is 1, 0 if ACTIVE is 0
-     */
-    public function logicalDelete($id=null, $active=null)
-    {
-        $con = ConnectionManager::get('default');
-        if($active == 1)
-        {
-            $result = $con->execute("update pro_curso set activo = '0' where PRO_CURSO = '$id'");
-            return 0;
-        }
-        else
-        {
-            $result = $con->execute("update pro_curso set activo = '1' where PRO_CURSO = '$id'");
-            return 1;
-        }
-    }
-    
-    
-    /**
-     * @author Jason Zamora Trejos
-     * Checks if the course ID exists alredy in the database.
-     * @param $lc_Id = The course ID 
-     * @return int $lc_code = 1 if the parameter is found alredy in the data base, 0 if the parmeter it isn't
-     */
-     public function isUnique($lc_Id)
-     {  
-        $lc_code = "0";
-        $lo_connet = ConnectionManager::get('default');
-        $lc_result = $lo_connet->execute("SELECT SIGLA FROM pro_curso WHERE SIGLA = '$lc_Id'");
-        $lc_result = $lc_result->fetchAll('assoc');
-        if(empty($lc_result) == 0)
-        {
-            if($lc_result[0]["SIGLA"] == $lc_Id)
-            {
-               $lc_code = "1";
-            }
-        }
-        return $lc_code;
-      }  
 }
