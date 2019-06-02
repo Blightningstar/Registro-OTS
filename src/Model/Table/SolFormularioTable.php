@@ -55,23 +55,8 @@ class SolFormularioTable extends Table
 
         return $validator;
     }
-    
-    /**
-     * getUserApplications
-     * @author Esteban Rojas 
-     * Obtains all the user's applications
-     * @param user_id The user whose applications are required.
-     * @return array with all the user applications. Can be empty
-     */
-    public function getUserApplications($user_id)
-    {
-        $connect = ConnectionManager::get('default');
-        $user_applications = $connect->execute(
-            "SELECT S.RESULTADO, P.NOMBRE FROM SOL_SOLICITUD S JOIN PRO_CURSO P
-             ON S.PRO_CURSO = P.PRO_CURSO
-             WHERE S.SEG_USUARIO = '$user_id' AND S.ACTIVO = '1' AND P.ACTIVO = '1'"
-        )->fetchAll('assoc');
+	
 
-        return $user_applications;
-    }
+    
+
 }

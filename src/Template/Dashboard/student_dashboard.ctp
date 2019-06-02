@@ -32,24 +32,28 @@
             </thead>
         <tbody>
             <?php foreach($user_applications  as $application):?>
-            <tr>
-                <td><?= h($application["NOMBRE"]) ?></td>
+            <tr >
+                <td style="vertical-align:middle;"><?= h($application["NOMBRE"]) ?></td>
                 
                     <!-- Details will depend of application's status -->
                     <?php
                     
                     $details = "";
                     $buttonText = "";
-
+					$link = [];
+					$link["controller"] = 'solSolicitud';
+					$link["action"] = 'view/' . $application["SEG_USUARIO"] . '/' . $application["PRO_CURSO"];
+					
                     switch($application["RESULTADO"])
                     {
                         case "Proceso ": // Incomplete application
                             $details = "The application to course " . $application["NOMBRE"] ." is incomplete.";
                             $buttonText = "Complete Application";
+							$link["action"] = 'add';
                             break;
                         case "Completo ": //Pending of review application
                             $details = "The application to course " . $application["NOMBRE"] . " is pending of review.";
-                            $buttonText = "View Application";
+                            $buttonText = "View Application";							
                             break;
                         case "Rechazado ": //Rejected application
                             $details = "The application to course " . $application["NOMBRE"] . " was rejected.";
@@ -59,14 +63,11 @@
                             $details = "The application to course " . $application["NOMBRE"] . " was accepted.";
                             $buttonText = "View Application";
                             break;
-                    }
-  
-                    ?>
-                <td><?= $details ?></td>
-                <td>    
+                    }?>
+                <td style="vertical-align:middle;"><?= $details ?></td>
+                <td style="vertical-align:middle;">
                     <button type="button" class="botonAgregar">
-                        <?= $this->Html->link(__($buttonText), ['action'=>'#'], ['style' => 'color:white;']) ?>   
-                    
+					<?= $this->Html->link(__($buttonText), $link, ['style' => 'color:white;']) ?>   
                 </td>
 
             </tr>
