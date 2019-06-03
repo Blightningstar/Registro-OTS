@@ -78,28 +78,36 @@ class SolFormularioController extends AppController
 
         /* Bring SolContiene Model*/
         $contiene = TableRegistry::get('SolContiene');
+        // load the model you need depending on the controller you need to use
         $this->loadModel('SolContiene');
+        // use this in case you have tu instantiate a new entity
         $solContiene = $this->SolContiene->newEntity();
+
 
         if ($this->request->is('post')) {
             $varQuest = $_POST['questions'];
-            echo $varQuest;
-            $this->Flash->error(__($varQuest));
 
-            $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
-            $solFormulario['SOL_FORMULARIO'] = "TEST";
+            $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->data);
 
-            $solContiene = $this->SolContiene->patchEntity($solContiene, $this->request->getData());
-            $solContiene['SOL_PREGUNTA'] = $varQuest;
-            $solContiene['SOL_FORMULARIO'] = $solFormulario['SOL_FORMULARIO'];
-            // $solContiene['NUMERO_PREGUNTA'] = 1;
+            // ITERATE OVER questions[] to get the value
+            $questNumber = 1;
+            foreach ($_POST['questions'] as $question) {
+                $solContiene = $this->SolContiene->newEntity();
+                $solContiene['SOL_PREGUNTA'] = $question;
+                $solContiene['SOL_FORMULARIO'] = 17;
+                $solContiene['NUMERO_PREGUNTA'] = $questNumber;
 
-            if ($this->SolFormulario->save($solFormulario)) {
-                $this->Flash->success(__('The sol formulario has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                $this->SolContiene->save($solContiene);
+                $questNumber++;
             }
-            $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
+
+            // if ($this->SolFormulario->save($solFormulario)) {
+            //     $this->Flash->success(__('The sol formulario has been saved.'));
+
+            //     return $this->redirect(['action' => 'index']);
+            // }
+            // $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
+            // pr($solFormulario->errors());
         }
         $this->set(compact('solFormulario'));
         $this->set(compact('solContiene'));
