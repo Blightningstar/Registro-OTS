@@ -102,7 +102,7 @@
             </li>
         <?php endif;?>
         
-        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+        <?php if($rol == "1" || $rol == "2"):?>
             <li id = 'MenubarDashboard' class="nav-item menuItem">
                 <?= $this->Html->link( "Dashboard",[
                     'controller' => 'Dashboard'
@@ -110,11 +110,8 @@
                     'class' => 'nav-link menuLink'
                 ]);?>
             </li>
-        <?php endif;?>
-                    
-        <?php if($rol == $student):?>
- 
-            <li id = 'MenubarDashboardStudent' class="nav-item menuItem">
+        <?php else:?>
+            <li id = 'MenubarDashboard' class="nav-item menuItem">
                 <?= $this->Html->link( "Dashboard",[
                     'controller' => 'Dashboard',
                     'action' => 'studentDashboard'
