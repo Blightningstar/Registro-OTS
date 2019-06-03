@@ -87,11 +87,11 @@ class SolPreguntaTable extends Table
      *  @param string $act, it's the question's type active attribute, its state
      *  @return 1 when succeded
      */
-    public function insertarPregunta($dEsp, $dIng, $tipo, $req, $act)
+    public function insertarPregunta($dIng, $tipo, $req, $act)
     {
         $temp=$this->returnMaxSolPregunta ();
         $connet = ConnectionManager::get('default');
-        $result = $connet->execute("INSERT INTO sol_pregunta VALUES ($temp, '$dEsp', '$dIng', $tipo, $req, $act)");
+        $result = $connet->execute("INSERT INTO sol_pregunta VALUES ($temp, '$dIng', $tipo, $req, $act)");
         $connet->execute(
             "COMMIT"
         );
