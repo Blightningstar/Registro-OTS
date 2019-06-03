@@ -1,39 +1,70 @@
 <?php
 /**
+ * @author Anyelo Mijael Lobo Cheloukhin
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SolFormulario[]|\Cake\Collection\CollectionInterface $solFormulario
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Sol Formulario'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="solFormulario index large-9 medium-8 columns content">
-    <h3><?= __('Sol Formulario') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+<div class="proPrograma index large-9 medium-8 columns content container-fluid">
+    <fieldset>
+
+    <legend class = "titulo">Form Administration<br></br>
+        <p class = "subtitulo">Form List</p>
+    </legend>
+
+    <br>
+    <!--Linkea el boton a para que redireccione al agregar usuario -->
+    <button type="button" class="botonAgregar">
+        <!-- Se especifica que el controlador sea usuario para evitar que el nombre de la tabla aparezca en la url-->
+        <a href="/Registro-OTS/SolFormulario/add" style="color:white;">Add Form</a>   
+    </button>
+
+    <div class="row">
+        <label style="margin-left:30px;" ><?= __('Search Forms ') ?></label>
+        <input type="text" id="queryTextbox" style="width:50%;margin-left:20px;"> 
+    </div>
+
+    <!-- Permite que aparezca la barra horizontal en caso de que no todos los campos de la tabla puedan verse a la vez -->
+    <div class="container-fluid table-responsive">
+    <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
         <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('SOL_FORMULARIO') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ACTIVO') ?></th>
+            <tr id="headTr">
+                <!-- Coloca cada campo de la tabla en el grid -->
+
+                <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('NOMBRE', ['label' => __('Form Name')]) ?></th>
+
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
+
         </thead>
+
         <tbody>
+            <!-- Itera tupla por tupla y coloca los datos en cada columna -->
             <?php foreach ($solFormulario as $solFormulario): ?>
             <tr>
-                <td><?= $this->Number->format($solFormulario->SOL_FORMULARIO) ?></td>
-                <td><?= h($solFormulario->ACTIVO) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $solFormulario->SOL_FORMULARIO]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $solFormulario->SOL_FORMULARIO]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $solFormulario->SOL_FORMULARIO], ['confirm' => __('Are you sure you want to delete # {0}?', $solFormulario->SOL_FORMULARIO)]) ?>
+                <td>
+                <?= $this->Form->create('Post', ['url' => '/SolFormulario/delete/' . $solFormulario->SOL_FORMULARIO ]) ?>
+                <?= $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($solFormulario->ACTIVO == 1) ,
+                'onclick' => 'submit(12)']) ?>
+                <?= $this->Form->end() ?>
                 </td>
+
+               <td><?= h($solFormulario->NOMBRE) ?></td>
+
+                <td>
+                <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'SolFormulario', 'action' => 'view',  $solFormulario->SOL_FORMULARIO], ['escape'=>false]) ?>
+                <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $solFormulario->SOL_FORMULARIO], ['escape'=>false]) ?>
+                </td>
+
             </tr>
             <?php endforeach; ?>
         </tbody>
+
     </table>
+    </div>
+    </fieldset>
+
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
@@ -42,6 +73,7 @@
             <?= $this->Paginator->next(__('next') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} program(s) out of {{count}} total')]) ?></p>
     </div>
-</div>
+
+<?= $this->Html->script('scriptIndex.js'); ?>

@@ -92,6 +92,32 @@ her method of this controller, it sets values to variables     */
         ->where(['SEG_USUARIO' => $idUsuario])
         ->execute();
     }
+
+    /**
+     * Delete method
+     *
+     * @author Jason Zamora Trejos
+     * @param string|null $id Pro Curso id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id)
+    {
+        return $this->redirect(['action' => 'index']);
+    }
+
+	/**
+	 * studentDashboard
+	 * @author Esteban Rojas
+	 * Creates the view of the student Dashhboard. Don't require any submit action.
+	*/
+    public function studentDashboard()
+    {
+        $application_controller = new SolSolicitudController;
+        $user_applications = $application_controller->getUserApplications($this->viewVars['actualUser']['SEG_USUARIO']);
+
+        $this->set(compact('user_applications'));
+    }
 }
    
 

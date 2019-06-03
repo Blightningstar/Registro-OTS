@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * SolFormulario Model
@@ -53,5 +54,14 @@ class SolFormularioTable extends Table
             ->allowEmptyString('ACTIVO');
 
         return $validator;
+    }
+
+    public function getPreguntasContiene($id)
+    {
+        $connect= ConnectionManager::get('default');
+        $result= $connect->execute("SELECT * FROM SOL_PREGUNTA FULL OUTER JOIN SOL_CONTIENE ON SOL_PREGUNTA.SOL_PREGUNTA= SOL_CONTIENE.SOL_PREGUNTA
+            WHERE SOL_FORMULARIO=$id ORDER BY NUMERO_PREGUNTA")->fetchAll('assoc');
+        return $result;
+
     }
 }
