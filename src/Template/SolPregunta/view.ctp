@@ -23,12 +23,6 @@
         </div>
 
         <div>
-            <p class= "field"> <?= __('Description in spanish:') ?></p>
-            <p class= "value"> <?= $solPreguntum["DESCRIPCION_ESP"] ?></p>
-            <hr class= "separator">
-        </div>
-
-        <div>
             <p class= "field"> <?= __('Description in english:') ?></p>
             <p class= "value"> <?= $solPreguntum["DESCRIPCION_ING"] ?></p>
             <hr class= "separator">
@@ -36,23 +30,23 @@
 
        <div>
             <p class= "field"> <?= __('Type:') ?></p>
-            <?php if($solPreguntum->REQUERIDO ==0):?>
+            <?php if($solPreguntum->TIPO ==0):?>
                 <p class= "value"> <?= __('Text')  ?></p>
-            <?php elseif($solPreguntum->REQUERIDO ==1):?>
+            <?php elseif($solPreguntum->TIPO ==1):?>
                <p class= "value"> <?= __('Number') ?></p>
-            <?php elseif($solPreguntum->REQUERIDO ==2):?>
+            <?php elseif($solPreguntum->TIPO ==2):?>
                <p class= "value"> <?= __('Date') ?></p>
-            <?php elseif($solPreguntum->REQUERIDO ==3):?>
+            <?php elseif($solPreguntum->TIPO ==3):?>
                <p class= "value"> <?= __('Select') ?></p>
-             <?php elseif($solPreguntum->REQUERIDO ==4):?>
+             <?php elseif($solPreguntum->TIPO ==4):?>
                <p class= "value"> <?= __('Large text') ?></p>
-               <?php elseif($solPreguntum->REQUERIDO ==5):?>
+               <?php elseif($solPreguntum->TIPO ==5):?>
                <p class= "value"> <?= __('Upload document') ?></p>
-               <?php elseif($solPreguntum->REQUERIDO ==6):?>
+               <?php elseif($solPreguntum->TIPO ==6):?>
                <p class= "value"> <?= __('Email') ?></p>
-               <?php elseif($solPreguntum->REQUERIDO ==7):?>
+               <?php elseif($solPreguntum->TIPO ==7):?>
                <p class= "value"> <?= __('Phone number') ?></p>
-               <?php elseif($solPreguntum->REQUERIDO ==8):?>
+               <?php elseif($solPreguntum->TIPO ==8):?>
                <p class= "value"> <?= __('URL') ?></p>
             <?php endif ?>
             <hr class= "separator">

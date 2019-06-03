@@ -68,7 +68,7 @@ class SolPreguntaController extends AppController
             $temp = $this->request->getData();
             
 
-            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ESP'],$temp['DESCRIPCION_ING'],$temp['TIPO'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
+            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp['TIPO'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
                 $this->Flash->success(__('The question has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
