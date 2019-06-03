@@ -23,12 +23,6 @@
         </div>
 
         <div>
-            <p class= "field"> <?= __('Description in spanish:') ?></p>
-            <p class= "value"> <?= $solPreguntum["DESCRIPCION_ESP"] ?></p>
-            <hr class= "separator">
-        </div>
-
-        <div>
             <p class= "field"> <?= __('Description in english:') ?></p>
             <p class= "value"> <?= $solPreguntum["DESCRIPCION_ING"] ?></p>
             <hr class= "separator">
