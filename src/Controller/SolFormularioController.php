@@ -85,16 +85,22 @@ class SolFormularioController extends AppController
 
 
         if ($this->request->is('post')) {
-            $varQuest = $_POST['questions'];
+            $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
+            $solFormulario['SOL_FORMULARIO'] = 1;
+            $solFormulario['NOMBRE'] = $this->request->data['NOMBRE'];
 
-            $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->data);
+            if ($this->SolFormulario->save($solFormulario)) {
+            }
+            else
+                $this->Flash->error(__('The form could not be saved. Please, try again.'));
+
 
             // ITERATE OVER questions[] to get the value
             $questNumber = 1;
             foreach ($_POST['questions'] as $question) {
                 $solContiene = $this->SolContiene->newEntity();
                 $solContiene['SOL_PREGUNTA'] = $question;
-                $solContiene['SOL_FORMULARIO'] = 17;
+                $solContiene['SOL_FORMULARIO'] = 17;               //Problema, obtener el ID del formulario insertado 
                 $solContiene['NUMERO_PREGUNTA'] = $questNumber;
 
                 $this->SolContiene->save($solContiene);
@@ -103,13 +109,6 @@ class SolFormularioController extends AppController
             $this->Flash->success(__('Records have been saved.'));
             return $this->redirect(['action' => 'index']);
 
-            // if ($this->SolFormulario->save($solFormulario)) {
-            //     $this->Flash->success(__('The sol formulario has been saved.'));
-
-            //     return $this->redirect(['action' => 'index']);
-            // }
-            // $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
-            // pr($solFormulario->errors());
         }
         $this->set(compact('solFormulario'));
         $this->set(compact('solContiene'));
@@ -167,11 +166,7 @@ class SolFormularioController extends AppController
      * @return 
      */
     public function get_questions(){
-    //     $data = array();
-    //     $query = $this->db->get(SOL_PREGUNTA);
-    //     $res = $query->result();
         $query = $sol_pregunta->find('all');
-        // Iteration will execute the query.
         foreach ($query as $row) {
             $id = $row['sol_pregunta'];
             $descrEsp = $row['DESCRIPCION_ESP'];
@@ -199,4 +194,18 @@ class SolFormularioController extends AppController
         $formTable = $this->loadModel('SolFormulario');
         return $formTable->getPreguntasContiene($id);
     }
+
+    public function getFormID($name)
+    {
+        $formTable = $this->loadModel('SolFormulario');       
+
+        $query = $formTable->find('all', [
+            'conditions' => ['SolFormulario.NOMBRE >' => 'Test'],
+        ]);
+
+        // $result = $query['SOL_FORMULARIO'];
+
+        $this->Flash->success(__($query));
+    }
+
 }

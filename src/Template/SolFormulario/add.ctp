@@ -39,17 +39,16 @@
                     ?>
 
                     <!-- Select Box with the available questions -->
-                    <select name="questions[]">
-                        <option selected> -- Choose a Question -- </option>
+                    <select name="questions[]"> 
+                        <option selected> -- Choose a Question -- </option> 
                         <?php 
                             foreach ($pregunta as $data){
                         ?>
-                        <option value="<?php echo $data->SOL_PREGUNTA;?>"><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?>
+                       <option value="<?php echo $data->SOL_PREGUNTA;?>"><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?>
                     </select>
                     <br>
                     <br>
                     <br>
-                
             </div>
             <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
             <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar'], ['label' => 'ACCEPT']) ?>
