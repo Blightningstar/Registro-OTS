@@ -1,3 +1,9 @@
+-- TODO: Quitar lo bilingue dejarlo todo en ingles,
+-- TODO: Modificar los enum artificiales y agregar algunos para cuando hay tipos como atributo eliminando enteros
+-- TODO: Alterar los triggers de respuestas en base a los enum de las preguntas
+-- TODO: Agregar una vista para los porcentajes
+-- TODO: Modificar el trigger de las respuestas para alterar el porcentaje en cada insert
+-- TODO: Modificar el trigger de las respuestas para alterar el porcentaje en cada delete
 -- TABLAS --
 
 CREATE TABLE SEG_PERMISO(
