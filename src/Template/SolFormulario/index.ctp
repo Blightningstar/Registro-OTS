@@ -54,7 +54,7 @@
 
                 <td>
                 <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'SolFormulario', 'action' => 'view',  $solFormulario->SOL_FORMULARIO], ['escape'=>false]) ?>
-                <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $solFormulario->SOL_FORMULARIO], ['escape'=>false]) ?>
+
                 </td>
 
             </tr>
