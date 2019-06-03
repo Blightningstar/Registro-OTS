@@ -49,7 +49,7 @@
                            <?= $this->Html->link(__('Review'), ['controller' => 'Dashboard'], ['style' => 'color:white;']) ?>
                      </button>
                 </td>
-                <td><?= $solicitud->getpercentage(); ?></td>
+                <td><?= $solicitud->getpercentage($proCurso->PRO_CURSO, $Query['segUsuario']['SEG_USUARIO']); ?></td>
 
                 <td>
                 <?php
@@ -91,20 +91,6 @@
             <?php endforeach; ?>
         </tbody>
  </table>
-  </div>
-    </fieldset>
-    <br>
-    
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div>
 </div>
 
 <script>
