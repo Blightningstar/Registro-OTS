@@ -91,6 +91,16 @@
                 ]);?>
             </li>
         <?php endif;?>
+
+        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+            <li id = 'MenubarForm' class="nav-item menuItem">
+                <?= $this->Html->link( "Form",[
+                    'controller' => 'solFormulario'
+                ],[
+                    'class' => 'nav-link menuLink'
+                ]);?>
+            </li>
+        <?php endif;?>
         
         <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
             <li id = 'MenubarDashboard' class="nav-item menuItem">
