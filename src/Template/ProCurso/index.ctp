@@ -56,20 +56,14 @@
                     'onclick' => 'submit()']) ?>
                     <?= $this->Form->end() ?>
                 </td>
+                <?php   //Converts the format of the dates in one that the database can save it.
+                     $proCurso->FECHA_INICIO = date("m/d/Y", strtotime($proCurso->FECHA_INICIO)); 
+                     $proCurso->FECHA_FINALIZACION = date("m/d/Y", strtotime($proCurso->FECHA_FINALIZACION));
+                     $proCurso->FECHA_LIMITE = date("m/d/Y", strtotime($proCurso->FECHA_LIMITE));          
+                ?>
                 <td><?= h($proCurso->SIGLA) ?></td>
                 <td><?= h($proCurso->NOMBRE) ?></td>
                 <td><?= h($proCurso->PRO_PROGRAMA) ?></td>
-                 <?php   //Converts the format of the dates in one that the database can save it.
-                     debug($proCurso->FECHA_INICIO);
-                     debug($proCurso->FECHA_FINALIZACION);
-                     debug($proCurso->FECHA_LIMITE);
-                     $proCurso->FECHA_INICIO = date("m/d/Y", strtotime($proCurso->FECHA_INICIO)); 
-                     $proCurso->FECHA_FINALIZACION = date("m/d/Y", strtotime($proCurso->FECHA_FINALIZACION));
-                     $proCurso->FECHA_LIMITE = date("m/d/Y", strtotime($proCurso->FECHA_LIMITE));
-                     debug($proCurso->FECHA_INICIO);
-                     debug($proCurso->FECHA_FINALIZACION);
-                     debug($proCurso->FECHA_LIMITE);          
-                ?>
                 <td><?= h($proCurso->FECHA_INICIO) ?></td>
                 <td><?= h($proCurso->FECHA_FINALIZACION) ?></td>
                 <td><?= h($proCurso->FECHA_LIMITE) ?></td>

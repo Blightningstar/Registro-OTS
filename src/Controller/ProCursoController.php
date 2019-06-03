@@ -36,9 +36,7 @@ class ProCursoController extends AppController
     public function index()
     {
         $proCurso = $this->paginate($this->ProCurso);
-        $this->Programa = $this->loadModel('pro_Programa');
-        $proPrograma = $this->paginate($this->Programa);
-        $this->set(compact('proCurso','proPrograma'));
+        $this->set(compact('proCurso', $proCurso));
     }
 
     /**
@@ -82,9 +80,10 @@ class ProCursoController extends AppController
             $form_data = $this->request->getData();
             $proCurso['PRO_PROGRAMA'] = $lo_vector_Programa[$proCurso['PRO_PROGRAMA']];
             /*This section is in charge of converting the user input to store it correctly in the data base*/
-            $proCurso['FECHA_LIMITE'] = date("d/m/y", strtotime($form_data['FECHA_LIMITE']));
-            $proCurso['FECHA_FINALIZACION'] = date("d/m/y", strtotime($form_data['FECHA_FINALIZACION']));
-            $proCurso['FECHA_INICIO'] = date("d/m/y", strtotime($form_data['FECHA_INICIO']));
+            $proCurso['FECHA_LIMITE'] = date("m/d/Y", strtotime($form_data['FECHA_LIMITE']));
+            $proCurso['FECHA_FINALIZACION'] = date("m/d/Y", strtotime($form_data['FECHA_FINALIZACION']));
+            $proCurso['FECHA_INICIO'] = date("m/d/Y", strtotime($form_data['FECHA_INICIO'])); 
+
             $proCurso['SEG_USUARIO'] = $this->viewVars['actualUser']['SEG_USUARIO'];
             $proCurso['ACTIVO'] = 1;
             if($proCurso['LOCACION']==0)
@@ -95,17 +94,14 @@ class ProCursoController extends AppController
             {
                $proCurso['LOCACION'] = __('South Africa');
             }
-//            debug($proCurso);
-//            die();
+
             /*This section is in charge of saving the user input if it is correct to do so*/
                if ($this->ProCurso->insertCourse($proCurso)) {
                 $this->Flash->success(__('The course has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
                }
                else
                {
-                  debug($proCurso);
                   $this->Flash->error(__('The course could not be saved. Please, try again.'));
                }
         }
@@ -124,7 +120,6 @@ class ProCursoController extends AppController
     {
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
         $form_data = $this->request->getData();
-        debug($proCurso);
         /*Loads the ID's of program's for the add view*/
         $this->Programa = $this->loadModel('pro_Programa');
         $proPrograma = $this->paginate($this->Programa);
@@ -149,8 +144,6 @@ class ProCursoController extends AppController
             {
                $proCurso['LOCACION'] = __('South Africa');
             }
-            
-            debug($proCurso);
 
             /*This section is in charge of saving the user input if it is correct to do so*/
             if ($this->ProCurso->updateCourse($proCurso)) 
