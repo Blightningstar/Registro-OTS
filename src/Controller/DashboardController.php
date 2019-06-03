@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * ProCurso Controller
@@ -28,7 +29,7 @@ her method of this controller, it sets values to variables     */
 
     /**
      * Index method
-     * @author = Jason Zamora Trejos
+     * @author Jason Zamora Trejos
      * @return \Cake\Http\Response|void
      */
     public function index()
@@ -41,7 +42,7 @@ her method of this controller, it sets values to variables     */
     /**
      * cursoViewDashboard method
      *
-     * @author = Jason Zamora Trejos
+     * @author Jason Zamora Trejos
      * @param string|null $id Pro Curso id.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -50,53 +51,46 @@ her method of this controller, it sets values to variables     */
     {
         $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
         $proCurso = $this->Curso->get($id, ['contain' => []]); //Use the id to show only the course selected we pass through an html link.
-        $this->set(compact('proCurso'));
+        
+                                    
+        /*A table's JOIN to be able to access all the necessary data */
+         $solSolicitud = TableRegistry::get('solSolicitud');
+         $Query = $solSolicitud->find()
+                         ->select(['segUsuario.SEG_USUARIO','solSolicitud.RESULTADO', 'segUsuario.NOMBRE','segUsuario.APELLIDO_1','segUsuario.APELLIDO_2'])
+                         ->join([
+                            'segUsuario' => [
+                                    'table' => 'SEG_USUARIO',
+                                    'type'  => 'LEFT',
+                                    'conditions' => ['segUsuario.SEG_USUARIO = solSolicitud.SEG_USUARIO']
+                                ]
+                                ])
+                                ->where(['solSolicitud.PRO_CURSO' => $id, 'solSolicitud.ACTIVO' => 1])
+                                ->toList();
+        debug($Query);
+        debug($Query[1]['segUsuario']['NOMBRE']);
+//        $lo_vector_dashboard = [];
+//        foreach ($Query as $Query): 
+//           array_push($lo_vector_Programa, $proPrograma['PRO_PROGRAMA']);
+//        endforeach;
+        $this->set(compact('proCurso', 'Query'));
     }
-
+    
     /**
-     * Add method
-     * @author Jason Zamora Trejos
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-      $proCurso = $this->ProCurso->newEntity();
-        if ($this->request->is('post')) {
-            $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
-            $form_data = $this->request->getData();
-
-            if ($this->ProCurso->save($proCurso)) {
-               $this->Flash->success(__('The information has been saved.'));
-               return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The information could not be saved. Please, try again.'));
-        }
-        $this->set(compact('proCurso'));
-    }
-
-    /**
-     * Edit method
+     * accept method
      *
      * @author Jason Zamora Trejos
-     * @param string|null $id Pro Curso id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @param string|null $id Seg Usuario id.
+     * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function accept($idCurso = null, $idUsuario)
     {
-        $proCurso = $this->ProCurso->get($id, ['contain' => []]);
-        $form_data = $this->request->getData();
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
-            $form_data = $this->request->getData();
-            if ($this->ProCurso->save($proCurso)) 
-            {
-               $this->Flash->success(__('The information has been saved.'));
-               return $this->redirect(['action' => 'index']);
-            }   
-            $this->Flash->error(__('The information could not be saved. Please, try again.'));
-        }
-        $this->set(compact('proCurso'));
+        $assets = TableRegistry::get('solSolicitud')->find()->where(['PRO_CURSO' => $idCurso]);
+        /*Updates the RESULTADO of the application if accepted*/
+        $assets->update()
+        ->set(['RESULTADO' => "Approved"])
+        ->where(['SEG_USUARIO' => $idUsuario])
+        ->execute();
     }
 
     /**
@@ -111,4 +105,20 @@ her method of this controller, it sets values to variables     */
     {
         return $this->redirect(['action' => 'index']);
     }
+
+	/**
+	 * studentDashboard
+	 * @author Esteban Rojas
+	 * Creates the view of the student Dashhboard. Don't require any submit action.
+	*/
+    public function studentDashboard()
+    {
+        $application_controller = new SolSolicitudController;
+        $user_applications = $application_controller->getUserApplications($this->viewVars['actualUser']['SEG_USUARIO']);
+
+        $this->set(compact('user_applications'));
+    }
 }
+   
+
+ 
