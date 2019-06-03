@@ -64,9 +64,6 @@
                      $proCurso->FECHA_FINALIZACION = date("m/d/Y", strtotime($proCurso->FECHA_FINALIZACION));
                      $proCurso->FECHA_LIMITE = date("m/d/Y", strtotime($proCurso->FECHA_LIMITE));         
                 ?>
-                <td><?= h($proCurso->SIGLA) ?></td>
-                <td><?= h($proCurso->NOMBRE) ?></td>
-                <td><?= h($proCurso->PRO_PROGRAMA) ?></td>
                 <td><?= h($proCurso->FECHA_INICIO) ?></td>
                 <td><?= h($proCurso->FECHA_FINALIZACION) ?></td>
                 <td><?= h($proCurso->FECHA_LIMITE) ?></td>

@@ -53,7 +53,8 @@ her method of this controller, it sets values to variables     */
         $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
         $proCurso = $this->Curso->get($id, ['contain' => []]); //Use the id to show only the course selected we pass through an html link.
         $solicitud = $this->loadModel('sol_Solicitud'); //Bring the information of the table sol_Solicitud.
-                                    
+        //$solicitud = $this->paginate($solicitud);
+        //$proCurso = $this->paginate($proCurso);                      
         /*A table's JOIN to be able to access all the necessary data */
          $solSolicitud = TableRegistry::get('solSolicitud');
          $Query = $solSolicitud->find()
@@ -76,7 +77,7 @@ her method of this controller, it sets values to variables     */
      * accept method
      *
      * @author Jason Zamora Trejos
-     * @param string|null $id Seg Usuario id.
+     * @param string|null $idCurso Pro Curso id ,$idUsuario Seg Usuario id.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
@@ -96,7 +97,7 @@ her method of this controller, it sets values to variables     */
      * denied method
      *
      * @author Jason Zamora Trejos
-     * @param string|null $id Seg Usuario id.
+     * @param string|null $idCurso Pro Curso id ,$idUsuario Seg Usuario id.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
