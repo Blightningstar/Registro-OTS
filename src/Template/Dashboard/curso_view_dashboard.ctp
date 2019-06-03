@@ -7,7 +7,7 @@
 ?>
 
 <!--This makes the container able to adapt to diffent resolutions-->
-<div class="DashboardAdministradorCurso index large-9 medium-8 columns content container-fluid">
+<div class="DashboardAdministradorCurso curso_view_dashboard large-9 medium-8 columns content container-fluid">
     <!--Title, subtitle and a line to separate-->
 <fieldset>
       <legend class = "titulo"><?= $proCurso->NOMBRE ?>
@@ -39,28 +39,85 @@
             <tr>
                <!--Uses a form as wrapper to contain a checkbox which will modify active value of the course.
                 Better than use hidden inputs, from a security's perspective.-->
-                <td><?= $Query[0]['segUsuario']['SEG_USUARIO'] ?></td>
-                <?= debug($Query[0]['segUsuario']['SEG_USUARIO']); ?>
+                <td><?= $Query['segUsuario']['NOMBRE'] . " ",
+                        $Query['segUsuario']['APELLIDO_1'] . " ",
+                        $Query['segUsuario']['APELLIDO_2']
+                        ?></td>
                 <td class="actions">
                         <!-- Links to view of the form of a student in particular-->
                      <button type="button" class="botonDashboardAceptarConsultar">
                            <?= $this->Html->link(__('Review'), ['controller' => 'Dashboard'], ['style' => 'color:white;']) ?>
                      </button>
                 </td>
-                <td></td>
-                <td><?= h($Query->RESULTADO) ?></td>
+                <td><?= $solicitud->getpercentage(); ?></td>
+
+                <td>
+                <?php
+                $state = $Query->RESULTADO;
+                if($Query->RESULTADO == 'Aceptado')
+                {
+                  $state = 'Accepted';
+                }
+                else if($Query->RESULTADO == 'Completo')
+                {
+                  $state = 'Completed';
+               }
+                else if($Query->RESULTADO == 'Rechazado')
+                {
+                  $state = 'Denied';
+                }
+                else if($Query->RESULTADO == 'Proceso')
+                {
+                  $state = 'In Progress';
+                } else
+                { 
+                  $state = 'Accepted';
+                }?>
+                
+                
+                <?php echo $state ?>
+                </td>
                 <td class="actions">
                 <!-- Links the view button to the course-->
                      <button type="button" class="botonDashboardAceptarConsultar">
-                           <?= $this->Html->link(__('Approve'), ['controller' => 'Dashboard'], ['style' => 'color:white;']) ?> 
+                           <?= $this->Html->link(__('Approve'), ['controller' => 'Dashboard', 'action' => 'accept', $proCurso->PRO_CURSO, $Query['segUsuario']['SEG_USUARIO']], ['style' => 'color:white;']) ?> 
                      </button>
                      
                      <button type="button" class="botonDashboardDenegar">
-                           <?= $this->Html->link(__('Reject'), ['controller' => 'Dashboard'], ['style' => 'color:white;']) ?> 
+                           <?= $this->Html->link(__('Reject'), ['controller' => 'Dashboard', 'action' => 'denied', $proCurso->PRO_CURSO, $Query['segUsuario']['SEG_USUARIO']], ['style' => 'color:white;']) ?> 
                      </button>
                   </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
  </table>
+  </div>
+    </fieldset>
+    <br>
+    
+    <div class="paginator">
+        <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+    </div>
 </div>
+
+<script>
+//When the user write in the search bar it filters the table.
+$(document).ready(function(){
+  $("#queryTextbox").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tr").filter(function() 
+    {
+        var excludeHeader = $(this).attr("id") == "headTr";
+        if(!excludeHeader)
+            $(this).toggle(($(this).text().toLowerCase().indexOf(value) > -1));
+    });
+  });
+});
+</script>
