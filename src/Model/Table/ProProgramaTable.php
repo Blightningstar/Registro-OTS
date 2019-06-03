@@ -102,4 +102,19 @@ class ProProgramaTable extends Table
         );
         return $code;
     }
+
+    /**
+     * Seek the name of the program link to certain course
+     * @author Nathan González
+     * @return the name of the program
+     */
+    public function getProgramName($PRO_PROGRAMA){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute(
+        "SELECT NOMBRE
+         FROM PRO_PROGRAMA
+         WHERE PRO_PROGRAMA.PRO_PROGRAMA = '$PRO_PROGRAMA'"
+        )->fetchAll();
+        return $query[0];
+    }
 }
