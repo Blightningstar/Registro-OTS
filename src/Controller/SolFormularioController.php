@@ -42,13 +42,6 @@ class SolFormularioController extends AppController
         $solFormulario = $this->paginate($this->SolFormulario);
 		
         $this->set(compact('solFormulario'));
-
-        // $test = "hola";
-        // $this->set(compact('test'));
-
-        // $preguntas = TableRegistry::get('SolPregunta');
-        // $pregunta = $preguntas->find('all');
-        // $this->set(compact('pregunta'));
     }
 
     /**
@@ -75,26 +68,49 @@ class SolFormularioController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {
-        $solFormulario = $this->SolFormulario->newEntity();
-        if ($this->request->is('post')) {
-            $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
-            if ($this->SolFormulario->save($solFormulario)) {
-                $this->Flash->success(__('The sol formulario has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
-        }
-        $this->set(compact('solFormulario'));
-
+    {   
+        /* Select all questions for the select boxes in the view*/
         $preguntas = TableRegistry::get('SolPregunta');
         $pregunta = $preguntas->find('all');
         $this->set(compact('pregunta'));
 
-        // $programas = TableRegistry::get('ProPrograma');
-        // $programa = $programas->find('all');
-        // $this->set(compact('programa'));
+        $solFormulario = $this->SolFormulario->newEntity();
+
+        /* Bring SolContiene Model*/
+        $contiene = TableRegistry::get('SolContiene');
+        // load the model you need depending on the controller you need to use
+        $this->loadModel('SolContiene');
+        // use this in case you have tu instantiate a new entity
+        $solContiene = $this->SolContiene->newEntity();
+
+
+        if ($this->request->is('post')) {
+            $varQuest = $_POST['questions'];
+
+            $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->data);
+
+            // ITERATE OVER questions[] to get the value
+            $questNumber = 1;
+            foreach ($_POST['questions'] as $question) {
+                $solContiene = $this->SolContiene->newEntity();
+                $solContiene['SOL_PREGUNTA'] = $question;
+                $solContiene['SOL_FORMULARIO'] = 17;
+                $solContiene['NUMERO_PREGUNTA'] = $questNumber;
+
+                $this->SolContiene->save($solContiene);
+                $questNumber++;
+            }
+
+            // if ($this->SolFormulario->save($solFormulario)) {
+            //     $this->Flash->success(__('The sol formulario has been saved.'));
+
+            //     return $this->redirect(['action' => 'index']);
+            // }
+            // $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
+            // pr($solFormulario->errors());
+        }
+        $this->set(compact('solFormulario'));
+        $this->set(compact('solContiene'));
     }
 
     /**

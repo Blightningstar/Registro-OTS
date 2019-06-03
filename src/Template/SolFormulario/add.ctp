@@ -13,62 +13,59 @@
         </legend>
     </fieldset>
 
-
-
-
     <?= $this->Form->create($solFormulario) ?>
-
-    <?php
-
-            echo $this->Form->control('NOMBRE', [
-                'label' => 'Form Name',
-                'pattern' => '^[A-Za-z0-9 _,.\/ ?¿]*$', 
-                'placeholder' => 'Only alphanumeric characters'
-            ]);
-            
-        ?>
+    <?= $this->Form->create($solContiene) ?>    
     
         <!-- Add questions to the form Dinamically -->
-    <div>
-        <div id="addinput">
-            <p>
-                <button type="button" class="botonAgregar">
-                    <a href="#" id="addNew" style="color:white;">Add Question</a>
-                </button>
+        <div class="solFormulario index large-9 medium-8 columns content container-fluid">
+            <div id="addinput">
+                <p>
+                    <button type="button" class="botonAgregar">
+                        <a href="#" id="addNew" style="color:white;">Add Question</a>
+                    </button>
 
-                
-            </p>
+                    
+                </p>
 
-            <br>
-            <form action="#" method="POST">
-                <!-- Select Box with the available questions -->
-                <select onChange="ddFunction(this);">
-                    <option selected> -- Choose a Question -- </option>
-                    <?php 
-                        foreach ($pregunta as $data){
+                <br>
+                <!-- <form action="#" method="POST"> -->
+                <?= $this->Form->create($solFormulario) ?>
+                     <?php
+
+                        echo $this->Form->control('NOMBRE', [
+                            'label' => 'Form Name',
+                            'pattern' => '^[A-Za-z0-9 _,.\/ ?¿]*$', 
+                            'placeholder' => 'Only alphanumeric characters'
+                        ]);
+                        
                     ?>
-                    <option value="<?php echo $data->SOL_PREGUNTA;?>"><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?>
-                </select>
-                <br>
-                <br>
-                <br>
-            </form>
-            
-        </div>
-        <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
-        <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar'], ['label' => 'ACCEPT']) ?>
-        <!--<?= $this->Form->button(__('Submit')) ?>-->
-        <?= $this->Form->end() ?>
-    </div>    
+
+                    <!-- Select Box with the available questions -->
+                    <select name="questions[]">
+                        <option selected> -- Choose a Question -- </option>
+                        <?php 
+                            foreach ($pregunta as $data){
+                        ?>
+                        <option value="<?php echo $data->SOL_PREGUNTA;?>"><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?>
+                    </select>
+                    <br>
+                    <br>
+                    <br>
+                
+            </div>
+            <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
+            <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar'], ['label' => 'ACCEPT']) ?>
+            <?= $this->Form->end() ?>
+        </div>    
 </div>
-    
+
 <script type="text/javascript">
     $(function() {
         var addDiv = $('#addinput');
         var i = $('#addinput p').size() + 1;
         
         $('#addNew').live('click', function() {
-            $('<p id="p_new" size="40" name="p_new_' + i +'" value=""><select onChange="ddFunction(this);"><option selected> -- Choose a Question -- </option><?php foreach ($pregunta as $data){?><option value="<?php echo $data->SOL_PREGUNTA;?>"><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?></select><a href="#" id="remNew"><input type="button" style="background-color:rgb(242, 102, 49);color:white;width:150px;height:40px;border-radius: 5px;" value="Remove"></a> <br><br>').appendTo(addDiv);
+            $('<p id="p_new" size="40" name="p_new_' + i +'" value=""><select  name="questions[]" "><option selected> -- Choose a Question -- </option><?php foreach ($pregunta as $data){?><option value="<?php echo $data->SOL_PREGUNTA;?>"><?php echo $data->DESCRIPCION_ING; ?></option><?php } ?></select><a href="#" id="remNew"><input type="button" style="background-color:rgb(242, 102, 49);color:white;width:150px;height:40px;border-radius: 5px;" value="Remove"></a> <br><br>').appendTo(addDiv);
             i++;
             return false;
         });
@@ -81,8 +78,6 @@
             return false;
         });
     });
-    function ddFunction(sel) {
-      alert(sel.options[sel.selectedIndex].value);
-    }
 </script>
+
 <script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>      <!--   // Calling jQuery Library hosted on Google's CDN -->
