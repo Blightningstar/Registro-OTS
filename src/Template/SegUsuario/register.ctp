@@ -27,22 +27,31 @@ $password_pattern = '(?=.*\d.*)(?=.*[a-z].*)(?=.*[A-Z].*).{8,20}';
             //Located at src/template/element/countrSelectOptions.ctp
             echo $this->element('countrySelectOptions');
 
-            //User must create his password.       
-            echo $this->Form->control('new_password', [
-                'pattern' => $password_pattern,
-                'placeholder'=> 'PaSs3xample', 'label' => __('New password'), 'type' => 'password'
-            ]);    
-
-            echo $this->Form->control('new_password_confirmation', [
-                'pattern' => $password_pattern,
-                'placeholder'=> 'PaSs3xample', 'label' => __('New password confirmation'), 'type' => 'password'
-            ]);    
-
-           
         ?>
+            
+            <div><?= __('Password:') ?></div>
+        <div><?= $this->Form->password('new_password', [
+                'id' => 'NewPassword',
+                'pattern' => $password_pattern,
+                'placeholder'=> 'PaSs3xample',
+                'required'
+            ]);?>
+        </div>
+        <span toggle="#NewPassword" class="fa fa-fw fa-eye field-icon password"></span>
+        <div><?= __('Password confirmation:') ?></div>
+        <div ><?= $this->Form->password('password_confirmation', [
+                'id' => 'PasswordConfirmation',
+                'pattern' => $password_pattern,
+                'placeholder'=> 'PaSs3xample',
+                'required'
+            ]);?>
+        </div>
+        <span toggle="#PasswordConfirmation" class="fa fa-fw fa-eye field-icon password"></span>
     </fieldset>
     <br>
     <a href="."> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
     <?= $this->Form->button(__('Accept'), ['class' => 'botonAceptar'], ['label' => 'Accept']) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<?= $this->Html->script('togglePassword'); ?>

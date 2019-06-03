@@ -61,7 +61,7 @@ abstract class OracleBase extends Driver
         }
         $config = $this->_config;
 
-        $config['init'][] = "ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS' NLS_TIMESTAMP_FORMAT='YYYY-MM-DD HH24:MI:SS' NLS_TIMESTAMP_TZ_FORMAT='YYYY-MM-DD HH24:MI:SS'";
+        $config['init'][] = "ALTER SESSION SET NLS_DATE_FORMAT='MM/DD/YYYY' NLS_TIMESTAMP_FORMAT='YYYY-MM-DD HH24:MI:SS' NLS_TIMESTAMP_TZ_FORMAT='YYYY-MM-DD HH24:MI:SS'";
 
         $config['flags'] += [
             // PDO::ATTR_CASE => PDO::CASE_LOWER, // @todo move to config setting
