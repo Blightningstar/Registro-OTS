@@ -35,11 +35,12 @@
         </thead>
         <tbody>
             <!-- Iterate the data and places it in the respective column -->
-
+            <?php foreach ($Query as $Query): ?>
             <tr>
                <!--Uses a form as wrapper to contain a checkbox which will modify active value of the course.
                 Better than use hidden inputs, from a security's perspective.-->
-                <td></td>
+                <td><?= $Query[0]['segUsuario']['SEG_USUARIO'] ?></td>
+                <?= debug($Query[0]['segUsuario']['SEG_USUARIO']); ?>
                 <td class="actions">
                         <!-- Links to view of the form of a student in particular-->
                      <button type="button" class="botonDashboardAceptarConsultar">
@@ -47,7 +48,7 @@
                      </button>
                 </td>
                 <td></td>
-                <td></td>
+                <td><?= h($Query->RESULTADO) ?></td>
                 <td class="actions">
                 <!-- Links the view button to the course-->
                      <button type="button" class="botonDashboardAceptarConsultar">
@@ -59,6 +60,7 @@
                      </button>
                   </td>
             </tr>
+            <?php endforeach; ?>
         </tbody>
  </table>
 </div>
