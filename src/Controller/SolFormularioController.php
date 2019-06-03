@@ -100,6 +100,8 @@ class SolFormularioController extends AppController
                 $this->SolContiene->save($solContiene);
                 $questNumber++;
             }
+            $this->Flash->success(__('Records have been saved.'));
+            return $this->redirect(['action' => 'index']);
 
             // if ($this->SolFormulario->save($solFormulario)) {
             //     $this->Flash->success(__('The sol formulario has been saved.'));
