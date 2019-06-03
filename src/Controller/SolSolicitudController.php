@@ -122,4 +122,18 @@ class SolSolicitudController extends AppController
         $userTable=$this->loadmodel('SolSolicitud');
         return $userTable->getUserApplications($user_id);
     }
+
+    /**
+     * getPercentage
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to get the percentage of answered questions.
+     * @param int $course, it's the course id.
+     * @param int $student, it's the user id.
+     * @return double the percentage of answered questions.
+     */
+    public function getPercentage($course,$student){
+        $formTable = $this->loadModel('SolSolicitud');
+        return $formTable->getPercentage($course,$student);
+    }
 }
