@@ -1,3 +1,9 @@
+-- TODO: Quitar lo bilingue dejarlo todo en ingles,
+-- TODO: Modificar los enum artificiales y agregar algunos para cuando hay tipos como atributo eliminando enteros
+-- TODO: Alterar los triggers de respuestas en base a los enum de las preguntas
+-- TODO: Agregar una vista para los porcentajes
+-- TODO: Modificar el trigger de las respuestas para alterar el porcentaje en cada insert
+-- TODO: Modificar el trigger de las respuestas para alterar el porcentaje en cada delete
 -- TABLAS --
 
 CREATE TABLE SEG_PERMISO(
@@ -351,10 +357,6 @@ BEGIN
     SELECT COALESCE(MAX(PRO_CURSO), -1) + 1
     INTO :NEW.PRO_CURSO
     FROM PRO_CURSO;
-
-    :NEW.FECHA_INICIO := TO_DATE(:NEW.FECHA_INICIO, 'DD/MM/YY');
-    :NEW.FECHA_FINALIZACION  := TO_DATE(:NEW.FECHA_FINALIZACION, 'DD/MM/YY');
-    :NEW.FECHA_LIMITE := TO_DATE(:NEW.FECHA_LIMITE, 'DD/MM/YY');
 
     :NEW.SIGLA := CONCAT(:NEW.PRO_PROGRAMA, CONCAT('-', CONCAT(SUBSTR(:NEW.NOMBRE, 0, 3), 
     CONCAT('-', CONCAT(TO_CHAR(:NEW.FECHA_INICIO, 'MON'), CONCAT('-', TO_CHAR(:NEW.FECHA_INICIO, 'YYYY')))))));

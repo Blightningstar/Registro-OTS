@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use Cake\Validation\Validator;
 
 /**
  * ProCurso Controller
@@ -51,8 +52,9 @@ her method of this controller, it sets values to variables     */
     {
         $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
         $proCurso = $this->Curso->get($id, ['contain' => []]); //Use the id to show only the course selected we pass through an html link.
-        
-                                    
+        $solicitud = $this->loadModel('sol_Solicitud'); //Bring the information of the table sol_Solicitud.
+        //$solicitud = $this->paginate($solicitud);
+        //$proCurso = $this->paginate($proCurso);                      
         /*A table's JOIN to be able to access all the necessary data */
          $solSolicitud = TableRegistry::get('solSolicitud');
          $Query = $solSolicitud->find()
@@ -66,57 +68,50 @@ her method of this controller, it sets values to variables     */
                                 ])
                                 ->where(['solSolicitud.PRO_CURSO' => $id, 'solSolicitud.ACTIVO' => 1])
                                 ->toList();
-        debug($Query);
-        debug($Query[1]['segUsuario']['NOMBRE']);
-//        $lo_vector_dashboard = [];
-//        foreach ($Query as $Query): 
-//           array_push($lo_vector_Programa, $proPrograma['PRO_PROGRAMA']);
-//        endforeach;
-        $this->set(compact('proCurso', 'Query'));
+        
+        $this->set(compact('proCurso', 'Query', 'solicitud'));
     }
+    
     
     /**
      * accept method
      *
      * @author Jason Zamora Trejos
-     * @param string|null $id Seg Usuario id.
+     * @param string|null $idCurso Pro Curso id ,$idUsuario Seg Usuario id.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function accept($idCurso = null, $idUsuario)
+    public function accept($idCurso = null, $idUsuario = null)
     {
         $assets = TableRegistry::get('solSolicitud')->find()->where(['PRO_CURSO' => $idCurso]);
         /*Updates the RESULTADO of the application if accepted*/
         $assets->update()
-        ->set(['RESULTADO' => "Approved"])
+        ->set(['RESULTADO' => 'Aceptado'])
         ->where(['SEG_USUARIO' => $idUsuario])
         ->execute();
+        return $this->redirect(['action' => 'cursoViewDashboard',$idCurso]);
     }
-
+    
+    
     /**
-     * Delete method
+     * denied method
      *
      * @author Jason Zamora Trejos
-     * @param string|null $id Pro Curso id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @param string|null $idCurso Pro Curso id ,$idUsuario Seg Usuario id.
+     * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id)
+    public function denied($idCurso = null, $idUsuario = null)
     {
-        return $this->redirect(['action' => 'index']);
-    }
-
-	/**
-	 * studentDashboard
-	 * @author Esteban Rojas
-	 * Creates the view of the student Dashhboard. Don't require any submit action.
-	*/
-    public function studentDashboard()
-    {
-        $application_controller = new SolSolicitudController;
-        $user_applications = $application_controller->getUserApplications($this->viewVars['actualUser']['SEG_USUARIO']);
-
-        $this->set(compact('user_applications'));
+        debug($idCurso);
+        debug($idUsuario);
+        $assets = TableRegistry::get('solSolicitud')->find()->where(['PRO_CURSO' => $idCurso]);
+        /*Updates the RESULTADO of the application if accepted*/
+        $assets->update()
+        ->set(['RESULTADO' => 'Rechazado'])
+        ->where(['SEG_USUARIO' => $idUsuario])
+        ->execute();
+        return $this->redirect(['action' => 'cursoViewDashboard',$idCurso]);
     }
 }
    
