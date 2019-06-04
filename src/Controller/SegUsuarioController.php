@@ -439,6 +439,7 @@ class SegUsuarioController extends AppController
         //Obtain authenticated user id.
         $id = $this->obtenerUsuarioActual();
 
+
         $segUsuario = $this->SegUsuario->get($id, [
             'contain' => []
         ]);
