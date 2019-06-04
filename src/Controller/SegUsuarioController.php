@@ -244,7 +244,7 @@ class SegUsuarioController extends AppController
             $credentials = $this->request->getData();
        
             //Verifies than the two new passwords written by the user are equal.
-            $samePasswords = $credentials['new_password'] == $credentials['new_password_confirmation'];
+            $samePasswords = $credentials['new_password'] == $credentials['password_confirmation'];
             
             //lc_code will indicate if the username or email exists.
             $lc_code = $this->checkUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"]);
