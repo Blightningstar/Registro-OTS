@@ -4,6 +4,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProCurso[]|\Cake\Collection\CollectionInterface $proCurso
  */
+
 ?>
 
 <!--This makes the container able to adapt to diffent resolutions-->
@@ -43,23 +44,24 @@
 					$link = [];
 					$link["controller"] = 'solSolicitud';
 					$link["action"] = 'view/' . $application["SEG_USUARIO"] . '/' . $application["PRO_CURSO"];
-					
-                    switch($application["RESULTADO"])
+                    $result =  str_replace(" ","",$application["RESULTADO"]);
+
+                    switch($result)
                     {
-                        case "Proceso ": // Incomplete application
+                        case "Proceso": // Incomplete application
                             $details = "The application to course " . $application["NOMBRE"] ." is incomplete.";
                             $buttonText = "Complete Application";
 							$link["action"] = 'add';
                             break;
-                        case "Completo ": //Pending of review application
+                        case "Completo": //Pending of review application
                             $details = "The application to course " . $application["NOMBRE"] . " is pending of review.";
                             $buttonText = "View Application";							
                             break;
-                        case "Rechazado ": //Rejected application
+                        case "Rechazado": //Rejected application
                             $details = "The application to course " . $application["NOMBRE"] . " was rejected.";
                             $buttonText = "View Application";
                             break;
-                        case "Aceptado ":  //Approved application
+                        case "Aceptado":  //Approved application
                             $details = "The application to course " . $application["NOMBRE"] . " was accepted.";
                             $buttonText = "View Application";
                             break;
