@@ -84,6 +84,7 @@ class ProProgramaController extends AppController
             }
             else{
                 if ($this->ProPrograma->save($proPrograma)) {
+                    // Create a folder for the new program.
                     $this->FileSystem->addFolder('FileSystem/'.$proPrograma['NOMBRE']); 
                     $this->Flash->success(__('The pro programa has been saved.'));
 

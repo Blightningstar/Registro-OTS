@@ -94,16 +94,20 @@ class ProCursoController extends AppController
             {
                $proCurso['LOCACION'] = __('South Africa');
             }
-
+            
             /*This section is in charge of saving the user input if it is correct to do so*/
-               if ($this->ProCurso->insertCourse($proCurso)) {
+            if ($this->ProCurso->insertCourse($proCurso)) {
+                $this->loadModel('PRO_PROGRAMA'); // Load the program model
+                    
+                // Make the path to create a folder for the new course.
+                $foldername = '/'.date('Y', strtotime($proCurso['FECHA_INICIO'])).'-'.date('m', strtotime($proCurso['FECHA_INICIO'])).'-'.str_replace(' ', '_', $proCurso['NOMBRE']);
+
+                // Create the new folder in the given path.
+                $this->FileSystem->addFolder('FileSystem/'.$this->PRO_PROGRAMA->getProgramName($proCurso['PRO_PROGRAMA'])[0].$foldername);
+                
                 $this->Flash->success(__('The course has been saved.'));
                 return $this->redirect(['action' => 'index']);
-               }
-               else
-               {
-                  $this->Flash->error(__('The course could not be saved. Please, try again.'));
-               }
+            }
         }
         $this->set(compact('proCurso','lo_vector_Programa'));
     }

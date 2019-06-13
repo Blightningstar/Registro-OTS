@@ -21,7 +21,7 @@ class DashboardController extends AppController
      * 
      * This method runs before any other method of this controller, it sets values to variables
      * that can be used in any view of this módule, in this case sets $active_menu = "MenubarDashboardAdministrator"
-her method of this controller, it sets values to variables     */
+     */     
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -72,7 +72,13 @@ her method of this controller, it sets values to variables     */
         $this->set(compact('proCurso', 'Query', 'solicitud'));
     }
     
-    
+    public function studentDashboard()
+    {
+        $application_controller = new SolSolicitudController;
+        $user_applications = $application_controller->getUserApplications($this->viewVars['actualUser']['SEG_USUARIO']);
+
+        $this->set(compact('user_applications'));
+    }
     /**
      * accept method
      *

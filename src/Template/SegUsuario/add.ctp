@@ -26,7 +26,7 @@
             
 
             //Administrator can't create superusers
-            if($lc_role == "3")
+            if($lc_role == "1")
                 echo $this->Form->control('SEG_ROL', ['label' => __('Role'), 'type' => 'select', 'options' => array(__('Student'),__('Administrator'),__('Superuser'))]);
             else
             echo $this->Form->control('SEG_ROL', ['label' => __('Role'), 'type' => 'select', 'options' => array(__('Student'),__('Administrator'))]);
