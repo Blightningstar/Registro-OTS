@@ -100,7 +100,8 @@ class SolFormularioController extends AppController
             foreach ($_POST['questions'] as $question) {
                 $solContiene = $this->SolContiene->newEntity();
                 $solContiene['SOL_PREGUNTA'] = $question;
-                $solContiene['SOL_FORMULARIO'] = 17;               //Problema, obtener el ID del formulario insertado 
+
+                $solContiene['SOL_FORMULARIO'] = $this->loadmodel('SolFormulario')->getFormID($solFormulario['NOMBRE']);               //Problema, obtener el ID del formulario insertado 
                 $solContiene['NUMERO_PREGUNTA'] = $questNumber;
 
                 $this->SolContiene->save($solContiene);

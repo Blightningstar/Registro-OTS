@@ -104,35 +104,6 @@ class ProCursoTable extends Table
                     ->execute();
         return true;
     }
-    
-    /**
-     * @author Jason Zamora Trejos
-     * Logically delete a course
-     * @param $id = the course ID
-     * @return int $result is 1 if ACTIVE is 1, 0 if ACTIVE is 0
-     */
-    public function logicalDelete($id=null, $active=null)
-    {
-        if($active == 1)
-        {
-           $result = TableRegistry::get('proCurso')->find('all');
-                $result->update()
-                    ->set(['activo' => 0])
-                    ->where(['PRO_CURSO' => $id])
-                    ->execute();
-            return 0;
-        }
-        else
-        {
-            $result = TableRegistry::get('proCurso')->find('all');
-                $result->update()
-                    ->set(['activo' => 1])
-                    ->where(['PRO_CURSO' => $id])
-                    ->execute();
-            return 1;
-        }
-    }
-    
 
     /**
      * Default validation rules.
