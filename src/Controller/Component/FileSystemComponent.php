@@ -25,7 +25,7 @@ class FileSystemComponent extends Component {
      */
     public function addFolder($path){
         if(!file_exists($path)){    // If the file is possible
-            mkdir($path, 0777, true);   // Create the folder.
+            mkdir($path, 0644, true);   // Create the folder.
         }
     }
 

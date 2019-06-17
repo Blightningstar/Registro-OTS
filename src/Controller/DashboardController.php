@@ -72,7 +72,13 @@ class DashboardController extends AppController
         $this->set(compact('proCurso', 'Query', 'solicitud'));
     }
     
-    
+    public function studentDashboard()
+    {
+        $application_controller = new SolSolicitudController;
+        $user_applications = $application_controller->getUserApplications($this->viewVars['actualUser']['SEG_USUARIO']);
+
+        $this->set(compact('user_applications'));
+    }
     /**
      * accept method
      *

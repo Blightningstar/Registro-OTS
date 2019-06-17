@@ -23,13 +23,13 @@
         //Obtains user role 
        switch($segUsuario["SEG_ROL"])
        {
-           case "1":
+           case "3":
                $rol = __("Student");
                break;
            case "2":
                $rol = __("Administrator");
                break;
-           case "3":
+           case "1":
                $rol = __("Superuser");
                break;
        }    
