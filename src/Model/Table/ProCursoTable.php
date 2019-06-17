@@ -104,35 +104,6 @@ class ProCursoTable extends Table
                     ->execute();
         return true;
     }
-    
-    /**
-     * @author Jason Zamora Trejos
-     * Logically delete a course
-     * @param $id = the course ID
-     * @return int $result is 1 if ACTIVE is 1, 0 if ACTIVE is 0
-     */
-    public function logicalDelete($id=null, $active=null)
-    {
-        if($active == 1)
-        {
-           $result = TableRegistry::get('proCurso')->find('all');
-                $result->update()
-                    ->set(['activo' => 0])
-                    ->where(['PRO_CURSO' => $id])
-                    ->execute();
-            return 0;
-        }
-        else
-        {
-            $result = TableRegistry::get('proCurso')->find('all');
-                $result->update()
-                    ->set(['activo' => 1])
-                    ->where(['PRO_CURSO' => $id])
-                    ->execute();
-            return 1;
-        }
-    }
-    
 
     /**
      * Default validation rules.
@@ -207,4 +178,48 @@ class ProCursoTable extends Table
 
         return $validator;
     }
+
+     /**
+     * @author Jason Zamora Trejos
+     * Logically delete a course
+     * @param $id = the course ID
+     * @return int $result is 1 if ACTIVE is 1, 0 if ACTIVE is 0
+     */
+    public function logicalDelete($id=null, $active=null)
+    {
+        $con = ConnectionManager::get('default');
+        if($active == 1)
+        {
+            $result = $con->execute("update pro_curso set activo = '0' where PRO_CURSO = '$id'");
+            return 0;
+        }
+        else
+        {
+            $result = $con->execute("update pro_curso set activo = '1' where PRO_CURSO = '$id'");
+            return 1;
+        }
+    }
+    
+    
+    /**
+     * @author Jason Zamora Trejos
+     * Checks if the course ID exists alredy in the database.
+     * @param $lc_Id = The course ID 
+     * @return int $lc_code = 1 if the parameter is found alredy in the data base, 0 if the parmeter it isn't
+     */
+     public function isUnique($lc_Id)
+     {  
+        $lc_code = "0";
+        $lo_connet = ConnectionManager::get('default');
+        $lc_result = $lo_connet->execute("SELECT SIGLA FROM pro_curso WHERE SIGLA = '$lc_Id'");
+        $lc_result = $lc_result->fetchAll('assoc');
+        if(empty($lc_result) == 0)
+        {
+            if($lc_result[0]["SIGLA"] == $lc_Id)
+            {
+               $lc_code = "1";
+            }
+        }
+        return $lc_code;
+      }  
 }

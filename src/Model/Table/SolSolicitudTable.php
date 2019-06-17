@@ -102,4 +102,62 @@ class SolSolicitudTable extends Table
 
         return $user_applications;
     }
+
+    /**
+     * getPercentage
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Gets the percentage of answered questions.
+     * @param int $course, it's the course id.
+     * @param int $student, it's the user id.
+     * @return double the percentage of answered questions.
+     */
+    public function getPercentage($course,$student)
+    {
+        $connect= ConnectionManager::get('default');
+        $result= $connect->execute(
+            "SELECT 
+                (
+                    SELECT 100/COUNT(*) 
+                    FROM SOL_CONTIENE INNER JOIN PRO_CURSO 
+                    ON SOL_CONTIENE.SOL_FORMULARIO = PRO_CURSO.SOL_FORMULARIO
+                    WHERE PRO_CURSO = $course
+                )
+                *
+                (
+                    (
+                        SELECT COUNT(*) 
+                        FROM SOL_TEXTO_CORTO 
+                        WHERE PRO_CURSO = $course AND SEG_USUARIO = $student
+                    )
+                    +
+                    (
+                        SELECT COUNT(*) 
+                        FROM SOL_NUMERO 
+                        WHERE PRO_CURSO = $course AND SEG_USUARIO = $student
+                    )
+                    + 
+                    (
+                        SELECT COUNT(*) 
+                        FROM SOL_TEXTO_MEDIO
+                        WHERE PRO_CURSO = $course AND SEG_USUARIO = $student
+                    )
+                    +
+                    (
+                        SELECT COUNT(*) 
+                        FROM SOL_TEXTO_LARGO 
+                        WHERE PRO_CURSO = $course AND SEG_USUARIO = $student
+                    )
+                    +
+                    (
+                        SELECT COUNT(*) 
+                        FROM SOL_FECHA 
+                        WHERE PRO_CURSO = $course AND SEG_USUARIO = $student
+                    )
+                )
+            AS PORCENTAGE
+            FROM DUAL"
+        )->fetchAll('assoc');
+        return $result[0]['PORCENTAGE'];
+    }
 }

@@ -26,7 +26,7 @@
 
     <!-- Permite que aparezca la barra horizontal en caso de que no todos los campos de la tabla puedan verse a la vez -->
     <div class="container-fluid table-responsive">
-    <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
+    <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered table-striped">
         <thead>
             <tr id="headTr">
                 <!-- Coloca cada campo de la tabla en el grid -->
