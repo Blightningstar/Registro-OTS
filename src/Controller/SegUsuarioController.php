@@ -180,8 +180,7 @@ class SegUsuarioController extends AppController
         if ($this->request->is('post')) {
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
        
-            //To fix index mismatch.
-            $segUsuario["SEG_ROL"] += 1;
+			$segUsuario["SEG_ROL"] = 3 - $segUsuario["SEG_ROL"]; //Quick Fix
 
             $user_c = new SeguridadController;
 
@@ -245,7 +244,7 @@ class SegUsuarioController extends AppController
             $credentials = $this->request->getData();
        
             //Verifies than the two new passwords written by the user are equal.
-            $samePasswords = $credentials['new_password'] == $credentials['new_password_confirmation'];
+            $samePasswords = $credentials['new_password'] == $credentials['password_confirmation'];
             
             //lc_code will indicate if the username or email exists.
             $lc_code = $this->checkUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"]);
@@ -257,8 +256,7 @@ class SegUsuarioController extends AppController
             else
             {
                 $segUsuario["CONTRASENA"] = $user_c->hash($credentials['new_password']);
-                // $segUsuario["SEG_USUARIO"] = 1;
-                //debug($segUsuario);
+
                 //Uses lc_code to control the action to do.
                 if ($lc_code == "1")
                 {
@@ -305,7 +303,7 @@ class SegUsuarioController extends AppController
     {
         $lc_role = $this->actualRole();
         //Redirect students 
-        if($lc_role == "1")
+        if($lc_role == "3")
         {
             return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
         }
@@ -323,13 +321,13 @@ class SegUsuarioController extends AppController
         }
 
         //Administrator can't edit superuser information
-        if(($lc_role == "2" && $segUsuario["ROL"] == "3") || $segUsuario["ACTIVO"] == "N")
+        if(($lc_role == "2" && $segUsuario["ROL"] == "1"))
             return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
 
         //Executed only if user submitted a form.
         if ($this->request->is(['patch', 'post', 'put'])) {
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
-            $segUsuario["SEG_ROL"] += 1;
+            $segUsuario["SEG_ROL"] = 3 - $segUsuario["SEG_ROL"]; //Quick Fix
    
             //lc_code will control if username or email are in the database. Excludes username and email of the edited user.
             $lc_code = $this->SegUsuario->checkEditUniqueData($segUsuario["NOMBRE_USUARIO"],$segUsuario["CORREO"],$id);
@@ -440,6 +438,7 @@ class SegUsuarioController extends AppController
 
         //Obtain authenticated user id.
         $id = $this->obtenerUsuarioActual();
+
 
         $segUsuario = $this->SegUsuario->get($id, [
             'contain' => []

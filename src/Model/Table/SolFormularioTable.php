@@ -69,12 +69,29 @@ class SolFormularioTable extends Table
             WHERE SOL_FORMULARIO=$id ORDER BY NUMERO_PREGUNTA")->fetchAll('assoc');
         return $result;
     }
-    public function getFormID($name)
-    {   
-        echo $name;
-        $connect= ConnectionManager::get('default');
-        $result= $connect->execute("SELECT SOL_FORMULARIO.SOL_FORMULARIO from SOL_FORMULARIO WHERE SOL_FORMULARIO.NOMBRE = '$name'");
-        return $result;
+    /*
+public function getFormID($name)
+{   
+    echo $name;
+    $connect= ConnectionManager::get('default');
+    $result= $connect->execute("SELECT SOL_FORMULARIO.SOL_FORMULARIO from SOL_FORMULARIO WHERE SOL_FORMULARIO.NOMBRE = '$name'");
+    return $result;
+}
+*/
+    /**
+     * 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Get the restauration code from the user known by his $email.
+     * @param string $email, it's the user identificator.
+     * @return string the restauration code of the user.
+     */
+    public function getFormID($nombre){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT SOL_FORMULARIO FROM SOL_FORMULARIO
+             WHERE NOMBRE = '$nombre'"
+        )->fetchAll('assoc');
+        return $result[0]['SOL_FORMULARIO'];
     }
-
 }

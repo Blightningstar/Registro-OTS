@@ -42,29 +42,6 @@ if($actualUser)
                         ]);?>
                     </li>
                 <?php endif;?>
-                <?php if($country == 'CR'):?>
-                    <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
-                        <li id="Language" class="nav-item menuItem">
-                            <?= $this->Html->link( '',[
-                                'controller' => 'idioma',
-                                'action' => 'change'
-                            ],[
-                               'class' => 'fa fa-globe-americas menuLink icon'
-                            ]);?>
-                        </li>
-                    <?php endif;?>
-                <?php else:?>
-                    <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
-                        <li  class="nav-item menuItem">
-                            <?= $this->Html->link( '',[
-                                'controller' => 'idioma',
-                                'action' => 'change'
-                            ],[
-                                'class' => 'fa fa-globe-africa menuLink icon'
-                            ]);?>
-                        </li>
-                    <?php endif;?>
-                <?php endif;?>
             <?php else:?>
                 <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
                     <li id = 'TitlebarSignIn' class="nav-item menuItem">
