@@ -61,7 +61,7 @@
                 else if($Query->RESULTADO == 'Completo')
                 {
                   $state = 'Completed';
-               }
+                }
                 else if($Query->RESULTADO == 'Rechazado')
                 {
                   $state = 'Denied';
@@ -91,6 +91,7 @@
             <?php endforeach; ?>
         </tbody>
  </table>
+  <a href=".."> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a>
 </div>
 
 <script>
