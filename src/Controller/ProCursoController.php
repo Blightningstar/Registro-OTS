@@ -41,7 +41,7 @@ class ProCursoController extends AppController
 
     /**
      * View method
-     *
+     * @author Jason Zamora Trejos
      * @param string|null $id Pro Curso id.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -51,12 +51,29 @@ class ProCursoController extends AppController
         $proCurso = $this->ProCurso->get($id, [
             'contain' => []
         ]);
+        
+        /*This two queries bring the name of the user who created the course, and the form attack to it*/
         $segUsuario = TableRegistry::get('seg_Usuario');
         $queryUsuario = $segUsuario->find()
                                     ->select(['NOMBRE_USUARIO'])
                                     ->where(['SEG_USUARIO'=>$proCurso['SEG_USUARIO']])
                                     ->toList();
-        $this->set(compact('proCurso', 'queryUsuario'));
+                                    
+        $solFormulario = TableRegistry::get('sol_Formulario');
+        $queryFormulario = $solFormulario ->find()
+                                    ->select(['NOMBRE'])
+                                    ->where(['SOL_FORMULARIO'=>$proCurso['SOL_FORMULARIO']])
+                                    ->toList();
+        /*This ables to hide the form if non is selected*/                           
+        if(!reset($queryFormulario)) 
+        {
+            $desplegar = 0;
+        }
+        else
+        {
+            $desplegar = 1;
+        }                                                   
+        $this->set(compact('proCurso', 'queryUsuario', 'queryFormulario', 'desplegar'));
     }
 
     /**
@@ -74,6 +91,15 @@ class ProCursoController extends AppController
            array_push($lo_vector_Programa, $proPrograma['PRO_PROGRAMA']);
         endforeach;
         
+        /*Loads the ID's of program's for the add view*/
+        $this->Formulario = $this->loadModel('sol_Formulario');
+        $solFormulario = $this->paginate($this->Formulario);
+        $lo_vector_Formulario = [];
+        array_push($lo_vector_Formulario,__('None'));
+        foreach ($solFormulario as $solFormulario): 
+           array_push($lo_vector_Formulario, $solFormulario['NOMBRE']);
+        endforeach;
+        
         $proCurso = $this->ProCurso->newEntity();
         if ($this->request->is('post')) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
@@ -83,7 +109,6 @@ class ProCursoController extends AppController
             $proCurso['FECHA_LIMITE'] = date("m/d/Y", strtotime($form_data['FECHA_LIMITE']));
             $proCurso['FECHA_FINALIZACION'] = date("m/d/Y", strtotime($form_data['FECHA_FINALIZACION']));
             $proCurso['FECHA_INICIO'] = date("m/d/Y", strtotime($form_data['FECHA_INICIO'])); 
-
             $proCurso['SEG_USUARIO'] = $this->viewVars['actualUser']['SEG_USUARIO'];
             $proCurso['ACTIVO'] = 1;
             if($proCurso['LOCACION']==0)
@@ -95,6 +120,15 @@ class ProCursoController extends AppController
                $proCurso['LOCACION'] = __('South Africa');
             }
             
+            if($proCurso['SOL_FORMULARIO'] == 0)
+            {
+               $proCurso['SOL_FORMULARIO'] = 'Null';
+            }
+            else
+            {
+               $proCurso['SOL_FORMULARIO'] = $this->Formulario->getFormID($lo_vector_Formulario[$proCurso['SOL_FORMULARIO']]);
+            }
+
             /*This section is in charge of saving the user input if it is correct to do so*/
             if ($this->ProCurso->insertCourse($proCurso)) {
                 $this->loadModel('PRO_PROGRAMA'); // Load the program model
@@ -103,13 +137,13 @@ class ProCursoController extends AppController
                 $foldername = '/'.date('Y', strtotime($proCurso['FECHA_INICIO'])).'-'.date('m', strtotime($proCurso['FECHA_INICIO'])).'-'.str_replace(' ', '_', $proCurso['NOMBRE']);
 
                 // Create the new folder in the given path.
-                $this->FileSystem->addFolder('FileSystem/'.$this->PRO_PROGRAMA->getProgramName($proCurso['PRO_PROGRAMA'])[0].$foldername);
+                $this->FileSystem->addFolder('FileSystem/'.$this->PRO_PROGRAMA->getProgramName($proCurso['PRO_PROGRAMA']).$foldername);
                 
                 $this->Flash->success(__('The course has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
         }
-        $this->set(compact('proCurso','lo_vector_Programa'));
+        $this->set(compact('proCurso','lo_vector_Programa', 'lo_vector_Formulario'));
     }
 
     /**
@@ -124,6 +158,7 @@ class ProCursoController extends AppController
     {
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
         $form_data = $this->request->getData();
+        
         /*Loads the ID's of program's for the add view*/
         $this->Programa = $this->loadModel('pro_Programa');
         $proPrograma = $this->paginate($this->Programa);
@@ -132,14 +167,23 @@ class ProCursoController extends AppController
            array_push($lo_vector_Programa, $proPrograma['PRO_PROGRAMA']);
         endforeach;
         
+        /*Loads the ID's of program's for the add view*/
+        $this->Formulario = $this->loadModel('sol_Formulario');
+        $solFormulario = $this->paginate($this->Formulario);
+        $lo_vector_Formulario = [];
+        array_push($lo_vector_Formulario,__('None'));
+        foreach ($solFormulario as $solFormulario): 
+           array_push($lo_vector_Formulario, $solFormulario['NOMBRE']);
+        endforeach;
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
             $proCurso['PRO_PROGRAMA'] = $lo_vector_Programa[$proCurso['PRO_PROGRAMA']];
             /*This section is in charge of converting the user input to store it correctly in the data base*/
-            $proCurso['FECHA_LIMITE'] = date("d/m/y", strtotime($form_data['FECHA_LIMITE']));
-            $proCurso['FECHA_FINALIZACION'] = date("d/m/y", strtotime($form_data['FECHA_FINALIZACION']));
-            $proCurso['FECHA_INICIO'] = date("d/m/y", strtotime($form_data['FECHA_INICIO']));
+            $proCurso['FECHA_LIMITE'] = date("m/d/Y", strtotime($form_data['FECHA_LIMITE']));
+            $proCurso['FECHA_FINALIZACION'] = date("m/d/Y", strtotime($form_data['FECHA_FINALIZACION']));
+            $proCurso['FECHA_INICIO'] = date("m/d/Y", strtotime($form_data['FECHA_INICIO']));
             if($proCurso['LOCACION']==0)
             {
                $proCurso['LOCACION'] = 'Costa Rica';
@@ -147,6 +191,15 @@ class ProCursoController extends AppController
             else
             {
                $proCurso['LOCACION'] = __('South Africa');
+            }
+            
+            if($proCurso['SOL_FORMULARIO'] == 0)
+            {
+               $proCurso['SOL_FORMULARIO'] = 'Null';
+            }
+            else
+            {
+               $proCurso['SOL_FORMULARIO'] = $this->Formulario->getFormID($lo_vector_Formulario[$proCurso['SOL_FORMULARIO']]);
             }
 
             /*This section is in charge of saving the user input if it is correct to do so*/
@@ -157,7 +210,7 @@ class ProCursoController extends AppController
             }
             $this->Flash->error(__('The course could not be saved. Please, try again.'));
         }
-        $this->set(compact('proCurso','lo_vector_Programa'));
+        $this->set(compact('proCurso','lo_vector_Programa', 'lo_vector_Formulario'));
     }
 
     /**

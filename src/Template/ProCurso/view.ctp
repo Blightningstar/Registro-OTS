@@ -74,6 +74,12 @@
             <p class= "value"> <?= $proCurso['LOCACION'] ?></p>
             <hr class= "separator">
         </div>
+        
+        <div style="<?php echo $desplegar==0 ? 'display: none' : '' ?>">
+            <p class= "field"> <?= __('Form:') ?></p>
+            <p class= "value"> <?= $queryFormulario[0]['NOMBRE'] ?></p>
+            <hr class= "separator">
+        </div>
  </fieldset>
     <a href=".."> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a>
     <?= $this->Form->end() ?>

@@ -25,13 +25,14 @@
                'label' => _('Academic charge'),
                'type' => 'number',
                'min' => 0,
-               'value' => 0 ,
+               'value' => 0,
                'pattern'=> '^(?:[0-9]|0[0-9]|10)$', 
                'placeholder'=> 'number from 1 to 10'
             ]);
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'placeholder'=> 'Language of the course','pattern' => '^[a-zA-Z]*$']);
             echo $this->Form->control('LOCACION', ['label' => _('Location'), 'placeholder'=> 'Location of the course','options' => array('Costa Rica', __('South Africa'))]);
             echo $this->Form->control('PRO_PROGRAMA', ['label' => _('Parent Program'), 'options' => $lo_vector_Programa]);
+            echo $this->Form->control('SOL_FORMULARIO', ['label' => _('Form'), 'options' => $lo_vector_Formulario]);
         ?>
     </fieldset>
     <br>
