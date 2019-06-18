@@ -35,18 +35,18 @@
         </thead>
          <tbody>
             <!-- Iterate the data and places it in the respective column -->
-            <?php foreach ($proCurso as $proCurso): ?>
+            <?php foreach ($queryDashboard as $queryDashboard): ?>
             <tr>
                <!--Uses a form as wrapper to contain a checkbox which will modify active value of the course.
                 Better than use hidden inputs, from a security's perspective.-->
-                <td><?= h($proCurso->PRO_PROGRAMA) ?></td>
-                <td><?= h($proCurso->SIGLA) ?></td>
-                <td><?= h($proCurso->NOMBRE) ?></td>
+                <td><?= h($queryDashboard->PRO_PROGRAMA) ?></td>
+                <td><?= h($queryDashboard->SIGLA) ?></td>
+                <td><?= h($queryDashboard->NOMBRE) ?></td>
                 
                 <td class="actions">
                 <!-- Links the view button to the course-->
                   <button type="button" class="botonDashboardDenegar">
-                        <?= $this->Html->link(__('See Aplications'), ['controller' => 'Dashboard', 'action' => 'cursoViewDashboard', $proCurso->PRO_CURSO], ['style' => 'color:white;']) ?>   
+                        <?= $this->Html->link(__('See Aplications'), ['controller' => 'Dashboard', 'action' => 'cursoViewDashboard', $queryDashboard->PRO_CURSO], ['style' => 'color:white;']) ?>   
                   </button>
                 </td>
             </tr>

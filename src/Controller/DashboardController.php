@@ -35,9 +35,12 @@ class DashboardController extends AppController
      */
     public function index()
     {
-        $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
-        $proCurso= $this->paginate($this->Curso);
-        $this->set(compact('proCurso'));
+        $proCurso = TableRegistry::get('pro_Curso');
+        $queryDashboard = $proCurso->find()
+                         ->select([])
+                         ->where(['pro_Curso.SEG_USUARIO' => $this->viewVars['actualUser']['SEG_USUARIO']])
+                         ->toList();
+        $this->set(compact('queryDashboard'));
     }
 
     /**
@@ -53,8 +56,7 @@ class DashboardController extends AppController
         $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
         $proCurso = $this->Curso->get($id, ['contain' => []]); //Use the id to show only the course selected we pass through an html link.
         $solicitud = $this->loadModel('sol_Solicitud'); //Bring the information of the table sol_Solicitud.
-        //$solicitud = $this->paginate($solicitud);
-        //$proCurso = $this->paginate($proCurso);                      
+                           
         /*A table's JOIN to be able to access all the necessary data */
          $solSolicitud = TableRegistry::get('solSolicitud');
          $Query = $solSolicitud->find()
@@ -79,6 +81,7 @@ class DashboardController extends AppController
 
         $this->set(compact('user_applications'));
     }
+    
     /**
      * accept method
      *
@@ -89,9 +92,9 @@ class DashboardController extends AppController
      */
     public function accept($idCurso = null, $idUsuario = null)
     {
-        $assets = TableRegistry::get('solSolicitud')->find()->where(['PRO_CURSO' => $idCurso]);
+        $cursoSolicitud = TableRegistry::get('solSolicitud')->find()->where(['PRO_CURSO' => $idCurso]);
         /*Updates the RESULTADO of the application if accepted*/
-        $assets->update()
+        $cursoSolicitud->update()
         ->set(['RESULTADO' => 'Aceptado'])
         ->where(['SEG_USUARIO' => $idUsuario])
         ->execute();

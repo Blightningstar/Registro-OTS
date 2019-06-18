@@ -180,6 +180,7 @@ class ProCursoController extends AppController
             $proCurso = $this->ProCurso->patchEntity($proCurso, $this->request->getData());
             $form_data = $this->request->getData();
             $proCurso['PRO_PROGRAMA'] = $lo_vector_Programa[$proCurso['PRO_PROGRAMA']];
+            
             /*This section is in charge of converting the user input to store it correctly in the data base*/
             $proCurso['FECHA_LIMITE'] = date("m/d/Y", strtotime($form_data['FECHA_LIMITE']));
             $proCurso['FECHA_FINALIZACION'] = date("m/d/Y", strtotime($form_data['FECHA_FINALIZACION']));
