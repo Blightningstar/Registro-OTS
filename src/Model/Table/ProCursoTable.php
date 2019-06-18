@@ -45,7 +45,7 @@ class ProCursoTable extends Table
      * @param array $config The configuration for the Table.
      * @return true
      */
-    public function insertCourse(array $course)
+    public function insertCourse($course)
     {
         $name = $course['NOMBRE'];
         $startingDate = $course['FECHA_INICIO'];
@@ -56,16 +56,32 @@ class ProCursoTable extends Table
         $location = $course['LOCACION'];
         $parentProgram = $course['PRO_PROGRAMA'];
         $admin = $course['SEG_USUARIO'];
+        $form = $course['SOL_FORMULARIO'];
         $connect = ConnectionManager::get('default');
-        $result = $connect->execute(
+        if($form == 'Null') /*This is because a course can be saved without a form*/
+        {
+           $result = $connect->execute(
+           "INSERT INTO PRO_CURSO
+           (NOMBRE, FECHA_INICIO, FECHA_FINALIZACION, FECHA_LIMITE, CREDITOS,
+           IDIOMA, LOCACION, PRO_PROGRAMA, SEG_USUARIO)
+           VALUES
+           ('$name','$startingDate','$finalDate','$enrollmentDate','$academicCharge',
+           '$language','$location','$parentProgram','$admin')"
+           );
+           $connect->commit();
+        }
+        else
+        {
+           $result = $connect->execute(
             "INSERT INTO PRO_CURSO
             (NOMBRE, FECHA_INICIO, FECHA_FINALIZACION, FECHA_LIMITE, CREDITOS,
-            IDIOMA, LOCACION, PRO_PROGRAMA, SEG_USUARIO)
+            IDIOMA, LOCACION, PRO_PROGRAMA, SEG_USUARIO, SOL_FORMULARIO)
             VALUES
             ('$name','$startingDate','$finalDate','$enrollmentDate','$academicCharge',
-            '$language','$location','$parentProgram','$admin')"
-        );
-        $connect->commit();
+            '$language','$location','$parentProgram','$admin','$form')"
+            );
+            $connect->commit();
+        }
         return true;
     }
     
@@ -77,7 +93,7 @@ class ProCursoTable extends Table
      * @param array $config The configuration for the Table.
      * @return true
      */
-    public function updateCourse(array $course)
+    public function updateCourse($course)
     {
         $id = $course['PRO_CURSO'];
         $name = $course['NOMBRE'];
@@ -88,6 +104,7 @@ class ProCursoTable extends Table
         $language = $course['IDIOMA'];
         $location = $course['LOCACION'];
         $parentProgram = $course['PRO_PROGRAMA'];
+        $form = $course['SOL_FORMULARIO'];
         
         $result = TableRegistry::get('proCurso')->find('all');
                 $result->update()
@@ -98,7 +115,8 @@ class ProCursoTable extends Table
                            'CREDITOS' => $academicCharge,
                            'IDIOMA' => $language,
                            'LOCACION' => $location,
-                           'PRO_PROGRAMA' => $parentProgram
+                           'PRO_PROGRAMA' => $parentProgram,
+                           'SOL_FORMULARIO'=> $form
                            ])
                     ->where(['PRO_CURSO' => $id])
                     ->execute();
