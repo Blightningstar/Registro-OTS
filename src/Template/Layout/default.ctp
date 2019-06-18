@@ -82,7 +82,7 @@ $cakeDescription = __('Organization for Tropical Studies');
 
     <script>
         function dontclose(){
-            return 0
+            //return 0
     };
     </script>
 
