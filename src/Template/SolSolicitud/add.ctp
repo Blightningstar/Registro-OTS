@@ -4,21 +4,24 @@
  * @var \App\Model\Entity\SolSolicitud $solSolicitud
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Sol Solicitud'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
+
 <div class="solSolicitud form large-9 medium-8 columns content">
-    <?= $this->Form->create($solSolicitud) ?>
     <fieldset>
-        <legend><?= __('Add Sol Solicitud') ?></legend>
+        <legend class = "titulo"><?= __('Add Request') ?>
+            <br>
+            <p class = "subtitulo">Fill all the question of the form.</p>
+        </legend>
+
+        <br>
+
         <?php
-            echo $this->Form->control('RESULTADO');
-            echo $this->Form->control('ACTIVO');
-        ?>
+            $numPregunta = 1;
+            foreach ($pregSol as $pregunta):        
+                if($pregunta['ACTIVO']):
+                    echo "<b>".$numPregunta.") ".$pregunta['DESCRIPCION_ING']."</b>";
+                    echo $respSol[$pregunta['NUMERO_PREGUNTA']];
+                    ++$numPregunta;
+                endif;
+            endforeach; ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
 </div>
