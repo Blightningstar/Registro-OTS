@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use App\Controller\ProProgramaController;
 use Cake\Event\Event;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
@@ -37,6 +36,12 @@ class ProCursoController extends AppController
     {
         $proCurso = $this->paginate($this->ProCurso);
         $this->set(compact('proCurso', $proCurso));
+        if ($this->request->is('post')) {
+            $solSolicitud = $this->request->getData();
+
+            debug($solSolicitud);
+            die();
+        }
     }
 
     /**
