@@ -101,7 +101,7 @@ class SolFormularioController extends AppController
                 $solContiene = $this->SolContiene->newEntity();
                 $solContiene['SOL_PREGUNTA'] = $question;
 
-                $solContiene['SOL_FORMULARIO'] = $this->loadmodel('SolFormulario')->getFormID($solFormulario['NOMBRE']);               //Problema, obtener el ID del formulario insertado 
+                $solContiene['SOL_FORMULARIO'] = $this->loadmodel('SolFormulario')->getFormID($solFormulario['NOMBRE']);
                 $solContiene['NUMERO_PREGUNTA'] = $questNumber;
 
                 $this->SolContiene->save($solContiene);
@@ -124,6 +124,24 @@ class SolFormularioController extends AppController
      */
     public function edit($id = null)
     {
+        $contiene = TableRegistry::get('SolContiene');
+        $contiene = $contiene->find('all');
+        $this->set(compact('contiene'));
+
+        $preguntas = TableRegistry::get('SolPregunta');
+        $pregunta = $preguntas->find('all');
+        $this->set(compact('pregunta'));
+
+        // echo $contiene->SOL_FORMULARIO;
+
+        // foreach ($contiene as $data) {
+        //     $result = $preguntas->get($data->$SOL_PREGUNTA);
+
+        // }
+
+
+
+
         $solFormulario = $this->SolFormulario->get($id, [
             'contain' => []
         ]);
@@ -137,6 +155,12 @@ class SolFormularioController extends AppController
             $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
         }
         $this->set(compact('solFormulario'));
+
+        // echo $solFormulario->SOL_FORMULARIO;
+        $result = $this->loadmodel('SolFormulario')->getContainingQuestions($solFormulario->SOL_FORMULARIO);
+        // var_dump($result);
+        // echo $result[0]['DESCRIPCION_ING'];
+        $this->set(compact('result'));
     }
 
     /**
