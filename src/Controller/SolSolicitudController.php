@@ -21,19 +21,7 @@ class SolSolicitudController extends AppController
         parent::beforeFilter($event);
         $this->set('active_menu', 'MenubarForm');
     }
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|void
-     */
-    public function index()
-    {
-        $solSolicitud = $this->paginate($this->SolSolicitud);
-
-        $this->set(compact('solSolicitud'));
-    }
 	
-    // Vista carga toda la solicitud en labels no inputs y al final estan los botones de acptar,rechazar,atras.
     /**
      * View method
      *
@@ -45,19 +33,17 @@ class SolSolicitudController extends AppController
     {
         // Acordar borrar esto cuando este bien ligado
         $usuarioId = 3;
-        $cursoId = 1;
+        $cursoId = 8;
 
-        // Falta opciones.
-        $pregSol = $this->SolSolicitud->getPreguntasFormulario($cursoId);
+        $this->loadModel('SolFormulario');
+
+        $pregSol = $this->SolFormulario->getPreguntasFormulario($cursoId);
         $respSol = $this->SolSolicitud->verSolicitud($usuarioId, $cursoId);
 
         $this->set(compact('pregSol', $pregSol));
         $this->set(compact('respSol', $respSol));
+        // Faltan  botones de aceptar, rechazar y volver.
     }
-
-    // Cargar Respuestas
-    // Cargar opciones
-    // ponerle vacio al select
 
     /**
      * Add method
@@ -66,12 +52,24 @@ class SolSolicitudController extends AppController
      */
     public function add($cursoId = null){
         if ($this->request->is('post')) {
+            $this->loadModel('ProCurso');
+            $this->loadModel('SolArchivo');
+            $this->loadModel('SolFecha');
+            $this->loadModel('SolNumero');
+            $this->loadModel('SolTextoCorto');
+            $this->loadModel('SolTextoMedio');
+            $this->loadModel('SolTextoLargo');
+
             $solicitud = $this->request->getData();
             $preguntas = array_keys($solicitud);
             $respuestas = array_values($solicitud);
 
-            if($this->SolSolicitud->existeSolicitud($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId) == 0)
+            $foldername = 'FileSystem/'.$this->ProCurso->getProgramaName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->viewVars['actualUser']['SEG_USUARIO'].'-'.$this->viewVars['actualUser']['NOMBRE'].'_'.$this->viewVars['actualUser']['APELLIDO_1'].'/';
+
+            if($this->SolSolicitud->existeSolicitud($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId) == 0){
                 $this->SolSolicitud->crearSolicitud($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId);
+                $this->FileSystem->addFolder($foldername);
+            }
             else{
                 $this->Flash->error("A form for this course is already waiting to be reviewed");
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'studentDashboard']);
@@ -84,44 +82,44 @@ class SolSolicitudController extends AppController
 
                 switch($tipoPregunta){
                     case 0: // Texto corto
-                        $this->SolSolicitud->insertarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
+                        $this->SolTextoCorto->insertarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
                     break; 
                         
                     case 1: // Texto medio 
-                        $this->SolSolicitud->insertarTextoMediano($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
+                        $this->SolTextoMedio->insertarTextoMediano($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
                     break;
 
                     case 2: // Texto largo
-                        $this->SolSolicitud->insertarTextoLargo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
+                        $this->SolTextoLargo->insertarTextoLargo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
                     break;
 
                     case 3: // Número
-                        $this->SolSolicitud->insertarNumero($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
+                        $this->SolNumero->insertarNumero($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
                     break;
 
                     case 4: // Fecha
-                        $this->SolSolicitud->insertarFecha($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
+                        $this->SolFecha->insertarFecha($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
                     break;
 
                     case 5: // Select
-                        $this->SolSolicitud->insertarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
+                        $this->SolTextoCorto->insertarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
                     break;
 
                     case 6: // Email
-                        $this->SolSolicitud->insertarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
+                        $this->SolTextoCorto->insertarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
                     break;
 
                     case 7: // Teléfono
-                        $this->SolSolicitud->insertarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
+                        $this->SolTextoCorto->insertarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
                     break;
 
-                    case 8: // Archivo // Revisarlo!!!
-                        $fileName = $solicitud[$iterador]['name'];
-                        $fileTmpName = $this->request->data[$iterador]['tmp_name'];
-                        $fileExt = pathinfo($this->request->data[$iterador]['name'], PATHINFO_EXTENSION);
-                        $filePath = 'fileSystem/Sirve/'.$fileName;
+                    case 8: // Archivo
+                        $fileName = $respuestas[$iterador]['name'];
+                        $fileTmpName = $respuestas[$iterador]['tmp_name'];
+                        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+                        $filePath = $foldername.$fileName;
                         $uploadState = $this->FileSystem->uploadFile($fileName, $fileTmpName, $filePath, $fileExt);
-                        $this->SolSolicitud->insertarArchivo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $respuestas[$iterador]);
+                        $this->SolArchivo->insertarArchivo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $filePath);
                     break;
                 }
             }
@@ -130,14 +128,22 @@ class SolSolicitudController extends AppController
             return $this->redirect(['controller' => 'Dashboard', 'action' => 'studentDashboard']);
         }
 
-        $pregSol = $this->SolSolicitud->getPreguntasFormulario($cursoId);
-        $this->set(compact('pregSol', $pregSol));
+        $this->loadModel('SolFormulario');
+        $this->loadModel('SolOpciones');
 
-        //Falta cargar opciones
+        $pregSol = $this->SolFormulario->getPreguntasFormulario($cursoId);
+
+        $opcionPreg = [];
+        foreach($pregSol as $pregunta){
+            if($pregunta['TIPO'] == 5){
+                $opcionPreg[$pregunta['SOL_PREGUNTA']] = $this->SolOpciones->getOpciones($pregunta['SOL_PREGUNTA']);
+            }
+        }
+
+        $this->set(compact('pregSol', $pregSol));
+        $this->set(compact('opcionPreg', $opcionPreg));
     }
 
-    // Editar es lo mismo solo que en vez de mostrar inputs vacias hay que traer 
-            // todos las respuestas antiguas y cargarlas
     /**
      * Edit method
      *
@@ -145,41 +151,92 @@ class SolSolicitudController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($cursoId = null)
     {
-        $solSolicitud = $this->SolSolicitud->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $solSolicitud = $this->SolSolicitud->patchEntity($solSolicitud, $this->request->getData());
-            if ($this->SolSolicitud->save($solSolicitud)) {
-                $this->Flash->success(__('The sol solicitud has been saved.'));
+        if ($this->request->is('post')) {
+            $this->loadModel('ProCurso');
+            $this->loadModel('SolArchivo');
+            $this->loadModel('SolFecha');
+            $this->loadModel('SolNumero');
+            $this->loadModel('SolTextoCorto');
+            $this->loadModel('SolTextoMedio');
+            $this->loadModel('SolTextoLargo');
 
-                return $this->redirect(['action' => 'index']);
+            $solicitud = $this->request->getData();
+            $preguntas = array_keys($solicitud);
+            $respuestas = array_values($solicitud);
+
+            $foldername = 'FileSystem/'.$this->ProCurso->getProgramaName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->viewVars['actualUser']['NOMBRE'].'/';
+
+            for($iterador = 0; $iterador < sizeof($preguntas); ++$iterador){
+                $numPregunta = strtok($preguntas[$iterador], "_");
+                $idPregunta = strtok("_");
+                $tipoPregunta = strtok("_");
+
+                switch($tipoPregunta){
+                    case 0: // Texto corto
+                        $this->SolTextoCorto->actualizarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $respuestas[$iterador]);
+                    break; 
+                        
+                    case 1: // Texto medio 
+                        $this->SolTextoMedio->actualizarTextoMediano($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $respuestas[$iterador]);
+                    break;
+
+                    case 2: // Texto largo
+                        $this->SolTextoLargo->actualizarTextoLargo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $respuestas[$iterador]);
+                    break;
+
+                    case 3: // Número
+                        $this->SolNumero->actualizarNumero($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $respuestas[$iterador]);
+                    break;
+
+                    case 4: // Fecha
+                        $this->SolFecha->actualizarFecha($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $respuestas[$iterador]);
+                    break;
+
+                    case 5: // Select
+                        $this->SolTextoCorto->actualizarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $respuestas[$iterador]);
+                    break;
+
+                    case 6: // Email
+                        $this->SolTextoCorto->actualizarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $respuestas[$iterador]);
+                    break;
+
+                    case 7: // Teléfono
+                        $this->SolTextoCorto->actualizarTextoCorto($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $respuestas[$iterador]);
+                    break;
+
+                    case 8: // Archivo
+                        $fileName = $respuestas[$iterador]['name'];
+                        $fileTmpName = $respuestas[$iterador]['tmp_name'];
+                        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+                        $filePath = $foldername.$fileName;
+                        $uploadState = $this->FileSystem->uploadFile($fileName, $fileTmpName, $filePath, $fileExt);
+                        $this->SolArchivo->actualizarArchivo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $filePath);
+                    break;
+                }
             }
-            $this->Flash->error(__('The sol solicitud could not be saved. Please, try again.'));
-        }
-        $this->set(compact('solSolicitud'));
-    }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Sol Solicitud id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $solSolicitud = $this->SolSolicitud->get($id);
-        if ($this->SolSolicitud->delete($solSolicitud)) {
-            $this->Flash->success(__('The sol solicitud has been deleted.'));
-        } else {
-            $this->Flash->error(__('The sol solicitud could not be deleted. Please, try again.'));
+            $this->Flash->success("The entire form was successfully edited");
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'studentDashboard']);
         }
 
-        return $this->redirect(['action' => 'index']);
+        $this->loadModel('SolFormulario');
+        $this->loadModel('SolOpciones');
+
+        $pregSol = $this->SolFormulario->getPreguntasFormulario($cursoId);
+        $respSol = $this->SolSolicitud->verSolicitud($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId);
+
+        $opcionPreg = [];
+        foreach($pregSol as $pregunta){
+            if($pregunta['TIPO'] == 5){
+                $opcionPreg[$pregunta['SOL_PREGUNTA']] = $this->SolOpciones->getOpciones($pregunta['SOL_PREGUNTA']);
+            }
+        }
+
+        $this->set(compact('pregSol', $pregSol));
+        $this->set(compact('respSol', $respSol));
+        $this->set(compact('opcionPreg', $opcionPreg));
     }
 	
 	 /**

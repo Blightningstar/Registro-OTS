@@ -240,4 +240,29 @@ class ProCursoTable extends Table
         }
         return $lc_code;
       }  
+
+    public function getProgramaName($cursoId){
+        $connect= ConnectionManager::get('default');
+        $results = $connect->execute(
+            "SELECT P.NOMBRE
+             FROM PRO_CURSO C, PRO_PROGRAMA P
+             WHERE '$cursoId' = C.PRO_CURSO
+             AND C.PRO_PROGRAMA = P.PRO_PROGRAMA"
+        )->fetchAll('assoc');
+
+        return $results[0]['NOMBRE'];
+    }
+
+    public function getCursoPath($cursoId){
+        $connect= ConnectionManager::get('default');
+        $cursos = $connect->execute(
+            "SELECT NOMBRE, FECHA_INICIO
+             FROM PRO_CURSO
+             WHERE '$cursoId' = PRO_CURSO"
+        )->fetchAll('assoc');
+
+        $path = date('Y', strtotime($cursos[0]['FECHA_INICIO'])).'-'.date('m', strtotime($cursos[0]['FECHA_INICIO'])).'-'.str_replace(' ', '_', $cursos[0]['NOMBRE']);
+        
+        return $path;
+    }
 }
