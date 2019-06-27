@@ -120,4 +120,29 @@ class SolFechaTable extends Table
             "COMMIT"
         );
     }
+
+    public function insertarFecha($usuario, $curso, $idpregunta, $numPregunta, $respuesta){
+        $connect= ConnectionManager::get('default');
+        $connect->execute(
+            "INSERT INTO SOL_FECHA(SEG_USUARIO, PRO_CURSO, SOL_PREGUNTA, NUMERO_RESPUESTA, RESPUESTA)
+             VALUES ('$usuario', '$curso', '$idpregunta', '$numPregunta', '$respuesta')"
+        );
+        $connect->execute(
+            "COMMIT"
+        );
+    }
+
+    public function actualizarFecha($usuario, $curso, $pregunta, $respuesta){
+        $connect= ConnectionManager::get('default');
+        $connect->execute(
+            "UPDATE SOL_FECHA
+             SET RESPUESTA = '$respuesta'
+             WHERE SEG_USUARIO = '$usuario'
+             AND PRO_CURSO = '$curso'
+             AND SOL_PREGUNTA = '$pregunta'"
+        );
+        $connect->execute(
+            "COMMIT"
+        );
+    }
 }

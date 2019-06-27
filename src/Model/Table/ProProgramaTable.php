@@ -114,7 +114,7 @@ class ProProgramaTable extends Table
         "SELECT NOMBRE
          FROM PRO_PROGRAMA
          WHERE PRO_PROGRAMA.PRO_PROGRAMA = '$PRO_PROGRAMA'"
-        )->fetchAll();
+        )->fetchAll('assoc');
         return $query[0]['NOMBRE'];
     }
 }

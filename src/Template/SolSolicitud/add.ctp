@@ -6,11 +6,11 @@
 ?>
 
 <div class="solSolicitud form large-9 medium-8 columns content">
-    <?= $this->Form->create(false) ?>
+    <?= $this->Form->create(false, ['enctype' => 'multipart/form-data']) ?>
     <fieldset>
         <legend class = "titulo"><?= __('Add Application') ?>
             <br>
-            <p class = "subtitulo">Fill all the question of the form.</p>
+            <p class = "subtitulo">Fill the questions of the application.</p>
         </legend>
 
         <br>
@@ -26,12 +26,12 @@
             $numberObligatorio = ['type' => 'number', 'placeholder' => 'Please write the number.', 'required', 'label' => false];
             $fechaOpcional = ['class'=>'datepicker', 'placeholder' => 'Please select a date.', 'label' => false];
             $fechaObligatoria = ['class'=>'datepicker', 'placeholder' => 'Please select a date.', 'required', 'label' => false];
-            $selectOpcional = ['label' => false, 'style' => 'border-radius: 12px;'];
-            $selectObligatorio = ['required', 'label' => false, 'style' => 'border-radius: 12px;'];
-            $emailOpcional = ['type' => 'text', 'placeholder' => 'Please write your answer here.', 'label' => false, 'maxlength' => '50'];
-            $emailObligatorio = ['type' => 'text', 'placeholder' => 'Please write your answer here.', 'required', 'label' => false, 'maxlength' => '50'];
-            $telefonoOpcional = ['type' => 'text', 'placeholder' => 'Please write your answer here.', 'label' => false, 'maxlength' => '50'];
-            $telefonoObligatorio = ['type' => 'text', 'placeholder' => 'Please write your answer here.', 'required', 'label' => false, 'maxlength' => '50'];
+            $selectOpcional = ['label' => false, 'empty' => true, 'style' => 'border-radius: 12px;'];
+            $selectObligatorio = ['required', 'label' => false, 'empty' => true, 'style' => 'border-radius: 12px;'];
+            $emailOpcional = ['type' => 'email', 'placeholder' => 'Please write your answer here.', 'label' => false, 'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'maxlength' => '50'];
+            $emailObligatorio = ['type' => 'email', 'placeholder' => 'Please write your answer here.', 'required', 'label' => false, 'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'maxlength' => '50'];
+            $telefonoOpcional = ['type' => 'tel', 'placeholder' => 'Please write your answer here.', 'label' => false, 'pattern' => "[/+]?[0-9\-\s]+", 'maxlength' => '50'];
+            $telefonoObligatorio = ['type' => 'tel', 'placeholder' => 'Please write your answer here.', 'required', 'label' => false, 'pattern' => "[/+]?[0-9\-\s]+", 'maxlength' => '50'];
             $archivoOpcional = ['type' => 'file', 'class' => 'form-control', 'label' => false];
             $archivoObligatorio = ['type' => 'file', 'class' => 'form-control', 'required', 'label' => false];
 
@@ -48,78 +48,78 @@
 
                     switch($pregunta['TIPO']): 
                         case 0: // Texto Corto
-                            //if($pregunta['REQUERIDO']):
-                            //  echo $this->Form->input($id, $textoCortoObligatorio);
-                            //else:
-                                echo $this->Form->input($id, $textoCortoOpcional);
-                            //endif;
+                            if($pregunta['REQUERIDO']):
+                                echo $this->Form->control($id, $textoCortoObligatorio);
+                            else:
+                                echo $this->Form->control($id, $textoCortoOpcional);
+                            endif;
                         break; 
 
                         case 1: // Texto Medio
-                            //if($pregunta['REQUERIDO']):
-                            //    echo $this->Form->input($id, $textoMedioObligatorio); 
-                            //else:
-                                echo $this->Form->input($id, $textoMedioOpcional);
-                            //endif;
+                            if($pregunta['REQUERIDO']):
+                                echo $this->Form->control($id, $textoMedioObligatorio); 
+                            else:
+                                echo $this->Form->control($id, $textoMedioOpcional);
+                            endif;
                             ?><br><?php
                         break;
 
                         case 2: // Texto Largo
-                            //if($pregunta['REQUERIDO']):
-                            //    echo $this->Form->input($id, $textoLargoObligatorio); 
-                            //else:
-                                echo $this->Form->input($id, $textoLargoOpcional); 
-                            //endif;
+                            if($pregunta['REQUERIDO']):
+                                echo $this->Form->control($id, $textoLargoObligatorio); 
+                            else:
+                                echo $this->Form->control($id, $textoLargoOpcional); 
+                            endif;
                             ?><br><?php
                         break;
 
                         case 3: // Número
-                            //if($pregunta['REQUERIDO']):
-                            //    echo $this->Form->input($id, $numberObligatorio);
-                            //else:
-                                echo $this->Form->input($id, $numberOpcional);
-                            //endif;
+                            if($pregunta['REQUERIDO']):
+                                echo $this->Form->control($id, $numberObligatorio);
+                            else:
+                                echo $this->Form->control($id, $numberOpcional);
+                            endif;
                         break;
 
                         case 4: // Fecha
-                            //if($pregunta['REQUERIDO']):
-                            //    echo $this->Form->control($id, $fechaObligatoria);
-                            //else:
+                            if($pregunta['REQUERIDO']):
+                                echo $this->Form->control($id, $fechaObligatoria);
+                            else:
                                 echo $this->Form->control($id, $fechaOpcional);
-                            //endif;
+                            endif;
                         break;
 
-                        case 5: // Select // Revisar porque parece que no lo hace obligatorio
-                            //if($pregunta['REQUERIDO']):
-                                echo $this->Form->select($id, array(1, 2, 3, 4, 5), $selectObligatorio);
-                            //else:
-                            //    echo $this->Form->select($id, array(1, 2, 3, 4, 5), $selectOpcional);
-                            //endif;
+                        case 5: // Select
+                            if($pregunta['REQUERIDO']):
+                                echo $this->Form->select($id, $opcionPreg[$pregunta['SOL_PREGUNTA']], $selectObligatorio);
+                            else:
+                                echo $this->Form->select($id, $opcionPreg[$pregunta['SOL_PREGUNTA']], $selectOpcional);
+                            endif;
                             ?><br><br><?php
                         break;
 
                         case 6: // Email
-                            //if($pregunta['REQUERIDO']):
-                            //    echo $this->Form->input($id, $emailObligatorio);
-                            //else:
-                                echo $this->Form->input($id, $emailOpcional);
-                            //endif;
+                            if($pregunta['REQUERIDO']):
+                                echo $this->Form->control($id, $emailObligatorio);
+                            else:
+                                echo $this->Form->control($id, $emailOpcional);
+                            endif;
                         break;
 
                         case 7: // Teléfono
-                            //if($pregunta['REQUERIDO']):
-                            //    echo $this->Form->input($id, $telefonoObligatorio);
-                            //else:
-                                echo $this->Form->input($id, $telefonoOpcional);
-                            //endif;
+                            if($pregunta['REQUERIDO']):
+                                echo $this->Form->control($id, $telefonoObligatorio);
+                            else:
+                                echo $this->Form->control($id, $telefonoOpcional);
+                            endif;
                         break;
 
                         case 8: // Archivo
-                            //if($pregunta['REQUERIDO']):
-                            //    echo $this->Form->input($pregunta['SOL_PREGUNTA']."_".$pregunta['TIPO'], $archivoObligatorio);
-                            //else:
+                            if($pregunta['REQUERIDO']):
+                                echo $this->Form->input($id, $archivoObligatorio);
+                            else:
                                 echo $this->Form->input($id, $archivoOpcional);
-                            //endif;
+                            endif;
                         break;
                     endswitch;
                     ++$numPregunta;
