@@ -57,7 +57,7 @@ class SolPreguntaController extends AppController
 
     /**
      * Add method
-     * @author Joel Chaves
+     * @author Joel Chaves 
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
@@ -78,13 +78,13 @@ class SolPreguntaController extends AppController
         $this->set(compact('solPreguntum'));
 
         $ACTIVO = array('Inactive','Active');
-         $this->set('ACTIVO',$ACTIVO);
+        $this->set('ACTIVO',$ACTIVO);
 
-         $REQUERIDO = array('Not required','Required');
-         $this->set('REQUERIDO',$REQUERIDO);
+        $REQUERIDO = array('Not required','Required');
+        $this->set('REQUERIDO',$REQUERIDO);
 
-         $TIPO = array('Text','Number','Date', 'Select','Large text','Upload document','Email','Phone number','URL');
-         $this->set('TIPO',$TIPO);
+        $TIPO = array('Text','Number','Date', 'Select','Large text','Upload document','Email','Phone number','URL');
+        $this->set('TIPO',$TIPO);
     }
 
     /**
