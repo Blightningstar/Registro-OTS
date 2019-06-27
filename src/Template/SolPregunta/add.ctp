@@ -41,9 +41,10 @@
         <div id="addinput">
         <p id="demo">
             <button type="button" class="botonAgregar">
-                <a href="#" id="addNew" style="color:white;">Add Question</a>
+                <a href="#" id="addNew" style="color:white;">Add Option</a>
             </button>                   
         </p>
+        <br>
         <br>
 
         </div> 
@@ -64,18 +65,31 @@
 <script>
   document.getElementById("demo").style.display = "none";
 
+  /**
+   * If the question type is SELECT, add multiple options to it
+   * @author Anyelo Mijael Lobo Cheloukhin
+   *
+   */
   function multipleSelect() {
     var x = document.getElementById("typeSelect").value;
-    document.getElementById("demo").style.display = "block";
+    
+    if(x == "Select"){
+      document.getElementById("demo").style.display = "block";
+    }
+    else {
+      //Remove Add Option Button
+      document.getElementById("demo").style.display = "none";
+    };
   }
 </script>
 
 <!-- For Adding Options Dinamically to a select-type Questions -->
 <script type="text/javascript">
+    var optNumber = 1;
     $(function() {
         var addDiv = $('#addinput');
         var i = $('#addinput p').size() + 1;
-        var optNumber = 1;
+        // var optNumber = 1;
         $('#addNew').live('click', function() {
 
             $('<p id="p_new" size="40" name="p_new_' + i +'" value=""> Insert Option  ' + optNumber + ' <br> <input type="text" name="option"><a href="#" id="remNew"><input type="button" style="background-color:rgb(242, 102, 49);color:white;width:150px;height:40px;border-radius: 5px;" value="Remove"></a>').appendTo(addDiv);
@@ -88,6 +102,7 @@
             if( i > 2 ) {
                 $(this).parents('p').remove();
                 i--;
+                optNumber--;
             }
             return false;
         });
