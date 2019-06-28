@@ -95,6 +95,7 @@ public function getFormID($name)
         return $result[0]['SOL_FORMULARIO'];
     }
 
+<<<<<<< HEAD
 
     /**
      *  deactivates a Form on the database
@@ -129,5 +130,19 @@ public function getFormID($name)
             "COMMIT"
         );
         return 1;
+=======
+    public function getPreguntasFormulario($id){
+        $connect= ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT CO.NUMERO_PREGUNTA , P.*
+             FROM PRO_CURSO C, SOL_FORMULARIO F, SOL_CONTIENE CO, SOL_PREGUNTA P
+             WHERE '$id' = C.PRO_CURSO
+             AND C.SOL_FORMULARIO = F.SOL_FORMULARIO
+             AND F.SOL_FORMULARIO = CO.SOL_FORMULARIO
+             AND CO.SOL_PREGUNTA = P.SOL_PREGUNTA
+             ORDER BY CO.NUMERO_PREGUNTA ASC"
+        )->fetchAll('assoc');
+        return $result;
+>>>>>>> development
     }
 }

@@ -73,6 +73,7 @@
                 <!-- Links the view button to the course-->
                   <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO], ['escape'=>false])?>  
                   <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['controller' => 'curso', 'action' => 'edit', $proCurso->PRO_CURSO], ['escape'=>false]) ?>    
+                  <?= $this->Html->link('<i class="fa fa-edit"></i>', ['controller' => 'SolSolicitud', 'action' => 'add', $proCurso->PRO_CURSO], ['escape'=>false]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

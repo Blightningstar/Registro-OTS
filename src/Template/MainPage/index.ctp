@@ -6,12 +6,8 @@
  */
 ?>
 
-<html>
-    <div class = 'mainContainer' >
-        <body class='mainBackground'>
-            <?php
-                echo $this->Html->image('main_background.jpg', ['alt' => 'CakePHP']);
-            ?>            
-        </body>
-    </div>
-</html>
+<div class = 'mainContainer' class='mainBackground'>
+    <?php
+        echo $this->Html->image('main_background.jpg', ['alt' => 'CakePHP']);
+    ?>            
+</div>
