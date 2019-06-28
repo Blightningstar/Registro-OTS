@@ -21,10 +21,11 @@
                   'placeholder' => 'Only alphanumeric characters'
               ]);
 
-              echo '<label for="TIPO">Type</label>';
           ?>
               <select id="typeSelect" onchange="multipleSelect()" name="tipo">
-                <option value="Text">Text</option>
+                <option value="Short Text">Short Text</option>
+                <option value="Medium Text">MediumText</option>
+                <option value="Large Text">Large Text</option>
                 <option value="Number">Number</option>
                 <option value="Date">Date</option>
                 <option value="Select">Select</option>

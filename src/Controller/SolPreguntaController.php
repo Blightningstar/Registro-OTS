@@ -70,7 +70,7 @@ class SolPreguntaController extends AppController
             // echo $temp["tipo"];
 
 
-            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp["tipo"],$temp['ACTIVO'], $temp['REQUERIDO'])) {
+            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp['tipo'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
                 $this->Flash->success(__('The question has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
@@ -97,7 +97,7 @@ class SolPreguntaController extends AppController
             // }
 
             
-            $this->Flash->error(__('The question could not be saved. Please, try again.'));
+            // $this->Flash->error(__('The question could not be saved. Please, try again.'));
         }
         $this->set(compact('solPreguntum'));
 
@@ -107,7 +107,7 @@ class SolPreguntaController extends AppController
          $REQUERIDO = array('Not required','Required');
          $this->set('REQUERIDO',$REQUERIDO);
 
-         $TIPO = array('Text','Number','Date', 'Select','Large text','Upload document','Email','Phone number','URL');
+         $TIPO = array('Short Text','Medium Text','Large text','Number','Date','Select','Email','Phone','number','URL');
          $this->set('TIPO',$TIPO);
     }
 
