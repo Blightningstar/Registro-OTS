@@ -42,8 +42,8 @@
                     $details = "";
                     $buttonText = "";
 					$link = [];
-					$link["controller"] = 'solSolicitud';
-					$link["action"] = 'view/' . $application["SEG_USUARIO"] . '/' . $application["PRO_CURSO"];
+					$link["controller"] = 'SolSolicitud';
+					$link["action"] = 'view/' .  $application["PRO_CURSO"];
                     $result =  str_replace(" ","",$application["RESULTADO"]);
 
                     switch($result)
@@ -51,7 +51,7 @@
                         case "Proceso": // Incomplete application
                             $details = "The application to course " . $application["NOMBRE"] ." is incomplete.";
                             $buttonText = "Complete Application";
-							$link["action"] = 'add';
+							$link["action"] = 'edit/'  .  $application["PRO_CURSO"];
                             break;
                         case "Completo": //Pending of review application
                             $details = "The application to course " . $application["NOMBRE"] . " is pending of review.";
