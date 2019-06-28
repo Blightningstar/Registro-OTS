@@ -23,7 +23,7 @@
 
               echo '<label for="TIPO">Type</label>';
           ?>
-              <select id="typeSelect" onchange="multipleSelect()">
+              <select id="typeSelect" onchange="multipleSelect()" name="tipo">
                 <option value="Text">Text</option>
                 <option value="Number">Number</option>
                 <option value="Date">Date</option>
@@ -92,7 +92,7 @@
         // var optNumber = 1;
         $('#addNew').live('click', function() {
 
-            $('<p id="p_new" size="40" name="p_new_' + i +'" value=""> Insert Option  ' + optNumber + ' <br> <input type="text" name="option"><a href="#" id="remNew"><input type="button" style="background-color:rgb(242, 102, 49);color:white;width:150px;height:40px;border-radius: 5px;" value="Remove"></a>').appendTo(addDiv);
+            $('<p id="p_new" size="40" name="p_new_' + i +'" value=""> Insert Option  ' + optNumber + ' <br> <input type="text" name="options[]"><a href="#" id="remNew"><input type="button" style="background-color:rgb(242, 102, 49);color:white;width:150px;height:40px;border-radius: 5px;" value="Remove"></a>').appendTo(addDiv);
             i++;
             optNumber++;
             return false;

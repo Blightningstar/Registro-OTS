@@ -152,4 +152,43 @@ class SolPreguntaTable extends Table
         )->fetchAll('assoc');
         return $result;
     }
+
+    /**
+    * 
+    * @author AnyeloLobo <yeloanlo@gmail.com>
+    * 
+    * 
+    * @param string $descrIng, is the question description in English.
+    * @return string the restauration code of the user.
+    */
+    public function getQuestID($descrIng){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT SOL_PREGUNTA FROM SOL_PREGUNTA
+             WHERE DESCRIPCION_ING = '$descrIng'"
+        )->fetchAll('assoc');
+        return $result[0]['SOL_PREGUNTA'];
+    }
+
+        /**
+    * 
+    * @author AnyeloLobo <yeloanlo@gmail.com>
+    * 
+    * 
+    * @param string $descrIng, is the question description in English.
+    * @return string the restauration code of the user.
+    */
+    public function insertOptions($idPreg, $options){
+        // $temp=$this->returnMaxSolPregunta ();
+        $connet = ConnectionManager::get('default');
+        foreach ($options as $option) {
+            $result = $connet->execute("INSERT INTO sol_opciones VALUES (1, $idPreg, '$option', '$option')");
+        }
+
+        $connet->execute(
+            "COMMIT"
+        );
+        return 1;
+    }
+
 }

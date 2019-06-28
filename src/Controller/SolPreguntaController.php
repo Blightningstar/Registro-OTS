@@ -57,7 +57,7 @@ class SolPreguntaController extends AppController
 
     /**
      * Add method
-     * @author Joel Chaves 
+     * @author Joel Chaves
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
@@ -66,25 +66,49 @@ class SolPreguntaController extends AppController
         if ($this->request->is('post')) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
             $temp = $this->request->getData();
-            
+            // var_dump($temp ["options"]);
+            // echo $temp["tipo"];
 
-            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp['TIPO'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
+
+            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp["tipo"],$temp['ACTIVO'], $temp['REQUERIDO'])) {
                 $this->Flash->success(__('The question has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
+            $this->Flash->error(__('The question could not be saved. Please, try again.'));
+
+
+            
+            // if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp["tipo"],$temp['ACTIVO'], $temp['REQUERIDO'])) {
+            //     $this->Flash->success(__('The question has been saved.'));
+            //     return $this->redirect(['action' => 'index']);
+            // }
+
+
+            // if ($temp["tipo"] == "Select"){
+                // echo $temp['DESCRIPCION_ING'];
+                // $idPreg = $this->loadmodel('SolPregunta')->getQuestID($temp['DESCRIPCION_ING']);
+                // echo $idPreg;
+
+                // $idPreg = $this->SolPregunta->returnMaxSolPregunta();
+                
+                // $this->SolPregunta->insertOptions($idPreg, $temp ["options"]);
+                // $this->Flash->success(__('The options have been saved.'));
+                // return $this->redirect(['action' => 'index']);
+            // }
+
+            
             $this->Flash->error(__('The question could not be saved. Please, try again.'));
         }
         $this->set(compact('solPreguntum'));
 
         $ACTIVO = array('Inactive','Active');
-        $this->set('ACTIVO',$ACTIVO);
+         $this->set('ACTIVO',$ACTIVO);
 
-        $REQUERIDO = array('Not required','Required');
-        $this->set('REQUERIDO',$REQUERIDO);
+         $REQUERIDO = array('Not required','Required');
+         $this->set('REQUERIDO',$REQUERIDO);
 
-        $TIPO = array('Text','Number','Date', 'Select','Large text','Upload document','Email','Phone number','URL');
-        $this->set('TIPO',$TIPO);
+         $TIPO = array('Text','Number','Date', 'Select','Large text','Upload document','Email','Phone number','URL');
+         $this->set('TIPO',$TIPO);
     }
 
     /**
