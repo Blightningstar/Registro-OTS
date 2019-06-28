@@ -60,17 +60,7 @@
                     'class' => 'nav-link menuLink'
                 ]);?>
             </li>
-        <?php endif;?>
-
-        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
-            <li id = 'MenubarCourses', class="nav-item menuItem">
-                <?= $this->Html->link( "Courses",[
-                    'controller' => 'curso'
-                ],[
-                    'class' => 'nav-link menuLink'
-                ]);?>
-            </li>
-        <?php endif;?>        
+        <?php endif;?>     
 
         <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
             <li id = 'MenubarQuestions' class="nav-item menuItem">
