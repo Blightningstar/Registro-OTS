@@ -29,13 +29,13 @@ class ProCursoController extends AppController
     }
     /**
      * Index method
-     *
+     * @param program_id Show only courses belonging to the specified program.
      * @return \Cake\Http\Response|void
      */
-    public function index()
+    public function index($program_id = null)
     {
         $proCurso = $this->paginate($this->ProCurso);
-        $this->set(compact('proCurso', $proCurso));
+        $this->set(compact('proCurso', $proCurso, 'program_id', $program_id));
         if ($this->request->is('post')) {
             $solSolicitud = $this->request->getData();
 
@@ -133,20 +133,26 @@ class ProCursoController extends AppController
             {
                $proCurso['SOL_FORMULARIO'] = $this->Formulario->getFormID($lo_vector_Formulario[$proCurso['SOL_FORMULARIO']]);
             }
+			
+			if(strtotime($proCurso['FECHA_INICIO']) < strtotime($proCurso['FECHA_LIMITE']))
+				$this->Flash->error(__('Error: start date is sooner than last enrollment date'));
+			else
+				if(strtotime($proCurso['FECHA_FINALIZACION']) < strtotime($proCurso['FECHA_INICIO']))
+					$this->Flash->error(__('Error: End date is sooner than final date'));
+				else
+					/*This section is in charge of saving the user input if it is correct to do so*/
+					if ($this->ProCurso->insertCourse($proCurso)) {
+						$this->loadModel('PRO_PROGRAMA'); // Load the program model
+							
+						// Make the path to create a folder for the new course.
+						$foldername = '/'.date('Y', strtotime($proCurso['FECHA_INICIO'])).'-'.date('m', strtotime($proCurso['FECHA_INICIO'])).'-'.str_replace(' ', '_', $proCurso['NOMBRE']);
 
-            /*This section is in charge of saving the user input if it is correct to do so*/
-            if ($this->ProCurso->insertCourse($proCurso)) {
-                $this->loadModel('PRO_PROGRAMA'); // Load the program model
-                    
-                // Make the path to create a folder for the new course.
-                $foldername = '/'.date('Y', strtotime($proCurso['FECHA_INICIO'])).'-'.date('m', strtotime($proCurso['FECHA_INICIO'])).'-'.str_replace(' ', '_', $proCurso['NOMBRE']);
-
-                // Create the new folder in the given path.
-                $this->FileSystem->addFolder('FileSystem/'.$this->PRO_PROGRAMA->getProgramName($proCurso['PRO_PROGRAMA']).$foldername);
-                
-                $this->Flash->success(__('The course has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
+						// Create the new folder in the given path.
+						$this->FileSystem->addFolder('FileSystem/'.$this->PRO_PROGRAMA->getProgramName($proCurso['PRO_PROGRAMA']).$foldername);
+						
+						$this->Flash->success(__('The course has been saved.'));
+						return $this->redirect(['action' => 'index']);
+					}
         }
         $this->set(compact('proCurso','lo_vector_Programa', 'lo_vector_Formulario'));
     }

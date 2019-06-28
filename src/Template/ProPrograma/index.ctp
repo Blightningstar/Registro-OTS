@@ -53,6 +53,7 @@
                 <td>
                 <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'programa', 'action' => 'view',  $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
                 <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+				<?= $this->Html->link('<i class="fa fa-list-alt"></i>', ['controller' => 'curso', 'action' => '',$proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
                 </td
 
             </tr>

@@ -45,7 +45,9 @@
         </thead>
         <tbody>
             <!-- Iterate the data and places it in the respective column -->
-            <?php foreach ($proCurso as $proCurso): ?>
+            <?php foreach ($proCurso as $proCurso):
+				if($program_id == $proCurso->PRO_PROGRAMA):
+			?>
             <tr>
                <!--Uses a form as wrapper to contain a checkbox which will modify active value of the course.
                 Better than use hidden inputs, from a security's perspective.-->
@@ -76,7 +78,9 @@
                   <?= $this->Html->link('<i class="fa fa-edit"></i>', ['controller' => 'SolSolicitud', 'action' => 'add', $proCurso->PRO_CURSO], ['escape'=>false]) ?>
                 </td>
             </tr>
-            <?php endforeach; ?>
+            <?php 
+			endif;
+			endforeach; ?>
         </tbody>
     </table>
     </div>
