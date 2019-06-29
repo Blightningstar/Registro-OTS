@@ -25,4 +25,5 @@
                 endif;
             endforeach; ?>
     </fieldset>
+    <a href="/Registro-OTS/dashboard/curso-view-dashboard/<?php echo $cursoId ?>"> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a> 
 </div>

@@ -38,9 +38,6 @@ class ProCursoController extends AppController
         $this->set(compact('proCurso', $proCurso, 'program_id', $program_id));
         if ($this->request->is('post')) {
             $solSolicitud = $this->request->getData();
-
-            debug($solSolicitud);
-            die();
         }
     }
 
