@@ -31,17 +31,14 @@ class SolSolicitudController extends AppController
      */
     public function view($usuarioId = null,$cursoId = null) 
     {
-        // Acordar borrar esto cuando este bien ligado
-        $usuarioId = 3;
-        $cursoId = 8;
-
         $this->loadModel('SolFormulario');
 
         $pregSol = $this->SolFormulario->getPreguntasFormulario($cursoId);
-        $respSol = $this->SolSolicitud->verSolicitud($usuarioId, $cursoId);
+        $respSol = $this->SolSolicitud->verSolicitud($usuarioId,$cursoId);
 
         $this->set(compact('pregSol', $pregSol));
         $this->set(compact('respSol', $respSol));
+        $this->set(compact('cursoId', $cursoId));
         // Faltan  botones de aceptar, rechazar y volver.
     }
 
@@ -263,6 +260,6 @@ class SolSolicitudController extends AppController
      */
     public function getPercentage($course,$student){
         $formTable = $this->loadModel('SolSolicitud');
-        return $formTable->getPercentage($course,$student);
+        return round($formTable->getPercentage($course,$student),2);
     }
 }
