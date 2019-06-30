@@ -5,30 +5,25 @@
  */
 ?>
 
-<div class="solSolicitud view large-9 medium-8 columns content">
+<div class="solSolicitud form large-9 medium-8 columns content">
     <fieldset>
-    <legend class = "titulo"><?= __('View Application') ?>
-        <br></br>
-        <p class = "subtitulo"><?=__('View the status of a application')?></p>
-    </legend>
-    <br>
-	
-	<div>
-		<p class= "field"> <?= __('User:') ?></p>
-		<p class= "value"> <?= h($solSolicitud->NOMBRE_USUARIO) ?></p>
-		<hr class= "separator">
-	</div>
-	
-	<div>
-		<p class= "field"> <?= __('Course:') ?></p>
-		<p class= "value"> <?= h($solSolicitud->NOMBRE) ?></p>
-		<hr class= "separator">
-	</div>
-	
-	<div>
-		<p class= "field"> <?= __('Status:') ?></p>
-		<p class= "value"> <?= h($solSolicitud->RESULTADO) ?></p>
-		<hr class= "separator">
-	</div>
-	
+        <legend class = "titulo"><?= __('Review Application') ?>
+            <br>
+            <p class = "subtitulo">This is the application made by the student for the course.</p>
+        </legend>
+
+        <br>
+
+        <?php
+            $numPregunta = 1;
+            foreach ($pregSol as $pregunta):        
+                if($pregunta['ACTIVO']):
+                    echo "<label><b>".$numPregunta.") ".$pregunta['DESCRIPCION_ING']."</b></label><br>";
+                    echo "<lable>".$respSol[$pregunta['NUMERO_PREGUNTA']]."</label><br>";
+                    echo "<hr class= 'separator'><br>";
+                    ++$numPregunta;
+                endif;
+            endforeach; ?>
+    </fieldset>
+    <a href="/Registro-OTS/dashboard/curso-view-dashboard/<?php echo $cursoId ?>"> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a> 
 </div>

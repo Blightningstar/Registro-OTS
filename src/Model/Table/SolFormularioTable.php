@@ -95,21 +95,16 @@ public function getFormID($name)
         return $result[0]['SOL_FORMULARIO'];
     }
 
-    /**
-     * 
-     * @author Anyelo Lobo <yeloanlo@gmail.com>
-     * 
-     * Get the containing questions in the form
-     * @param int $SOL_FORMULARIO, it's the form identificator.
-     * @return array with all the containing questions
-     */
-    public function getContainingQuestions($idForm){
-        $connect = ConnectionManager::get('default');
+    public function getPreguntasFormulario($id){
+        $connect= ConnectionManager::get('default');
         $result = $connect->execute(
-            "SELECT DISTINCT DESCRIPCION_ING FROM SOL_PREGUNTA
-             INNER JOIN SOL_CONTIENE
-             ON SOL_PREGUNTA.SOL_PREGUNTA = SOL_CONTIENE.SOL_PREGUNTA
-             WHERE SOL_CONTIENE.SOL_FORMULARIO = '$idForm'"
+            "SELECT CO.NUMERO_PREGUNTA , P.*
+             FROM PRO_CURSO C, SOL_FORMULARIO F, SOL_CONTIENE CO, SOL_PREGUNTA P
+             WHERE '$id' = C.PRO_CURSO
+             AND C.SOL_FORMULARIO = F.SOL_FORMULARIO
+             AND F.SOL_FORMULARIO = CO.SOL_FORMULARIO
+             AND CO.SOL_PREGUNTA = P.SOL_PREGUNTA
+             ORDER BY CO.NUMERO_PREGUNTA ASC"
         )->fetchAll('assoc');
         return $result;
     }

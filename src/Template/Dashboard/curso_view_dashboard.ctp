@@ -46,7 +46,7 @@
                 <td class="actions">
                         <!-- Links to view of the form of a student in particular-->
                      <button type="button" class="botonDashboardAceptarConsultar">
-                           <?= $this->Html->link(__('Review'), ['controller' => 'Dashboard'], ['style' => 'color:white;']) ?>
+                           <?= $this->Html->link(__('Review'), ['controller' => 'Dashboard', 'action' => 'review',$Query['segUsuario']['SEG_USUARIO'],$proCurso->PRO_CURSO], ['style' => 'color:white;']) ?>
                      </button>
                 </td>
                 <td><?= $solicitud->getpercentage($proCurso->PRO_CURSO, $Query['segUsuario']['SEG_USUARIO']); ?></td>
@@ -61,7 +61,7 @@
                 else if($Query->RESULTADO == 'Completo')
                 {
                   $state = 'Completed';
-               }
+                }
                 else if($Query->RESULTADO == 'Rechazado')
                 {
                   $state = 'Denied';
@@ -86,11 +86,16 @@
                      <button type="button" class="botonDashboardDenegar">
                            <?= $this->Html->link(__('Reject'), ['controller' => 'Dashboard', 'action' => 'denied', $proCurso->PRO_CURSO, $Query['segUsuario']['SEG_USUARIO']], ['style' => 'color:white;']) ?> 
                      </button>
+                     
+                     <button type="button" class="botonDashboardAceptarConsultar">
+                           <?= $this->Html->link(__('Export PDF'), ['controller' => 'Dashboard', 'action' => 'exportPDF'], ['style' => 'color:white;']) ?> 
+                     </button>
                   </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
  </table>
+  <a href=".."> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a>
 </div>
 
 <script>
