@@ -364,17 +364,15 @@ class SolSolicitudController extends AppController
                 height: 50px;
             }
             </style>
-            <center><img src="C:\xampp\htdocs\Registro-OTS\webroot\img\Logos\eng\4.png"></center>
+            <center><img style="height: 50px" src="C:\xampp\htdocs\Registro-OTS\webroot\img\Logos\eng\4.png"></center>
             <title>Application Review</title>
             <h2 align="center">'.$TMPprograma[0]['NOMBRE'].'</h2>
             <h2 align="center">'.$TMPcurso[0]['SIGLA'].'</h2>
             <p>&nbsp;</p>
-            <div id="element1" align="left"><strong>Course name:'.$TMPcurso[0]['NOMBRE'].'</strong></div>
+            <div id="element1" align="left"><strong>Course Name:'.$TMPcurso[0]['NOMBRE'].'</strong></div>
             <p>&nbsp;</p>
             <div id="element1" align="left"><strong>Last Enrollment Date:'.$TMPcurso[0]['FECHA_LIMITE'].'</strong></div>
             <div id="element1" align="left"><strong>Start date:'.$TMPcurso[0]['FECHA_INICIO'].'</strong></div>
-            <div id="element1" align="left"><strong>Final date:'.$TMPcurso[0]['FECHA_FINALIZACION'].'</strong></div>
-            <p>&nbsp;</p>
             <div id="element1" align="left"><strong>Final date:'.$TMPcurso[0]['FECHA_FINALIZACION'].'</strong></div>
             <p>&nbsp;</p>';
                         
@@ -389,17 +387,17 @@ class SolSolicitudController extends AppController
                endif;
             endforeach;
             
-            //$document->loadHtml($html);
+            $document->loadHtml($html);
             //set page size and orientation
-            //$document->setPaper('A3', 'portrait');
+            $document->setPaper('A3', 'portrait');
             //Render the HTML as PDF
-            //$document->render();
+            $document->render();
             //Get output of generated pdf in Browser
-            //$document->stream("Application-".$TMPcurso[0]['SIGLA'], array("Attachment"=>1));
+            $document->stream("Application-".$TMPcurso[0]['SIGLA']."-".$respSol[1] ."-".$respSol[2]."-".$respSol[3], array("Attachment"=>1));
             //1  = Download
             //0 = Preview
-            #$this->Flash->error(__('El pdf de esta solicitud no pudo ser generado. Existe un error en los campos editables.'));
-            //$DashboardController = new DashboardController;
-            //return $this->redirect(['controller' => 'Dashboard','action' => 'cursoViewDashboard',$idCurso]);
+            //$this->Flash->error(__('El pdf de esta solicitud no pudo ser generado. Existe un error en los campos editables.'));
+            $DashboardController = new DashboardController;
+            return $this->redirect(['controller' => 'Dashboard','action' => 'cursoViewDashboard',$idCurso]);
         }
 }
