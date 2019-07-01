@@ -42,13 +42,14 @@
                <p class= "value"> <?= __('Date') ?></p>
                <?php elseif($solPreguntum->TIPO ==5):?>
               
-               <p class= "value"> <?= __('Select')?>
+              <!-- If is select, show it´s options -->
+               <p class= "value"> <?= __('Select');
+                    foreach($options as $option): ?>
+                      <p class= "value"> Option: <?= __($option['DESCRIPCION_ING']) ?>
+                    <?php endforeach;
+               ?>
                </p>
 
-              <?php foreach($options as $option): ?>
-                <p class= "value"> Option: <?= __($option['DESCRIPCION_ING']) ?>
-              <?php endforeach; ?>
-               
                <?php elseif($solPreguntum->TIPO ==6):?>
                <p class= "value"> <?= __('Upload Document') ?></p>
                <?php elseif($solPreguntum->TIPO ==7):?>
