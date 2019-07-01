@@ -66,11 +66,14 @@ class SolPreguntaController extends AppController
         if ($this->request->is('post')) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
             $temp = $this->request->getData();
-            
 
-            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp['TIPO'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
+            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp['tipo'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
                 $this->Flash->success(__('The question has been saved.'));
 
+                if ($temp['tipo'] == 5 && $this->SolPregunta->insertOptions($this->SolPregunta->returnMaxSolPregunta()-1, $temp['options'])) {
+                    $this->Flash->success(__('The options have been saved.'));
+                    
+                }
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The question could not be saved. Please, try again.'));

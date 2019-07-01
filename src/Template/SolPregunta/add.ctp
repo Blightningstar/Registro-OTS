@@ -22,22 +22,21 @@
               ]);
 
               echo '<label for="TIPO">Type</label>';
+
           ?>
-              <select id="typeSelect" onchange="multipleSelect()">
-                <option value="Text">Text</option>
-                <option value="Number">Number</option>
-                <option value="Date">Date</option>
-                <option value="Select">Select</option>
-                <option value="Large text">Large text</option>
-                <option value="Upload document">Upload document</option>
-                <option value="Email">Email</option>
-                <option value="Phone number">Phone Number</option>
-                <option value="URL">URL</option>
+               <select id="typeSelect" onchange="multipleSelect()" name="tipo">
+                <option value=0>Short Text</option>
+                <option value=1>MediumText</option>
+                <option value=2>Large Text</option>
+                <option value=3>Number</option>
+                <option value=4>Date</option>
+                <option value=5>Select</option>
+                <option value=6>Upload document</option>
+                <option value=7>Email</option>
+                <option value=8>Phone Number</option>
+                <option value=9>URL</option>
               </select>
 
-              <script type="text/template" id="myHtml">
-                   TEST
-              </script>
         <div id="addinput">
         <p id="demo">
             <button type="button" class="botonAgregar">
@@ -47,7 +46,7 @@
         <br>
         <br>
 
-        </div> 
+        </div>
           <?php
               echo '<label for="ACTIVO">State</label>';
               echo $this->Form->select('ACTIVO',$ACTIVO);
@@ -72,8 +71,9 @@
    */
   function multipleSelect() {
     var x = document.getElementById("typeSelect").value;
+    // var x = document.getElementsByName("TIPO").value;
     
-    if(x == "Select"){
+    if(x == 5){
       document.getElementById("demo").style.display = "block";
     }
     else {
@@ -92,7 +92,7 @@
         // var optNumber = 1;
         $('#addNew').live('click', function() {
 
-            $('<p id="p_new" size="40" name="p_new_' + i +'" value=""> Insert Option  ' + optNumber + ' <br> <input type="text" name="option"><a href="#" id="remNew"><input type="button" style="background-color:rgb(242, 102, 49);color:white;width:150px;height:40px;border-radius: 5px;" value="Remove"></a>').appendTo(addDiv);
+            $('<p id="p_new" size="40" name="p_new_' + i +'" value=""> Insert Option  ' + optNumber + ' <br> <input type="text" name="options[]"><a href="#" id="remNew"><input type="button" style="background-color:rgb(242, 102, 49);color:white;width:150px;height:40px;border-radius: 5px;" value="Remove"></a>').appendTo(addDiv);
             i++;
             optNumber++;
             return false;

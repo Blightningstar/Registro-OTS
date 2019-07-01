@@ -132,15 +132,6 @@ class SolFormularioController extends AppController
         $pregunta = $preguntas->find('all');
         $this->set(compact('pregunta'));
 
-        // echo $contiene->SOL_FORMULARIO;
-
-        // foreach ($contiene as $data) {
-        //     $result = $preguntas->get($data->$SOL_PREGUNTA);
-
-        // }
-
-
-
 
         $solFormulario = $this->SolFormulario->get($id, [
             'contain' => []
