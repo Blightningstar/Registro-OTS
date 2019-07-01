@@ -95,7 +95,7 @@ public function getFormID($name)
         return $result[0]['SOL_FORMULARIO'];
     }
 
-<<<<<<< HEAD
+
 
     /**
      *  deactivates a Form on the database
@@ -130,7 +130,7 @@ public function getFormID($name)
             "COMMIT"
         );
         return 1;
-=======
+}
     public function getPreguntasFormulario($id){
         $connect= ConnectionManager::get('default');
         $result = $connect->execute(
@@ -143,6 +143,6 @@ public function getFormID($name)
              ORDER BY CO.NUMERO_PREGUNTA ASC"
         )->fetchAll('assoc');
         return $result;
->>>>>>> development
+
     }
 }
