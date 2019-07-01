@@ -89,9 +89,8 @@ class SolPreguntaTable extends Table
      */
     public function insertarPregunta($dIng, $tipo, $req, $act)
     {
-        $temp=$this->returnMaxSolPregunta ();
         $connet = ConnectionManager::get('default');
-        $result = $connet->execute("INSERT INTO sol_pregunta VALUES ($temp, '$dIng', $tipo, $req, $act)");
+        $result = $connet->execute("INSERT INTO sol_pregunta VALUES (1, '$dIng', $tipo, $req, $act)");
         $connet->execute(
             "COMMIT"
         );
