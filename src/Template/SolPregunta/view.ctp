@@ -42,11 +42,11 @@
                <p class= "value"> <?= __('Date') ?></p>
                <?php elseif($solPreguntum->TIPO ==5):?>
               
-               <p class= "value"> <?= __('Select - Drop-Down')?>
+               <p class= "value"> <?= __('Select')?>
                </p>
 
               <?php foreach($options as $option): ?>
-                <p class= "value"> <li>Option: </li><?= __($option['DESCRIPCION_ING']) ?>
+                <p class= "value"> Option: <?= __($option['DESCRIPCION_ING']) ?>
               <?php endforeach; ?>
                
                <?php elseif($solPreguntum->TIPO ==6):?>
