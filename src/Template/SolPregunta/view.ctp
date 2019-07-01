@@ -31,22 +31,31 @@
        <div>
             <p class= "field"> <?= __('Type:') ?></p>
             <?php if($solPreguntum->TIPO ==0):?>
-                <p class= "value"> <?= __('Text')  ?></p>
+                <p class= "value"> <?= __('Short Text')  ?></p>
             <?php elseif($solPreguntum->TIPO ==1):?>
-               <p class= "value"> <?= __('Number') ?></p>
+               <p class= "value"> <?= __('Medium Text') ?></p>
             <?php elseif($solPreguntum->TIPO ==2):?>
-               <p class= "value"> <?= __('Date') ?></p>
+               <p class= "value"> <?= __('Large Text') ?></p>
             <?php elseif($solPreguntum->TIPO ==3):?>
-               <p class= "value"> <?= __('Select') ?></p>
+               <p class= "value"> <?= __('Number') ?></p>
              <?php elseif($solPreguntum->TIPO ==4):?>
-               <p class= "value"> <?= __('Large text') ?></p>
+               <p class= "value"> <?= __('Date') ?></p>
                <?php elseif($solPreguntum->TIPO ==5):?>
-               <p class= "value"> <?= __('Upload document') ?></p>
+              
+               <p class= "value"> <?= __('Select - Drop-Down')?>
+               </p>
+
+              <?php foreach($options as $option): ?>
+                <p class= "value"> <li>Option: </li><?= __($option['DESCRIPCION_ING']) ?>
+              <?php endforeach; ?>
+               
                <?php elseif($solPreguntum->TIPO ==6):?>
-               <p class= "value"> <?= __('Email') ?></p>
+               <p class= "value"> <?= __('Upload Document') ?></p>
                <?php elseif($solPreguntum->TIPO ==7):?>
-               <p class= "value"> <?= __('Phone number') ?></p>
+               <p class= "value"> <?= __('Email') ?></p>
                <?php elseif($solPreguntum->TIPO ==8):?>
+               <p class= "value"> <?= __('Phone Number') ?></p>
+             <?php elseif($solPreguntum->TIPO ==9):?>
                <p class= "value"> <?= __('URL') ?></p>
             <?php endif ?>
             <hr class= "separator">

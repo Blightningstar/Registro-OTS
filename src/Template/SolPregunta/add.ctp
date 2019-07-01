@@ -26,19 +26,19 @@
           ?>
                <select id="typeSelect" onchange="multipleSelect()" name="tipo">
                 <option value=0>Short Text</option>
-                <option value=1>MediumText</option>
+                <option value=1>Medium Text</option>
                 <option value=2>Large Text</option>
                 <option value=3>Number</option>
                 <option value=4>Date</option>
                 <option value=5>Select</option>
-                <option value=6>Upload document</option>
+                <option value=6>Upload Document</option>
                 <option value=7>Email</option>
                 <option value=8>Phone Number</option>
                 <option value=9>URL</option>
               </select>
 
         <div id="addinput">
-        <p id="demo">
+        <p id="addOpt">
             <button type="button" class="botonAgregar">
                 <a href="#" id="addNew" style="color:white;">Add Option</a>
             </button>                   
@@ -62,7 +62,7 @@
 
 <!-- For Hidding the functionality for "Adding Options Dinamically"-->
 <script>
-  document.getElementById("demo").style.display = "none";
+  document.getElementById("addOpt").style.display = "none";
 
   /**
    * If the question type is SELECT, add multiple options to it
@@ -71,14 +71,13 @@
    */
   function multipleSelect() {
     var x = document.getElementById("typeSelect").value;
-    // var x = document.getElementsByName("TIPO").value;
     
     if(x == 5){
-      document.getElementById("demo").style.display = "block";
+      document.getElementById("addOpt").style.display = "block";
     }
     else {
       //Remove Add Option Button
-      document.getElementById("demo").style.display = "none";
+      document.getElementById("addOpt").style.display = "none";
     };
   }
 </script>
