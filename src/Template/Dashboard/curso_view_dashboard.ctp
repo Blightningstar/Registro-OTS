@@ -88,7 +88,7 @@
                      </button>
                      
                      <button type="button" class="botonDashboardAceptarConsultar">
-                           <?= $this->Html->link(__('Export PDF'), ['controller' => 'Dashboard', 'action' => 'exportPDF'], ['style' => 'color:white;']) ?> 
+                           <?= $this->Html->link(__('Export PDF'), ['controller' => 'Dashboard', 'action' => 'exportPDF', $proCurso->PRO_CURSO, $Query['segUsuario']['SEG_USUARIO']], ['style' => 'color:white;']) ?> 
                      </button>
                   </td>
             </tr>

@@ -86,8 +86,8 @@ class DashboardController extends AppController
      * Review Application method
      *
      * @author Jason Zamora Trejos
-     * 
-     * @return \Cake\Http\Response|void
+     * @param string|null $idUsuario Seg User id, $idCurso Pro Curso id
+     * @return redirect to the application view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function review($idUsuario = null, $idCurso = null)
@@ -101,13 +101,14 @@ class DashboardController extends AppController
      * Export PDF method
      *
      * @author Jason Zamora Trejos
-     * 
+     * @param
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function exportPDF($idCurso = null)
+    public function exportPDF($idCurso = null, $idUsuario=null)
     {
-       
+       $SolSolicitudController = new SolSolicitudController;
+       $SolSolicitudController->getPDF($idUsuario, $idCurso);
     }
     
     /**
@@ -115,7 +116,7 @@ class DashboardController extends AppController
      *
      * @author Jason Zamora Trejos
      * @param string|null $idCurso Pro Curso id ,$idUsuario Seg Usuario id.
-     * @return \Cake\Http\Response|void
+     * @return redirect to the curso_View_Dashboard view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function accept($idCurso = null, $idUsuario = null)
@@ -135,7 +136,7 @@ class DashboardController extends AppController
      *
      * @author Jason Zamora Trejos
      * @param string|null $idCurso Pro Curso id ,$idUsuario Seg Usuario id.
-     * @return \Cake\Http\Response|void
+     * @return redirect to the curso_View_Dashboard view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function denied($idCurso = null, $idUsuario = null)
