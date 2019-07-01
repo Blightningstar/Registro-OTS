@@ -43,6 +43,22 @@ class SolSolicitudController extends AppController
         // Faltan  botones de aceptar, rechazar y volver.
     }
 
+    public function uploadgrades($usuarioId = null,$cursoId = null) 
+    {
+        // Acordar borrar esto cuando este bien ligado
+        $usuarioId = 3;
+        $cursoId = 8;
+
+        $this->loadModel('SolFormulario');
+
+        $pregSol = $this->SolFormulario->getPreguntasFormulario($cursoId);
+        $respSol = $this->SolSolicitud->verSolicitud($usuarioId, $cursoId);
+
+        $this->set(compact('pregSol', $pregSol));
+        $this->set(compact('respSol', $respSol));
+        // Faltan  botones de aceptar, rechazar y volver.
+    }
+
     /**
      * Add method
      *
