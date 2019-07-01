@@ -83,6 +83,34 @@ class DashboardController extends AppController
     }
     
     /**
+     * Review Application method
+     *
+     * @author Jason Zamora Trejos
+     * 
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function review($idUsuario = null, $idCurso = null)
+    {
+         // load the model you need depending on the controller you need to use
+        $SolSolicitudController = new SolSolicitudController;
+        return  $this->redirect(['controller' => 'SolSolicitud','action' => 'view',$idUsuario,$idCurso]);
+    }
+    
+    /**
+     * Export PDF method
+     *
+     * @author Jason Zamora Trejos
+     * 
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function exportPDF($idCurso = null)
+    {
+       
+    }
+    
+    /**
      * accept method
      *
      * @author Jason Zamora Trejos
