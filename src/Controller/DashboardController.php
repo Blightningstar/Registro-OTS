@@ -53,6 +53,10 @@ class DashboardController extends AppController
      */
     public function cursoViewDashboard($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(14, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
         $proCurso = $this->Curso->get($id, ['contain' => []]); //Use the id to show only the course selected we pass through an html link.
         $solicitud = $this->loadModel('sol_Solicitud'); //Bring the information of the table sol_Solicitud.
@@ -76,6 +80,10 @@ class DashboardController extends AppController
     
     public function studentDashboard()
     {
+        $roles = $this->viewVars['roles'];
+        if(array_key_exists(13, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $application_controller = new SolSolicitudController;
         $user_applications = $application_controller->getUserApplications($this->viewVars['actualUser']['SEG_USUARIO']);
 
