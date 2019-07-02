@@ -45,7 +45,7 @@
                 
                 <td class="actions">
                 <!-- Links the view button to the course-->
-                  <button type="button" class="botonDashboardDenegar">
+                  <button type="button" class="botonDashboardApplication">
                         <?= $this->Html->link(__('See Aplications'), ['controller' => 'Dashboard', 'action' => 'cursoViewDashboard', $queryDashboard->PRO_CURSO], ['style' => 'color:white;']) ?>   
                   </button>
                 </td>

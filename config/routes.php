@@ -22,6 +22,8 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
+//Redirecciona la pagina principal a la vista de main
+Router::connect('/', array('controller' => 'MainPage'));
 
 /*Evita que los nombres exactos de las tablas aparezcan en la URL
  El primer router connect se encarga de reemplazar el nombre exacto de la tabla por un nombre normal para cada CRUD

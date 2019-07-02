@@ -207,6 +207,9 @@ div.card.background {
 .botonDashboardAceptarConsultar
 {
     background-color: #7BC143;
+    text-align:center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 12px 24px;
     margin: 0 auto;
     border-radius: 12px;
     color:white !important;
@@ -220,6 +223,23 @@ div.card.background {
 .botonDashboardDenegar
 {
     background-color: #F26631;
+    text-align:center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 12px 24px;
+    margin: 0 auto;
+    border-radius: 12px;
+    color:white !important;
+}
+
+.botonDashboardApplication:hover {
+    background-color: rgb(230, 92, 42) !important; 
+ 
+}
+
+.botonDashboardApplication
+{
+    background-color: #F26631;
+    text-align:center;
     margin: 0 auto;
     border-radius: 12px;
     color:white !important;
