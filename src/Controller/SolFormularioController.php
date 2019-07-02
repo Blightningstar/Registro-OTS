@@ -109,7 +109,7 @@ class SolFormularioController extends AppController
                 $solContiene = $this->SolContiene->newEntity();
                 $solContiene['SOL_PREGUNTA'] = $question;
 
-                $solContiene['SOL_FORMULARIO'] = $this->loadmodel('SolFormulario')->getFormID($solFormulario['NOMBRE']);               //Problema, obtener el ID del formulario insertado 
+                $solContiene['SOL_FORMULARIO'] = $this->loadmodel('SolFormulario')->getFormID($solFormulario['NOMBRE']);
                 $solContiene['NUMERO_PREGUNTA'] = $questNumber;
 
                 $this->SolContiene->save($solContiene);
@@ -136,19 +136,50 @@ class SolFormularioController extends AppController
         if(!array_key_exists(27, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
+        $contiene = TableRegistry::get('SolContiene');
+        $contiene = $contiene->find('all');
+        $this->set(compact('contiene'));
+
+        $preguntas = TableRegistry::get('SolPregunta');
+        $pregunta = $preguntas->find('all');
+        $this->set(compact('pregunta'));
+
+        // load the model 
+        $this->loadModel('SolContiene');
+        $solContiene = $this->SolContiene->newEntity();
+
+
         $solFormulario = $this->SolFormulario->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
-            if ($this->SolFormulario->save($solFormulario)) {
-                $this->Flash->success(__('The sol formulario has been saved.'));
+             $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
 
+             var_dump($_POST['questions']);
+
+
+            if ($this->SolFormulario->save($solFormulario)) {
+                $questNumber = 1;
+                foreach ($_POST['questions'] as $question) {
+                    echo $question;
+                    $solContiene = $this->SolContiene->newEntity();
+                    $solContiene['SOL_PREGUNTA'] = $question;
+
+                    $solContiene['SOL_FORMULARIO'] = $solFormulario['SOL_FORMULARIO'];
+                    $solContiene['NUMERO_PREGUNTA'] = $questNumber;
+
+                    $this->SolContiene->save($solContiene);
+                    $questNumber++;
+                }
+                $this->Flash->success(__('Records have been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
         }
         $this->set(compact('solFormulario'));
+
+        $result = $this->loadmodel('SolFormulario')->getContainingQuestions($solFormulario->SOL_FORMULARIO);
+        $this->set(compact('result'));
     }
 
     /**

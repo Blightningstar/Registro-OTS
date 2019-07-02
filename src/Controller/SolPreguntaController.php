@@ -59,11 +59,15 @@ class SolPreguntaController extends AppController
         ]);
 
         $this->set('solPreguntum', $solPreguntum);
+
+        $options = $this->SolPregunta->getOptions($solPreguntum['SOL_PREGUNTA']);
+        // var_dump($options);
+        $this->set('options', $options);
     }
 
     /**
      * Add method
-     * @author Joel Chaves
+     * @author Joel Chaves 
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
@@ -76,11 +80,14 @@ class SolPreguntaController extends AppController
         if ($this->request->is('post')) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
             $temp = $this->request->getData();
-            
 
-            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp['TIPO'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
+            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp['tipo'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
                 $this->Flash->success(__('The question has been saved.'));
 
+                if ($temp['tipo'] == 5 && $this->SolPregunta->insertOptions($this->SolPregunta->returnMaxSolPregunta()-1, $temp['options'])) {
+                    $this->Flash->success(__('The options have been saved.'));
+                    
+                }
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The question could not be saved. Please, try again.'));
@@ -88,10 +95,10 @@ class SolPreguntaController extends AppController
         $this->set(compact('solPreguntum'));
 
         $ACTIVO = array('Inactive','Active');
-         $this->set('ACTIVO',$ACTIVO);
+        $this->set('ACTIVO',$ACTIVO);
 
-         $REQUERIDO = array('Not required','Required');
-         $this->set('REQUERIDO',$REQUERIDO);
+        $REQUERIDO = array('Not required','Required');
+        $this->set('REQUERIDO',$REQUERIDO);
 
          $TIPO = array('Short Text','Medium Text','Large text','Number','Date','Select','Email','Phone','number','URL');
          $this->set('TIPO',$TIPO);

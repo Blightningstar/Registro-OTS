@@ -21,22 +21,24 @@
 		            <p class= "value"> <?= $pregunta['DESCRIPCION_ING'] ?></p>
 
 		             <?php if($pregunta['TIPO'] =='0'):?>
-                <p class= "value"> <?= __('Type: Text')  ?></p>
+                <p class= "value"> <?= __('Type: Short Text')  ?></p>
             <?php elseif($pregunta['TIPO'] =='1'):?>
-               <p class= "value"> <?= __('Type: Number') ?></p>
+               <p class= "value"> <?= __('Type: Medium Text') ?></p>
             <?php elseif($pregunta['TIPO'] =='2'):?>
-               <p class= "value"> <?= __('Type: Date') ?></p>
+               <p class= "value"> <?= __('Type: Large Text') ?></p>
             <?php elseif($pregunta['TIPO'] =='3'):?>
-               <p class= "value"> <?= __('Type: Select') ?></p>
+               <p class= "value"> <?= __('Type: Number') ?></p>
              <?php elseif($pregunta['TIPO'] =='4'):?>
-               <p class= "value"> <?= __('Type: Large text') ?></p>
+               <p class= "value"> <?= __('Type: Date') ?></p>
                <?php elseif($pregunta['TIPO'] =='5'):?>
-               <p class= "value"> <?= __('Type: Upload document') ?></p>
+               <p class= "value"> <?= __('Type: Select') ?></p>
                <?php elseif($pregunta['TIPO'] =='6'):?>
-               <p class= "value"> <?= __('Type: Email') ?></p>
+               <p class= "value"> <?= __('Type: Upload Document') ?></p>
                <?php elseif($pregunta['TIPO'] =='7'):?>
-               <p class= "value"> <?= __('Type: Phone number') ?></p>
+               <p class= "value"> <?= __('Type: Email') ?></p>
                <?php elseif($pregunta['TIPO'] =='8'):?>
+               <p class= "value"> <?= __('Type: Phone Number') ?></p>
+             <?php elseif($pregunta['TIPO'] =='9'):?>
                <p class= "value"> <?= __('Type: URL') ?></p>
             <?php endif ?>
 

@@ -29,7 +29,6 @@
                 <!-- <form action="#" method="POST"> -->
                 <?= $this->Form->create($solFormulario) ?>
                      <?php
-
                         echo $this->Form->control('NOMBRE', [
                             'label' => 'Form Name',
                             'pattern' => '^[A-Za-z0-9 _,.\/ ?¿]*$', 
