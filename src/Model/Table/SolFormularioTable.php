@@ -106,7 +106,7 @@ public function getFormID($name)
     public function getContainingQuestions($idForm){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
-            "SELECT DISTINCT DESCRIPCION_ING FROM SOL_PREGUNTA
+            "SELECT DISTINCT DESCRIPCION_ING, NUMERO_PREGUNTA, SOL_CONTIENE.SOL_PREGUNTA FROM SOL_PREGUNTA
              INNER JOIN SOL_CONTIENE
              ON SOL_PREGUNTA.SOL_PREGUNTA = SOL_CONTIENE.SOL_PREGUNTA
              WHERE SOL_CONTIENE.SOL_FORMULARIO = '$idForm'"

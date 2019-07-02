@@ -6,6 +6,7 @@
  */
 ?>
 <div class="solFormulario index large-9 medium-8 columns content container-fluid">
+    <?= $this->Form->create($solFormulario) ?>
     <fieldset>
         <legend class = "titulo">Form Administration<br></br>
         <p class = "subtitulo">Editing form</p>
@@ -29,8 +30,7 @@
                     echo $this->Form->control('NOMBRE', [
                         'label' => 'Form Name',
                         'pattern' => '^[A-Za-z0-9 _,.\/ ?¿]*$', 
-                        // 'placeholder' => 'Only alphanumeric characters'
-                        'placeholder' => $solFormulario->NOMBRE 
+                        'placeholder' => 'Only alphanumeric characters'
                     ]);
                     
                 ?>
@@ -44,13 +44,9 @@
                 <!-- Select Box with the available questions -->
                 <p id="p_new" size="40" name="p_new_" + $questNumber +"" value="">
                 <select name="questions[]"> 
+                    <?php echo $questCount['SOL_PREGUNTA']; ?>
                     <!-- <option selected> -- Choose a Question -- </option> -->
-                    <option selected> <?php echo $result[$questNumber]['DESCRIPCION_ING']; ?> </option>
-
-        <!--             <?php 
-                        foreach ($contiene as $data){
-                    ?> -->
-                   <!-- <option value="<?php echo $data->SOL_PREGUNTA;?>"><?php echo $data->SOL_FORMULARIO; ?></option><?php } ?> -->
+                    <option selected value="<?php echo $questCount['SOL_PREGUNTA'];?>" > <?php echo $result[$questNumber]['DESCRIPCION_ING']; ?> </option>
 
                     <?php 
                         foreach ($pregunta as $data){
