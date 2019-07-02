@@ -22,7 +22,7 @@
       <input type="text" id="queryTextbox" style="width:50%;margin-left:20px;"> 
    </div>
    <div class="container-fluid table-responsive">
-   <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
+   <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered table-striped">
         <thead>
             <tr id="headTr">
                 <!-- Puts each field of the table in the grid -->

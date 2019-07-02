@@ -26,7 +26,7 @@
         <div class="col-xl-12 offset-xl-3">
 
             <!-- Permission matrix. -->
-            <table cellspacing="10" id="rightstable" class="gridIndex table table-bordered">
+            <table cellspacing="10" id="rightstable" class="gridIndex table table-bordered table-striped">
                 <thead>
                     <tr id = "headTr">
                         <th colspan="2" scope="col" style="text-align:center;">Permission description</th>

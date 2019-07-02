@@ -33,7 +33,7 @@
   
     <!-- grid with all users-->
     <div class="container-fluid table-responsive">
-    <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
+    <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered table-striped">
         <thead>
             <!-- id="headTr" allows the search function to keep headers right! -->
             <tr id="headTr">

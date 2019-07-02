@@ -24,7 +24,7 @@
     </div>
   
     <div class="container-fluid table-responsive"> 
-    <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
+    <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered table-striped">
         <thead>
             <tr id="headTr">
                 <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
