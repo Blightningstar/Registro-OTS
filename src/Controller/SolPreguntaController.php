@@ -53,6 +53,10 @@ class SolPreguntaController extends AppController
         ]);
 
         $this->set('solPreguntum', $solPreguntum);
+
+        $options = $this->SolPregunta->getOptions($solPreguntum['SOL_PREGUNTA']);
+        // var_dump($options);
+        $this->set('options', $options);
     }
 
     /**

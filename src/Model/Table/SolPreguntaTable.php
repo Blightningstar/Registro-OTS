@@ -169,16 +169,15 @@ class SolPreguntaTable extends Table
         return $result[0]['SOL_PREGUNTA'];
     }
 
-        /**
+    /**
     * 
-    * @author AnyeloLobo <yeloanlo@gmail.com>
+    * @author Anyelo Lobo <yeloanlo@gmail.com>
     * 
     * 
-    * @param string $descrIng, is the question description in English.
-    * @return string the restauration code of the user.
+    * @param $idPreg, is the question id.
+    * @param $options is the array of options inserted by user
     */
     public function insertOptions($idPreg, $options){
-        // $temp=$this->returnMaxSolPregunta ();
         $connet = ConnectionManager::get('default');
         foreach ($options as $option) {
             $result = $connet->execute("INSERT INTO sol_opciones VALUES (1, $idPreg, '$option', '$option')");
@@ -188,6 +187,22 @@ class SolPreguntaTable extends Table
             "COMMIT"
         );
         return 1;
+    }
+
+    /**
+    * 
+    * @author Anyelo Lobo <yeloanlo@gmail.com>
+    * 
+    * 
+    * @param $idPreg, is the question id.
+    * 
+    */
+    public function getOptions($idPreg){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT DESCRIPCION_ING FROM SOL_OPCIONES WHERE SOL_PREGUNTA = '$idPreg' "
+        )->fetchAll('assoc');
+        return $result;
     }
 
 }
