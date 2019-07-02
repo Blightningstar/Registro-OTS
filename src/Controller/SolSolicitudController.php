@@ -32,6 +32,10 @@ class SolSolicitudController extends AppController
      */
     public function view($usuarioId = null,$cursoId = null) 
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(17, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $this->loadModel('SolFormulario');
 
         $pregSol = $this->SolFormulario->getPreguntasFormulario($cursoId);
@@ -65,6 +69,10 @@ class SolSolicitudController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add($cursoId = null){
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(15, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         if ($this->request->is('post')) {
             $this->loadModel('ProCurso');
             $this->loadModel('SolArchivo');
@@ -167,6 +175,10 @@ class SolSolicitudController extends AppController
      */
     public function edit($cursoId = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(16, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         if ($this->request->is('post')) {
             $this->loadModel('ProCurso');
             $this->loadModel('SolArchivo');
@@ -288,6 +300,10 @@ class SolSolicitudController extends AppController
      * @return
      */
     public function getPDF($idUsuario=null, $idCurso=null){
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(29, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $this->Solicitud = $this->loadModel('SolSolicitud');
         $this->Solicitud = $this->loadModel('SolFormulario');
         //It creates an entity to use the validators.
@@ -297,9 +313,6 @@ class SolSolicitudController extends AppController
         //Vector with the view
         $pregSol = $this->SolFormulario->getPreguntasFormulario($idCurso);
         $respSol = $this->SolSolicitud->verSolicitud($idUsuario,$idCurso);
-        
-        //debug($pregSol);
-        //debug($respSol);
         
         //This variable has all the data of the course that the student's application was made
         $proCurso = TableRegistry::get('pro_Curso');

@@ -33,9 +33,11 @@ class SolPreguntaController extends AppController
      */
     public function index()
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(28, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solPregunta = $this->paginate($this->SolPregunta);
-        //debug($solPregunta);
-        //die();
         $this->set(compact('solPregunta'));
     }
 
@@ -48,6 +50,10 @@ class SolPreguntaController extends AppController
      */
     public function view($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(6, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solPreguntum = $this->SolPregunta->get($id, [
             'contain' => []
         ]);
@@ -62,6 +68,10 @@ class SolPreguntaController extends AppController
      */
     public function add()
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(5, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solPreguntum = $this->SolPregunta->newEntity();
         if ($this->request->is('post')) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
@@ -96,6 +106,10 @@ class SolPreguntaController extends AppController
      */
     public function edit($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(7, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solPreguntum = $this->SolPregunta->get($id, [
             'contain' => []]);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -129,6 +143,10 @@ class SolPreguntaController extends AppController
      */
     public function delete($id )
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(8, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
          if ($this->desactivarPregunta($id)) {
              $this->Flash->success(__('The question active state has been changed'));
          } else {

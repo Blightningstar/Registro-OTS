@@ -109,6 +109,10 @@ class SegUsuarioController extends AppController
      */
     public function index()
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(26, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $actualUserName = $this->viewVars['actualUser']["NOMBRE_USUARIO"];
         $lc_role = $this->actualRole();
         //Redirect students 
@@ -133,11 +137,9 @@ class SegUsuarioController extends AppController
      */
     public function view($id = null)
     {
-   
-        //Redirect students 
-        $lc_role = $this->actualRole();
-        if( $lc_role == "3")
-            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(20, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
         $segUsuario = $this->SegUsuario->get($id, [
             'contain' => []
@@ -167,12 +169,9 @@ class SegUsuarioController extends AppController
      */
     public function add()
     {
-        $lc_role = $this->actualRole();
-        //Redirect students 
-        if( $lc_role == "3")
-        {
-            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
-        }
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(18, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
         $segUsuario = $this->SegUsuario->newEntity();
 
@@ -301,12 +300,10 @@ class SegUsuarioController extends AppController
      */
     public function edit($id = null)
     {
-        $lc_role = $this->actualRole();
         //Redirect students 
-        if($lc_role == "3")
-        {
-            return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
-        }
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(19, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
         //Obtains the user data to put in the fields.
         $segUsuario = $this->SegUsuario->get($id, [
@@ -473,6 +470,10 @@ class SegUsuarioController extends AppController
      */
     public function delete($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(21, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $this->request->allowMethod(['post', 'delete']);
         $data = $this->request->getData();
 

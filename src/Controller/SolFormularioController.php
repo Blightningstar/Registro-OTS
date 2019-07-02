@@ -53,6 +53,10 @@ class SolFormularioController extends AppController
      */
     public function view($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(14, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solFormulario = $this->SolFormulario->get($id, [
             'contain' => []
         ]);
@@ -69,6 +73,10 @@ class SolFormularioController extends AppController
      */
     public function add()
     {   
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(10, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         /* Select all questions for the select boxes in the view*/
         $preguntas = TableRegistry::get('SolPregunta');
         $pregunta = $preguntas->find('all');
@@ -124,6 +132,10 @@ class SolFormularioController extends AppController
      */
     public function edit($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(27, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solFormulario = $this->SolFormulario->get($id, [
             'contain' => []
         ]);
@@ -159,6 +171,10 @@ class SolFormularioController extends AppController
 
     public function delete($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(12, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         if ($this->borrarFormulario($id)) {
              $this->Flash->success(__('The form has been deleted'));
          } else {
