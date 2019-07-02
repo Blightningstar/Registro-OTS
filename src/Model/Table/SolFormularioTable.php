@@ -95,6 +95,42 @@ public function getFormID($name)
         return $result[0]['SOL_FORMULARIO'];
     }
 
+
+
+    /**
+     *  deactivates a Form on the database
+     *  @author Joel Chaves
+     *  @param int $id, it's the form identifier
+     *  @return 1 when succeded
+     */
+    public function desactivarFormulario ($id)
+    {
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("UPDATE sol_formulario SET ACTIVO=1-ACTIVO WHERE sol_formulario= $id");
+        $connet->execute(
+            "COMMIT"
+        );
+        return 1;
+    }
+
+
+     /**
+     *  deletes a Form from the database
+     *  @author Joel Chaves
+     *  @param int $id, it's the form identifier
+     *  @return 1 when succeded
+     */
+    public function borrarFormulario ($id)
+    {
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("DELETE FROM SOL_FORMULARIO WHERE SOL_FORMULARIO =$id");
+        $connet->execute(
+            "COMMIT"
+        );
+        return 1;
+}
     public function getPreguntasFormulario($id){
         $connect= ConnectionManager::get('default');
         $result = $connect->execute(
@@ -107,5 +143,6 @@ public function getFormID($name)
              ORDER BY CO.NUMERO_PREGUNTA ASC"
         )->fetchAll('assoc');
         return $result;
+
     }
 }
