@@ -66,4 +66,9 @@ class SegPermisoController extends AppController
             $this->redirect(['action' => 'MatrizPermisos']);
         }
     }
+
+    public function getPermissions($userRole) {
+        $permissionTable=$this->loadmodel('SegPosee');
+        return $permissionTable->getPermissions($userRole);
+    }
 }
