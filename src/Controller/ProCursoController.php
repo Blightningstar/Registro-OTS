@@ -34,10 +34,6 @@ class ProCursoController extends AppController
      */
     public function index($program_id = null)
     {
-        $roles = $this->viewVars['roles'];
-        if(!array_key_exists(2, $roles))
-            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
-
         $proCurso = $this->paginate($this->ProCurso);
         $this->set(compact('proCurso', $proCurso, 'program_id', $program_id));
         if ($this->request->is('post')) {
@@ -52,12 +48,8 @@ class ProCursoController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($id = null, $program_id = null)
     {
-        $roles = $this->viewVars['roles'];
-        if(!array_key_exists(22, $roles))
-            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
-
         $proCurso = $this->ProCurso->get($id, [
             'contain' => []
         ]);
@@ -83,20 +75,16 @@ class ProCursoController extends AppController
         {
             $desplegar = 1;
         }                                                   
-        $this->set(compact('proCurso', 'queryUsuario', 'queryFormulario', 'desplegar'));
+        $this->set(compact('proCurso', 'queryUsuario', 'queryFormulario', 'desplegar','program_id'));
     }
 
     /**
      * Add method
-     *
+     * @param $program_id string: the id of the parent program of the course
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($program_id = null)
     {
-        $roles = $this->viewVars['roles'];
-        if(!array_key_exists(25, $roles))
-            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
-
         /*Loads the ID's of program's for the add view*/
         $this->Programa = $this->loadModel('pro_Programa');
         $proPrograma = $this->paginate($this->Programa);
@@ -160,26 +148,22 @@ class ProCursoController extends AppController
 						$this->FileSystem->addFolder('FileSystem/'.$this->PRO_PROGRAMA->getProgramName($proCurso['PRO_PROGRAMA']).$foldername);
 						
 						$this->Flash->success(__('The course has been saved.'));
-						return $this->redirect(['action' => 'index']);
+						return $this->redirect(['action' => 'index',$proCurso['PRO_PROGRAMA']]);
 					}
         }
-        $this->set(compact('proCurso','lo_vector_Programa', 'lo_vector_Formulario'));
+        $this->set(compact('proCurso','lo_vector_Programa', 'lo_vector_Formulario','program_id'));
     }
 
     /**
      * Edit method
      *
      * @author Jason Zamora Trejos
-     * @param string|null $id Pro Curso id.
+     * @param string|null $id Pro Curso id y $program_id string: the id of the parent program of the course
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($id = null,$program_id = null)
     {
-        $roles = $this->viewVars['roles'];
-        if(!array_key_exists(23, $roles))
-            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
-
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
         $form_data = $this->request->getData();
         
@@ -231,11 +215,11 @@ class ProCursoController extends AppController
             if ($this->ProCurso->updateCourse($proCurso)) 
             {
                $this->Flash->success(__('The course has been saved.'));
-               return $this->redirect(['action' => 'index']);
+               return $this->redirect(['action' => 'index',$proCurso['PRO_PROGRAMA']]);
             }
             $this->Flash->error(__('The course could not be saved. Please, try again.'));
         }
-        $this->set(compact('proCurso','lo_vector_Programa', 'lo_vector_Formulario'));
+        $this->set(compact('proCurso','lo_vector_Programa', 'lo_vector_Formulario','program_id'));
     }
 
     /**
@@ -248,10 +232,6 @@ class ProCursoController extends AppController
      */
     public function delete($id = null)
     {
-        $roles = $this->viewVars['roles'];
-        if(!array_key_exists(24, $roles))
-            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
-
         $this->request->allowMethod(['post', 'delete']);
         $proCurso = $this->ProCurso->get($id);
         if ($this->ProCurso->logicalDelete($proCurso['PRO_CURSO'], $proCurso['ACTIVO']) == 0) {
@@ -259,6 +239,6 @@ class ProCursoController extends AppController
         } else {
             $this->Flash->success(__('The course has been activated'));
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'index',$proCurso['PRO_PROGRAMA']]);
     }
 }
