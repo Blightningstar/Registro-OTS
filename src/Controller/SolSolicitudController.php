@@ -69,7 +69,6 @@ class SolSolicitudController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add($cursoId = null){
-        debug($this->viewVars);
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(15, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
