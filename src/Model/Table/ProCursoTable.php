@@ -107,7 +107,24 @@ class ProCursoTable extends Table
         $form = $course['SOL_FORMULARIO'];
         
         $result = TableRegistry::get('proCurso')->find('all');
-                $result->update()
+        if($form == 'Null') /*This is because a course can be saved without a form*/
+        {
+            $result->update()
+                    ->set(['NOMBRE' => $name, 
+                           'FECHA_INICIO' => $startingDate, 
+                           'FECHA_FINALIZACION' => $finalDate, 
+                           'FECHA_LIMITE' => $enrollmentDate,
+                           'CREDITOS' => $academicCharge,
+                           'IDIOMA' => $language,
+                           'LOCACION' => $location,
+                           'PRO_PROGRAMA' => $parentProgram
+                           ])
+                    ->where(['PRO_CURSO' => $id])
+                    ->execute(); 
+        }
+        else
+        {
+           $result->update()
                     ->set(['NOMBRE' => $name, 
                            'FECHA_INICIO' => $startingDate, 
                            'FECHA_FINALIZACION' => $finalDate, 
@@ -120,6 +137,7 @@ class ProCursoTable extends Table
                            ])
                     ->where(['PRO_CURSO' => $id])
                     ->execute();
+        }
         return true;
     }
 

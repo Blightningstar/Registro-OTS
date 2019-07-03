@@ -57,6 +57,10 @@ class ProProgramaController extends AppController
      */
     public function view($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(array_key_exists(0, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $proPrograma = $this->ProPrograma->get($id, [
             'contain' => []
         ]);
@@ -71,6 +75,10 @@ class ProProgramaController extends AppController
      */
     public function add()
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(4, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $proPrograma = $this->ProPrograma->newEntity();
 
         if ($this->request->is('post')) {
@@ -105,6 +113,10 @@ class ProProgramaController extends AppController
      */
     public function edit($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(1, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $proPrograma = $this->ProPrograma->get($id, [
             'contain' => []
         ]);
@@ -130,6 +142,10 @@ class ProProgramaController extends AppController
      */
     public function deleteProgram($id)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(3, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         return $this->ProPrograma->deleteProgram($id);
     }
 

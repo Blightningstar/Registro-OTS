@@ -19,10 +19,11 @@
             foreach ($pregSol as $pregunta):        
                 if($pregunta['ACTIVO']):
                     echo "<label><b>".$numPregunta.") ".$pregunta['DESCRIPCION_ING']."</b></label><br>";
-                    echo "<lable>".$respSol[$pregunta['NUMERO_PREGUNTA']]."</label><br>";
+                    echo "<label>".$respSol[$pregunta['NUMERO_PREGUNTA']]."</label><br>";
                     echo "<hr class= 'separator'><br>";
                     ++$numPregunta;
                 endif;
             endforeach; ?>
     </fieldset>
+    <a href="/Registro-OTS/dashboard/curso-view-dashboard/<?php echo $cursoId ?>"> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a> 
 </div>

@@ -18,7 +18,7 @@
     
     <!--Links the create button to a new course -->
     <button type="button" class="botonAgregar">
-        <?= $this->Html->link(__('Add Course'), ['controller' => 'curso', 'action' => 'add'], ['style' => 'color:white;']) ?>   
+        <?= $this->Html->link(__('Add Course'), ['controller' => 'curso', 'action' => 'add',$program_id], ['style' => 'color:white;']) ?>   
     </button>
     
     <div class="row">
@@ -73,8 +73,8 @@
                 
                 <td class="actions">
                 <!-- Links the view button to the course-->
-                  <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO], ['escape'=>false])?>  
-                  <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['controller' => 'curso', 'action' => 'edit', $proCurso->PRO_CURSO], ['escape'=>false]) ?>    
+                  <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO, $program_id], ['escape'=>false])?>  
+                  <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['controller' => 'curso', 'action' => 'edit', $proCurso->PRO_CURSO,$program_id], ['escape'=>false]) ?>    
                   <?= $this->Html->link('<i class="fa fa-edit"></i>', ['controller' => 'SolSolicitud', 'action' => 'add', $proCurso->PRO_CURSO], ['escape'=>false]) ?>
                 </td>
             </tr>

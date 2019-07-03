@@ -53,6 +53,10 @@ class DashboardController extends AppController
      */
     public function cursoViewDashboard($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(14, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $this->Curso = $this->loadModel('pro_Curso'); //Bring the information of the table pro_Curso.
         $proCurso = $this->Curso->get($id, ['contain' => []]); //Use the id to show only the course selected we pass through an html link.
         $solicitud = $this->loadModel('sol_Solicitud'); //Bring the information of the table sol_Solicitud.
@@ -76,6 +80,10 @@ class DashboardController extends AppController
     
     public function studentDashboard()
     {
+        $roles = $this->viewVars['roles'];
+        if(array_key_exists(13, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $application_controller = new SolSolicitudController;
         $user_applications = $application_controller->getUserApplications($this->viewVars['actualUser']['SEG_USUARIO']);
 
@@ -83,11 +91,40 @@ class DashboardController extends AppController
     }
     
     /**
+     * Review Application method
+     *
+     * @author Jason Zamora Trejos
+     * @param string|null $idUsuario Seg User id, $idCurso Pro Curso id
+     * @return redirect to the application view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function review($idUsuario = null, $idCurso = null)
+    {
+         // load the model you need depending on the controller you need to use
+        $SolSolicitudController = new SolSolicitudController;
+        return  $this->redirect(['controller' => 'SolSolicitud','action' => 'view',$idUsuario,$idCurso]);
+    }
+    
+    /**
+     * Export PDF method
+     *
+     * @author Jason Zamora Trejos
+     * @param
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function exportPDF($idCurso = null, $idUsuario=null)
+    {
+       $SolSolicitudController = new SolSolicitudController;
+       $SolSolicitudController->getPDF($idUsuario, $idCurso);
+    }
+    
+    /**
      * accept method
      *
      * @author Jason Zamora Trejos
      * @param string|null $idCurso Pro Curso id ,$idUsuario Seg Usuario id.
-     * @return \Cake\Http\Response|void
+     * @return redirect to the curso_View_Dashboard view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function accept($idCurso = null, $idUsuario = null)
@@ -107,7 +144,7 @@ class DashboardController extends AppController
      *
      * @author Jason Zamora Trejos
      * @param string|null $idCurso Pro Curso id ,$idUsuario Seg Usuario id.
-     * @return \Cake\Http\Response|void
+     * @return redirect to the curso_View_Dashboard view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function denied($idCurso = null, $idUsuario = null)

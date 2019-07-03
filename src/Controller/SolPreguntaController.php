@@ -33,9 +33,11 @@ class SolPreguntaController extends AppController
      */
     public function index()
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(28, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solPregunta = $this->paginate($this->SolPregunta);
-        //debug($solPregunta);
-        //die();
         $this->set(compact('solPregunta'));
     }
 
@@ -48,29 +50,44 @@ class SolPreguntaController extends AppController
      */
     public function view($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(6, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solPreguntum = $this->SolPregunta->get($id, [
             'contain' => []
         ]);
 
         $this->set('solPreguntum', $solPreguntum);
+
+        $options = $this->SolPregunta->getOptions($solPreguntum['SOL_PREGUNTA']);
+        // var_dump($options);
+        $this->set('options', $options);
     }
 
     /**
      * Add method
-     * @author Joel Chaves
+     * @author Joel Chaves 
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(5, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solPreguntum = $this->SolPregunta->newEntity();
         if ($this->request->is('post')) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
             $temp = $this->request->getData();
-            
 
-            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp['TIPO'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
+            if ($this->SolPregunta->insertarPregunta($temp['DESCRIPCION_ING'],$temp['tipo'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
                 $this->Flash->success(__('The question has been saved.'));
 
+                if ($temp['tipo'] == 5 && $this->SolPregunta->insertOptions($this->SolPregunta->returnMaxSolPregunta()-1, $temp['options'])) {
+                    $this->Flash->success(__('The options have been saved.'));
+                    
+                }
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The question could not be saved. Please, try again.'));
@@ -78,10 +95,10 @@ class SolPreguntaController extends AppController
         $this->set(compact('solPreguntum'));
 
         $ACTIVO = array('Inactive','Active');
-         $this->set('ACTIVO',$ACTIVO);
+        $this->set('ACTIVO',$ACTIVO);
 
-         $REQUERIDO = array('Not required','Required');
-         $this->set('REQUERIDO',$REQUERIDO);
+        $REQUERIDO = array('Not required','Required');
+        $this->set('REQUERIDO',$REQUERIDO);
 
          $TIPO = array('Short Text','Medium Text','Large text','Number','Date','Select','Email','Phone','number','URL');
          $this->set('TIPO',$TIPO);
@@ -96,6 +113,10 @@ class SolPreguntaController extends AppController
      */
     public function edit($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(7, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solPreguntum = $this->SolPregunta->get($id, [
             'contain' => []]);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -129,6 +150,10 @@ class SolPreguntaController extends AppController
      */
     public function delete($id )
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(8, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
          if ($this->desactivarPregunta($id)) {
              $this->Flash->success(__('The question active state has been changed'));
          } else {

@@ -53,6 +53,10 @@ class SolFormularioController extends AppController
      */
     public function view($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(14, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solFormulario = $this->SolFormulario->get($id, [
             'contain' => []
         ]);
@@ -69,6 +73,10 @@ class SolFormularioController extends AppController
      */
     public function add()
     {   
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(10, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         /* Select all questions for the select boxes in the view*/
         $preguntas = TableRegistry::get('SolPregunta');
         $pregunta = $preguntas->find('all');
@@ -101,7 +109,7 @@ class SolFormularioController extends AppController
                 $solContiene = $this->SolContiene->newEntity();
                 $solContiene['SOL_PREGUNTA'] = $question;
 
-                $solContiene['SOL_FORMULARIO'] = $this->loadmodel('SolFormulario')->getFormID($solFormulario['NOMBRE']);               //Problema, obtener el ID del formulario insertado 
+                $solContiene['SOL_FORMULARIO'] = $this->loadmodel('SolFormulario')->getFormID($solFormulario['NOMBRE']);
                 $solContiene['NUMERO_PREGUNTA'] = $questNumber;
 
                 $this->SolContiene->save($solContiene);
@@ -124,19 +132,54 @@ class SolFormularioController extends AppController
      */
     public function edit($id = null)
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(27, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
+        $contiene = TableRegistry::get('SolContiene');
+        $contiene = $contiene->find('all');
+        $this->set(compact('contiene'));
+
+        $preguntas = TableRegistry::get('SolPregunta');
+        $pregunta = $preguntas->find('all');
+        $this->set(compact('pregunta'));
+
+        // load the model 
+        $this->loadModel('SolContiene');
+        $solContiene = $this->SolContiene->newEntity();
+
+
         $solFormulario = $this->SolFormulario->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
-            if ($this->SolFormulario->save($solFormulario)) {
-                $this->Flash->success(__('The sol formulario has been saved.'));
+             $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
 
+             var_dump($_POST['questions']);
+
+
+            if ($this->SolFormulario->save($solFormulario)) {
+                $questNumber = 1;
+                foreach ($_POST['questions'] as $question) {
+                    echo $question;
+                    $solContiene = $this->SolContiene->newEntity();
+                    $solContiene['SOL_PREGUNTA'] = $question;
+
+                    $solContiene['SOL_FORMULARIO'] = $solFormulario['SOL_FORMULARIO'];
+                    $solContiene['NUMERO_PREGUNTA'] = $questNumber;
+
+                    $this->SolContiene->save($solContiene);
+                    $questNumber++;
+                }
+                $this->Flash->success(__('Records have been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
         }
         $this->set(compact('solFormulario'));
+
+        $result = $this->loadmodel('SolFormulario')->getContainingQuestions($solFormulario->SOL_FORMULARIO);
+        $this->set(compact('result'));
     }
 
     /**
@@ -146,18 +189,58 @@ class SolFormularioController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete1($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $solFormulario = $this->SolFormulario->get($id);
-        if ($this->SolFormulario->delete($solFormulario)) {
-            $this->Flash->success(__('The sol formulario has been deleted.'));
-        } else {
-            $this->Flash->error(__('The sol formulario could not be deleted. Please, try again.'));
-        }
+        if ($this->desactivarFormulario($id)) {
+             $this->Flash->success(__('The form active state has been changed'));
+         } else {
+             $this->Flash->error(__('The form could not be deactivaded. Please, try again.'));
+         }
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function delete($id = null)
+    {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(12, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
+        if ($this->borrarFormulario($id)) {
+             $this->Flash->success(__('The form has been deleted'));
+         } else {
+             $this->Flash->error(__('The form could not be deleted. Please, try again.'));
+         }
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     *  Invokes desactivarFormulario() from the Table
+     *  @author Joel Chaves
+     *  @param int $id, it's the form identifier
+     *  @return 1 when succeded
+     */
+    public function desactivarFormulario ($id)
+    {
+        $SolFormularioTable = $this->loadmodel('solFormulario');
+        $SolFormularioTable->desactivarFormulario($id);
+        return 1;
+    }
+
+     /**
+     *  Invokes borrarFormulario() from the Table
+     *  @author Joel Chaves
+     *  @param int $id, it's the form identifier
+     *  @return 1 when succeded
+     */
+    public function borrarFormulario ($id)
+    {
+        $SolFormularioTable = $this->loadmodel('solFormulario');
+        $SolFormularioTable->borrarFormulario($id);
+        return 1;
+    }
+
 
     /**
      * Get all the questions for the add question function
@@ -190,6 +273,7 @@ class SolFormularioController extends AppController
 
     }
 
+    
     public function getPreguntasContiene($id)
     {
         $formTable = $this->loadModel('SolFormulario');

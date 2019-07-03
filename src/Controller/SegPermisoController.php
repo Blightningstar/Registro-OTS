@@ -37,6 +37,10 @@ class SegPermisoController extends AppController
      */
     public function MatrizPermisos()//SEG_POSEE_MatrizPermisos()
     {
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(9, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         // Grant access to the SEG_POSEE table.
         $this->loadModel('seg_posee');
         
@@ -65,5 +69,10 @@ class SegPermisoController extends AppController
             // Will refrash the view
             $this->redirect(['action' => 'MatrizPermisos']);
         }
+    }
+
+    public function getPermissions($userRole) {
+        $permissionTable=$this->loadmodel('SegPosee');
+        return $permissionTable->getPermissions($userRole);
     }
 }

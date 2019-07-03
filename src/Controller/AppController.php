@@ -60,7 +60,14 @@ class AppController extends Controller
         parent::beforeFilter($event);
         $actualUser = $this->getRequest()->getSession()->read('actualUser');
         $this->set(compact('actualUser'));
-        
+        if($actualUser != null){
+            $permissionController = new SegPermisoController;
+            $roles = $permissionController->getPermissions($actualUser['SEG_ROL']);                
+			$this->request->getSession()->write('roles',$roles);          
+			$this->set(compact('roles'));
+        }
+
+
         $country = $this->getRequest()->getSession()->read('country');
         $country = $this->getLocation();//TODO: Eliminar esta linea a la hora de desplegar la página
         if(!$country){
