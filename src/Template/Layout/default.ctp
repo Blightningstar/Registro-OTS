@@ -67,10 +67,10 @@ $cakeDescription = __('Organization for Tropical Studies');
 </head>
 <body onbeforeunload = "return dontclose()">
 
-    <?= $this->Flash->render() ?>
+    
     <?=$this->element('titlebar')?>
     <?=$this->element('menubar')?>
-    
+    <?= $this->Flash->render() ?>
     <?php if($active_menu == 'MenubarMain'){ ?>
         <div class="mainBackground">
         </div>
