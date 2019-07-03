@@ -81,6 +81,6 @@
             <hr class= "separator">
         </div>
  </fieldset>
-    <a href="/Registro-OTS/curso/<?php echo $program_id ?>> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a>
+ <a href="/Registro-OTS/curso/<?php echo $program_id ?>"> <button type="button" class="botonCancelar"> <?= __('Return') ?> </button> </a>
     <?= $this->Form->end() ?>
 </div>
