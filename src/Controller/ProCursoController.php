@@ -131,10 +131,10 @@ class ProCursoController extends AppController
                $proCurso['SOL_FORMULARIO'] = $this->Formulario->getFormID($lo_vector_Formulario[$proCurso['SOL_FORMULARIO']]);
             }
 			
-			if(strtotime($proCurso['FECHA_INICIO']) < strtotime($proCurso['FECHA_LIMITE']))
+			if(strtotime($proCurso['FECHA_INICIO']) <= strtotime($proCurso['FECHA_LIMITE']))
 				$this->Flash->error(__('Error: start date is sooner than last enrollment date'));
 			else
-				if(strtotime($proCurso['FECHA_FINALIZACION']) < strtotime($proCurso['FECHA_INICIO']))
+				if(strtotime($proCurso['FECHA_FINALIZACION']) <= strtotime($proCurso['FECHA_INICIO']))
 					$this->Flash->error(__('Error: End date is sooner than final date'));
 				else
 					/*This section is in charge of saving the user input if it is correct to do so*/
@@ -211,13 +211,22 @@ class ProCursoController extends AppController
                $proCurso['SOL_FORMULARIO'] = $this->Formulario->getFormID($lo_vector_Formulario[$proCurso['SOL_FORMULARIO']]);
             }
 
-            /*This section is in charge of saving the user input if it is correct to do so*/
-            if ($this->ProCurso->updateCourse($proCurso)) 
-            {
-               $this->Flash->success(__('The course has been saved.'));
-               return $this->redirect(['action' => 'index',$proCurso['PRO_PROGRAMA']]);
-            }
-            $this->Flash->error(__('The course could not be saved. Please, try again.'));
+
+            if(strtotime($proCurso['FECHA_INICIO']) <= strtotime($proCurso['FECHA_LIMITE']))
+            $this->Flash->error(__('Error: start date is sooner than last enrollment date'));
+            else
+                if(strtotime($proCurso['FECHA_FINALIZACION']) <= strtotime($proCurso['FECHA_INICIO']))
+                $this->Flash->error(__('Error: End date is sooner than final date'));
+                else
+                {
+                    /*This section is in charge of saving the user input if it is correct to do so*/
+                    if ($this->ProCurso->updateCourse($proCurso)) 
+                    {
+                    $this->Flash->success(__('The course has been saved.'));
+                    return $this->redirect(['action' => 'index',$proCurso['PRO_PROGRAMA']]);
+                    }
+                    $this->Flash->error(__('The course could not be saved. Please, try again.'));
+                }
         }
         $this->set(compact('proCurso','lo_vector_Programa', 'lo_vector_Formulario','program_id'));
     }
