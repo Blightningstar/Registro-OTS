@@ -35,8 +35,9 @@ class SegPermisoController extends AppController
      * 
      * @return flash indicating the success of the removal or granting of a permission to some rol.
      */
-    public function MatrizPermisos()//SEG_POSEE_MatrizPermisos()
+    public function MatrizPermisos()
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(9, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);

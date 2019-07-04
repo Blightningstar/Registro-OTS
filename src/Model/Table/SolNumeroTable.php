@@ -121,6 +121,17 @@ class SolNumeroTable extends Table
         );
     }
 
+    /**
+     * insertarNumero
+     * @author Nathan González Herrera
+     *      
+     * Insert the answer of a number question type
+     * @param int $usuario the identification of an user in the database
+     * @param int $curso the identification of a course in the database
+     * @param int $idpregunta the identification of the question in the database
+     * @param int $numPregunta the number of the question into the form 
+     * @param int $respuesta the answer of the question
+     */
     public function insertarNumero($usuario, $curso, $idpregunta, $numPregunta, $respuesta){
         $connect= ConnectionManager::get('default');
         $connect->execute(
@@ -132,6 +143,16 @@ class SolNumeroTable extends Table
         );
     }
 
+    /**
+     * actualizarNumero
+     * @author Nathan González Herrera
+     *      
+     * Update the answer of a number question type
+     * @param int $usuario the identification of an user in the database
+     * @param int $curso the identification of a course in the database
+     * @param int $pregunta the identification of the question in the database
+     * @param int $respuesta the answer of the question
+     */
     public function actualizarNumero($usuario, $curso, $pregunta, $respuesta){
         $connect= ConnectionManager::get('default');
         $connect->execute(

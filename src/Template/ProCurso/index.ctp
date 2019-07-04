@@ -16,10 +16,13 @@
    </legend>
    <br>
     
-    <!--Links the create button to a new course -->
-    <button type="button" class="botonAgregar">
-        <?= $this->Html->link(__('Add Course'), ['controller' => 'curso', 'action' => 'add'], ['style' => 'color:white;']) ?>   
-    </button>
+    <!-- The user got the right permission for the action? -->
+    <?php if(array_key_exists(25, $roles)): ?>
+        <!--Links the create button to a new course -->
+        <button type="button" class="botonAgregar">
+            <?= $this->Html->link(__('Add Course'), ['controller' => 'curso', 'action' => 'add'], ['style' => 'color:white;']) ?>   
+        </button>
+    <?php endif; ?>
     
     <div class="row">
       <label style="margin-left:30px;" ><?= __('Search Courses ') ?></label>
@@ -32,7 +35,10 @@
         <thead>
             <tr id="headTr">
                 <!-- Puts each field of the table in the grid -->
-                <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
+                <!-- The user got the right permission for the action? -->
+                <?php if(array_key_exists(24, $roles)): ?>
+                    <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
+                <?php endif; ?>
                 <th scope="col"><?= $this->Paginator->sort('Course ID') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Course name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Parent program') ?></th>
@@ -51,13 +57,16 @@
             <tr>
                <!--Uses a form as wrapper to contain a checkbox which will modify active value of the course.
                 Better than use hidden inputs, from a security's perspective.-->
-                <td>    
-                    <?= $this->Form->create('Post', ['url' => '/curso/delete/' . $proCurso->PRO_CURSO ]) ?>
-                    <!-- Checkbox will submit each time user modify his value. -->
-                    <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proCurso->ACTIVO == 1) ,
-                    'onclick' => 'submit()']) ?>
-                    <?= $this->Form->end() ?>
-                </td>
+                <!-- The user got the right permission for the action? -->
+                <?php if(array_key_exists(24, $roles)): ?>
+                    <td>    
+                        <?= $this->Form->create('Post', ['url' => '/curso/delete/' . $proCurso->PRO_CURSO ]) ?>
+                        <!-- Checkbox will submit each time user modify his value. -->
+                        <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proCurso->ACTIVO == 1) ,
+                        'onclick' => 'submit()']) ?>
+                        <?= $this->Form->end() ?>
+                    </td>
+                <?php endif; ?>
                 <td><?= h($proCurso->SIGLA) ?></td>
                 <td><?= h($proCurso->NOMBRE) ?></td>
                 <td><?= h($proCurso->PRO_PROGRAMA) ?></td>
@@ -73,9 +82,18 @@
                 
                 <td class="actions">
                 <!-- Links the view button to the course-->
-                  <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO], ['escape'=>false])?>  
-                  <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['controller' => 'curso', 'action' => 'edit', $proCurso->PRO_CURSO], ['escape'=>false]) ?>    
-                  <?= $this->Html->link('<i class="fa fa-edit"></i>', ['controller' => 'SolSolicitud', 'action' => 'add', $proCurso->PRO_CURSO], ['escape'=>false]) ?>
+                    <!-- The user got the right permission for the action? -->
+                    <?php if(array_key_exists(22, $roles)): ?>
+                        <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'curso', 'action' => 'view', $proCurso->PRO_CURSO], ['escape'=>false])?>  
+                    <?php endif; ?>
+                    <!-- The user got the right permission for the action? -->
+                    <?php if(array_key_exists(23, $roles)): ?>
+                        <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['controller' => 'curso', 'action' => 'edit', $proCurso->PRO_CURSO], ['escape'=>false]) ?>    
+                    <?php endif; ?>
+                    <!-- The user got the right permission for the action? -->
+                    <?php if(array_key_exists(15, $roles)): ?>
+                        <?= $this->Html->link('<i class="fa fa-edit"></i>', ['controller' => 'SolSolicitud', 'action' => 'add', $proCurso->PRO_CURSO], ['escape'=>false]) ?>
+                    <?php endif; ?>
                 </td>
             </tr>
             <?php 

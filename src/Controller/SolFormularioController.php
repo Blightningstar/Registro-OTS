@@ -39,6 +39,11 @@ class SolFormularioController extends AppController
      */
     public function index()
     {
+        // The user have the permission for this action?
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(30, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $solFormulario = $this->paginate($this->SolFormulario);
 		
         $this->set(compact('solFormulario'));
@@ -53,8 +58,9 @@ class SolFormularioController extends AppController
      */
     public function view($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
-        if(!array_key_exists(14, $roles))
+        if(!array_key_exists(11, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
         $solFormulario = $this->SolFormulario->get($id, [
@@ -73,6 +79,7 @@ class SolFormularioController extends AppController
      */
     public function add()
     {   
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(10, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -132,8 +139,9 @@ class SolFormularioController extends AppController
      */
     public function edit($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
-        if(!array_key_exists(27, $roles))
+        if(!array_key_exists(26, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
         $solFormulario = $this->SolFormulario->get($id, [
@@ -205,6 +213,11 @@ class SolFormularioController extends AppController
      */
     public function borrarFormulario ($id)
     {
+        // The user have the permission for this action?
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(12, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $SolFormularioTable = $this->loadmodel('solFormulario');
         $SolFormularioTable->borrarFormulario($id);
         return 1;

@@ -34,6 +34,7 @@ class ProCursoController extends AppController
      */
     public function index($program_id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(2, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -54,6 +55,7 @@ class ProCursoController extends AppController
      */
     public function view($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(22, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -93,6 +95,7 @@ class ProCursoController extends AppController
      */
     public function add()
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(25, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -176,6 +179,7 @@ class ProCursoController extends AppController
      */
     public function edit($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(23, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -248,6 +252,7 @@ class ProCursoController extends AppController
      */
     public function delete($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(24, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);

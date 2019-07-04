@@ -68,6 +68,17 @@ class SolArchivoTable extends Table
         return $validator;
     }
 
+    /**
+     * insertarArchivo
+     * @author Nathan González Herrera
+     *      
+     * Insert the answer of a file question type
+     * @param int $usuario the identification of an user in the database
+     * @param int $curso the identification of a course in the database
+     * @param int $idpregunta the identification of the question in the database
+     * @param int $numPregunta the number of the question into the form
+     * @param int $filepath the path of the file
+     */
     public function insertarArchivo($usuario, $curso, $idpregunta, $numPregunta, $filepath){
         $connect= ConnectionManager::get('default');
         $connect->execute(
@@ -79,6 +90,16 @@ class SolArchivoTable extends Table
         );
     }
 
+    /**
+     * actualizarArchivo
+     * @author Nathan González Herrera
+     *      
+     * Update the answer of a file question type
+     * @param int $usuario the identification of an user in the database
+     * @param int $curso the identification of a course in the database
+     * @param int $pregunta the identification of the question in the database
+     * @param int $filepath the path of the answer file
+     */
     public function actualizarArchivo($usuario, $curso, $pregunta, $filepath){
         $connect= ConnectionManager::get('default');
         $connect->execute(

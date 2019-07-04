@@ -22,35 +22,34 @@ class SolSolicitudController extends AppController
         parent::beforeFilter($event);
         $this->set('active_menu', 'MenubarForm');
     }
-	
+
     /**
-     * View method
-     *
-     * @param string|null $id Sol Solicitud id.
-     * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * view
+     * @author Nathan González Herrera
+     *      
+     * View of an application made by some user to some course
+     * @param int $usuarioId the identification of an user in the database
+     * @param int $cursoId the identification of a course in the database
      */
     public function view($usuarioId = null,$cursoId = null) 
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(17, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
         $this->loadModel('SolFormulario');
 
+        // Load all the questions and the answers of the application
         $pregSol = $this->SolFormulario->getPreguntasFormulario($cursoId);
         $respSol = $this->SolSolicitud->verSolicitud($usuarioId,$cursoId);
 
         $this->set(compact('pregSol', $pregSol));
         $this->set(compact('respSol', $respSol));
         $this->set(compact('cursoId', $cursoId));
-        // Faltan  botones de aceptar, rechazar y volver.
     }
 
     public function uploadgrades($usuarioId = null,$cursoId = null) {
-        $usuarioId = 3;
-        $cursoId = 11;
-
         if ($this->request->is('post')) {
             $this->loadModel('ProCurso');
             $this->loadModel('SegUsuario');
@@ -75,15 +74,19 @@ class SolSolicitudController extends AppController
     }
 
     /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * add
+     * @author Nathan González Herrera
+     *      
+     * Add an application made by some user to some course
+     * @param int $cursoId the identification of a course in the database
      */
     public function add($cursoId = null){
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(15, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
+        // If a new application was submited
         if ($this->request->is('post')) {
             $this->loadModel('ProCurso');
             $this->loadModel('SolArchivo');
@@ -93,12 +96,15 @@ class SolSolicitudController extends AppController
             $this->loadModel('SolTextoMedio');
             $this->loadModel('SolTextoLargo');
 
+            // Retrive the data of the submited form
             $solicitud = $this->request->getData();
             $preguntas = array_keys($solicitud);
             $respuestas = array_values($solicitud);
 
+            // Find the path to the folder of the application
             $foldername = 'FileSystem/'.$this->ProCurso->getProgramName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->viewVars['actualUser']['SEG_USUARIO'].'-'.$this->viewVars['actualUser']['NOMBRE'].'_'.$this->viewVars['actualUser']['APELLIDO_1'].'/';
 
+            // If the application does not exist made it and create the folder, else return error
             if($this->SolSolicitud->existeSolicitud($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId) == 0){
                 $this->SolSolicitud->crearSolicitud($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId);
                 $this->FileSystem->addFolder($foldername);
@@ -108,6 +114,7 @@ class SolSolicitudController extends AppController
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'studentDashboard']);
             }
 
+            // For each question of the form, seek the type and store the answer into the respective table in the database
             for($iterador = 0; $iterador < sizeof($preguntas); ++$iterador){
                 $numPregunta = strtok($preguntas[$iterador], "_");
                 $idPregunta = strtok("_");
@@ -164,8 +171,10 @@ class SolSolicitudController extends AppController
         $this->loadModel('SolFormulario');
         $this->loadModel('SolOpciones');
 
+        // Get all the questions of the form
         $pregSol = $this->SolFormulario->getPreguntasFormulario($cursoId);
 
+        // Get all the option of each question with the type select in the form
         $opcionPreg = [];
         foreach($pregSol as $pregunta){
             if($pregunta['TIPO'] == 5){
@@ -178,18 +187,21 @@ class SolSolicitudController extends AppController
     }
 
     /**
-     * Edit method
-     *
-     * @param string|null $id Sol Solicitud id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * edit
+     * @author Nathan González Herrera
+     *      
+     * Edit an application made by some user to some course
+     * @param int $usuarioId the identification of an user in the database
+     * @param int $cursoId the identification of a course in the database
      */
     public function edit($cursoId = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(16, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
+        // If the form was submited
         if ($this->request->is('post')) {
             $this->loadModel('ProCurso');
             $this->loadModel('SolArchivo');
@@ -199,12 +211,15 @@ class SolSolicitudController extends AppController
             $this->loadModel('SolTextoMedio');
             $this->loadModel('SolTextoLargo');
 
+            // Retrive all the data of the sumited form
             $solicitud = $this->request->getData();
             $preguntas = array_keys($solicitud);
             $respuestas = array_values($solicitud);
 
+            // Find the path folder of this student
             $foldername = 'FileSystem/'.$this->ProCurso->getProgramName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->viewVars['actualUser']['NOMBRE'].'/';
 
+            // For each question in the form, store the answer into the respective table in the database
             for($iterador = 0; $iterador < sizeof($preguntas); ++$iterador){
                 $numPregunta = strtok($preguntas[$iterador], "_");
                 $idPregunta = strtok("_");
@@ -261,9 +276,11 @@ class SolSolicitudController extends AppController
         $this->loadModel('SolFormulario');
         $this->loadModel('SolOpciones');
 
+        // Retrive the data of the question of the form and there's answers 
         $pregSol = $this->SolFormulario->getPreguntasFormulario($cursoId);
         $respSol = $this->SolSolicitud->verSolicitud($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId);
 
+        // For each select question of the form, retrive the options
         $opcionPreg = [];
         foreach($pregSol as $pregunta){
             if($pregunta['TIPO'] == 5){
@@ -311,10 +328,6 @@ class SolSolicitudController extends AppController
      * @return
      */
     public function getPDF($idUsuario=null, $idCurso=null){
-        $roles = $this->viewVars['roles'];
-        if(!array_key_exists(29, $roles))
-            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
-
         $this->Solicitud = $this->loadModel('SolSolicitud');
         $this->Solicitud = $this->loadModel('SolFormulario');
         //It creates an entity to use the validators.
