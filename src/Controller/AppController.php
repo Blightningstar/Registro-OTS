@@ -66,6 +66,12 @@ class AppController extends Controller
             $permissionController = new SegPermisoController;
             $roles = $permissionController->getPermissions($actualUser['SEG_ROL']);                
         }
+        else{
+            $roles[0] = 0;
+            $roles[2] = 2;
+            $roles[22] = 22;
+        }
+
         $this->request->getSession()->write('roles',$roles);          
         $this->set(compact('roles'));
 
