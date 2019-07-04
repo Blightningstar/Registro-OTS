@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * SegPosee Model
@@ -53,4 +54,25 @@ class SegPoseeTable extends Table
 
         return $validator;
     }
+
+    /**
+     * getPermissions
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * returns all the permission given on the existen role.
+     * @param int $userRole, user role.
+     * @return array all the permissions.
+     */
+    public function getPermissions($userRole){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT SEG_PERMISO FROM SEG_POSEE WHERE SEG_ROL = '$userRole'"
+        )->fetchAll('assoc');
+        $results = [];
+        foreach($result as $res){
+            $results[$res['SEG_PERMISO']] = $res["SEG_PERMISO"];
+        }
+        return $results;
+    }
 }
+

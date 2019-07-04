@@ -65,7 +65,7 @@ $cakeDescription = __('Organization for Tropical Studies');
     <?= $this->fetch('script') ?>
 
 </head>
-<body>
+<body onbeforeunload = "return dontclose()">
 
     <?= $this->Flash->render() ?>
     <?=$this->element('titlebar')?>
@@ -79,6 +79,12 @@ $cakeDescription = __('Organization for Tropical Studies');
             <?= $this->fetch('content') ?>
         </div>
     <?php } ?>
+
+    <script>
+        function dontclose(){
+            //return 0
+    };
+    </script>
 
 </body>
 </html>

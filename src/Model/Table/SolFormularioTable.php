@@ -95,6 +95,56 @@ public function getFormID($name)
         return $result[0]['SOL_FORMULARIO'];
     }
 
+
+
+    /**
+     *  deactivates a Form on the database
+     *  @author Joel Chaves
+     *  @param int $id, it's the form identifier
+     *  @return 1 when succeded
+     */
+    public function desactivarFormulario ($id)
+    {
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("UPDATE sol_formulario SET ACTIVO=1-ACTIVO WHERE sol_formulario= $id");
+        $connet->execute(
+            "COMMIT"
+        );
+        return 1;
+    }
+
+
+     /**
+     *  deletes a Form from the database
+     *  @author Joel Chaves
+     *  @param int $id, it's the form identifier
+     *  @return 1 when succeded
+     */
+    public function borrarFormulario ($id)
+    {
+
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("DELETE FROM SOL_FORMULARIO WHERE SOL_FORMULARIO =$id");
+        $connet->execute(
+            "COMMIT"
+        );
+        return 1;
+}
+    public function getPreguntasFormulario($id){
+        $connect= ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT CO.NUMERO_PREGUNTA , P.*
+             FROM PRO_CURSO C, SOL_FORMULARIO F, SOL_CONTIENE CO, SOL_PREGUNTA P
+             WHERE '$id' = C.PRO_CURSO
+             AND C.SOL_FORMULARIO = F.SOL_FORMULARIO
+             AND F.SOL_FORMULARIO = CO.SOL_FORMULARIO
+             AND CO.SOL_PREGUNTA = P.SOL_PREGUNTA
+             ORDER BY CO.NUMERO_PREGUNTA ASC"
+        )->fetchAll('assoc');
+        return $result;
+    }
+    
     /**
      * 
      * @author Anyelo Lobo <yeloanlo@gmail.com>

@@ -30,6 +30,7 @@
                 <th scope="col"><?= $this->Paginator->sort('') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Form Completion') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('State') ?></th>
+                <th scope="col" class="ExportPDF"><?= __('') ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
@@ -46,11 +47,12 @@
                 <td class="actions">
                         <!-- Links to view of the form of a student in particular-->
                      <button type="button" class="botonDashboardAceptarConsultar">
-                           <?= $this->Html->link(__('Review'), ['controller' => 'Dashboard'], ['style' => 'color:white;']) ?>
+                           <?= $this->Html->link(__('Review'), ['controller' => 'Dashboard', 'action' => 'review',$Query['segUsuario']['SEG_USUARIO'],$proCurso->PRO_CURSO], ['style' => 'color:white;']) ?>
                      </button>
                 </td>
-                <td><?= $solicitud->getpercentage($proCurso->PRO_CURSO, $Query['segUsuario']['SEG_USUARIO']); ?></td>
-
+                
+                <td><?= number_format((float)$solicitud->getpercentage($proCurso->PRO_CURSO, $Query['segUsuario']['SEG_USUARIO']), 2, '.', '');?></td>
+                
                 <td>
                 <?php
                 $state = $Query->RESULTADO;
@@ -61,7 +63,7 @@
                 else if($Query->RESULTADO == 'Completo')
                 {
                   $state = 'Completed';
-               }
+                }
                 else if($Query->RESULTADO == 'Rechazado')
                 {
                   $state = 'Denied';
@@ -77,6 +79,13 @@
                 
                 <?php echo $state ?>
                 </td>
+                
+                <td class="ExportPDF">
+                     <button type="button" class="botonDashboardAceptarConsultar">
+                           <?= $this->Html->link(__('Export PDF'), ['controller' => 'Dashboard', 'action' => 'exportPDF', $proCurso->PRO_CURSO, $Query['segUsuario']['SEG_USUARIO']], ['style' => 'color:white;']) ?> 
+                     </button>
+                </td>
+                
                 <td class="actions">
                 <!-- Links the view button to the course-->
                      <button type="button" class="botonDashboardAceptarConsultar">
@@ -91,6 +100,7 @@
             <?php endforeach; ?>
         </tbody>
  </table>
+  <a href=".."> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a>
 </div>
 
 <script>

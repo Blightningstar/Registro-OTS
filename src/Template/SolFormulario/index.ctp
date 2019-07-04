@@ -44,7 +44,7 @@
             <?php foreach ($solFormulario as $solFormulario): ?>
             <tr>
                 <td>
-                <?= $this->Form->create('Post', ['url' => '/SolFormulario/delete/' . $solFormulario->SOL_FORMULARIO ]) ?>
+                <?= $this->Form->create('Post', ['url' => '/SolFormulario/delete1/' . $solFormulario->SOL_FORMULARIO ]) ?>
                 <?= $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($solFormulario->ACTIVO == 1) ,
                 'onclick' => 'submit(12)']) ?>
                 <?= $this->Form->end() ?>

@@ -160,4 +160,87 @@ class SolSolicitudTable extends Table
         )->fetchAll('assoc');
         return $result[0]['PORCENTAGE'];
     }
+
+    public function crearSolicitud($usuarioId, $cursoId){
+        $connect= ConnectionManager::get('default');
+        $connect->execute(
+            "INSERT INTO SOL_SOLICITUD(SEG_USUARIO, PRO_CURSO)
+             VALUES ('$usuarioId', '$cursoId')"
+        );
+        $connect->execute(
+            "COMMIT"
+        );
+    }
+
+    public function existeSolicitud($usuarioId, $cursoId){
+        $connect= ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT COUNT(*)
+             FROM SOL_SOLICITUD
+             WHERE SOL_SOLICITUD.SEG_USUARIO = '$usuarioId'
+             AND SOL_SOLICITUD.PRO_CURSO = '$cursoId'"
+        )->fetchAll('assoc');
+        return $result[0]['COUNT(*)'];
+    }
+
+    public function verSolicitud($usuarioId, $cursoId){
+        $connect= ConnectionManager::get('default');
+        $textos = $connect->execute(
+            "SELECT TC.NUMERO_RESPUESTA, TC.RESPUESTA
+             FROM SOL_TEXTO_CORTO TC
+             WHERE '$usuarioId' = TC.SEG_USUARIO AND TC.PRO_CURSO = '$cursoId'
+             UNION
+             SELECT TM.NUMERO_RESPUESTA, TM.RESPUESTA
+             FROM SOL_TEXTO_MEDIO TM
+             WHERE '$usuarioId' = TM.SEG_USUARIO AND TM.PRO_CURSO = '$cursoId'
+             UNION
+             SELECT TL.NUMERO_RESPUESTA, TL.RESPUESTA
+             FROM SOL_TEXTO_LARGO TL
+             WHERE '$usuarioId' = TL.SEG_USUARIO AND TL.PRO_CURSO = '$cursoId'
+             ORDER BY 1 ASC"
+        )->fetchAll('assoc');
+
+        $fechas = $connect->execute(
+            "SELECT F.NUMERO_RESPUESTA, F.RESPUESTA
+             FROM SOL_FECHA F
+             WHERE '$usuarioId' = F.SEG_USUARIO AND F.PRO_CURSO = '$cursoId'
+             ORDER BY 1 ASC"
+        )->fetchAll('assoc');
+
+        $numeros = $connect->execute(
+            "SELECT N.NUMERO_RESPUESTA, N.RESPUESTA
+             FROM SOL_NUMERO N
+             WHERE '$usuarioId' = N.SEG_USUARIO AND N.PRO_CURSO = '$cursoId'
+             ORDER BY 1 ASC"
+        )->fetchAll('assoc');
+
+        $archivos = $connect->execute(
+            "SELECT A.NUMERO_RESPUESTA, A.RESPUESTA
+             FROM SOL_ARCHIVO A
+             WHERE '$usuarioId' = A.SEG_USUARIO AND A.PRO_CURSO = '$cursoId'
+             ORDER BY 1 ASC"
+        )->fetchAll('assoc');
+
+        $resultados = [];
+
+        foreach($textos as $texto){
+            $resultados[$texto['NUMERO_RESPUESTA']] = $texto['RESPUESTA'];
+        }
+
+        foreach($fechas as $fecha){
+            $resultados[$fecha['NUMERO_RESPUESTA']] = $fecha['RESPUESTA'];
+        }
+
+        foreach($numeros as $numero){
+            $resultados[$numero['NUMERO_RESPUESTA']] = $numero['RESPUESTA'];
+        }
+
+        foreach($archivos as $archivo){
+            $resultados[$archivo['NUMERO_RESPUESTA']] = $archivo['RESPUESTA'];
+        }
+
+        ksort($resultados);
+        
+        return $resultados;
+    }
 }
