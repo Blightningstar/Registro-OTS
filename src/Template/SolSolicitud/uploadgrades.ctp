@@ -15,13 +15,8 @@
         <br>
 
         <?php echo $this->Form->create(false, ['type' => 'file']); ?>
-    <?php echo $this->Form->input('file', ['type' => 'file', 'class' => 'form-control']); ?>
-    <?php echo $this->Form->submit('Upload PDF'); ?>
-    <?= $this->Form->end(); ?>
-
-
-        </fieldset>
-
-
-
+            <?php echo $this->Form->input('file', ['type' => 'file', 'class' => 'form-control']); ?>
+            <?php echo $this->Form->submit('Upload PDF'); ?>
+        <?= $this->Form->end(); ?>
+    </fieldset>
 </div>

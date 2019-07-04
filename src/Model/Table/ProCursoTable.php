@@ -241,7 +241,7 @@ class ProCursoTable extends Table
         return $lc_code;
       }  
 
-    public function getProgramaName($cursoId){
+    public function getProgramName($cursoId){
         $connect= ConnectionManager::get('default');
         $results = $connect->execute(
             "SELECT P.NOMBRE

@@ -397,4 +397,24 @@ class SegUsuarioTable extends Table
             return $result;
         }
     }
+
+    /**
+     * getUserInfo
+     * @author Nathan González
+     * 
+     * Give the importan information of some user to save files of her
+     * @param int Id of the user
+     * @return string Information of the user.
+     */
+    public function getUserInfo($userId){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT SEG_USUARIO, NOMBRE, APELLIDO_1
+             FROM SEG_USUARIO
+             WHERE SEG_USUARIO = '$userId'"
+        )->fetchAll('assoc');
+        
+        $info = $result[0]['SEG_USUARIO'].'-'.$result[0]['NOMBRE'].'_'.$result[0]['APELLIDO_1'];
+        return $info;
+    }
 }

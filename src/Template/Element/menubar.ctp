@@ -42,7 +42,7 @@
             </li>
         <?php// endif;?>
 
-        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+        <?php if(!array_key_exists(30, $roles)):?>
             <li id = 'MenubarUsers' class="nav-item menuItem">
                 <?= $this->Html->link( "Users",[
                     'controller' => 'usuario'
@@ -52,17 +52,15 @@
             </li>
         <?php endif;?>
 
-        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
-            <li id = 'MenubarPrograms' class="nav-item menuItem">
-                <?= $this->Html->link( "Programs",[
-                    'controller' => 'programa'
-                ],[
-                    'class' => 'nav-link menuLink'
-                ]);?>
-            </li>
-        <?php endif;?>     
+        <li id = 'MenubarPrograms' class="nav-item menuItem">
+            <?= $this->Html->link( "Programs",[
+                'controller' => 'programa'
+            ],[
+                'class' => 'nav-link menuLink'
+            ]);?>
+        </li>  
 
-        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+        <?php if(!array_key_exists(31, $roles)):?>
             <li id = 'MenubarQuestions' class="nav-item menuItem">
                 <?= $this->Html->link( "Questions",[
                     'controller' => 'pregunta'
@@ -72,7 +70,7 @@
             </li>
         <?php endif;?>
 
-        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+        <?php if(!array_key_exists(9, $roles)):?>
             <li id = 'MenubarPermissions' class="nav-item menuItem">
                 <?= $this->Html->link( "Permissions",[
                     'controller' => 'permiso'
@@ -82,7 +80,7 @@
             </li>
         <?php endif;?>
 
-        <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
+        <?php if(!array_key_exists(32, $roles)):?>
             <li id = 'MenubarForm' class="nav-item menuItem">
                 <?= $this->Html->link( "Form",[
                     'controller' => 'solFormulario'

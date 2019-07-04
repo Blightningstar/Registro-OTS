@@ -47,20 +47,31 @@ class SolSolicitudController extends AppController
         // Faltan  botones de aceptar, rechazar y volver.
     }
 
-    public function uploadgrades($usuarioId = null,$cursoId = null) 
-    {
-        // Acordar borrar esto cuando este bien ligado
+    public function uploadgrades($usuarioId = null,$cursoId = null) {
         $usuarioId = 3;
-        $cursoId = 8;
+        $cursoId = 11;
 
-        $this->loadModel('SolFormulario');
+        if ($this->request->is('post')) {
+            $this->loadModel('ProCurso');
+            $this->loadModel('SegUsuario');
+            $this->loadModel('SolArchivo');
 
-        $pregSol = $this->SolFormulario->getPreguntasFormulario($cursoId);
-        $respSol = $this->SolSolicitud->verSolicitud($usuarioId, $cursoId);
+            $solicitud = $this->request->getData();
+            $foldername = 'FileSystem/'.$this->ProCurso->getProgramName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->SegUsuario->getUserInfo($usuarioId).'/';
+            
+            $fileName = $solicitud['file']['name'];
+            $fileTmpName = $solicitud['file']['tmp_name'];
+            $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+            $filePath = $foldername.'University_Grades';
+            $uploadState = $this->FileSystem->uploadFile($fileName, $fileTmpName, $filePath, $fileExt);
 
-        $this->set(compact('pregSol', $pregSol));
-        $this->set(compact('respSol', $respSol));
-        // Faltan  botones de aceptar, rechazar y volver.
+            if($uploadState){
+                $this->Flash->success("The upload of the grades was succesful.");
+            }
+            else{
+                $this->Flash->error("While the notes went up, an error occurred, please try again.");
+            }
+        }
     }
 
     /**
@@ -86,7 +97,7 @@ class SolSolicitudController extends AppController
             $preguntas = array_keys($solicitud);
             $respuestas = array_values($solicitud);
 
-            $foldername = 'FileSystem/'.$this->ProCurso->getProgramaName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->viewVars['actualUser']['SEG_USUARIO'].'-'.$this->viewVars['actualUser']['NOMBRE'].'_'.$this->viewVars['actualUser']['APELLIDO_1'].'/';
+            $foldername = 'FileSystem/'.$this->ProCurso->getProgramName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->viewVars['actualUser']['SEG_USUARIO'].'-'.$this->viewVars['actualUser']['NOMBRE'].'_'.$this->viewVars['actualUser']['APELLIDO_1'].'/';
 
             if($this->SolSolicitud->existeSolicitud($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId) == 0){
                 $this->SolSolicitud->crearSolicitud($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId);
@@ -192,7 +203,7 @@ class SolSolicitudController extends AppController
             $preguntas = array_keys($solicitud);
             $respuestas = array_values($solicitud);
 
-            $foldername = 'FileSystem/'.$this->ProCurso->getProgramaName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->viewVars['actualUser']['NOMBRE'].'/';
+            $foldername = 'FileSystem/'.$this->ProCurso->getProgramName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->viewVars['actualUser']['NOMBRE'].'/';
 
             for($iterador = 0; $iterador < sizeof($preguntas); ++$iterador){
                 $numPregunta = strtok($preguntas[$iterador], "_");

@@ -96,9 +96,10 @@ class FileSystemComponent extends Component {
      */
     public function uploadFile($name, $tmp_name, $path, $ext){
         if(!empty($name)){  // If the file has a name
-            if($ext == 'pdf' || $ext == 'doc'){ // if the file has a proper extension
+            if($ext == 'pdf' || $ext == 'doc' || $ext == 'txt'){ // if the file has a proper extension
                 if(move_uploaded_file($tmp_name, $path)){   // Copy the file in the given direction.
                     $this->Flash->success(__('The file was upload succesfully'));
+                    return 1;
                 }
                 else{
                     $this->Flash->error(__('Upload file error, please try again'));
@@ -111,6 +112,7 @@ class FileSystemComponent extends Component {
         else{
             $this->Flash->error(__('There isnt a file to upload'));
         }
+        return 0;
     }
 }
 ?>

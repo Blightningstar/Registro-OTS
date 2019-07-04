@@ -13,11 +13,13 @@
     </legend>
 
     <br>
-    <!--Linkea el boton a para que redireccione al agregar usuario -->
-    <button type="button" class="botonAgregar">
-        <!-- Se especifica que el controlador sea usuario para evitar que el nombre de la tabla aparezca en la url-->
-        <a href="/Registro-OTS/programa/add" style="color:white;">Add Program</a>   
-    </button>
+    <?php if(!array_key_exists(4, $roles)): ?>
+        <!--Linkea el boton a para que redireccione al agregar usuario -->
+        <button type="button" class="botonAgregar">
+            <!-- Se especifica que el controlador sea usuario para evitar que el nombre de la tabla aparezca en la url-->
+            <a href="/Registro-OTS/programa/add" style="color:white;">Add Program</a>   
+        </button>
+    <?php endif; ?>
 
     <div class="row">
         <label style="margin-left:30px;" ><?= __('Search Programs ') ?></label>
@@ -43,17 +45,27 @@
             <tr>
                 <td>
                 <?= $this->Form->create('Post', ['url' => '/programa/delete/' . $proPrograma->PRO_PROGRAMA ]) ?>
-                <?= $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proPrograma->ACTIVO == 1) ,
-                'onclick' => 'submit(12)']) ?>
+                    <?php if(!array_key_exists(3, $roles)): ?>
+                        <?= $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proPrograma->ACTIVO == 1) ,
+                        'onclick' => 'submit(12)']) ?>
+                    <?php endif; ?>
                 <?= $this->Form->end() ?>
                 </td>
 
                 <td><?= h($proPrograma->NOMBRE) ?></td>
 
                 <td>
-                <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'programa', 'action' => 'view',  $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
-                <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
-				<?= $this->Html->link('<i class="fa fa-list-alt"></i>', ['controller' => 'curso', 'action' => '',$proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+                <?php if(!array_key_exists(0, $roles)): ?>
+                    <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'programa', 'action' => 'view',  $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+                <?php endif; ?>
+                
+                <?php if(!array_key_exists(1, $roles)): ?>
+                    <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+                <?php endif; ?>
+                
+                <?php if(!array_key_exists(2, $roles)): ?>
+                    <?= $this->Html->link('<i class="fa fa-list-alt"></i>', ['controller' => 'curso', 'action' => '',$proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+                <?php endif; ?>
                 </td
 
             </tr>
