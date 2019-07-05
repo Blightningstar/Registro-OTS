@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Nathan González Herrera
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SolSolicitud $solSolicitud
  */
@@ -14,6 +15,7 @@
 
         <br>
 
+        <!-- For each question in the application print it and her answer -->
         <?php
             $numPregunta = 1;
             foreach ($pregSol as $pregunta):        

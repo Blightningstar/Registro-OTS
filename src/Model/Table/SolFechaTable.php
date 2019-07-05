@@ -121,6 +121,17 @@ class SolFechaTable extends Table
         );
     }
 
+    /**
+     * insertarFecha
+     * @author Nathan González Herrera
+     *      
+     * Insert the answer of a date question type
+     * @param int $usuario the identification of an user in the database
+     * @param int $curso the identification of a course in the database
+     * @param int $idpregunta the identification of the question in the database
+     * @param int $numPregunta the number of the question into the form 
+     * @param int $respuesta the answer of the question
+     */
     public function insertarFecha($usuario, $curso, $idpregunta, $numPregunta, $respuesta){
         $connect= ConnectionManager::get('default');
         $connect->execute(
@@ -132,6 +143,16 @@ class SolFechaTable extends Table
         );
     }
 
+    /**
+     * actualizarFecha
+     * @author Nathan González Herrera
+     *      
+     * Update the answer of a date question type
+     * @param int $usuario the identification of an user in the database
+     * @param int $curso the identification of a course in the database
+     * @param int $pregunta the identification of the question in the database
+     * @param int $respuesta the answer of the question
+     */
     public function actualizarFecha($usuario, $curso, $pregunta, $respuesta){
         $connect= ConnectionManager::get('default');
         $connect->execute(

@@ -161,6 +161,14 @@ class SolSolicitudTable extends Table
         return $result[0]['PORCENTAGE'];
     }
 
+    /**
+     * crearSolicitud
+     * @author Nathan González Herrera
+     *      
+     * Insert the new application into the database
+     * @param int $usuarioId the identification of an user in the database
+     * @param int $cursoId the identification of a course in the database
+     */
     public function crearSolicitud($usuarioId, $cursoId){
         $connect= ConnectionManager::get('default');
         $connect->execute(
@@ -172,6 +180,15 @@ class SolSolicitudTable extends Table
         );
     }
 
+    /**
+     * existeSolicitud
+     * @author Nathan González Herrera
+     *      
+     * If the application already exist in the database return 1 else return 0
+     * @param int $usuarioId the identification of an user in the database
+     * @param int $cursoId the identification of a course in the database
+     * @return bool 0 if the application doen not exist and more than 0 if exist
+     */
     public function existeSolicitud($usuarioId, $cursoId){
         $connect= ConnectionManager::get('default');
         $result = $connect->execute(
@@ -183,6 +200,15 @@ class SolSolicitudTable extends Table
         return $result[0]['COUNT(*)'];
     }
 
+    /**
+     * verSolicitud
+     * @author Nathan González Herrera
+     *      
+     * Retrive all the answer of the application
+     * @param int $usuarioId the identification of an user in the database
+     * @param int $cursoId the identification of a course in the database
+     * @return set of all the answers
+     */
     public function verSolicitud($usuarioId, $cursoId){
         $connect= ConnectionManager::get('default');
         $textos = $connect->execute(

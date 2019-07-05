@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Nathan González Herrera
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SolSolicitud $solSolicitud
  */
@@ -15,6 +16,7 @@
 
         <br>
 
+        <!-- All the formats of the respective question -->
         <?php
             $textoCortoOpcional = ['type' => 'text', 'placeholder' => 'Please write your answer here.', 'label' => false, 'maxlength' => '50'];
             $textoCortoObligatorio = ['type' => 'text', 'placeholder' => 'Please write your answer here.', 'label' => false, 'required', 'maxlength' => '50'];
@@ -36,16 +38,19 @@
             $archivoObligatorio = ['type' => 'file', 'class' => 'form-control', 'required', 'label' => false];
 
             $numPregunta = 1;
+            // According of the type of the question print the right input
             foreach ($pregSol as $pregunta):        
                 if($pregunta['ACTIVO']):
                     $id = $pregunta['NUMERO_PREGUNTA']."_".$pregunta['SOL_PREGUNTA']."_".$pregunta['TIPO'];
 
+                    // Print the description of the question
                     if($pregunta['REQUERIDO']):
                         echo "<b>".$numPregunta.") ".$pregunta['DESCRIPCION_ING']."<font color='red'> *</font></b>";
                     else:
                         echo "<b>".$numPregunta.") ".$pregunta['DESCRIPCION_ING']."</b>";
                     endif;
 
+                    // According the type of the question and if is require or not, print the right combination input
                     switch($pregunta['TIPO']): 
                         case 0: // Texto Corto
                             if($pregunta['REQUERIDO']):
@@ -145,7 +150,10 @@
             endforeach; ?>
     </fieldset>
 
+    <!-- Cancel the update of the application -->
     <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
+
+    <!-- Accept the update of the application -->
     <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar']) ?>
     <br><br><br>
     <?= $this->Form->end() ?>

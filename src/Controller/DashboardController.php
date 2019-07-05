@@ -53,6 +53,7 @@ class DashboardController extends AppController
      */
     public function cursoViewDashboard($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(14, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -80,8 +81,9 @@ class DashboardController extends AppController
     
     public function studentDashboard()
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
-        if(array_key_exists(13, $roles))
+        if(!array_key_exists(13, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
         $application_controller = new SolSolicitudController;
@@ -115,8 +117,13 @@ class DashboardController extends AppController
      */
     public function exportPDF($idCurso = null, $idUsuario=null)
     {
-       $SolSolicitudController = new SolSolicitudController;
-       $SolSolicitudController->getPDF($idUsuario, $idCurso);
+        // The user have the permission for this action?
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(28, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
+        $SolSolicitudController = new SolSolicitudController;
+        $SolSolicitudController->getPDF($idUsuario, $idCurso);
     }
     
     /**

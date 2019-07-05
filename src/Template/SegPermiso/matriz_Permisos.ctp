@@ -40,7 +40,7 @@
                     <tr>
                         <!-- Permision Description. -->
                         <td colspan="2">
-                            <?= h($vgo_DsPermisos->DESCRIPCION_ING) ?>
+                            <?= h($vgo_DsPermisos['DESCRIPCION_ING']) ?>
                         </td>
 
                         <!-- SuperUser checkbox. -->
@@ -60,7 +60,7 @@
 
                         <!-- Permission Id, is hidden, work just for the submit process. -->
                         <td hidden='true'>
-                            <?= $this->Number->format($vgo_DsPermisos->SEG_PERMISO) ?>
+                            <?= $this->Number->format($vgo_DsPermisos['SEG_PERMISO']) ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -74,6 +74,7 @@
         <script type="text/javascript">
             (function() {
                 var row = "<?php echo $vgo_DsPermisosDeRol[0] ?>";
+                ++row;
                 var col = "<?php echo $vgo_DsPermisosDeRol[1] ?>";
                 
                 var table = document.getElementById('rightstable');

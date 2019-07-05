@@ -57,8 +57,9 @@ class ProProgramaController extends AppController
      */
     public function view($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
-        if(array_key_exists(0, $roles))
+        if(!array_key_exists(0, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
         $proPrograma = $this->ProPrograma->get($id, [
@@ -75,6 +76,7 @@ class ProProgramaController extends AppController
      */
     public function add()
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(4, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -113,6 +115,7 @@ class ProProgramaController extends AppController
      */
     public function edit($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(1, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -142,6 +145,7 @@ class ProProgramaController extends AppController
      */
     public function deleteProgram($id)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(3, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);

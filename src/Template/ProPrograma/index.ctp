@@ -13,11 +13,14 @@
     </legend>
 
     <br>
-    <!--Linkea el boton a para que redireccione al agregar usuario -->
-    <button type="button" class="botonAgregar">
-        <!-- Se especifica que el controlador sea usuario para evitar que el nombre de la tabla aparezca en la url-->
-        <a href="/Registro-OTS/programa/add" style="color:white;">Add Program</a>   
-    </button>
+    <!-- The user got the right permission for the action? -->
+    <?php if(array_key_exists(4, $roles)): ?>
+        <!--Linkea el boton a para que redireccione al agregar usuario -->
+        <button type="button" class="botonAgregar">
+            <!-- Se especifica que el controlador sea usuario para evitar que el nombre de la tabla aparezca en la url-->
+            <a href="/Registro-OTS/programa/add" style="color:white;">Add Program</a>   
+        </button>
+    <?php endif; ?>
 
     <div class="row">
         <label style="margin-left:30px;" ><?= __('Search Programs ') ?></label>
@@ -30,8 +33,11 @@
         <thead>
             <tr id="headTr">
                 <!-- Coloca cada campo de la tabla en el grid -->
-
-                <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
+                <!-- The user got the right permission for the action? -->
+                <?php if(array_key_exists(3, $roles)): ?>
+                    <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
+                <?php endif; ?>
+                
                 <th scope="col"><?= $this->Paginator->sort('NOMBRE', ['label' => __('Program Name')]) ?></th>
 
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -41,19 +47,31 @@
             <!-- Itera tupla por tupla y coloca los datos en cada columna -->
             <?php foreach ($proPrograma as $proPrograma): ?>
             <tr>
-                <td>
-                <?= $this->Form->create('Post', ['url' => '/programa/delete/' . $proPrograma->PRO_PROGRAMA ]) ?>
-                <?= $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proPrograma->ACTIVO == 1) ,
-                'onclick' => 'submit(12)']) ?>
-                <?= $this->Form->end() ?>
-                </td>
+                <!-- The user got the right permission for the action? -->
+                <?php if(array_key_exists(3, $roles)): ?>
+                    <td>
+                    <?= $this->Form->create('Post', ['url' => '/programa/delete/' . $proPrograma->PRO_PROGRAMA ]) ?>
+                            <?= $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($proPrograma->ACTIVO == 1) ,
+                            'onclick' => 'submit(12)']) ?>
+                    <?= $this->Form->end() ?>
+                    </td>
+                <?php endif; ?>
 
                 <td><?= h($proPrograma->NOMBRE) ?></td>
 
                 <td>
-                <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'programa', 'action' => 'view',  $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
-                <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
-				<?= $this->Html->link('<i class="fa fa-list-alt"></i>', ['controller' => 'curso', 'action' => '',$proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+                <!-- The user got the right permission for the action? -->
+                <?php if(array_key_exists(0, $roles)): ?>
+                    <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'programa', 'action' => 'view',  $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+                <?php endif; ?>
+                <!-- The user got the right permission for the action? -->
+                <?php if(array_key_exists(1, $roles)): ?>
+                    <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+                <?php endif; ?>
+                <!-- The user got the right permission for the action? -->
+                <?php if(array_key_exists(2, $roles)): ?>
+                    <?= $this->Html->link('<i class="fa fa-list-alt"></i>', ['controller' => 'curso', 'action' => '',$proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
+                <?php endif; ?>
                 </td
 
             </tr>

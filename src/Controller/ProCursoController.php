@@ -34,6 +34,11 @@ class ProCursoController extends AppController
      */
     public function index($program_id = null)
     {
+        // The user have the permission for this action?
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(2, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $proCurso = $this->paginate($this->ProCurso);
         $this->set(compact('proCurso', $proCurso, 'program_id', $program_id));
         if ($this->request->is('post')) {
@@ -50,6 +55,11 @@ class ProCursoController extends AppController
      */
     public function view($id = null, $program_id = null)
     {
+        // The user have the permission for this action?
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(22, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $proCurso = $this->ProCurso->get($id, [
             'contain' => []
         ]);
@@ -85,6 +95,11 @@ class ProCursoController extends AppController
      */
     public function add($program_id = null)
     {
+        // The user have the permission for this action?
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(25, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         /*Loads the ID's of program's for the add view*/
         $this->Programa = $this->loadModel('pro_Programa');
         $proPrograma = $this->paginate($this->Programa);
@@ -164,6 +179,11 @@ class ProCursoController extends AppController
      */
     public function edit($id = null,$program_id = null)
     {
+        // The user have the permission for this action?
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(23, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $proCurso = $this->ProCurso->get($id, ['contain' => []]);
         $form_data = $this->request->getData();
         
@@ -241,6 +261,11 @@ class ProCursoController extends AppController
      */
     public function delete($id = null)
     {
+        // The user have the permission for this action?
+        $roles = $this->viewVars['roles'];
+        if(!array_key_exists(24, $roles))
+            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
+
         $this->request->allowMethod(['post', 'delete']);
         $proCurso = $this->ProCurso->get($id);
         if ($this->ProCurso->logicalDelete($proCurso['PRO_CURSO'], $proCurso['ACTIVO']) == 0) {
