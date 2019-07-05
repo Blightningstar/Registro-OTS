@@ -109,8 +109,9 @@ class SegUsuarioController extends AppController
      */
     public function index()
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
-        if(!array_key_exists(26, $roles))
+        if(!array_key_exists(29, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
         $actualUserName = $this->viewVars['actualUser']["NOMBRE_USUARIO"];
@@ -137,6 +138,7 @@ class SegUsuarioController extends AppController
      */
     public function view($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(20, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -146,7 +148,7 @@ class SegUsuarioController extends AppController
         ]);
 
         //Administrator can't view superuser information
-        if($lc_role == "2" && $segUsuario["ROL"] =="1")
+        if($segUsuario["ROL"] =="1")
             return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
 
         //Allow user edit only if the user is active.
@@ -169,6 +171,7 @@ class SegUsuarioController extends AppController
      */
     public function add()
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(18, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -300,7 +303,7 @@ class SegUsuarioController extends AppController
      */
     public function edit($id = null)
     {
-        //Redirect students 
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(19, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -318,7 +321,7 @@ class SegUsuarioController extends AppController
         }
 
         //Administrator can't edit superuser information
-        if(($lc_role == "2" && $segUsuario["ROL"] == "1"))
+        if($segUsuario["ROL"] == "1")
             return $this->redirect(['controller' => 'usuario','action' => 'ProfileView']);
 
         //Executed only if user submitted a form.
@@ -470,6 +473,7 @@ class SegUsuarioController extends AppController
      */
     public function delete($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(21, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);

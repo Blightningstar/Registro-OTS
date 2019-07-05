@@ -67,6 +67,14 @@ class SolOpcionesTable extends Table
         return $validator;
     }
 
+    /**
+     * getOpciones
+     * @author Nathan González Herrera
+     *      
+     * Retrive all the options for some question
+     * @param int $preguntaId the identification of a question in the database
+     * @return set of all the options to that question
+     */
     public function getOpciones($preguntaId){
         $connect= ConnectionManager::get('default');
         $results = $connect->execute(

@@ -1,0 +1,7 @@
+Para llenar formularios.
+Traemos el conjunto de preguntas del formulario.
+Cargamos la vista, el nombre de cada entrada de datos va a ser igual al id o descripción de la pregunta que le corresponde.
+Cuando se tramita la solicitud.
+	Traemos de nuevo el conjunto de preguntas del formulario
+	Vamos manejando cada entrada de datos con el respectivo id del conjunto de preguntas y si una es filesystem 
+	la manejamos normalmente.

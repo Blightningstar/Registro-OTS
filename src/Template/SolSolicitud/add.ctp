@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Nathan González Herrera
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SolSolicitud $solSolicitud
  */
@@ -15,6 +16,7 @@
 
         <br>
 
+        <!-- The format of each possible question type -->
         <?php
             $textoCortoOpcional = ['type' => 'text', 'placeholder' => 'Please write your answer here.', 'label' => false, 'maxlength' => '50'];
             $textoCortoObligatorio = ['type' => 'text', 'placeholder' => 'Please write your answer here.', 'label' => false, 'required', 'maxlength' => '50'];
@@ -36,16 +38,19 @@
             $archivoObligatorio = ['type' => 'file', 'class' => 'form-control', 'required', 'label' => false];
 
             $numPregunta = 1;
+            // For each question, seek the respetive input according her type
             foreach ($pregSol as $pregunta):        
                 if($pregunta['ACTIVO']):
                     $id = $pregunta['NUMERO_PREGUNTA']."_".$pregunta['SOL_PREGUNTA']."_".$pregunta['TIPO'];
 
+                    // Print the question description
                     if($pregunta['REQUERIDO']):
                         echo "<b>".$numPregunta.") ".$pregunta['DESCRIPCION_ING']."<font color='red'> *</font></b>";
                     else:
                         echo "<b>".$numPregunta.") ".$pregunta['DESCRIPCION_ING']."</b>";
                     endif;
 
+                    // According of her type and if her is require or not, print the right input
                     switch($pregunta['TIPO']): 
                         case 0: // Texto Corto
                             if($pregunta['REQUERIDO']):
@@ -127,7 +132,10 @@
             endforeach; ?>
     </fieldset>
 
+    <!-- Dont create the application -->
     <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
+
+    <!-- Create the application -->
     <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar']) ?>
     <br><br><br>
     <?= $this->Form->end() ?>

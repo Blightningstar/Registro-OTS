@@ -14,9 +14,12 @@
         </legend>
         <br>
 
-    <button type="button" class="botonAgregar">
-        <?= $this->Html->link(__('Add question'), ['controller' => 'pregunta', 'action' => 'add'],['style' => 'color:white;']) ?>   
-    </button>
+    <!-- The user got the right permission for the action? -->
+    <?php if(array_key_exists(5, $roles)): ?>
+        <button type="button" class="botonAgregar">
+            <?= $this->Html->link(__('Add question'), ['controller' => 'pregunta', 'action' => 'add'],['style' => 'color:white;']) ?>   
+        </button>
+    <?php endif; ?>
 
     <div class="row">
         <label style="margin-left:30px;" ><?= __('Search Questions ') ?></label>
@@ -27,7 +30,10 @@
     <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
         <thead>
             <tr id="headTr">
-                <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
+                <!-- The user got the right permission for the action? -->
+                <?php if(array_key_exists(8, $roles)): ?>
+                    <th scope="col"><?= $this->Paginator->sort('Active') ?></th>
+                <?php endif; ?>
                 <th scope="col"><?= $this->Paginator->sort('Description') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Required') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -40,13 +46,15 @@
             <?php foreach ($solPregunta as $solPreguntum): ?>
            
             <tr>
-          
+                <!-- The user got the right permission for the action? -->
+                <?php if(array_key_exists(8, $roles)): ?>
                     <td>
-                <?= $this->Form->create('Post', ['url' => '/pregunta/delete/' . $solPreguntum->SOL_PREGUNTA ]) ?>
-                <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($solPreguntum->ACTIVO == 1) ,
-                'onclick' => 'submit(12)']) ?>
-                <?= $this->Form->end() ?>
-                </td>
+                        <?= $this->Form->create('Post', ['url' => '/pregunta/delete/' . $solPreguntum->SOL_PREGUNTA ]) ?>
+                        <?=  $this->form->input(__('newActive'), ['type' => 'checkbox', 'label' => '', 'checked' => ($solPreguntum->ACTIVO == 1) ,
+                        'onclick' => 'submit(12)']) ?>
+                        <?= $this->Form->end() ?>       
+                    </td>
+                <?php endif; ?>
 
                 <td><?= h($solPreguntum->DESCRIPCION_ING) ?></td>
                 <?php if($solPreguntum->REQUERIDO ==0):?>
@@ -58,13 +66,15 @@
                 <?php endif ?>
 
                 <td>
-                <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'pregunta', 'action' => 'view',  $solPreguntum->SOL_PREGUNTA], ['escape'=>false]) ?>
-                <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $solPreguntum->SOL_PREGUNTA], ['escape'=>false]) ?>
-               
+                    <!-- The user got the right permission for the action? -->
+                    <?php if(array_key_exists(6, $roles)): ?>
+                        <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'pregunta', 'action' => 'view',  $solPreguntum->SOL_PREGUNTA], ['escape'=>false]) ?>
+                    <?php endif; ?>
+                    <!-- The user got the right permission for the action? -->
+                    <?php if(array_key_exists(7, $roles)): ?>
+                        <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $solPreguntum->SOL_PREGUNTA], ['escape'=>false]) ?>
+                    <?php endif; ?>
                 </td>
-
-
-
              </tr>
            
             <?php endforeach; ?>

@@ -259,7 +259,14 @@ class ProCursoTable extends Table
         return $lc_code;
       }  
 
-    public function getProgramaName($cursoId){
+    /**
+     * getProgramName
+     * @author Nathan González Herrera
+     *      
+     * Find the name of the program whom owns the course
+     * @param int $cursoId the identification of a course in the database
+     */
+    public function getProgramName($cursoId){
         $connect= ConnectionManager::get('default');
         $results = $connect->execute(
             "SELECT P.NOMBRE
@@ -271,6 +278,14 @@ class ProCursoTable extends Table
         return $results[0]['NOMBRE'];
     }
 
+    /**
+     * getCursoPath
+     * @author Nathan González Herrera
+     *      
+     * Make the path in the filesystem of some course
+     * @param int $cursoId the identification of a course in the database
+     * @return String the path of the course in the filesystem
+     */
     public function getCursoPath($cursoId){
         $connect= ConnectionManager::get('default');
         $cursos = $connect->execute(

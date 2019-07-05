@@ -131,6 +131,14 @@ public function getFormID($name)
         );
         return 1;
 }
+
+    /**
+     * getPreguntasFormulario
+     * @author Nathan González Herrera
+     *      
+     * Get all the answers of a given form
+     * @param int $id Form identification in the database
+     */
     public function getPreguntasFormulario($id){
         $connect= ConnectionManager::get('default');
         $result = $connect->execute(

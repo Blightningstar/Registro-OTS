@@ -35,8 +35,9 @@ class SegPermisoController extends AppController
      * 
      * @return flash indicating the success of the removal or granting of a permission to some rol.
      */
-    public function MatrizPermisos()//SEG_POSEE_MatrizPermisos()
+    public function MatrizPermisos()
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(9, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -45,9 +46,9 @@ class SegPermisoController extends AppController
         $this->loadModel('seg_posee');
         
         // Get all the permission and all the relation with rols. 
-        $vgo_DsPermisos = $this->SegPermiso->find('all');  
+        $vgo_DsPermisos = $this->SegPermiso->SEG_PERMISO_TraerPermisos();  
         $vgo_DsPermisosDeRol = $this->SegPermiso->SEG_POSEE_TraerPermisosPoseidos();  
-        
+    
         // Send the results of the two querys to the view.
         $this->set(compact('vgo_DsPermisos', $vgo_DsPermisos));
         $this->set(compact('vgo_DsPermisosDeRol', $vgo_DsPermisosDeRol));
@@ -56,7 +57,7 @@ class SegPermisoController extends AppController
         if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
             // Take the submited information.
             $data = $this->request->getData();
-
+            
             if($data['tipo'] == 1){ // Will create a relation between the given permission and the given rol.
                 $this->SegPermiso->SEG_POSEE_AgregarRegistro($data['segpermiso'], $data['segrol']);
                 $this->Flash->success(__('The permission '.$data['descripcion'].' was granted corrently to the rol '.$data['rol'].'.'));

@@ -33,8 +33,9 @@ class SolPreguntaController extends AppController
      */
     public function index()
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
-        if(!array_key_exists(28, $roles))
+        if(!array_key_exists(27, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
 
         $solPregunta = $this->paginate($this->SolPregunta);
@@ -50,6 +51,7 @@ class SolPreguntaController extends AppController
      */
     public function view($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(6, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -72,6 +74,7 @@ class SolPreguntaController extends AppController
      */
     public function add()
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(5, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -113,6 +116,7 @@ class SolPreguntaController extends AppController
      */
     public function edit($id = null)
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(7, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
@@ -150,6 +154,7 @@ class SolPreguntaController extends AppController
      */
     public function delete($id )
     {
+        // The user have the permission for this action?
         $roles = $this->viewVars['roles'];
         if(!array_key_exists(8, $roles))
             $this->redirect(['controller' => 'MainPage', 'action' => 'index']);

@@ -84,6 +84,25 @@ class SegPermisoTable extends Table
     }
 
     /**
+     * SEG_PERMISO_TraerPermisos
+     * @author Nathan González
+     * 
+     * Query to get all the permissions.
+     * 
+     * @return set all the permissions.
+     */
+    public function SEG_PERMISO_TraerPermisos()
+    {
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute(
+        "SELECT *
+         FROM SEG_PERMISO
+         ORDER BY SEG_PERMISO ASC"
+        )->fetchAll('assoc');
+        return $query;
+    }
+
+    /**
      * SEG_POSEE_AgregarRegistro
      * @author Nathan González
      * 

@@ -97,7 +97,6 @@ class SolPreguntaTable extends Table
         return 1;
     }
 
-
      /**
      *  Return the max integer value from SOL_PREGUNTA 
      *  @author Joel Chaves
@@ -124,8 +123,6 @@ class SolPreguntaTable extends Table
         debug($result);
         return $result;
     }
-
-
 
      /**
      *  Logically activates and deactivates a question from the datebase, it changes the value ACTIVO from 0 to 1 and viceversa
