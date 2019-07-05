@@ -4,7 +4,7 @@
  */
 if($actualUser)
     $username = $actualUser['NOMBRE_USUARIO'];
-    $rol = $actualUser['SEG_ROL']
+    $rol = $actualUser['SEG_ROL'];
 ?>
 
 <?php if(isset($active_title)):?>
@@ -18,53 +18,18 @@ if($actualUser)
 <?php endif; ?>
 
 <nav class="navbar topbar navbar-fixed-top navbar-expand-xl justify-content-between">
-    <?= $this->Html->image('Logos/eng/s/3.png', ['style' => 'height:50px'])?>
-    <div>
-        <ul class = "navbar-nav mr-auto">
+    <a class="navbar-brand" href="https://tropicalstudies.org/">
+        <?= $this->Html->image('Logos/eng/s/3.png', ['style' => 'height:50px'])?>
+    </a>
+    <div class="ml-auto">
+            
             <?php if($actualUser):?>
-                <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
-                    <li id = 'TitlebarUser' class="nav-item menuItem">
-                        <?= $this->Html->link( $username,[
-                            'controller' => 'usuario',
-                            'action' => 'profileView'
-                        ],[
-                            'class' => 'nav-link menuLink'
-                        ]);?>
-                    </li>
-                <?php endif;?>
-                <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
-                    <li class="nav-item menuItem">
-                        <?= $this->Html->link( "Sign out",[
-                            'controller' => 'seguridad',
-                            'action' => 'logout'
-                        ],[
-                            'class' => 'nav-link menuLink'
-                        ]);?>
-                    </li>
-                <?php endif;?>
+                <?= $this->Html->link(__('Profile'), ['controller' => 'usuario', 'action' => 'view', $actualUser['SEG_USUARIO'] ], ['class' => 'navbar-text text-white d-inline-block mr-3']) ?>
+                <?= $this->Html->link(__('Log out'), ['controller' => 'seguridad', 'action' => 'logout'], ['class' => 'navbar-text text-white d-inline-block mr-3']) ?>
             <?php else:?>
-                <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
-                    <li id = 'TitlebarSignIn' class="nav-item menuItem">
-                        <?= $this->Html->link( "Sign in",[
-                            'controller' => 'seguridad',
-                            'action' => 'login'
-                        ],[
-                            'class' => 'nav-link menuLink underlined'
-                        ]);?>
-                    </li>
-                <?php endif;?>
-                <?php if(!$rol || $rol != "1" || $rol != "2" || $rol != "3"):?>
-                    <li id = 'TitlebarSignUp' class="nav-item menuItem">
-                        <?= $this->Html->link( "Sign up",[
-                            'controller' => 'usuario',
-                            'action' => 'register'
-                        ],[
-                            'id'=>'TitlebarSignUp',
-                            'class' => 'nav-link menuLink boxed'
-                        ]);?>
-                    </li>
-                <?php endif;?>
+                <?= $this->Html->link('Log in', ['controller' => 'seguridad', 'action' => 'login'], ['id'=>'TitlebarSignIn','class' => 'navbar-text text-white d-inline-block mr-3']); ?>
+                <?= $this->Html->link('Sign up', ['controller' => 'usuario', 'action' => 'register'], ['id'=>'TitlebarSignUp','class' => 'btn btn-success text-white border border-white shadow mr-3']); ?>
             <?php endif;?>
-        </ul>
-    <div>
+
+    </div>
 </nav>

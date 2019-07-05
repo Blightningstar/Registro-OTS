@@ -31,7 +31,7 @@
     
  <!-- Shows a placebar in case that there are a lot of data to display -->
  <div class="container-fluid table-responsive">
- <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered">
+ <table cellpadding="0" cellspacing="0" class="gridIndex table table-bordered table-striped">
         <thead>
             <tr id="headTr">
                 <!-- Puts each field of the table in the grid -->
