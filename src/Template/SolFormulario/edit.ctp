@@ -62,7 +62,6 @@
                  } ?>
         </div>
 
-
         <a href="/Registro-OTS/sol-formulario/"> <button type="button" class="botonCancelar">Cancel</button> </a>
         <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar']) ?>
         <?= $this->Form->end() ?>
@@ -84,7 +83,9 @@
             if( i > 2 ) {
                 $(this).parents('p').remove();
                 i--;
+                count++;
             }
+            window.alert(count);
             return false;
         });
     });

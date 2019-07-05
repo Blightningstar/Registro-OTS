@@ -140,11 +140,51 @@ class SolFormularioController extends AppController
         $solFormulario = $this->SolFormulario->get($id, [
             'contain' => []
         ]);
+
+
+        $result = $this->loadmodel('SolFormulario')->getContainingQuestions($solFormulario->SOL_FORMULARIO);
+        $this->set(compact('result'));
+
+        // $arrayTest;
+        // echo "ANTES DEL EDIT ";
+        // foreach ($result as $result) {
+        //     echo $result["SOL_PREGUNTA"];
+        //     echo ", ";
+        // }
+
+
         if ($this->request->is(['patch', 'post', 'put'])) {
              $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
 
-             var_dump($_POST['questions']);
 
+            echo "DESPUES DEL EDIT ";
+            foreach ($_POST['questions'] as $question) {
+                echo $question;
+                echo ", ";
+            }
+
+            $resultado = array_diff($result, $_POST['questions']);
+            // var_dump($resultado);
+
+            // echo "DESPUES DEL array_diff ";
+            // foreach ($resultado as $resultado) {
+            //     echo $resultado;
+            //     echo ", ";
+            // }
+
+            // foreach ($_POST['questions'] as $question) {
+            //     if (in_array($question, $result)){
+            //         echo "SI hay un ";
+            //         echo $question;
+            //     }
+            //     else{
+            //         echo "NO hay un ";
+            //         echo $question;
+            //     }
+            // }
+
+
+            $solFormulario['NOMBRE'] = $this->request->data['NOMBRE'];
 
             if ($this->SolFormulario->save($solFormulario)) {
                 $questNumber = 1;
@@ -166,8 +206,8 @@ class SolFormularioController extends AppController
         }
         $this->set(compact('solFormulario'));
 
-        $result = $this->loadmodel('SolFormulario')->getContainingQuestions($solFormulario->SOL_FORMULARIO);
-        $this->set(compact('result'));
+
+
     }
 
     /**
