@@ -356,6 +356,27 @@ class SegUsuarioTable extends Table
 
 
     /**
+     * getUserById
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Verifies the existence of the user and returns its email.
+     * @param string $id, it's the user email or username.
+     * @return string the user email.
+     */
+    public function getUserById($id){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT * FROM SEG_USUARIO
+             WHERE SEG_USUARIO = '$id'"
+        )->fetchAll('assoc');
+        if($result){
+            return $result[0];
+        }else{
+            return $result;
+        }
+    }
+
+    /**
      * getEmailByUserData
      * @author Daniel Marín <110100010111h@gmail.com>
      * 

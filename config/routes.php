@@ -37,6 +37,9 @@ Router::connect('curso/*', array('controller' => 'ProCurso'));
 Router::connect('curso', array('controller' => 'ProCurso'));
 
 Router::connect('solicitud/add/*', array('controller' => 'SolSolicitud', 'action' => 'add' ));
+Router::connect('solicitud/edit/*', array('controller' => 'SolSolicitud', 'action' => 'edit' ));
+Router::connect('solicitud/view/*', array('controller' => 'SolSolicitud', 'action' => 'view' ));
+Router::connect('solicitud/uploadgrades/*', array('controller' => 'SolSolicitud', 'action' => 'uploadgrades' ));
 
 Router::connect('usuario/add', array('controller' => 'SegUsuario', 'action' => 'add' ));
 Router::connect('usuario/register', array('controller' => 'SegUsuario', 'action' => 'register' ));

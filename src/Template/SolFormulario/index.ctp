@@ -67,7 +67,7 @@
                     <?php endif; ?>
                     <!-- The user got the right permission for the action? -->
                     <!-- BOT´ÓN NUEVO NO SE MANEJA EL PERMISO DE ESTE POR FAVOR ARREGLARLO, CAMBIAR 1101 POR EL CORRESPONDIENTE -->
-                    <?php if(array_key_exists(1101, $roles)): ?> 
+                    <?php if(array_key_exists(26, $roles)): ?> 
                         <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $solFormulario->SOL_FORMULARIO], ['escape'=>false]) ?>
                     <?php endif; ?>
                     <!-- The user got the right permission for the action? -->

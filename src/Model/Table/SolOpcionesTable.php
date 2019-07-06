@@ -86,7 +86,7 @@ class SolOpcionesTable extends Table
 
         $opciones = [];
         for($iterator = 0; $iterator < sizeof($results); ++$iterator){
-            $opciones[$iterator] = $results[$iterator]['DESCRIPCION_ING'];
+            $opciones[$results[$iterator]['DESCRIPCION_ING']] = $results[$iterator]['DESCRIPCION_ING'];
         }
 
         return $opciones;

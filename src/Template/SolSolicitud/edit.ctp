@@ -18,22 +18,22 @@
 
         <!-- All the formats of the respective question -->
         <?php
-            $textoCortoOpcional = ['type' => 'text', 'placeholder' => 'Please write your answer here.', 'label' => false, 'maxlength' => '50'];
-            $textoCortoObligatorio = ['type' => 'text', 'placeholder' => 'Please write your answer here.', 'label' => false, 'required', 'maxlength' => '50'];
-            $textoMedioOpcional = ['type' => 'textarea', 'placeholder' => 'Please write your answer here.', 'label' => false, 'escape' => false, 'rows' => '6', 'cols' => '10', 'maxlength' => '255', 'style' => 'border-radius: 12px;'];
-            $textoMedioObligatorio = ['type' => 'textarea', 'placeholder' => 'Please write your answer here.', 'label' => false, 'required', 'escape' => false, 'rows' => '6', 'cols' => '10', 'maxlength' => '255', 'style' => 'border-radius: 12px;'];
-            $textoLargoOpcional = ['type' => 'textarea', 'placeholder' => 'Please write your answer here.', 'label' => false, 'escape' => false, 'rows' => '6', 'cols' => '20', 'maxlength' => '4000', 'style' => 'border-radius: 12px;'];
-            $textoLargoObligatorio = ['type' => 'textarea', 'placeholder' => 'Please write your answer here.', 'required', 'label' => false, 'escape' => false, 'rows' => '6', 'cols' => '20', 'maxlength' => '4000', 'style' => 'border-radius: 12px;'];
-            $numberOpcional = ['type' => 'number', 'placeholder' => 'Please write the number.', 'label' => false];
-            $numberObligatorio = ['type' => 'number', 'placeholder' => 'Please write the number.', 'required', 'label' => false];
-            $fechaOpcional = ['class'=>'datepicker', 'placeholder' => 'Please select a date.', 'label' => false];
-            $fechaObligatoria = ['class'=>'datepicker', 'placeholder' => 'Please select a date.', 'required', 'label' => false];
-            $selectOpcional = ['label' => false, 'empty' => true, 'style' => 'border-radius: 12px;'];
-            $selectObligatorio = ['required', 'label' => false, 'empty' => true, 'style' => 'border-radius: 12px;'];
-            $emailOpcional = ['type' => 'email', 'placeholder' => 'Please write your answer here.', 'label' => false, 'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'maxlength' => '50'];
-            $emailObligatorio = ['type' => 'email', 'placeholder' => 'Please write your answer here.', 'required', 'label' => false, 'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'maxlength' => '50'];
-            $telefonoOpcional = ['type' => 'tel', 'placeholder' => 'Please write your answer here.', 'label' => false, 'pattern' => "[/+]?[0-9\-\s]+", 'maxlength' => '50'];
-            $telefonoObligatorio = ['type' => 'tel', 'placeholder' => 'Please write your answer here.', 'required', 'label' => false, 'pattern' => "[/+]?[0-9\-\s]+", 'maxlength' => '50'];
+            $textoCortoOpcional = ['type' => 'text', 'placeholder' => 'Please write your answer here', 'label' => false, 'maxlength' => '50'];
+            $textoCortoObligatorio = ['type' => 'text', 'placeholder' => 'Please write your answer here', 'label' => false, 'required', 'maxlength' => '50'];
+            $textoMedioOpcional = ['type' => 'textarea', 'placeholder' => 'Please write your answer here', 'label' => false, 'escape' => false, 'rows' => '6', 'cols' => '10', 'maxlength' => '255', 'style' => 'border-radius: 12px;'];
+            $textoMedioObligatorio = ['type' => 'textarea', 'placeholder' => 'Please write your answer here', 'label' => false, 'required', 'escape' => false, 'rows' => '6', 'cols' => '10', 'maxlength' => '255', 'style' => 'border-radius: 12px;'];
+            $textoLargoOpcional = ['type' => 'textarea', 'placeholder' => 'Please write your answer here', 'label' => false, 'escape' => false, 'rows' => '6', 'cols' => '20', 'maxlength' => '4000', 'style' => 'border-radius: 12px;'];
+            $textoLargoObligatorio = ['type' => 'textarea', 'placeholder' => 'Please write your answer here', 'required', 'label' => false, 'escape' => false, 'rows' => '6', 'cols' => '20', 'maxlength' => '4000', 'style' => 'border-radius: 12px;'];
+            $numberOpcional = ['type' => 'number', 'placeholder' => 'Please write the number', 'label' => false];
+            $numberObligatorio = ['type' => 'number', 'placeholder' => 'Please write the number', 'required', 'label' => false];
+            $fechaOpcional = ['class'=>'datepicker', 'placeholder' => 'Please select a date', 'label' => false];
+            $fechaObligatoria = ['class'=>'datepicker', 'placeholder' => 'Please select a date', 'required', 'label' => false];
+            $selectOpcional = ['label' => false, 'empty' => '--Choose one option--', 'style' => 'border-radius: 12px;'];
+            $selectObligatorio = ['required', 'label' => false, 'empty' => '--Choose one option--', 'style' => 'border-radius: 12px;'];
+            $emailOpcional = ['type' => 'email', 'placeholder' => 'Example@example.example', 'label' => false, 'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'maxlength' => '50'];
+            $emailObligatorio = ['type' => 'email', 'placeholder' => 'Example@example.example', 'required', 'label' => false, 'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'maxlength' => '50'];
+            $telefonoOpcional = ['type' => 'tel', 'placeholder' => 'Example: +01 453621534', 'label' => false, 'pattern' => "[/+]?[0-9\-\s]+", 'maxlength' => '50'];
+            $telefonoObligatorio = ['type' => 'tel', 'placeholder' => 'Example: +01 453621534', 'required', 'label' => false, 'pattern' => "[/+]?[0-9\-\s]+", 'maxlength' => '50'];
             $archivoOpcional = ['type' => 'file', 'class' => 'form-control', 'label' => false];
             $archivoObligatorio = ['type' => 'file', 'class' => 'form-control', 'required', 'label' => false];
 
@@ -149,6 +149,8 @@
                 endif;
             endforeach; ?>
     </fieldset>
+
+    <p>Fields with this symbol are required <font color='red'> * </font></p>
 
     <!-- Cancel the update of the application -->
     <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>

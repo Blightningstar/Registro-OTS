@@ -202,4 +202,20 @@ class SolPreguntaTable extends Table
         return $result;
     }
 
+    /** 
+     * getDescripcion
+     * @author Nathan González Herrera
+     * 
+     * Return the description of a given question.
+     * @param $idPregunta, is the question id.
+     */
+    public function getDescripcion($idPregunta){
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute(
+            "SELECT DESCRIPCION_ING 
+             FROM SOL_PREGUNTA
+             WHERE SOL_PREGUNTA = '$idPregunta' "
+        )->fetchAll('assoc');
+        return $result[0]['DESCRIPCION_ING'];
+    }
 }

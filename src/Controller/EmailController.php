@@ -60,7 +60,7 @@ class EmailController extends AppController
                 break;
             case "Rejected":
                 $message = "Dear " . $aditionalinfo["NOMBRE"] . "\n\n" .
-                "We would like to announce that you were accepted on the course " . $aditionalinfo["CURSO"] . "\n";
+                "Sorry, but you were rejected on the course " . $aditionalinfo["CURSO"] . "\n";
                 break;
             case "Restore":
                 $message = "Your restauration code is: " . $aditionalinfo;

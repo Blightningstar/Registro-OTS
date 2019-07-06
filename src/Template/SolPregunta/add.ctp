@@ -44,12 +44,11 @@
             </button>                   
         </p>
         <br>
-        <br>
 
         </div>
           <?php
               echo '<label for="ACTIVO">State</label>';
-              echo $this->Form->select('ACTIVO',$ACTIVO);
+              echo $this->Form->select('ACTIVO',$ACTIVO);?><br><br><?php 
               echo '<label for="REQUERIDO">Required</label>';
               echo $this->Form->select('REQUERIDO',$REQUERIDO);
           ?>

@@ -51,11 +51,6 @@ class SolPreguntaController extends AppController
      */
     public function view($id = null)
     {
-        // The user have the permission for this action?
-        $roles = $this->viewVars['roles'];
-        if(!array_key_exists(6, $roles))
-            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
-
         $solPreguntum = $this->SolPregunta->get($id, [
             'contain' => []
         ]);
@@ -74,11 +69,6 @@ class SolPreguntaController extends AppController
      */
     public function add()
     {
-        // The user have the permission for this action?
-        $roles = $this->viewVars['roles'];
-        if(!array_key_exists(5, $roles))
-            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
-
         $solPreguntum = $this->SolPregunta->newEntity();
         if ($this->request->is('post')) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
@@ -116,11 +106,6 @@ class SolPreguntaController extends AppController
      */
     public function edit($id = null)
     {
-        // The user have the permission for this action?
-        $roles = $this->viewVars['roles'];
-        if(!array_key_exists(7, $roles))
-            $this->redirect(['controller' => 'MainPage', 'action' => 'index']);
-
         $solPreguntum = $this->SolPregunta->get($id, [
             'contain' => []]);
         if ($this->request->is(['patch', 'post', 'put'])) {

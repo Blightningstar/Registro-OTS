@@ -50,6 +50,11 @@ class SolSolicitudController extends AppController
     }
 
     public function uploadgrades($usuarioId = null,$cursoId = null) {
+        // Estas variables estan definidas acá solo para probar la funcionalidad, para que funcione correctamente
+        // se debe de elimiar las siguientes 2 lineas y enviar por parámetros los respectivos Ids.
+        $usuarioId = 5;
+        $cursoId = 1;
+
         if ($this->request->is('post')) {
             $this->loadModel('ProCurso');
             $this->loadModel('SegUsuario');
@@ -57,11 +62,11 @@ class SolSolicitudController extends AppController
 
             $solicitud = $this->request->getData();
             $foldername = 'FileSystem/'.$this->ProCurso->getProgramName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->SegUsuario->getUserInfo($usuarioId).'/';
-            
+
             $fileName = $solicitud['file']['name'];
             $fileTmpName = $solicitud['file']['tmp_name'];
             $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
-            $filePath = $foldername.'University_Grades';
+            $filePath = $foldername.'University_Grades.'.$fileExt;
             $uploadState = $this->FileSystem->uploadFile($fileName, $fileTmpName, $filePath, $fileExt);
 
             if($uploadState){
@@ -89,6 +94,7 @@ class SolSolicitudController extends AppController
         // If a new application was submited
         if ($this->request->is('post')) {
             $this->loadModel('ProCurso');
+            $this->loadModel('SolPregunta');
             $this->loadModel('SolArchivo');
             $this->loadModel('SolFecha');
             $this->loadModel('SolNumero');
@@ -157,7 +163,7 @@ class SolSolicitudController extends AppController
                         $fileName = $respuestas[$iterador]['name'];
                         $fileTmpName = $respuestas[$iterador]['tmp_name'];
                         $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
-                        $filePath = $foldername.$fileName;
+                        $filePath = $foldername.$this->SolPregunta->getDescripcion($idPregunta).'.'.$fileExt;
                         $uploadState = $this->FileSystem->uploadFile($fileName, $fileTmpName, $filePath, $fileExt);
                         $this->SolArchivo->insertarArchivo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $filePath);
                     break;
@@ -204,6 +210,7 @@ class SolSolicitudController extends AppController
         // If the form was submited
         if ($this->request->is('post')) {
             $this->loadModel('ProCurso');
+            $this->loadModel('SolPregunta');
             $this->loadModel('SolArchivo');
             $this->loadModel('SolFecha');
             $this->loadModel('SolNumero');
@@ -262,7 +269,7 @@ class SolSolicitudController extends AppController
                         $fileName = $respuestas[$iterador]['name'];
                         $fileTmpName = $respuestas[$iterador]['tmp_name'];
                         $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
-                        $filePath = $foldername.$fileName;
+                        $filePath = $foldername.$this->SolPregunta->getDescripcion($idPregunta).'.'.$fileExt;
                         $uploadState = $this->FileSystem->uploadFile($fileName, $fileTmpName, $filePath, $fileExt);
                         $this->SolArchivo->actualizarArchivo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $filePath);
                     break;

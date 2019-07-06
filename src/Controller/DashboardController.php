@@ -130,12 +130,23 @@ class DashboardController extends AppController
      * accept method
      *
      * @author Jason Zamora Trejos
+     * @author Daniel Marín Montero, send email.
      * @param string|null $idCurso Pro Curso id ,$idUsuario Seg Usuario id.
      * @return redirect to the curso_View_Dashboard view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function accept($idCurso = null, $idUsuario = null)
     {
+        $emailController = new EmailController;
+        $userController = new SegUsuarioController;
+        $courseController = new ProCursoController;
+
+        $student = $userController->getUserById($idUsuario);
+        $course = $courseController->getCourse($idCurso);
+
+        $info = ['NOMBRE' => $student['NOMBRE'], 'CURSO' => $course['NOMBRE']];
+
+        $emailController->sendEmail($student["CORREO"],"Accepted",$info);
         $cursoSolicitud = TableRegistry::get('solSolicitud')->find()->where(['PRO_CURSO' => $idCurso]);
         /*Updates the RESULTADO of the application if accepted*/
         $cursoSolicitud->update()
@@ -150,14 +161,23 @@ class DashboardController extends AppController
      * denied method
      *
      * @author Jason Zamora Trejos
+     * @author Daniel Marín Montero, send email.
      * @param string|null $idCurso Pro Curso id ,$idUsuario Seg Usuario id.
      * @return redirect to the curso_View_Dashboard view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function denied($idCurso = null, $idUsuario = null)
     {
-        debug($idCurso);
-        debug($idUsuario);
+        $emailController = new EmailController;
+        $userController = new SegUsuarioController;
+        $courseController = new ProCursoController;
+
+        $student = $userController->getUserById($idUsuario);
+        $course = $courseController->getCourse($idCurso);
+
+        $info = ['NOMBRE' => $student['NOMBRE'], 'CURSO' => $course['NOMBRE']];
+
+        $emailController->sendEmail($student["CORREO"],"Rejected",$info);
         $assets = TableRegistry::get('solSolicitud')->find()->where(['PRO_CURSO' => $idCurso]);
         /*Updates the RESULTADO of the application if accepted*/
         $assets->update()

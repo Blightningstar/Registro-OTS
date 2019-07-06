@@ -82,7 +82,7 @@
         <?php endif;?>
 
         <!-- The user got the right permission for the action? -->
-        <?php if(array_key_exists(31, $roles)):?>
+        <?php if(array_key_exists(30, $roles)):?>
             <li id = 'MenubarForm' class="nav-item menuItem">
                 <?= $this->Html->link( "Form",[
                     'controller' => 'solFormulario'

@@ -259,6 +259,25 @@ class ProCursoTable extends Table
         return $lc_code;
       }  
 
+
+
+    /**
+     * getCourse
+     * @author Daniel Marín Montero
+     *      
+     * fetch the course by its id
+     * @param int $cursoId the identification of a course in the database
+     */
+    public function getCourse($cursoId){
+        $connect= ConnectionManager::get('default');
+        $results = $connect->execute(
+            "SELECT *
+             FROM PRO_CURSO
+             WHERE '$cursoId' = PRO_CURSO"
+        )->fetchAll('assoc');
+        return $results[0];
+    }
+
     /**
      * getProgramName
      * @author Nathan González Herrera

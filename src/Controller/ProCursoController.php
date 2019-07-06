@@ -275,4 +275,17 @@ class ProCursoController extends AppController
         }
         return $this->redirect(['action' => 'index',$proCurso['PRO_PROGRAMA']]);
     }
+
+    /**
+     * getCourse
+     * @author Daniel Marín <110100010111h@gmail.com>
+     *      
+     * Calls its model function to get the course data known by $id.
+     * @param string $id, course key.
+     * @return string all the course data.
+     */
+    public function getCourse($id){
+        $courseTable=$this->loadmodel('ProCurso');
+        return $courseTable->getCourse($id);
+    }
 }
