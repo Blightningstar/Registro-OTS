@@ -20,7 +20,7 @@
     <?php if(array_key_exists(25, $roles)): ?>
         <!--Links the create button to a new course -->
         <button type="button" class="botonAgregar">
-            <?= $this->Html->link(__('Add Course'), ['controller' => 'curso', 'action' => 'add'], ['style' => 'color:white;']) ?>   
+        <?= $this->Html->link(__('Add Course'), ['controller' => 'curso', 'action' => 'add',$program_id], ['style' => 'color:white;']) ?> 
         </button>
     <?php endif; ?>
     

@@ -41,7 +41,7 @@
         ?>
     </fieldset>
     <br>
-    <a href="/Registro-OTS/curso/<?php echo $program_id ?>"> <button type="button" class="botonCancelar"> <?= __('Cancel') ?> </button> </a>
+    <button type="button" class="botonCancelar" onclick="window.history.back();"> <?= __('Return') ?> </button> </a>
     <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar'], ['label' => __('Confirm')]) ?>
     <?= $this->Form->end() ?>
 </div>
