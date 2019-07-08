@@ -224,7 +224,7 @@ class SolSolicitudController extends AppController
             $respuestas = array_values($solicitud);
 
             // Find the path folder of this student
-            $foldername = 'FileSystem/'.$this->ProCurso->getProgramName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->viewVars['actualUser']['NOMBRE'].'/';
+            $foldername = 'FileSystem/'.$this->ProCurso->getProgramName($cursoId).'/'.$this->ProCurso->getCursoPath($cursoId).'/'.$this->viewVars['actualUser']['SEG_USUARIO'].'-'.$this->viewVars['actualUser']['NOMBRE'].'_'.$this->viewVars['actualUser']['APELLIDO_1'].'/';
 
             // For each question in the form, store the answer into the respective table in the database
             for($iterador = 0; $iterador < sizeof($preguntas); ++$iterador){

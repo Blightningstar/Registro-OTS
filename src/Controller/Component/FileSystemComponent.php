@@ -96,6 +96,8 @@ class FileSystemComponent extends Component {
      */
     public function uploadFile($name, $tmp_name, $path, $ext){
         if(!empty($name)){  // If the file has a name
+            $this->FileSystem->deleteFile($path); // Delete an existing file with the same path
+
             if($ext == 'pdf' || $ext == 'doc' || $ext == 'txt'){ // if the file has a proper extension
                 if(move_uploaded_file($tmp_name, $path)){   // Copy the file in the given direction.
                     $this->Flash->success(__('The file was upload succesfully'));
