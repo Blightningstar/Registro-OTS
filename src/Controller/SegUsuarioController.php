@@ -178,6 +178,9 @@ class SegUsuarioController extends AppController
 
         $segUsuario = $this->SegUsuario->newEntity();
 
+
+        $lc_role = $this->actualRole();
+
         //Only executed when user submitted a form.
         if ($this->request->is('post')) {
             $segUsuario = $this->SegUsuario->patchEntity($segUsuario, $this->request->getData());
@@ -233,6 +236,8 @@ class SegUsuarioController extends AppController
 
         $this->set('active_title', 'TitlebarSignUp');
         $segUsuario = $this->SegUsuario->newEntity();
+
+        
 
         //Only executed if user submitted a form.
         if ($this->request->is('post')) {
@@ -312,6 +317,8 @@ class SegUsuarioController extends AppController
         $segUsuario = $this->SegUsuario->get($id, [
             'contain' => []
         ]);
+
+        $lc_role = $this->actualRole();
 
         //Allow user edit only if the user is active.
         if($segUsuario["ACTIVO"] == "0")
