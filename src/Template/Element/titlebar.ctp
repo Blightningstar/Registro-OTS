@@ -24,7 +24,7 @@ if($actualUser)
     <div class="ml-auto">
             
             <?php if($actualUser):?>
-                <?= $this->Html->link(__('Profile'), ['controller' => 'usuario', 'action' => 'view', $actualUser['SEG_USUARIO'] ], ['class' => 'navbar-text text-white d-inline-block mr-3']) ?>
+                <?= $this->Html->link(__('Profile'), ['controller' => 'usuario', 'action' => 'profileView' ], ['class' => 'navbar-text text-white d-inline-block mr-3']) ?>
                 <?= $this->Html->link(__('Log out'), ['controller' => 'seguridad', 'action' => 'logout'], ['class' => 'navbar-text text-white d-inline-block mr-3']) ?>
             <?php else:?>
                 <?= $this->Html->link('Log in', ['controller' => 'seguridad', 'action' => 'login'], ['id'=>'TitlebarSignIn','class' => 'navbar-text text-white d-inline-block mr-3']); ?>
