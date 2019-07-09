@@ -44,7 +44,7 @@
             </button>                   
         </p>
         <br>
-
+        <br>
         </div>
           <?php
               echo '<label for="ACTIVO">State</label>';
