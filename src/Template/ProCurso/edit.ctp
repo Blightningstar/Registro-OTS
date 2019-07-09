@@ -37,7 +37,7 @@
             echo $this->Form->control('IDIOMA', ['label' => _('Language'), 'value' => $proCurso ['IDIOMA'], 'placeholder'=> 'Language of the course','pattern' => '^[a-zA-Z]*$']);
             echo $this->Form->control('LOCACION', ['label' => _('Location'), 'value' => $proCurso ['LOCACION'], 'placeholder'=> 'Location of the course', 'options' => array('Costa Rica', __('South Africa'))]);
             echo $this->Form->control('PRO_PROGRAMA', ['label' => _('Parent Program'), 'options' => $lo_vector_Programa]);
-            echo $this->Form->control('SOL_FORMULARIO', ['label' => _('Form'), 'options' => $lo_vector_Formulario]);
+            echo $this->Form->control('SOL_FORMULARIO', ['label' => _('Form'), 'options' => $lo_vector_Formulario, 'value'=>$proCurso['SOL_FORMULARIO']]);
         ?>
     </fieldset>
     <br>
