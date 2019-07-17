@@ -126,7 +126,7 @@ public function getFormID($name)
 
         $connet = ConnectionManager::get('default');
         $result = $connet->execute("DELETE FROM SOL_FORMULARIO WHERE SOL_FORMULARIO =$id");
-        $connet->execute(
+        $connect->execute(
             "COMMIT"
         );
         return 1;
@@ -164,11 +164,32 @@ public function getFormID($name)
     public function getContainingQuestions($idForm){
         $connect = ConnectionManager::get('default');
         $result = $connect->execute(
-            "SELECT DISTINCT DESCRIPCION_ING, NUMERO_PREGUNTA, SOL_CONTIENE.SOL_PREGUNTA FROM SOL_PREGUNTA
-             INNER JOIN SOL_CONTIENE
-             ON SOL_PREGUNTA.SOL_PREGUNTA = SOL_CONTIENE.SOL_PREGUNTA
-             WHERE SOL_CONTIENE.SOL_FORMULARIO = '$idForm'"
+            "SELECT DISTINCT DESCRIPCION_ING, NUMERO_PREGUNTA, SOL_CONTIENE.SOL_PREGUNTA, SOL_FORMULARIO 
+            FROM SOL_PREGUNTA
+            INNER JOIN SOL_CONTIENE
+            ON SOL_PREGUNTA.SOL_PREGUNTA = SOL_CONTIENE.SOL_PREGUNTA
+            WHERE SOL_CONTIENE.SOL_FORMULARIO = '$idForm'
+            ORDER BY SOL_CONTIENE.NUMERO_PREGUNTA"
         )->fetchAll('assoc');
         return $result;
+    }
+
+    /**
+     * 
+     * @author Anyelo Lobo <yeloanlo@gmail.com>
+     * 
+     * Delete the containing questions of the form
+     * @param int $formID, it's the form identificator.
+     * @param int $questID, the question identificator.
+     */
+    public function deleteFormQuestion($formID, $questID){
+        $connect = ConnectionManager::get('default');
+        $connect->execute(
+            "DELETE FROM SOL_CONTIENE
+            WHERE SOL_FORMULARIO = '$formID' AND SOL_PREGUNTA = '$questID'"
+        );
+        $connect->execute("COMMIT");
+
+        return 1;
     }
 }

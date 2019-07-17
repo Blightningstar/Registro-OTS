@@ -37,12 +37,15 @@
                             
             </fieldset>
 
-            <?php $questNumber = 0; ?>
+            <?php 
+                $questNumber = 0; 
+            ?>
             <?php 
                 foreach ($result as $questCount){
             ?>
                 <!-- Select Box with the available questions -->
                 <p id="p_new" size="40" name="p_new_" + $questNumber +"" value="">
+
                 <select name="questions[]"> 
                     <?php echo $questCount['SOL_PREGUNTA']; ?>
                     <!-- <option selected> -- Choose a Question -- </option> -->
@@ -61,7 +64,6 @@
                 $questNumber++; 
                  } ?>
         </div>
-
 
         <a href="/Registro-OTS/sol-formulario/"> <button type="button" class="botonCancelar">Cancel</button> </a>
         <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar']) ?>
