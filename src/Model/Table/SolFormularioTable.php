@@ -126,11 +126,11 @@ public function getFormID($name)
 
         $connet = ConnectionManager::get('default');
         $result = $connet->execute("DELETE FROM SOL_FORMULARIO WHERE SOL_FORMULARIO =$id");
-        $connet->execute(
+        $connect->execute(
             "COMMIT"
         );
         return 1;
-}
+    }
     public function getPreguntasFormulario($id){
         $connect= ConnectionManager::get('default');
         $result = $connect->execute(
@@ -170,15 +170,18 @@ public function getFormID($name)
      * 
      * @author Anyelo Lobo <yeloanlo@gmail.com>
      * 
-     * Update the containing questions in the form
-     * @param int $SOL_FORMULARIO, it's the form identificator.
+     * Delete the containing questions of the form
+     * @param int $formID, it's the form identificator.
+     * @param int $questID, the question identificator.
      */
-    public function updateForm($contain){
+    public function deleteFormQuestion($formID, $questID){
         $connect = ConnectionManager::get('default');
-        $result = $connect->execute(
-            ""
+        $connect->execute(
+            "DELETE FROM SOL_CONTIENE
+            WHERE SOL_FORMULARIO = '$formID' AND SOL_PREGUNTA = '$questID'"
         );
+        $connect->execute("COMMIT");
+
         return 1;
     }
-
 }

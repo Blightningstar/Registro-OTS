@@ -39,14 +39,13 @@
 
             <?php 
                 $questNumber = 0; 
-                $counter = 1;
             ?>
             <?php 
                 foreach ($result as $questCount){
             ?>
                 <!-- Select Box with the available questions -->
                 <p id="p_new" size="40" name="p_new_" + $questNumber +"" value="">
-                <p class= "field"> <?= __('Question '.$counter.':') ?></p>
+
                 <select name="questions[]"> 
                     <?php echo $questCount['SOL_PREGUNTA']; ?>
                     <!-- <option selected> -- Choose a Question -- </option> -->
@@ -63,7 +62,6 @@
                 <br>
             <?php
                 $questNumber++; 
-                $counter++;
                  } ?>
         </div>
 
@@ -88,9 +86,7 @@
             if( i > 2 ) {
                 $(this).parents('p').remove();
                 i--;
-                count++;
             }
-            window.alert(count);
             return false;
         });
     });

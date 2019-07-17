@@ -127,75 +127,42 @@ class SolFormularioController extends AppController
         $contiene = TableRegistry::get('SolContiene');
         $contiene = $contiene->find('all');
         $this->set(compact('contiene'));
-
         $preguntas = TableRegistry::get('SolPregunta');
         $pregunta = $preguntas->find('all');
         $this->set(compact('pregunta'));
-
         // load the model 
         $this->loadModel('SolContiene');
         $solContiene = $this->SolContiene->newEntity();
-
-
         $solFormulario = $this->SolFormulario->get($id, [
             'contain' => []
         ]);
 
-
         $result = $this->loadmodel('SolFormulario')->getContainingQuestions($solFormulario->SOL_FORMULARIO);
         $this->set(compact('result'));
 
-        // $arrayTest;
-        // echo "ANTES DEL EDIT ";
-        // foreach ($result as $result) {
-        //     echo $result["SOL_PREGUNTA"];
-        //     echo ", ";
-        // }
 
+        $beforeArray = array(); //for deleting all questions before inserting the new questions
 
         if ($this->request->is(['patch', 'post', 'put'])) {
              $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
-
-
-            echo "DESPUES DEL EDIT ";
-            foreach ($_POST['questions'] as $question) {
-                echo $question;
-                echo ", ";
-            }
-
-            $resultado = array_diff($result, $_POST['questions']);
-            // var_dump($resultado);
-
-            // echo "DESPUES DEL array_diff ";
-            // foreach ($resultado as $resultado) {
-            //     echo $resultado;
-            //     echo ", ";
-            // }
-
-            // foreach ($_POST['questions'] as $question) {
-            //     if (in_array($question, $result)){
-            //         echo "SI hay un ";
-            //         echo $question;
-            //     }
-            //     else{
-            //         echo "NO hay un ";
-            //         echo $question;
-            //     }
-            // }
-
-
-            $solFormulario['NOMBRE'] = $this->request->data['NOMBRE'];
-
+             $solFormulario['NOMBRE'] = $this->request->data['NOMBRE'];
             if ($this->SolFormulario->save($solFormulario)) {
                 $questNumber = 1;
+
+                foreach ($result as $key) {
+                    array_push($beforeArray, $key['SOL_PREGUNTA']);
+                }
+
+                foreach ($beforeArray as $result) {
+                    echo $result;
+                    $this->loadmodel('SolFormulario')->deleteFormQuestion($solFormulario['SOL_FORMULARIO'], $result);
+                }
+
                 foreach ($_POST['questions'] as $question) {
-                    echo $question;
                     $solContiene = $this->SolContiene->newEntity();
                     $solContiene['SOL_PREGUNTA'] = $question;
-
                     $solContiene['SOL_FORMULARIO'] = $solFormulario['SOL_FORMULARIO'];
                     $solContiene['NUMERO_PREGUNTA'] = $questNumber;
-
                     $this->SolContiene->save($solContiene);
                     $questNumber++;
                 }
@@ -205,9 +172,6 @@ class SolFormularioController extends AppController
             $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
         }
         $this->set(compact('solFormulario'));
-
-
-
     }
 
     /**
