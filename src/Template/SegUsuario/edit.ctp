@@ -24,7 +24,7 @@
             echo $this->element('countrySelectOptions');
 
 
-            $segUsuario["SEG_ROL"] -= 1;
+            $segUsuario["SEG_ROL"] = 3 - $segUsuario["SEG_ROL"];
 
             //Administrator can't create superusers
             if($lc_role == "1")

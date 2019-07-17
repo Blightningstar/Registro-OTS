@@ -200,8 +200,8 @@ class SegUsuarioController extends AppController
             //The code will be used to control if the username or email are in the dabase.
             if ($lc_code == "1")
             {
-                if ($this->SegUsuario->save($segUsuario)) {
-                    $this->Flash->success(__('User was added correctly. Password: ' . $lc_password));
+                if ($this->SegUsuario->insertUser($segUsuario)) {
+                    $this->Flash->success(__('User was added correctly.'));
 
 
                     return $this->redirect(['action' => 'index']);
