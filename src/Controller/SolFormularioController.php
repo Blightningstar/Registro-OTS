@@ -169,28 +169,29 @@ class SolFormularioController extends AppController
             if ($this->SolFormulario->save($solFormulario)) {
                 $questNumber = 1;
 
-            $solFormulario['NOMBRE'] = $this->request->data['NOMBRE'];
-                foreach ($result as $key) {
-                    array_push($beforeArray, $key['SOL_PREGUNTA']);
-                }
+                $solFormulario['NOMBRE'] = $this->request->data['NOMBRE'];
+                    foreach ($result as $key) {
+                        array_push($beforeArray, $key['SOL_PREGUNTA']);
+                    }
 
-            if ($this->SolFormulario->save($solFormulario)) {
-                $questNumber = 1;
-                foreach ($beforeArray as $result) {
-                    echo $result;
-                    $this->loadmodel('SolFormulario')->deleteFormQuestion($solFormulario['SOL_FORMULARIO'], $result);
-                }
+                if ($this->SolFormulario->save($solFormulario)) {
+                    $questNumber = 1;
+                    foreach ($beforeArray as $result) {
+                        echo $result;
+                        $this->loadmodel('SolFormulario')->deleteFormQuestion($solFormulario['SOL_FORMULARIO'], $result);
+                    }
 
-                foreach ($_POST['questions'] as $question) {
-                    $solContiene = $this->SolContiene->newEntity();
-                    $solContiene['SOL_PREGUNTA'] = $question;
-                    $solContiene['SOL_FORMULARIO'] = $solFormulario['SOL_FORMULARIO'];
-                    $solContiene['NUMERO_PREGUNTA'] = $questNumber;
-                    $this->SolContiene->save($solContiene);
-                    $questNumber++;
+                    foreach ($_POST['questions'] as $question) {
+                        $solContiene = $this->SolContiene->newEntity();
+                        $solContiene['SOL_PREGUNTA'] = $question;
+                        $solContiene['SOL_FORMULARIO'] = $solFormulario['SOL_FORMULARIO'];
+                        $solContiene['NUMERO_PREGUNTA'] = $questNumber;
+                        $this->SolContiene->save($solContiene);
+                        $questNumber++;
+                    }
+                    $this->Flash->success(__('Records have been saved.'));
+                    return $this->redirect(['action' => 'index']);
                 }
-                $this->Flash->success(__('Records have been saved.'));
-                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The sol formulario could not be saved. Please, try again.'));
         }
