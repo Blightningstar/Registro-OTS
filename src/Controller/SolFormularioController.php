@@ -101,7 +101,7 @@ class SolFormularioController extends AppController
 
         if ($this->request->is('post')) {
             $solFormulario = $this->SolFormulario->patchEntity($solFormulario, $this->request->getData());
-            $solFormulario['SOL_FORMULARIO'] = 1;
+            $solFormulario['SOL_FORMULARIO'] = -1;
             $solFormulario['NOMBRE'] = $this->request->data['NOMBRE'];
 
             if ($this->SolFormulario->save($solFormulario)) {

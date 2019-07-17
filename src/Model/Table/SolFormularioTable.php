@@ -124,8 +124,8 @@ public function getFormID($name)
     public function borrarFormulario ($id)
     {
 
-        $connet = ConnectionManager::get('default');
-        $result = $connet->execute("DELETE FROM SOL_FORMULARIO WHERE SOL_FORMULARIO =$id");
+        $connect = ConnectionManager::get('default');
+        $result = $connect->execute("DELETE FROM SOL_FORMULARIO WHERE SOL_FORMULARIO =$id");
         $connect->execute(
             "COMMIT"
         );
