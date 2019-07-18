@@ -42,7 +42,8 @@
                     $buttonText = "";
 					$link = [];
 					$link["controller"] = 'SolSolicitud';
-					$link["action"] = 'view/' . $application["SEG_USUARIO"] . '/' .  $application["PRO_CURSO"];
+                    $link["action"] = 'view/' . $application["SEG_USUARIO"] . '/' .  $application["PRO_CURSO"];
+                    
                     $result =  str_replace(" ","",$application["RESULTADO"]);
 
                     switch($result)
