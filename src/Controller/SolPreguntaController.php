@@ -108,11 +108,16 @@ class SolPreguntaController extends AppController
     {
         $solPreguntum = $this->SolPregunta->get($id, [
             'contain' => []]);
+        $temp = $this->request->getData();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $solPreguntum = $this->SolPregunta->patchEntity($solPreguntum, $this->request->getData());
             
-            if ($this->SolPregunta->save($solPreguntum)) {
+            if ($this->SolPregunta->editarPregunta($solPreguntum['SOL_PREGUNTA'], $temp['DESCRIPCION_ING'],$temp['tipo'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
                 $this->Flash->success(__('The question has been saved.'));
+
+                if ($temp['tipo'] == 5 && $this->SolPregunta->insertOptions($solPreguntum['SOL_PREGUNTA'], $temp['options'])) {
+                    $this->Flash->success(__('The options have been saved.'));   
+                }
 
                 return $this->redirect(['action' => 'index']);
             }

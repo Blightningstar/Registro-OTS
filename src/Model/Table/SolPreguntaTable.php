@@ -97,6 +97,29 @@ class SolPreguntaTable extends Table
         return 1;
     }
 
+    /**
+     *  Update new preguntas to database
+     *  @author Anyelo Lobo
+     *  @param int $idPreg, the question ID
+     *  @param string $dEsp, it's the question's description in spanish
+     *  @param string $dIng, it's the question's description in english
+     *  @param string $tipo, it's the question's type
+     *  @param string $req, it's the question's type required atributte
+     *  @param string $act, it's the question's type active attribute, its state
+     *  @return 1 when succeded
+     */
+    public function editarPregunta($idPreg, $dIng, $tipo, $req, $act)
+    {
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("UPDATE sol_pregunta 
+        SET DESCRIPCION_ING = '$dIng', TIPO = '$tipo', REQUERIDO = '$req', ACTIVO = '$act'
+        WHERE SOL_PREGUNTA = '$idPreg'");
+        $connet->execute(
+            "COMMIT"
+        );
+        return 1;
+    }
+
      /**
      *  Return the max integer value from SOL_PREGUNTA 
      *  @author Joel Chaves
