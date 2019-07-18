@@ -177,7 +177,6 @@ class SolFormularioController extends AppController
                 if ($this->SolFormulario->save($solFormulario)) {
                     $questNumber = 1;
                     foreach ($beforeArray as $result) {
-                        echo $result;
                         $this->loadmodel('SolFormulario')->deleteFormQuestion($solFormulario['SOL_FORMULARIO'], $result);
                     }
 

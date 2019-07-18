@@ -69,15 +69,7 @@ class SolFormularioTable extends Table
             WHERE SOL_FORMULARIO=$id ORDER BY NUMERO_PREGUNTA")->fetchAll('assoc');
         return $result;
     }
-    /*
-public function getFormID($name)
-{   
-    echo $name;
-    $connect= ConnectionManager::get('default');
-    $result= $connect->execute("SELECT SOL_FORMULARIO.SOL_FORMULARIO from SOL_FORMULARIO WHERE SOL_FORMULARIO.NOMBRE = '$name'");
-    return $result;
-}
-*/
+
     /**
      * 
      * @author Daniel Marín <110100010111h@gmail.com>
