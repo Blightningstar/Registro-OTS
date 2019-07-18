@@ -83,14 +83,13 @@
 
 <!-- For Adding Options Dinamically to a select-type Questions -->
 <script type="text/javascript">
-    var optNumber = 1;
     $(function() {
         var addDiv = $('#addinput');
         var i = $('#addinput p').size() + 1;
         // var optNumber = 1;
         $('#addNew').live('click', function() {
 
-            $('<p id="p_new" size="40" name="p_new_' + i +'" value=""> Insert Option  ' + optNumber + ' <br> <input type="text" name="options[]"><a href="#" id="remNew"><input type="button" style="background-color:rgb(242, 102, 49);color:white;width:150px;height:40px;border-radius: 5px;" value="Remove"></a>').appendTo(addDiv);
+            $('<p id="p_new" size="40" name="p_new_' + i +'" value=""> Insert Option  <br> <input type="text" name="options[]"><a href="#" id="remNew"><input type="button" style="background-color:rgb(242, 102, 49);color:white;width:150px;height:40px;border-radius: 5px;" value="Remove"></a>').appendTo(addDiv);
             i++;
             optNumber++;
             return false;
