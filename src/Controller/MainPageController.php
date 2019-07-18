@@ -36,6 +36,9 @@ class MainPageController extends AppController
      */
     public function index()
     {
-        
+        $actualUser = $this->viewVars['actualUser'];
+        if(!$actualUser){
+            return $this->redirect(['controller'=>'Seguridad','action' => 'login']);
+        }
     }
 }
