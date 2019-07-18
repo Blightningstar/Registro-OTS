@@ -67,8 +67,8 @@ class AppController extends Controller
             $roles = $permissionController->getPermissions($actualUser['SEG_ROL']);                
         }
         else{
-            $roles[0] = 0;
-            $roles[2] = 2;
+            //$roles[0] = 0;
+            //$roles[2] = 2;
             $roles[22] = 22;
         }
 
