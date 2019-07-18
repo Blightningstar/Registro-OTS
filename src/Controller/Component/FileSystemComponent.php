@@ -72,6 +72,8 @@ class FileSystemComponent extends Component {
      * If the path exist and the owner is a file show a window to download it.
      */
     public function downloadFile($path){
+        $path = str_replace("|","/",$path); // This is to allow the parameter to be send by URL
+
         if (file_exists($path)) {   // If the file exist, charge a window to download it.
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');

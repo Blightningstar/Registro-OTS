@@ -21,11 +21,23 @@
             foreach ($pregSol as $pregunta):        
                 if($pregunta['ACTIVO']):
                     echo "<label><b>".$numPregunta.") ".$pregunta['DESCRIPCION_ING']."</b></label><br>";
-                    echo "<label>".$respSol[$pregunta['NUMERO_PREGUNTA']]."</label><br>";
+                    if($pregunta['TIPO'] != 8):
+                        echo "<label>".$respSol[$pregunta['NUMERO_PREGUNTA']]."</label><br>";
+                    else:
+                        $path = $respSol[$pregunta['NUMERO_PREGUNTA']];
+                        $path = str_replace("/","|",$path); // Allow send the file path by URL
+
+                        // This is for download the respective file
+                        echo $this->Html->link(
+                            'Download File',
+                            ['controller' => 'SolSolicitud', 'action' => 'downloadFile', $path],
+                            ['confirm' => 'Are you sure you wish to download this file?']
+                        );
+                    endif;
                     echo "<hr class= 'separator'><br>";
                     ++$numPregunta;
                 endif;
             endforeach; ?>
     </fieldset>
-    <a href="/Registro-OTS/dashboard/curso-view-dashboard/<?php echo $cursoId ?>"> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a> 
+    <a href="/Registro-OTS/dashboard/studentDashboard"> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a> 
 </div>
