@@ -34,8 +34,7 @@
             $emailObligatorio = ['type' => 'email', 'placeholder' => 'Example@example.example', 'required', 'label' => false, 'pattern' => '[0-9A-Za-z^@]+@+[0-9A-Za-z^\.]+\.+[0-9A-Za-z^@]+', 'maxlength' => '50'];
             $telefonoOpcional = ['type' => 'tel', 'placeholder' => 'Example: +01 453621534', 'label' => false, 'pattern' => "[/+]?[0-9\-\s]+", 'maxlength' => '50'];
             $telefonoObligatorio = ['type' => 'tel', 'placeholder' => 'Example: +01 453621534', 'required', 'label' => false, 'pattern' => "[/+]?[0-9\-\s]+", 'maxlength' => '50'];
-            $archivoOpcional = ['type' => 'file', 'class' => 'form-control', 'label' => false];
-            $archivoObligatorio = ['type' => 'file', 'class' => 'form-control', 'required', 'label' => false];
+            $archivo = ['type' => 'file', 'class' => 'form-control', 'label' => false];
 
             $numPregunta = 1;
             // According of the type of the question print the right input
@@ -44,7 +43,7 @@
                     $id = $pregunta['NUMERO_PREGUNTA']."_".$pregunta['SOL_PREGUNTA']."_".$pregunta['TIPO'];
 
                     // Print the description of the question
-                    if($pregunta['REQUERIDO']):
+                    if($pregunta['REQUERIDO'] && $pregunta['TIPO'] != 8):
                         echo "<b>".$numPregunta.") ".$pregunta['DESCRIPCION_ING']."<font color='red'> *</font></b>";
                     else:
                         echo "<b>".$numPregunta.") ".$pregunta['DESCRIPCION_ING']."</b>";
@@ -136,13 +135,8 @@
                         break;
 
                         case 8: // Archivo
-                            if($pregunta['REQUERIDO']):
-                                $archivoObligatorio['value'] = $respSol[$pregunta['NUMERO_PREGUNTA']];
-                                echo $this->Form->input($id, $archivoObligatorio);
-                            else:
-                                $archivoOpcional['value'] = $respSol[$pregunta['NUMERO_PREGUNTA']];
-                                echo $this->Form->input($id, $archivoOpcional);
-                            endif;
+                            $archivo['value'] = $respSol[$pregunta['NUMERO_PREGUNTA']];
+                            echo $this->Form->input($id, $archivo);
                         break;
                     endswitch;
                     ++$numPregunta;
