@@ -160,12 +160,14 @@ class SolSolicitudController extends AppController
                     break;
 
                     case 8: // Archivo
-                        $fileName = $respuestas[$iterador]['name'];
-                        $fileTmpName = $respuestas[$iterador]['tmp_name'];
-                        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
-                        $filePath = $foldername.$this->SolPregunta->getDescripcion($idPregunta).'.'.$fileExt;
-                        $uploadState = $this->FileSystem->uploadFile($fileName, $fileTmpName, $filePath, $fileExt);
-                        $this->SolArchivo->insertarArchivo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $filePath);
+                        if($respuestas[$iterador]['name'] != ""){
+                            $fileName = $respuestas[$iterador]['name'];
+                            $fileTmpName = $respuestas[$iterador]['tmp_name'];
+                            $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+                            $filePath = $foldername.$this->SolPregunta->getDescripcion($idPregunta).'.'.$fileExt;
+                            $uploadState = $this->FileSystem->uploadFile($fileName, $fileTmpName, $filePath, $fileExt);
+                            $this->SolArchivo->insertarArchivo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $numPregunta, $filePath);
+                        }
                     break;
                 }
             }
@@ -266,12 +268,14 @@ class SolSolicitudController extends AppController
                     break;
 
                     case 8: // Archivo
-                        $fileName = $respuestas[$iterador]['name'];
-                        $fileTmpName = $respuestas[$iterador]['tmp_name'];
-                        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
-                        $filePath = $foldername.$this->SolPregunta->getDescripcion($idPregunta).'.'.$fileExt;
-                        $uploadState = $this->FileSystem->uploadFile($fileName, $fileTmpName, $filePath, $fileExt);
-                        $this->SolArchivo->actualizarArchivo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $filePath);
+                        if($respuestas[$iterador]['name'] != ""){
+                            $fileName = $respuestas[$iterador]['name'];
+                            $fileTmpName = $respuestas[$iterador]['tmp_name'];
+                            $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+                            $filePath = $foldername.$this->SolPregunta->getDescripcion($idPregunta).'.'.$fileExt;
+                            $uploadState = $this->FileSystem->uploadFile($fileName, $fileTmpName, $filePath, $fileExt);
+                            $this->SolArchivo->actualizarArchivo($this->viewVars['actualUser']['SEG_USUARIO'], $cursoId, $idPregunta, $filePath);
+                        }
                     break;
                 }
             }
@@ -298,6 +302,14 @@ class SolSolicitudController extends AppController
         $this->set(compact('pregSol', $pregSol));
         $this->set(compact('respSol', $respSol));
         $this->set(compact('opcionPreg', $opcionPreg));
+    }
+
+    /**
+     * This is for redirect the file path for download the respective file in the filesystem component
+     * @author Nathan González Herrera
+     */
+    public function downloadFile($path){
+        $this->FileSystem->downloadFile($path);
     }
 	
 	 /**
