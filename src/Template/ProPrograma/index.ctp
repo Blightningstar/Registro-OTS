@@ -61,10 +61,6 @@
 
                 <td>
                 <!-- The user got the right permission for the action? -->
-                <?php if(array_key_exists(0, $roles)): ?>
-                    <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'programa', 'action' => 'view',  $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
-                <?php endif; ?>
-                <!-- The user got the right permission for the action? -->
                 <?php if(array_key_exists(1, $roles)): ?>
                     <?= $this->Html->link('<i class="fa fa-pencil-alt"></i>', ['action' => 'edit', $proPrograma->PRO_PROGRAMA], ['escape'=>false]) ?>
                 <?php endif; ?>

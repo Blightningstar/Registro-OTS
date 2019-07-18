@@ -39,6 +39,10 @@
                 endif;
             endforeach; ?>
     </fieldset>
-    
-    <a href="/Registro-OTS/dashboard/studentDashboard"> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a> 
+
+    <?php if($this->viewVars['actualUser']['SEG_ROL'] == 3):?>
+        <a href="/Registro-OTS/dashboard/studentDashboard"> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a> 
+    <?php else: ?>
+        <a href="/Registro-OTS/dashboard/index"> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a> 
+    <?php endif; ?>
 </div>

@@ -52,7 +52,6 @@ Router::connect('usuario/delete/*', array('controller' => 'SegUsuario', 'action'
 Router::connect('usuario', array('controller' => 'SegUsuario'));
 
 Router::connect('programa/add', array('controller' => 'ProPrograma', 'action' => 'add' ));
-Router::connect('programa/view/*', array('controller' => 'ProPrograma', 'action' => 'view'));
 Router::connect('programa/edit/*', array('controller' => 'ProPrograma', 'action' => 'edit'));
 Router::connect('programa/delete/*', array('controller' => 'ProPrograma', 'action' => 'delete'));
 Router::connect('programa', array('controller' => 'ProPrograma'));
