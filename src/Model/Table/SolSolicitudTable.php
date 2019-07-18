@@ -118,47 +118,58 @@ class SolSolicitudTable extends Table
         $result= $connect->execute(
             "SELECT 
                 (
-                    SELECT 100/COUNT(*) 
-                    FROM SOL_CONTIENE INNER JOIN PRO_CURSO 
-                    ON SOL_CONTIENE.SOL_FORMULARIO = PRO_CURSO.SOL_FORMULARIO
-                    WHERE PRO_CURSO = $course
+                    SELECT  100/COUNT(*) 
+                    FROM    SOL_CONTIENE, PRO_CURSO, SOL_PREGUNTA
+                    WHERE   SOL_CONTIENE.SOL_FORMULARIO = PRO_CURSO.SOL_FORMULARIO AND
+                            SOL_CONTIENE.SOL_PREGUNTA = SOL_PREGUNTA.SOL_PREGUNTA AND 
+                            SOL_PREGUNTA.REQUERIDO = 1 AND  
+                            PRO_CURSO = $course
                 )
                 *
                 (
                     (
-                        SELECT COUNT(*) 
-                        FROM SOL_TEXTO_CORTO 
-                        WHERE PRO_CURSO = $course AND SEG_USUARIO = $student
+                        SELECT  COUNT(*) 
+                        FROM    SOL_TEXTO_CORTO, SOL_PREGUNTA
+                        WHERE   SOL_TEXTO_CORTO.SOL_PREGUNTA = SOL_PREGUNTA.SOL_PREGUNTA AND
+                                SOL_PREGUNTA.REQUERIDO = 1 AND
+                                PRO_CURSO = $course AND 
+                                SEG_USUARIO = $student
                     )
                     +
                     (
-                        SELECT COUNT(*) 
-                        FROM SOL_NUMERO 
-                        WHERE PRO_CURSO = $course AND SEG_USUARIO = $student
+                        SELECT  COUNT(*) 
+                        FROM    SOL_NUMERO, SOL_PREGUNTA
+                        WHERE   SOL_NUMERO.SOL_PREGUNTA = SOL_PREGUNTA.SOL_PREGUNTA AND
+                                SOL_PREGUNTA.REQUERIDO = 1 AND 
+                                PRO_CURSO = $course AND 
+                                SEG_USUARIO = $student
                     )
                     + 
                     (
                         SELECT COUNT(*) 
-                        FROM SOL_TEXTO_MEDIO
-                        WHERE PRO_CURSO = $course AND SEG_USUARIO = $student
+                        FROM SOL_TEXTO_MEDIO, SOL_PREGUNTA
+                        WHERE   SOL_TEXTO_MEDIO.SOL_PREGUNTA = SOL_PREGUNTA.SOL_PREGUNTA AND
+                                SOL_PREGUNTA.REQUERIDO = 1 AND  PRO_CURSO = $course AND SEG_USUARIO = $student
                     )
                     +
                     (
                         SELECT COUNT(*) 
-                        FROM SOL_TEXTO_LARGO 
-                        WHERE PRO_CURSO = $course AND SEG_USUARIO = $student
+                        FROM SOL_TEXTO_LARGO, SOL_PREGUNTA
+                        WHERE   SOL_TEXTO_LARGO.SOL_PREGUNTA = SOL_PREGUNTA.SOL_PREGUNTA AND
+                                SOL_PREGUNTA.REQUERIDO = 1 AND  PRO_CURSO = $course AND SEG_USUARIO = $student
                     )
                     +
                     (
                         SELECT COUNT(*) 
-                        FROM SOL_FECHA 
-                        WHERE PRO_CURSO = $course AND SEG_USUARIO = $student
+                        FROM SOL_FECHA, SOL_PREGUNTA
+                        WHERE   SOL_FECHA.SOL_PREGUNTA = SOL_PREGUNTA.SOL_PREGUNTA AND
+                                SOL_PREGUNTA.REQUERIDO = 1 AND  PRO_CURSO = $course AND SEG_USUARIO = $student
                     )
                 )
             AS PORCENTAGE
             FROM DUAL"
         )->fetchAll('assoc');
-        return $result[0]['PORCENTAGE'];
+        return min($result[0]['PORCENTAGE'],100);
     }
 
     /**
