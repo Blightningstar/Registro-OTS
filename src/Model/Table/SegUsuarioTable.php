@@ -148,8 +148,8 @@ class SegUsuarioTable extends Table
         $lc_email = strtolower($lc_email);
 
         $connet = ConnectionManager::get('default');
-        $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO, LOWER(NOMBRE_USUARIO) AS NOMBRE_USUARIO FROM SEG_USUARIO WHERE(CORREO = '$lc_email' or 
-        NOMBRE_USUARIO = '$lc_username')");
+        $result = $connet->execute("SELECT LOWER(CORREO) AS CORREO, LOWER(NOMBRE_USUARIO) AS NOMBRE_USUARIO FROM SEG_USUARIO WHERE(LOWER(CORREO)= '$lc_email' or 
+        LOWER(NOMBRE_USUARIO) = '$lc_username')");
 
         $result = $result->fetchAll('assoc');
 
