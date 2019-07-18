@@ -147,7 +147,7 @@
     <p>Fields with this symbol are required <font color='red'> * </font></p>
 
     <!-- Cancel the update of the application -->
-    <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
+    <a href="/Registro-OTS/dashboard/studentDashboard"> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a> 
 
     <!-- Accept the update of the application -->
     <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar']) ?>

@@ -39,5 +39,6 @@
                 endif;
             endforeach; ?>
     </fieldset>
+    
     <a href="/Registro-OTS/dashboard/studentDashboard"> <button type="button" class="botonCancelar"><?=__('Return')?></button> </a> 
 </div>
