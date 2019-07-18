@@ -203,6 +203,9 @@ class SegUsuarioController extends AppController
                 if ($this->SegUsuario->insertUser($segUsuario)) {
                     $this->Flash->success(__('User was added correctly.'));
 
+                    //Sends the Email
+                    $email_controller = new EmailController;
+                    $email_controller->sendEmail($segUsuario["CORREO"],"AddUser",$segUsuario);                        
 
                     return $this->redirect(['action' => 'index']);
                 }

@@ -70,6 +70,13 @@ class EmailController extends AppController
                 "your application to course " . $aditionalinfo['CURSO'] . "was saved successfully.\n" .
                 "An administrator will view your application.";
                 break;
+            case 'AddUser':
+                $message = "Hello " .  $aditionalinfo['NOMBRE'] . " " . $aditionalinfo['APELLIDO_1'] . ",\n\n" .
+                "Your account on the OTS system has been created.\n\n" .
+                "Email: ". $aditionalinfo['CORREO'] . "\n" .
+                "Username: ". $aditionalinfo['NOMBRE_USUARIO'] . "\n\n" .
+                "Before login,  click in 'Forgot my password' option to obtain a password";
+                break;
         }
         return $message;
     }
