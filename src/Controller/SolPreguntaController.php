@@ -93,7 +93,7 @@ class SolPreguntaController extends AppController
         $REQUERIDO = array('Not required','Required');
         $this->set('REQUERIDO',$REQUERIDO);
 
-         $TIPO = array('Short Text','Medium Text','Large text','Number','Date','Select','Email','Phone','number','URL');
+         $TIPO = array('Short Text','Medium Text','Large text','Number','Date','Select','Email','Phone','File');
          $this->set('TIPO',$TIPO);
     }
 
@@ -133,7 +133,7 @@ class SolPreguntaController extends AppController
          $REQUERIDO = array('Not required','Required');
          $this->set('REQUERIDO',$REQUERIDO);
 
-         $TIPO = array('Text','Number','Date', 'Select');
+         $TIPO = array('Short Text','Medium Text','Large text','Number','Date','Select','Email','Phone','File');
          $this->set('TIPO',$TIPO);
     }
 

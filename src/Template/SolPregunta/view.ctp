@@ -51,13 +51,11 @@
                </p>
 
                <?php elseif($solPreguntum->TIPO ==6):?>
-               <p class= "value"> <?= __('Upload Document') ?></p>
-               <?php elseif($solPreguntum->TIPO ==7):?>
                <p class= "value"> <?= __('Email') ?></p>
-               <?php elseif($solPreguntum->TIPO ==8):?>
+               <?php elseif($solPreguntum->TIPO ==7):?>
                <p class= "value"> <?= __('Phone Number') ?></p>
-             <?php elseif($solPreguntum->TIPO ==9):?>
-               <p class= "value"> <?= __('URL') ?></p>
+             <?php elseif($solPreguntum->TIPO ==8):?>
+             <p class= "value"> <?= __('Upload Document') ?></p>
             <?php endif ?>
             <hr class= "separator">
         </div>

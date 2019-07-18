@@ -28,10 +28,9 @@
             <option value=3>Number</option>
             <option value=4>Date</option>
             <option value=5>Select</option>
-            <option value=6>Upload Document</option>
-            <option value=7>Email</option>
-            <option value=8>Phone Number</option>
-            <option value=9>URL</option>
+            <option value=6>Email</option>
+            <option value=7>Phone Number</option>
+            <option value=8>Upload Document</option>
             </select>
 
             <div id="addinput">

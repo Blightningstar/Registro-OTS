@@ -135,7 +135,9 @@
     <p>Fields with this symbol are required <font color='red'> * </font></p>
 
     <!-- Dont create the application -->
-    <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
+    <!--a href="/ProPrograma/"> <button type="button" class="botonCancelar">Cancel</button> </a-->
+    <?php
+    echo $this->Html->link("Cancel", ['controller' => 'programa','action'=> 'index'], ['class' => 'botonCancelar', 'style' => 'color:white']);?>
 
     <!-- Create the application -->
     <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar']) ?>
