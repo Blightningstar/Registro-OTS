@@ -193,7 +193,7 @@ class SolPreguntaTable extends Table
     * 
     * @author Anyelo Lobo <yeloanlo@gmail.com>
     * 
-    * 
+    *  Insert the options for the select question
     * @param $idPreg, is the question id.
     * @param $options is the array of options inserted by user
     */
@@ -204,6 +204,27 @@ class SolPreguntaTable extends Table
         }
 
         $connet->execute(
+            "COMMIT"
+        );
+        return 1;
+    }
+
+    /**
+    * 
+    * @author Anyelo Lobo <yeloanlo@gmail.com>
+    * 
+    * Delete options befor adding the new ones
+    * @param $idPreg, is the question id.
+    * @param $options is the array of options inserted by user
+    */
+    public function deleteOptions($idPreg){
+        $connect = ConnectionManager::get('default');
+        $connect->execute(
+            "DELETE FROM SOL_OPCIONES
+            WHERE SOL_PREGUNTA = '$idPreg' "
+        );
+
+        $connect->execute(
             "COMMIT"
         );
         return 1;

@@ -115,6 +115,8 @@ class SolPreguntaController extends AppController
             if ($this->SolPregunta->editarPregunta($solPreguntum['SOL_PREGUNTA'], $temp['DESCRIPCION_ING'],$temp['tipo'],$temp['ACTIVO'], $temp['REQUERIDO'])) {
                 $this->Flash->success(__('The question has been saved.'));
 
+                $this->SolPregunta->deleteOptions($solPreguntum['SOL_PREGUNTA']);
+
                 if ($temp['tipo'] == 5 && $this->SolPregunta->insertOptions($solPreguntum['SOL_PREGUNTA'], $temp['options'])) {
                     $this->Flash->success(__('The options have been saved.'));   
                 }
