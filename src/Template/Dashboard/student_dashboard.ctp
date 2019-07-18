@@ -68,7 +68,7 @@
                     }?>
                 <td style="vertical-align:middle;"><?= $details ?></td>
                 <td style="vertical-align:middle;">
-                    <button type="button" class="botonAgregar">
+                    <button type="button" class="botonDashboardAceptarConsultar">
 					<?= $this->Html->link(__($buttonText), $link, ['style' => 'color:white;']) ?>   
                 </td>
 
