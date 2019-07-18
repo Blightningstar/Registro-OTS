@@ -49,6 +49,16 @@
                     <br>
                     <br>
             </div>
+            <p>
+                    <button type="button" class="botonAgregar">
+                        <a href="#" id="addNew" style="color:white;">Add Question</a>
+                    </button>                   
+            </p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
             <a href="."> <button type="button" class="botonCancelar">Cancel</button> </a>
             <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar'], ['label' => 'ACCEPT']) ?>
             <?= $this->Form->end() ?>

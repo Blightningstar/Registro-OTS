@@ -64,6 +64,16 @@
                 $questNumber++; 
                  } ?>
         </div>
+        <p>
+                <button type="button" class="botonAgregar">
+                    <a href="#" id="addNew" style="color:white;">Add Question</a>
+                </button>                   
+        </p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
 
         <a href="/Registro-OTS/sol-formulario/"> <button type="button" class="botonCancelar">Cancel</button> </a>
         <?= $this->Form->button(__('Confirm'), ['class' => 'botonAceptar']) ?>
